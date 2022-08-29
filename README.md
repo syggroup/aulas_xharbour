@@ -8,7 +8,7 @@ O que é este projeto.
 
 Como funciona. 
 
-	Baixe este projeto e acompanhe em nossa plataforma Universitária https://sygecom.eadplataforma.com/  as vídeo aulas para seu treinamento  
+	Baixe este projeto e acompanhe em nossa plataforma Universitária https://unisyge.com.br/ as vídeo aulas para seu treinamento  
 
 Quem vai manter este repositório. 
 
@@ -16,4 +16,4 @@ Quem vai manter este repositório.
 
 Qual o objetivo deste projeto. 
 
-	Formar profissionais com conhecimento na plataforma xHarbour no desenvolvimento de aplicações com banco de dados relacional. 
+	Formar profissionais com conhecimento na plataforma HWGUI+XHARBOUR no desenvolvimento de aplicações com banco de dados PostgreSql.
