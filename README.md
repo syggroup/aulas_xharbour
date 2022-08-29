@@ -17,3 +17,9 @@ Quem vai manter este repositório.
 Qual o objetivo deste projeto. 
 
 	Formar profissionais com conhecimento na plataforma HWGUI+XHARBOUR no desenvolvimento de aplicações com banco de dados PostgreSql.
+	
+Versões do ambiente.
+
+	xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228) + HwGUI 2.17
+	Compilador C/C++  Borland/Embarcadero C++ 7.2 (32-bit)
+	PostgreSQL 9.5.20, compiled by Visual C++ build 1800, 64-bit
