@@ -1,0 +1,198 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 15 "source\hgraph.prg"
+_HB_CLASS HGraph ; UTILITY FUNCTION HGraph(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HGraph" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { aValues} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aValues" }, .F., .F. ), )
+   _HB_MEMBER { nGraphs} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nGraphs" }, .F., .F. ), )
+   _HB_MEMBER { nType} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nType" }, .F., .F. ), )
+   _HB_MEMBER { lGrid} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lGrid" }, .F., .F. ), )
+   _HB_MEMBER { scaleX, scaleY} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "scaleX" , "scaleY" }, .F., .F. ), )
+   _HB_MEMBER { ymaxSet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ymaxSet" }, .F., .F. ), )
+   _HB_MEMBER { tbrush} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "tbrush" }, .F., .F. ), )
+   _HB_MEMBER { colorCoor} ; IIF( !.F., s_oClass:AddMultiData(, 16777215, nScope + IIF( .F., 32, 0 ), { "colorCoor" }, .F., .F. ), )
+   _HB_MEMBER { oPen, oPenCoor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPen" , "oPenCoor" }, .F., .F. ), )
+   _HB_MEMBER { xmax, ymax, xmin, ymin} ; IIF( !.F., s_oClass:AddMultiData(,, 4 + IIF( .F., 32, 0 ), { "xmax" , "ymax" , "xmin" , "ymin" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont,  bSize, ctooltip, tcolor, bcolor); IIF( .F., s_oClass:ModMethod( "New", @HGraph_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HGraph_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HGraph_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HGraph_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Redefine( oWndParent, nId, aValues, oFont,  bSize, ctooltip, tcolor, bcolor); IIF( .F., s_oClass:ModMethod( "Redefine", @HGraph_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HGraph_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HGraph_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HGraph_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CalcMinMax(); IIF( .F., s_oClass:ModMethod( "CalcMinMax", @HGraph_CalcMinMax(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CalcMinMax", @HGraph_CalcMinMax(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpDis); IIF( .F., s_oClass:ModMethod( "Paint", @HGraph_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HGraph_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Rebuild( aValues, nType); IIF( .F., s_oClass:ModMethod( "Rebuild", @HGraph_Rebuild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Rebuild", @HGraph_Rebuild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HGraph ;
+
+
+UTILITY STATIC function HGraph_New( oWndParent, nId, aValues, nLeft, nTop, nWidth, nHeight, oFont,  bSize, ctooltip, tcolor, bcolor) ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+
+
+
+   ::HControl:New( oWndParent, nId, 13, nLeft, nTop, nWidth, nHeight, oFont,,  bSize, { | o, lpdis | o:Paint( lpdis ) }, ctooltip,  IIf( tcolor == Nil, Vcolor( "FFFFFF" ), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
+
+   ::aValues := aValues
+   ::nType   := 1
+   ::nGraphs := 1
+
+   ::Activate()
+
+   RETURN Self
+
+
+UTILITY STATIC function HGraph_Redefine( oWndParent, nId, aValues, oFont,  bSize, ctooltip, tcolor, bcolor) ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+
+
+
+   ::HControl:New( oWndParent, nId, 13, 0, 0, 0, 0, oFont,,  bSize, { | o, lpdis | o:Paint( lpdis ) }, ctooltip,  IIf( tcolor == Nil, Vcolor( "FFFFFF" ), tcolor ), IIf( bcolor == Nil, 0, bcolor ) )
+
+   ::aValues := aValues
+
+   RETURN Self
+
+UTILITY STATIC function HGraph_Activate() ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateStatic( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HGraph_Init() ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+   IF ! ::lInit
+      ::HControl:Init()
+      ::CalcMinMax()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HGraph_CalcMinMax() ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+   LOCAL i, j, nLen
+   ::xmax := ::xmin := ::ymax := ::ymin := 0
+   IF ::ymaxSet <> Nil .AND. ::ymaxSet <> 0
+      ::ymax := ::ymaxSet
+   ENDIF
+   FOR i := 1 TO ::nGraphs
+      nLen := Len( ::aValues[ i ] )
+      IF ::nType == 1
+         FOR j := 1 TO nLen
+            ::xmax := Max( ::xmax, ::aValues[ i, j, 1 ] )
+            ::xmin := Min( ::xmin, ::aValues[ i, j, 1 ] )
+            ::ymax := Max( ::ymax, ::aValues[ i, j, 2 ] )
+            ::ymin := Min( ::ymin, ::aValues[ i, j, 2 ] )
+         NEXT
+      ELSEIF ::nType == 2
+         FOR j := 1 TO nLen
+            ::ymax := Max( ::ymax, ::aValues[ i, j, 2 ]   )
+            ::ymin := Min( ::ymin, ::aValues[ i, j, 2 ]   )
+         NEXT
+         ::xmax := nLen
+      ELSEIF ::nType == 3
+         FOR j := 1 TO nLen
+            ::ymax += ::aValues[ i, j, 2 ]
+         NEXT
+      ENDIF
+   NEXT
+
+   RETURN Nil
+
+UTILITY STATIC function HGraph_Paint( lpdis) ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+   LOCAL drawInfo := GetDrawItemInfo( lpdis )
+   LOCAL hDC := drawInfo[ 3 ], x1 := drawInfo[ 4 ], y1 := drawInfo[ 5 ], x2 := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+   LOCAL i, j, nLen
+   LOCAL px1, px2, py1, py2, nWidth
+
+   i := Round( ( x2 - x1 ) / 10, 0 )
+   x1 += i
+   x2 -= i
+   i := Round( ( y2 - y1 ) / 10, 0 )
+   y1 += i
+   y2 -= i
+
+   IF ::nType < 3
+      ::scaleX := ( ::xmax - ::xmin ) / ( x2 - x1 )
+      ::scaleY := ( ::ymax - ::ymin ) / ( y2 - y1 )
+   ENDIF
+
+   IF ::oPenCoor == Nil
+      ::oPenCoor := HPen():Add( 0, 1, ::colorCoor )
+   ENDIF
+   IF ::oPen == Nil
+      ::oPen := HPen():Add( 0, 2, ::tcolor )
+   ENDIF
+
+   FillRect( hDC, drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ], ::brush:handle )
+   IF ::nType <> 3
+      SelectObject( hDC, ::oPenCoor:handle )
+      Drawline( hDC, x1 + ( 0 - ::xmin ) / ::scaleX, drawInfo[ 5 ] + 3, x1 + ( 0 - ::xmin ) / ::scaleX, drawInfo[ 7 ] - 3 )
+      Drawline( hDC, drawInfo[ 4 ] + 3, y2 - ( 0 - ::ymin ) / ::scaleY, drawInfo[ 6 ] - 3, y2 - ( 0 - ::ymin ) / ::scaleY )
+   ENDIF
+
+   IF ::ymax == ::ymin .AND. ::ymax == 0
+      RETURN Nil
+   ENDIF
+
+   SelectObject( hDC, ::oPen:handle )
+   FOR i := 1 TO ::nGraphs
+      nLen := Len( ::aValues[ i ] )
+      IF ::nType == 1
+         FOR j := 2 TO nLen
+            px1 := Round( x1 + ( ::aValues[ i, j - 1, 1 ] - ::xmin ) / ::scaleX, 0 )
+            py1 := Round( y2 - ( ::aValues[ i, j - 1, 2 ] - ::ymin ) / ::scaleY, 0 )
+            px2 := Round( x1 + ( ::aValues[ i, j, 1 ] - ::xmin ) / ::scaleX, 0 )
+            py2 := Round( y2 - ( ::aValues[ i, j, 2 ] - ::ymin ) / ::scaleY, 0 )
+            IF px2 <> px1 .OR. py2 <> py1
+               Drawline( hDC, px1, py1, px2, py2 )
+            ENDIF
+         NEXT
+      ELSEIF ::nType == 2
+         IF ::tbrush == Nil
+            ::tbrush := HBrush():Add( ::tcolor )
+         ENDIF
+         nWidth := Round( ( x2 - x1 ) / ( nLen * 2 + 1 ), 0 )
+         FOR j := 1 TO nLen
+            px1 := Round( x1 + nWidth * ( j * 2 - 1 ), 0 )
+            py1 := Round( y2 - ( ::aValues[ i, j, 2 ] - ::ymin ) / ::scaleY, 0 )
+            FillRect( hDC, px1, y2 - 2, px1 + nWidth, py1, ::tbrush:handle )
+         NEXT
+      ELSEIF ::nType == 3
+         IF ::tbrush == Nil
+            ::tbrush := HBrush():Add( ::tcolor )
+         ENDIF
+         SelectObject( hDC, ::oPenCoor:handle )
+         SelectObject( hDC, ::tbrush:handle )
+         pie( hDC, x1 + 10, y1 + 10, x2 - 10, y2 - 10, x1, Round( y1 + ( y2 - y1 ) / 2, 0 ), Round( x1 + ( x2 - x1 ) / 2, 0 ), y1 )
+      ENDIF
+   NEXT
+
+   RETURN Nil
+
+UTILITY STATIC function HGraph_Rebuild( aValues, nType) ; local Self AS CLASS HGraph := QSelf() AS CLASS HGraph
+
+   ::aValues := aValues
+   IF nType <> Nil
+      ::nType := nType
+   ENDIF
+   ::CalcMinMax()
+   RedrawWindow( ::handle, 4 + 1 + 2 + 256 )
+
+   RETURN Nil

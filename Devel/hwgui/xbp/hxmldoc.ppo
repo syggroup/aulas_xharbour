@@ -1,0 +1,258 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 20 "source\xml\hxmldoc.prg"
+_HB_CLASS HXMLNode ; UTILITY FUNCTION HXMLNode(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HXMLNode" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { nLastErr} ; IIF( !.F., s_oClass:AddMultiClsData(,, nScope + IIF( .F., 32, 0 ) + IIF( .T., 64, 0 ), { "nLastErr" }, .F. ), )
+   _HB_MEMBER { title} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "title" }, .F., .F. ), )
+   _HB_MEMBER { type} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "type" }, .F., .F. ), )
+   _HB_MEMBER { aItems} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aItems" }, .F., .F. ), )
+   _HB_MEMBER { aAttr} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aAttr" }, .F., .F. ), )
+   _HB_MEMBER { cargo} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cargo" }, .F., .F. ), )
+
+   _HB_MEMBER New( cTitle, type, aAttr); IIF( .F., s_oClass:ModMethod( "New", @HXMLNode_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HXMLNode_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Add( xItem); IIF( .F., s_oClass:ModMethod( "Add", @HXMLNode_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Add", @HXMLNode_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetAttribute( cName); IIF( .F., s_oClass:ModMethod( "GetAttribute", @HXMLNode_GetAttribute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetAttribute", @HXMLNode_GetAttribute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetAttribute( cName,cValue); IIF( .F., s_oClass:ModMethod( "SetAttribute", @HXMLNode_SetAttribute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetAttribute", @HXMLNode_SetAttribute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DelAttribute( cName); IIF( .F., s_oClass:ModMethod( "DelAttribute", @HXMLNode_DelAttribute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DelAttribute", @HXMLNode_DelAttribute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Save( handle,level); IIF( .F., s_oClass:ModMethod( "Save", @HXMLNode_Save(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Save", @HXMLNode_Save(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Find( cTitle,nStart); IIF( .F., s_oClass:ModMethod( "Find", @HXMLNode_Find(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Find", @HXMLNode_Find(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HXMLNode ;
+
+UTILITY STATIC function HXMLNode_New( cTitle, type, aAttr, cValue) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+
+   IF cTitle <> Nil ; ::title := cTitle ; ENDIF
+   IF aAttr  <> Nil ; ::aAttr := aAttr  ; ENDIF
+   ::type := Iif( type <> Nil , type, 0 )
+   IF cValue <> Nil
+      ::Add( cValue )
+   ENDIF
+Return Self
+
+UTILITY STATIC function HXMLNode_Add( xItem) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+
+   Aadd( ::aItems, xItem )
+Return xItem
+
+UTILITY STATIC function HXMLNode_GetAttribute( cName) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
+
+Return Iif( i==0, Nil, ::aAttr[ i,2 ] )
+
+UTILITY STATIC function HXMLNode_SetAttribute( cName,cValue) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
+
+   IF i == 0
+      Aadd( ::aAttr,{ cName,cValue } )
+   ELSE
+      ::aAttr[ i,2 ] := cValue
+   ENDIF
+
+Return .T.
+
+UTILITY STATIC function HXMLNode_DelAttribute( cName) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+Local i := Ascan( ::aAttr,{|a|a[1]==cName} )
+
+   IF i <> 0
+      Adel( ::aAttr, i )
+      Asize( ::aAttr, Len( ::aAttr ) - 1 )
+   ENDIF
+Return .T.
+
+UTILITY STATIC function HXMLNode_Save( handle,level) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+Local i, s := Space(level*2)+"<", lNewLine
+
+   IF !__mvExist( "HXML_NEWLINE" )
+      __mvPrivate( "HXML_NEWLINE" )
+      __mvPut( "HXML_NEWLINE", .T. )
+   ENDIF
+   lNewLine := m->hxml_newline
+   IF ::type == 2
+      s += "!--"
+   ELSEIF ::type == 3
+      s += "![CDATA["
+   ELSEIF ::type == 4
+      s += "?" + ::title
+   ELSE
+      s += ::title
+   ENDIF
+   IF ::type == 0 .OR. ::type == 1
+      FOR i := 1 TO Len( ::aAttr )
+         s += " " + ::aAttr[i,1] + '="' + HBXML_Transform(::aAttr[i,2]) + '"'
+      NEXT
+   ENDIF
+   IF ::type == 4
+      s += "?>" + Chr(10)
+      m->hxml_newline := .T.
+   ELSEIF ::type == 1
+      s += "/>" + Chr(10)
+      m->hxml_newline := .T.
+   ELSEIF ::type == 0
+      s += ">"
+
+      IF Empty( ::aItems ) .OR. ( Len(::aItems) == 1 .AND.  Valtype(::aItems[1]) == "C" .AND. Len(::aItems[1]) + Len(s) < 80 )
+         lNewLine := m->hxml_newline := .F.
+      ELSE
+         s += Chr(10)
+         lNewLine := m->hxml_newline := .T.
+      ENDIF
+   ENDIF
+   IF handle >= 0
+      FWrite( handle,s )
+   ENDIF
+
+   FOR i := 1 TO Len( ::aItems )
+      IF Valtype( ::aItems[i] ) == "C"
+        IF handle >= 0
+           IF ::type == 3 .OR. ::type == 2
+              FWrite( handle, ::aItems[i] )
+           ELSE
+              FWrite( handle, HBXML_Transform( ::aItems[i] ) )
+           ENDIF
+           IF lNewLine
+              FWrite( handle, Chr(10) )
+           ENDIF
+        ELSE
+           IF ::type == 3 .OR. ::type == 2
+              s += ::aItems[i]
+           ELSE
+              s += HBXML_Transform( ::aItems[i] )
+           ENDIF
+           IF lNewLine
+              s += Chr(10)
+           ENDIF
+        ENDIF
+        m->hxml_newline := .F.
+      ELSE
+        s += ::aItems[i]:Save( handle, level+1 )
+      ENDIF
+   NEXT
+   m->hxml_newline := .T.
+   IF handle >= 0
+      IF ::type == 0
+         FWrite( handle, Iif(lNewLine,Space(level*2),"") + "</" + ::title + ">" + Chr(10 ) )
+      ELSEIF ::type == 3
+         FWrite( handle, "]]>" + Chr(10) )
+      ELSEIF ::type == 2
+         FWrite( handle, "-->" + Chr(10) )
+      ENDIF
+   ELSE
+      IF ::type == 0
+         s += Iif(lNewLine,Space(level*2),"") + "</" + ::title + ">" + Chr(10 )
+      ELSEIF ::type == 3
+         s += "]]>" + Chr(10)
+      ELSEIF ::type == 2
+         s += "-->" + Chr(10)
+      ENDIF
+      Return s
+   ENDIF
+Return ""
+
+UTILITY STATIC function HXMLNode_Find( cTitle,nStart,block) ; local Self AS CLASS HXMLNode := QSelf() AS CLASS HXMLNode
+Local i
+
+   IF nStart == Nil
+      nStart := 1
+   ENDIF
+   while .T.
+      i := Ascan( ::aItems,{|a|Valtype(a)<>"C".AND.a:title==cTitle},nStart )
+      IF i == 0
+         EXIT
+      ELSE
+         nStart := i
+         IF block == Nil .OR. Eval( block,::aItems[i] )
+            Return ::aItems[i]
+         ELSE
+            nStart ++
+         ENDIF
+      ENDIF
+   ENDDO
+
+Return Nil
+
+
+
+
+
+
+
+_HB_CLASS HXMLDoc ; UTILITY FUNCTION HXMLDoc(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HXMLDoc" , {HXMLNode():classh} ) ) ; ;
+
+   _HB_MEMBER New( encoding); IIF( .F., s_oClass:ModMethod( "New", @HXMLDoc_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HXMLDoc_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Read( fname); IIF( .F., s_oClass:ModMethod( "Read", @HXMLDoc_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @HXMLDoc_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReadString(buffer); IIF( .F., s_oClass:ModInline( "ReadString", {|Self,buffer | Self, ::Read( ,buffer ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ReadString", {|Self,buffer | Self, ::Read( ,buffer ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Save( fname,lNoHeader); IIF( .F., s_oClass:ModMethod( "Save", @HXMLDoc_Save(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Save", @HXMLDoc_Save(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Save2String(); IIF( .F., s_oClass:ModInline( "Save2String", {|Self | Self, ::Save() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Save2String", {|Self | Self, ::Save() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HXMLDoc ;
+
+UTILITY STATIC function HXMLDoc_New( encoding) ; local Self AS CLASS HXMLDoc := QSelf() AS CLASS HXMLDoc
+
+   IF encoding <> Nil
+      Aadd( ::aAttr, { "version","1.0" } )
+      Aadd( ::aAttr, { "encoding",encoding } )
+   ENDIF
+
+Return Self
+
+UTILITY STATIC function HXMLDoc_Read( fname,buffer) ; local Self AS CLASS HXMLDoc := QSelf() AS CLASS HXMLDoc
+Local han
+
+   IF fname <> Nil
+      han := FOpen( fname, 0 )
+      IF han <> -1
+         ::nLastErr := hbxml_GetDoc( Self,han )
+         FClose( han )
+      ENDIF
+   ELSEIF buffer <> Nil
+      ::nLastErr := hbxml_GetDoc( Self,buffer )
+   ELSE
+      Return Nil
+   ENDIF
+Return Iif( ::nLastErr == 0, Self, Nil )
+
+UTILITY STATIC function HXMLDoc_Save( fname,lNoHeader) ; local Self AS CLASS HXMLDoc := QSelf() AS CLASS HXMLDoc
+Local handle := -2
+Local cEncod, i, s
+
+   IF fname <> Nil
+      handle := FCreate( fname )
+   ENDIF
+   IF handle <> -1
+      IF lNoHeader == Nil .OR. !lNoHeader
+         IF ( cEncod := ::GetAttribute( "encoding" ) ) == Nil
+            cEncod := "UTF-8"
+         ENDIF
+         s := '<?xml version="1.0" encoding="'+cEncod+'"?>'+Chr(10 )
+         IF fname <> Nil
+            FWrite( handle, s )
+         ENDIF
+      ELSE
+         s := ""
+      ENDIF
+      FOR i := 1 TO Len( ::aItems )
+         s += ::aItems[i]:Save( handle, 0 )
+      NEXT
+      IF fname <> Nil
+         FClose( handle )
+      ELSE
+         Return s
+      ENDIF
+   ENDIF
+Return .T.

@@ -1,0 +1,364 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 65 "popcln.prg"
+_HB_CLASS tIPClientPOP ; UTILITY FUNCTION tIPClientPOP(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "tIPClientPOP" , {tIPClient():classh} ) ) ; ;
+
+   _HB_MEMBER New( oUrl, lTrace, oCredentials, CAFile,CaPath); IIF( .F., s_oClass:ModMethod( "New", @tIPClientPOP_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @tIPClientPOP_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Open(); IIF( .F., s_oClass:ModMethod( "Open", @tIPClientPOP_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Open", @tIPClientPOP_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @tIPClientPOP_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @tIPClientPOP_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Read( iLen); IIF( .F., s_oClass:ModMethod( "Read", @tIPClientPOP_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @tIPClientPOP_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Stat(); IIF( .F., s_oClass:ModMethod( "Stat", @tIPClientPOP_Stat(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Stat", @tIPClientPOP_Stat(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER List(); IIF( .F., s_oClass:ModMethod( "List", @tIPClientPOP_List(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "List", @tIPClientPOP_List(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Retrieve( nId, nLen); IIF( .F., s_oClass:ModMethod( "Retrieve", @tIPClientPOP_Retrieve(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Retrieve", @tIPClientPOP_Retrieve(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Delete(); IIF( .F., s_oClass:ModMethod( "Delete", @tIPClientPOP_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Delete", @tIPClientPOP_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Quit(); IIF( .F., s_oClass:ModMethod( "Quit", @tIPClientPOP_Quit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Quit", @tIPClientPOP_Quit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Noop(); IIF( .F., s_oClass:ModMethod( "Noop", @tIPClientPOP_Noop(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Noop", @tIPClientPOP_Noop(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Top( nMsgId); IIF( .F., s_oClass:ModMethod( "Top", @tIPClientPOP_Top(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Top", @tIPClientPOP_Top(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER UIDL( nMsgId); IIF( .F., s_oClass:ModMethod( "UIDL", @tIPClientPOP_UIDL(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "UIDL", @tIPClientPOP_UIDL(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetOK(); IIF( .F., s_oClass:ModMethod( "GetOK", @tIPClientPOP_GetOK(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetOK", @tIPClientPOP_GetOK(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER countMail(); IIF( .F., s_oClass:ModMethod( "countMail", @tIPClientPOP_countMail(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "countMail", @tIPClientPOP_countMail(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER retrieveAll(); IIF( .F., s_oClass:ModMethod( "retrieveAll", @tIPClientPOP_retrieveAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "retrieveAll", @tIPClientPOP_retrieveAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER popDestructor(); s_oClass:SetDestructor( @tIPClientPOP_popDestructor() ) ;
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS tIPClientPOP ;
+
+
+UTILITY STATIC function tIPClientPOP_New( oUrl, lTrace, oCredentials,CAFile,CaPath) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+
+   local cFile :="pop3"
+   local n := 0
+   ::tIPClient:New( oUrl, lTrace, oCredentials, , CAFile,CaPath )
+
+   ::nDefaultPort := 110
+   ::nConnTimeout := 10000
+
+   IF ::ltrace
+      IF !file( "pop3.log" )
+         ::nHandle := fcreate( "pop3.log" )
+      ELSE
+         while file( cFile + alltrim(str( n, 4 ) ) + ".log" )
+           n++
+         ENDdo
+         ::nHandle := fcreate( cFile + alltrim( str( n, 4 ) ) + ".log" )
+      ENDIF
+   ENDIF
+
+RETURN Self
+
+
+UTILITY STATIC function tIPClientPOP_Open( cUrl) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   IF ! ::tIPClient:Open( cUrl )
+      RETURN .F.
+   ENDIF
+
+   IF Empty ( ::oUrl:cUserid ) .OR. Empty ( ::oUrl:cPassword )
+      RETURN .F.
+   ENDIF
+   IF ::lSSL
+      InetSSLSetTimeout( ::SocketSSLCon, ::nConnTimeout )
+   ELSE
+      InetSetTimeout( ::SocketCon, ::nConnTimeout )
+   ENDIF
+
+   IF ::GetOk()
+      ::InetSENDall( ::SocketCon, "USER " + ::oUrl:cUserid + ::cCRLF )
+      IF ::GetOK()
+         ::InetSENDall( ::SocketCon, "PASS " + ::oUrl:cPassword + ::cCRLF )
+         IF ::GetOK()
+            ::isOpen := .T.
+            RETURN .T.
+         ENDIF
+      ENDIF
+   ENDIF
+RETURN .F.
+
+
+UTILITY STATIC function tIPClientPOP_GetOK() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   LOCAL nLen
+
+   ::cReply := ::InetRecvLine( ::SocketCon, @nLen, 128 )
+   IF ::InetErrorCode( ::SocketCon ) <> 0 .OR. ::cReply[1] <> "+"
+      RETURN .F.
+   ENDIF
+RETURN .T.
+
+
+UTILITY STATIC function tIPClientPOP_Noop() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   ::InetSENDall( ::SocketCon, "NOOP" + ::cCRLF )
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientPOP_Close() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   IF ::lSSL
+      InetSSLSetTimeOut( ::SocketSSLCon, ::nConnTimeout )
+   ELSE
+      InetSetTimeOut( ::SocketCon, ::nConnTimeout )
+   ENDIF
+
+   IF ::ltrace
+      fClose(::nHandle)
+      ::nhandle:= -1
+   ENDIF
+
+   ::Quit()
+RETURN ::tIPClient:Close()
+
+
+UTILITY STATIC function tIPClientPOP_Quit() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   ::InetSENDall( ::SocketCon, "QUIT" + ::cCRLF )
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientPOP_Stat() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   LOCAL nRead
+   ::InetSENDall( ::SocketCon, "STAT" + ::cCRLF )
+RETURN ::InetRecvLine( ::SocketCon, @nRead, 128)
+
+
+UTILITY STATIC function tIPClientPOP_Read( nLen) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+
+   IF Empty( ::oUrl:cFile )
+      RETURN ::List()
+   ENDIF
+
+   IF Val (::oUrl:cFile ) < 0
+      IF ::Delete( -  Val (::oUrl:cFile ) )
+         RETURN ::Quit()
+      ELSE
+         RETURN .F.
+      ENDIF
+   ENDIF
+
+RETURN ::Retrieve( Val (::oUrl:cFile ), nLen )
+
+
+
+UTILITY STATIC function tIPClientPOP_Top( nMsgId) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   LOCAL nPos
+   LOCAL cStr, cRet
+
+   ::InetSENDall( ::SocketCon, "TOP " + Str( nMsgId ) + " 0 " + ::cCRLF )
+   IF ! ::GetOk()
+      RETURN NIL
+   ENDIF
+
+   cRet := ""
+   while cStr <> "." .AND. ::InetErrorCode( ::SocketCon ) == 0
+      cStr := ::InetRecvLine( ::SocketCon, @nPos, 256 )
+      IF cStr <> "."
+         cRet += cStr + ::cCRLF
+      ELSE
+         ::bEof := .T.
+      ENDIF
+
+   ENDDO
+
+   IF ::InetErrorCode( ::SocketCon ) <> 0
+      RETURN NIL
+   ENDIF
+
+RETURN cRet
+
+
+
+UTILITY STATIC function tIPClientPOP_List() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   LOCAL nPos
+   LOCAL cStr, cRet
+
+   ::InetSENDall( ::SocketCon, "LIST" + ::cCRLF )
+   IF ! ::GetOk()
+      RETURN ""
+   ENDIF
+
+   cRet := ""
+   while cStr <> "." .AND. ::InetErrorCode( ::SocketCon ) == 0
+      cStr := ::InetRecvLine( ::SocketCon, @nPos, 256 )
+      IF cStr <> "."
+         cRet += cStr + ::cCRLF
+      ELSE
+         ::bEof := .T.
+      ENDIF
+
+   ENDDO
+
+   IF ::InetErrorCode( ::SocketCon ) <> 0
+      RETURN NIL
+   ENDIF
+
+RETURN cRet
+
+
+
+UTILITY STATIC function tIPClientPOP_UIDL( nMsgId) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+
+   LOCAL nPos
+   LOCAL cStr, cRet
+
+   IF ! Empty( nMsgId )
+      ::InetSENDall( ::SocketCon, "UIDL " + Str( nMsgId ) + ::cCRLF )
+   ELSE
+      ::InetSENDall( ::SocketCon, "UIDL" + ::cCRLF )
+   ENDIF
+
+   IF ! ::GetOk()
+      RETURN NIL
+   ENDIF
+
+   IF ! Empty( nMsgId )
+
+
+      RETURN SubStr(::cReply, Rat(Space(1), ::cReply) + 1)
+
+   ELSE
+
+      cRet := ""
+      while cStr <> "." .AND. ::InetErrorCode( ::SocketCon ) == 0
+         cStr := ::InetRecvLine( ::SocketCon, @nPos, 256 )
+         IF cStr <> "."
+            cRet += cStr + ::cCRLF
+         ELSE
+            ::bEof := .T.
+         ENDIF
+
+      ENDDO
+
+   ENDIF
+
+   IF ::InetErrorCode( ::SocketCon ) <> 0
+      RETURN NIL
+   ENDIF
+
+RETURN cRet
+
+
+
+UTILITY STATIC function tIPClientPOP_Retrieve( nId, nLen) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+
+   LOCAL nPos
+   LOCAL cRet, nRetLen, cBuffer, nRead
+   LOCAL cEOM := ::cCRLF + "." + ::cCRLF
+   IF nLen == NIL ; nLen := 0 ; END
+
+   IF ! ::bInitialized
+      ::InetSENDall( ::SocketCon, "RETR "+ Str( nId ) + ::cCRLF )
+      IF ! ::GetOk()
+         ::bEof := .T.
+         RETURN NIL
+      ENDIF
+      ::bInitialized := .T.
+   ENDIF
+
+   cRet := ""
+   nRetLen := 0
+
+
+
+
+
+   ::bEof := .F.
+   while ::InetErrorCode( ::SocketCon ) == 0 .AND. ! ::bEof
+
+      cBuffer :=  Space(1024)
+
+      nRead := ::InetRecv( ::SocketCon, @cBuffer, 1024 )
+
+      cRet += Left( cBuffer, nRead )
+
+
+
+
+
+
+      IF ( nPos := At( cEOM, cRet, Max( nRetLen - Len( cEOM ), 1 ) ) ) <> 0
+
+         cRet := Left( cRet, nPos + 1 )
+         ::bEof := .T.
+
+      ELSEIF ! Empty( nLen ) .AND. nLen < Len( cRet )
+         EXIT
+
+      ELSE
+         nRetLen += nRead
+
+      ENDIF
+
+   ENDDO
+
+   IF ::InetErrorCode( ::SocketCon ) <> 0
+      RETURN NIL
+   ENDIF
+
+
+RETURN StrTran( cRet, ::cCRLF + "..", ::cCRLF + "." )
+
+
+UTILITY STATIC function tIPClientPOP_Delete( nId) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   ::InetSENDall( ::SocketCon, "DELE " + AllTrim( Str( nId ) ) +  ::cCRLF )
+RETURN ::GetOk()
+
+
+
+UTILITY STATIC function tIPClientPOP_countMail() ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   LOCAL aMails
+   IF ::isOpen
+      ::reset()
+      aMails := HB_ATokens( StrTran( ::list(), Chr(13),""), Chr(10) )
+      RETURN Len( aMails )
+   ENDIF
+RETURN -1
+
+
+UTILITY STATIC function tIPClientPOP_retrieveAll( lDelete, bAllBlock, bEachBlock) ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   LOCAL aMails, i, imax, cMail
+
+   IF Valtype( lDelete ) <> "L"
+      lDelete := .F.
+   ENDIF
+
+   IF ! ::isOpen
+      RETURN NIL
+   ENDIF
+
+   imax := ::countMail()
+   aMails := Array( imax )
+
+   FOR i:=1 TO imax
+      ::reset()
+      cMail := ::retrieve( i )
+      aMails[i] := TIpMail():new()
+      aMails[i]:fromString( cMail, , , bEachBlock  )
+
+      IF ValType( bAllBlock ) == "B"
+         Eval( bAllBlock, i, iMax, aMails )
+      ENDIF
+
+      IF lDelete
+         ::reset()
+         ::delete(i)
+      ENDIF
+   NEXT
+
+RETURN aMails
+
+UTILITY STATIC PROCEDURE tIPClientPOP_popDestructor ; local Self AS CLASS tIPClientPOP := QSelf() AS CLASS tIPClientPOP
+   IF ::ltrace .AND. ::nhandle > -1
+      fClose( ::nHandle )
+      ::nhandle := -1
+   ENDIF
+RETURN

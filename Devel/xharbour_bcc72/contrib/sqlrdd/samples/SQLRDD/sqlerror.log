@@ -1,0 +1,5 @@
+12/04/19 14:32:36: SQLDriverConnect Error: No ODBC connection established IM002 - 0 - [Microsoft][ODBC Driver Manager] Nome da fonte de dados não encontrado e nenhum driver padrão especificado	
+12/04/19 14:33:03: SQLDriverConnect Error: No ODBC connection established 08001 - 17 - [Microsoft][ODBC SQL Server Driver][TCP/IP Sockets]SQL Server inexistente ou acesso negado.	
+12/04/19 14:34:36: SQLDriverConnect Error: No ODBC connection established 42000 - 4060 - [Microsoft][ODBC SQL Server Driver][SQL Server]Não é possível abrir o banco de dados "CorporateRM" solicitado pelo logon. Falha de logon.	
+12/04/19 16:23:46: SQLDriverConnect Error: No ODBC connection established 42000 - 4060 - 
+[Microsoft][ODBC SQL Server Driver][SQL Server]Não é possível abrir o banco de dados "CorporateRM" solicitado pelo logon. Falha de logon.	

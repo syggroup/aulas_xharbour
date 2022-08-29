@@ -1,0 +1,2038 @@
+#line 61 "d:\devel\xharbour_bcc7\include\hbextern.ch"
+EXTERNAL AADD
+EXTERNAL ABS
+EXTERNAL ACHOICE
+EXTERNAL ACLONE
+EXTERNAL ACOPY
+EXTERNAL ADEL
+EXTERNAL ADIR
+EXTERNAL AEVAL
+EXTERNAL AFIELDS
+EXTERNAL AFILL
+EXTERNAL AINS
+EXTERNAL ALERT
+EXTERNAL ALIAS
+EXTERNAL ALLTRIM
+EXTERNAL AMPM
+EXTERNAL ARRAY
+EXTERNAL ASC
+EXTERNAL ASCAN
+EXTERNAL ASIZE
+EXTERNAL ASORT
+EXTERNAL AT
+EXTERNAL ATAIL
+EXTERNAL BIN2I
+EXTERNAL BIN2L
+EXTERNAL BIN2W
+EXTERNAL BOF
+EXTERNAL BREAK
+EXTERNAL BROWSE
+EXTERNAL CDOW
+EXTERNAL CHR
+EXTERNAL CMONTH
+EXTERNAL COL
+EXTERNAL COLORSELECT
+EXTERNAL CTOD
+EXTERNAL CURDIR
+EXTERNAL DATE
+EXTERNAL DAY
+EXTERNAL DAYS
+EXTERNAL DBAPPEND
+EXTERNAL DBCLEARFILTER
+EXTERNAL DBCLEARINDEX
+EXTERNAL DBCLEARRELATION
+EXTERNAL DBCLOSEALL
+EXTERNAL DBCLOSEAREA
+EXTERNAL DBCOMMIT
+EXTERNAL DBCOMMITALL
+EXTERNAL DBCREATE
+EXTERNAL DBCREATEINDEX
+EXTERNAL DBDELETE
+EXTERNAL DBEDIT
+EXTERNAL DBEVAL
+EXTERNAL DBF
+EXTERNAL DBFILTER
+EXTERNAL DBGOBOTTOM
+EXTERNAL DBGOTO
+EXTERNAL DBGOTOP
+EXTERNAL DBRECALL
+EXTERNAL DBREINDEX
+EXTERNAL DBRELATION
+EXTERNAL DBRLOCK
+EXTERNAL DBRLOCKLIST
+EXTERNAL DBRSELECT
+EXTERNAL DBRUNLOCK
+EXTERNAL DBSEEK
+EXTERNAL DBSELECTAREA
+EXTERNAL DBSETDRIVER
+EXTERNAL DBSETFILTER
+EXTERNAL DBSETINDEX
+EXTERNAL DBSETORDER
+EXTERNAL DBSETRELATION
+EXTERNAL DBSKIP
+EXTERNAL DBSTRUCT
+EXTERNAL DBUNLOCK
+EXTERNAL DBUNLOCKALL
+EXTERNAL DBUSEAREA
+EXTERNAL DELETED
+EXTERNAL DESCEND
+EXTERNAL DEVOUT
+EXTERNAL DEVOUTPICT
+EXTERNAL DEVPOS
+EXTERNAL DIRECTORY
+EXTERNAL DIRECTORYRECURSE
+EXTERNAL DISKSPACE
+EXTERNAL DISPBEGIN
+EXTERNAL DISPBOX
+EXTERNAL DISPCOUNT
+EXTERNAL DISPEND
+EXTERNAL DISPOUT
+EXTERNAL DISPOUTAT
+EXTERNAL DO
+EXTERNAL DOSERROR
+EXTERNAL DOW
+EXTERNAL DTOC
+EXTERNAL DTOS
+EXTERNAL ELAPTIME
+EXTERNAL EMPTY
+EXTERNAL EOF
+EXTERNAL ERRORBLOCK
+EXTERNAL ERRORLEVEL
+EXTERNAL ERRORNEW
+EXTERNAL EVAL
+EXTERNAL EXP
+EXTERNAL FCLOSE
+EXTERNAL FCOUNT
+EXTERNAL FCREATE
+EXTERNAL FERASE
+EXTERNAL FERROR
+EXTERNAL FIELDBLOCK
+EXTERNAL FIELDGET
+EXTERNAL FIELDNAME
+EXTERNAL FIELDPOS
+EXTERNAL FIELDPUT
+
+EXTERNAL FIELDLEN
+EXTERNAL FIELDDEC
+EXTERNAL FIELDTYPE
+
+EXTERNAL FIELDWBLOCK
+EXTERNAL FILE
+EXTERNAL FKLABEL
+EXTERNAL FKMAX
+EXTERNAL FLOCK
+EXTERNAL FOPEN
+EXTERNAL FOUND
+EXTERNAL FREAD
+EXTERNAL FREADSTR
+EXTERNAL FRENAME
+EXTERNAL FSEEK
+EXTERNAL FWRITE
+EXTERNAL GETACTIVE
+EXTERNAL GETAPPLYKEY
+EXTERNAL GETDOSETKEY
+EXTERNAL GETE
+EXTERNAL GETENV
+EXTERNAL GETNEW
+EXTERNAL GETPOSTVALIDATE
+EXTERNAL GETPREVALIDATE
+EXTERNAL GETREADER
+EXTERNAL HARDCR
+EXTERNAL HEADER
+EXTERNAL I2BIN
+EXTERNAL INDEXEXT
+EXTERNAL INDEXKEY
+EXTERNAL INDEXORD
+EXTERNAL INKEY
+EXTERNAL INT
+EXTERNAL ISALPHA
+EXTERNAL ISCOLOR
+EXTERNAL ISDIGIT
+EXTERNAL ISLOWER
+EXTERNAL ISPRINTER
+EXTERNAL ISUPPER
+EXTERNAL L2BIN
+EXTERNAL LASTKEY
+EXTERNAL LASTREC
+EXTERNAL LEFT
+EXTERNAL LEN
+EXTERNAL LENNUM
+EXTERNAL LOCK
+EXTERNAL LOG
+EXTERNAL LOWER
+EXTERNAL LTRIM
+EXTERNAL LUPDATE
+EXTERNAL MAX
+EXTERNAL MAXCOL
+EXTERNAL MAXROW
+EXTERNAL MEMOEDIT
+EXTERNAL MEMOLINE
+EXTERNAL MEMOREAD
+EXTERNAL MEMORY
+EXTERNAL MEMOTRAN
+EXTERNAL MEMOWRIT
+EXTERNAL MEMVARBLOCK
+EXTERNAL MENUMODAL
+EXTERNAL MIN
+EXTERNAL MLCOUNT
+EXTERNAL MLCTOPOS
+EXTERNAL MLPOS
+EXTERNAL MOD
+EXTERNAL MONTH
+EXTERNAL MPOSTOLC
+EXTERNAL NETERR
+EXTERNAL NETNAME
+EXTERNAL NEXTKEY
+EXTERNAL NOSNOW
+EXTERNAL ORDBAGCLEAR
+EXTERNAL ORDBAGEXT
+EXTERNAL ORDBAGNAME
+EXTERNAL ORDCONDSET
+EXTERNAL ORDCREATE
+EXTERNAL ORDDESTROY
+EXTERNAL ORDFOR
+EXTERNAL ORDKEY
+EXTERNAL ORDLISTADD
+EXTERNAL ORDLISTCLEAR
+EXTERNAL ORDLISTREBUILD
+EXTERNAL ORDNAME
+EXTERNAL ORDNUMBER
+EXTERNAL ORDSCOPE
+EXTERNAL ORDSETFOCUS
+EXTERNAL OS
+EXTERNAL OUTERR
+EXTERNAL OUTSTD
+EXTERNAL PAD
+EXTERNAL PADC
+EXTERNAL PADL
+EXTERNAL PADR
+EXTERNAL PCOL
+EXTERNAL PCOUNT
+EXTERNAL PROCLINE
+EXTERNAL PROCNAME
+EXTERNAL PROW
+EXTERNAL QOUT
+EXTERNAL QQOUT
+EXTERNAL RANGECHECK
+EXTERNAL RASCAN
+EXTERNAL RAT
+EXTERNAL RDDLIST
+EXTERNAL RDDNAME
+EXTERNAL RDDREGISTER
+EXTERNAL RDDSETDEFAULT
+EXTERNAL READEXIT
+EXTERNAL READFORMAT
+EXTERNAL READINSERT
+EXTERNAL READKEY
+EXTERNAL READKILL
+EXTERNAL READMODAL
+EXTERNAL READUPDATED
+EXTERNAL READVAR
+EXTERNAL RECCOUNT
+EXTERNAL RECNO
+EXTERNAL RECSIZE
+EXTERNAL REPLICATE
+EXTERNAL RESTSCREEN
+EXTERNAL RIGHT
+EXTERNAL RLOCK
+EXTERNAL ROUND
+EXTERNAL ROW
+EXTERNAL RTRIM
+EXTERNAL SAVESCREEN
+EXTERNAL SCROLL
+EXTERNAL SECONDS
+EXTERNAL SECS
+EXTERNAL SELECT
+EXTERNAL SET
+EXTERNAL SETBLINK
+EXTERNAL SETCANCEL
+EXTERNAL SETCOLOR
+EXTERNAL SETCURSOR
+EXTERNAL SETKEY
+EXTERNAL SETMODE
+EXTERNAL SETPOS
+EXTERNAL SETPOSBS
+EXTERNAL SETPRC
+EXTERNAL SOUNDEX
+EXTERNAL SPACE
+EXTERNAL SQRT
+EXTERNAL STR
+EXTERNAL STRTRAN
+EXTERNAL STRZERO
+EXTERNAL STUFF
+EXTERNAL SUBSTR
+EXTERNAL TBCOLUMNNEW
+EXTERNAL TBROWSEDB
+EXTERNAL TBROWSENEW
+EXTERNAL TIME
+EXTERNAL TONE
+EXTERNAL TRANSFORM
+EXTERNAL TRIM
+EXTERNAL TSTRING
+EXTERNAL TYPE
+EXTERNAL UPDATED
+EXTERNAL UPPER
+EXTERNAL USED
+EXTERNAL VAL
+EXTERNAL VALTYPE
+EXTERNAL VERSION
+EXTERNAL WORD
+EXTERNAL YEAR
+
+
+
+EXTERNAL HB_ARGC
+EXTERNAL HB_ARGCHECK
+EXTERNAL HB_ARGSTRING
+EXTERNAL HB_ARGV
+EXTERNAL HB_COLORINDEX
+EXTERNAL HB_COMPILER
+EXTERNAL HB_FNAMEMERGE
+EXTERNAL HB_FNAMESPLIT
+EXTERNAL HB_LANGNAME
+EXTERNAL HB_LANGSELECT
+EXTERNAL HB_OSNEWLINE
+EXTERNAL PVALUE
+EXTERNAL STOD
+EXTERNAL HBCLASS
+EXTERNAL HBOBJECT
+EXTERNAL HB_TSTOSTR,DATETIME,TTOS,TTOC
+
+
+EXTERNAL CLIPPER520
+EXTERNAL __ACCEPT
+EXTERNAL __ATPROMPT
+EXTERNAL __COPYFILE
+EXTERNAL __DBAPP
+EXTERNAL __DBARRANGE
+EXTERNAL __DBCONTINUE
+EXTERNAL __DBCOPY
+EXTERNAL __DBCOPYSTRUCT
+EXTERNAL __DBCOPYXSTRUCT
+EXTERNAL __DBCREATE
+EXTERNAL __DBDELIM
+EXTERNAL __DBFLIST
+EXTERNAL __DBJOIN
+EXTERNAL __DBLIST
+EXTERNAL __DBLOCATE
+EXTERNAL __DBOPENSDF
+EXTERNAL __DBPACK
+EXTERNAL __DBSDF
+EXTERNAL __DBSETFOUND
+EXTERNAL __DBSETLOCATE
+EXTERNAL __DBSORT
+EXTERNAL __DBSTRUCTFILTER
+EXTERNAL __DBTOTAL
+EXTERNAL __DBTRANS
+EXTERNAL __DBTRANSREC
+EXTERNAL __DBUPDATE
+EXTERNAL __DBZAP
+EXTERNAL __DIR
+EXTERNAL __EJECT
+EXTERNAL __GET
+EXTERNAL __GETA
+EXTERNAL __GETMESSAGE
+EXTERNAL __KEYBOARD
+EXTERNAL __KILLREAD
+EXTERNAL __LABELFORM
+EXTERNAL __MCLEAR
+EXTERNAL __MENUTO
+EXTERNAL __MRELEASE
+EXTERNAL __MRESTORE
+EXTERNAL __MSAVE
+EXTERNAL __MXRELEASE
+EXTERNAL __QUIT
+EXTERNAL __REPORTFORM
+EXTERNAL __RUN
+EXTERNAL __SETCENTURY
+EXTERNAL __SETFORMAT
+EXTERNAL __SETHELPK
+EXTERNAL __TEXTRESTORE
+EXTERNAL __TEXTSAVE
+EXTERNAL __TYPEFILE
+EXTERNAL __WAIT
+EXTERNAL __XHELP
+EXTERNAL __XRESTSCREEN
+EXTERNAL __XSAVESCREEN
+
+
+
+EXTERNAL __CLASSADD
+EXTERNAL __CLASSINS
+EXTERNAL __CLASSNAME
+EXTERNAL __CLASSNEW
+EXTERNAL __CLASSSEL
+EXTERNAL __CLS_CNTCLSDATA
+EXTERNAL __CLS_CNTDATA
+EXTERNAL __CLS_DECDATA
+EXTERNAL __CLS_INCDATA
+
+EXTERNAL __CLSADDMSG
+EXTERNAL __CLSDELMSG
+EXTERNAL __CLSINST
+EXTERNAL __CLSINSTSUPER
+EXTERNAL __CLSMODMSG
+EXTERNAL __CLSNEW
+EXTERNAL __CLSPARENT
+EXTERNAL __ERRINHANDLER
+EXTERNAL __ERRRT_BASE
+EXTERNAL __ERRRT_SBASE
+EXTERNAL __HRBRUN
+EXTERNAL __HRBLOAD
+EXTERNAL __HRBDO
+EXTERNAL __HRBUNLOAD
+EXTERNAL __HRBGETFU
+EXTERNAL __HRBDOFU
+EXTERNAL __MVCLEAR
+EXTERNAL __MVDBGINFO
+EXTERNAL __MVEXIST
+EXTERNAL __MVGET
+EXTERNAL __MVPRIVATE
+EXTERNAL __MVPUBLIC
+EXTERNAL __MVPUT
+EXTERNAL __MVRELEASE
+EXTERNAL __MVRESTORE
+EXTERNAL __MVSAVE
+EXTERNAL __MVSCOPE
+EXTERNAL __MVXRELEASE
+EXTERNAL __OBJADDDATA
+EXTERNAL __OBJADDINLINE
+EXTERNAL __OBJADDMETHOD
+EXTERNAL __OBJCLONE
+EXTERNAL __OBJDELDATA
+EXTERNAL __OBJDELINLINE
+EXTERNAL __OBJDELMETHOD
+EXTERNAL __OBJDERIVEDFROM
+EXTERNAL __OBJGETCLSNAME
+EXTERNAL __OBJGETMETHODLIST
+EXTERNAL __OBJGETMSGLIST
+EXTERNAL __OBJGETVALUELIST
+EXTERNAL __OBJHASDATA
+EXTERNAL __OBJHASMETHOD
+EXTERNAL __OBJHASMSG
+EXTERNAL __OBJMODINLINE
+EXTERNAL __OBJMODMETHOD
+EXTERNAL __OBJSENDMSG
+EXTERNAL __OBJSETVALUELIST
+EXTERNAL __SENDER
+
+
+
+EXTERNAL HB_DBG_INVOKEDEBUG
+EXTERNAL HB_DBG_VMPARLLIST
+EXTERNAL HB_DBG_VMSTKGCOUNT
+EXTERNAL HB_DBG_VMSTKGLIST
+EXTERNAL HB_DBG_VMSTKLCOUNT
+EXTERNAL HB_DBG_VMSTKLLIST
+EXTERNAL HB_DBG_VMVARGGET
+EXTERNAL HB_DBG_VMVARGLIST
+EXTERNAL HB_DBG_VMVARGSET
+EXTERNAL HB_DBG_VMVARLGET
+EXTERNAL HB_DBG_VMVARLSET
+EXTERNAL HB_DBG_VMVARSGET
+EXTERNAL HB_DBG_VMVARSSET
+EXTERNAL HB_DBG_VMVARSLEN
+EXTERNAL HB_DBG_VMVARSLIST
+EXTERNAL HB_DBG_PROCLEVEL
+
+
+
+EXTERNAL _DBF, DBF_GETFUNCTABLE
+EXTERNAL DBFFPT, DBFFPT_GETFUNCTABLE
+EXTERNAL DBFNTX, DBFNTX_GETFUNCTABLE
+EXTERNAL DBFCDX, DBFCDX_GETFUNCTABLE
+EXTERNAL DELIM, DELIM_GETFUNCTABLE
+EXTERNAL SDF, SDF_GETFUNCTABLE
+
+EXTERNAL RDDSYS
+
+
+
+
+
+EXTERNAL __ACCEPTSTR
+EXTERNAL __ATCLEAR
+EXTERNAL __BOX
+EXTERNAL __BOXD
+EXTERNAL __BOXS
+EXTERNAL __CLEAR
+EXTERNAL __DBAPPEND
+EXTERNAL __DBCLEARINDEX
+EXTERNAL __DBCLEARRELATION
+EXTERNAL __DBCLOSE
+EXTERNAL __DBCLOSEAREA
+EXTERNAL __DBCOMMIT
+EXTERNAL __DBCOMMITALL
+EXTERNAL __DBCREATINDEX
+EXTERNAL __DBDELETE
+EXTERNAL __DBGOBOTTOM
+EXTERNAL __DBGOTO
+EXTERNAL __DBGOTOP
+EXTERNAL __DBRECALL
+EXTERNAL __DBREINDEX
+EXTERNAL __DBSEEK
+EXTERNAL __DBSELECT
+EXTERNAL __DBSETFILTER
+EXTERNAL __DBSETINDEX
+EXTERNAL __DBSETORDER
+EXTERNAL __DBSETRELATION
+EXTERNAL __DBSKIP
+EXTERNAL __DBUNLALL
+EXTERNAL __DBUNLOCK
+EXTERNAL __DBUSE
+EXTERNAL __DEFPATH
+EXTERNAL __FLEDIT
+EXTERNAL __INPUT
+EXTERNAL __NONOALERT
+EXTERNAL __QQPUB
+EXTERNAL _NATMSGVER
+EXTERNAL _NATSORTVER
+EXTERNAL DBGSHADOW
+EXTERNAL DEFPATH
+EXTERNAL ISAFFIRM
+EXTERNAL ISNEGATIVE
+EXTERNAL NATIONMSG
+EXTERNAL PROCFILE
+EXTERNAL SETTYPEAHEAD
+
+
+
+
+
+
+
+EXTERNAL __CAPTION
+EXTERNAL __GUICOLOR
+EXTERNAL _CHECKBOX_
+EXTERNAL _LISTBOX_
+EXTERNAL _PUSHBUTT_
+EXTERNAL _RADIOGRP_
+EXTERNAL CHECKBOX
+EXTERNAL CLIPPER530
+EXTERNAL DBFIELDINFO
+EXTERNAL DBFILEGET
+EXTERNAL DBFILEPUT
+EXTERNAL DBINFO
+EXTERNAL DBORDERINFO
+EXTERNAL DBRECORDINFO
+EXTERNAL DBTABLEEXT
+EXTERNAL DIRCHANGE
+EXTERNAL DIRREMOVE
+EXTERNAL DISKCHANGE
+EXTERNAL DISKNAME
+EXTERNAL FSETDEVMOD
+EXTERNAL GUIAPPLYKEY
+EXTERNAL GUIGETPOSTVALIDATE
+EXTERNAL GUIGETPREVALIDATE
+EXTERNAL GUIREADER
+EXTERNAL ISDEFCOLOR
+EXTERNAL ISDISK
+EXTERNAL MAKEDIR
+EXTERNAL MCOL
+EXTERNAL MDBLCLK
+EXTERNAL MENUITEM
+EXTERNAL MHIDE
+EXTERNAL MLEFTDOWN
+EXTERNAL MPRESENT
+EXTERNAL MRESTSTATE
+EXTERNAL MRIGHTDOWN
+EXTERNAL MROW
+EXTERNAL MSAVESTATE
+EXTERNAL MSETBOUNDS
+EXTERNAL MSETCURSOR
+EXTERNAL MSETPOS
+EXTERNAL MSHOW
+EXTERNAL ORDDESCEND
+EXTERNAL ORDISUNIQUE
+EXTERNAL ORDKEYADD
+EXTERNAL ORDKEYCOUNT
+EXTERNAL ORDKEYDEL
+EXTERNAL ORDKEYGOTO
+EXTERNAL ORDKEYNO
+EXTERNAL ORDKEYVAL
+EXTERNAL ORDSETRELATION
+EXTERNAL ORDSKIPUNIQUE
+EXTERNAL ORDCOUNT
+EXTERNAL ORDCUSTOM
+EXTERNAL ORDFINDREC
+EXTERNAL ORDKEYRELPOS
+EXTERNAL POPUP
+EXTERNAL RADIOBUTTO
+EXTERNAL RADIOGROUP
+EXTERNAL TOPBAR
+
+
+
+
+
+
+
+EXTERNAL BIN2U
+EXTERNAL CONVTOANSICP
+EXTERNAL CONVTOOEMCP
+EXTERNAL CURDRIVE
+EXTERNAL DBSKIPPER
+EXTERNAL NUMBUTTONS
+EXTERNAL SETMOUSE
+EXTERNAL STOD
+EXTERNAL U2BIN
+EXTERNAL W2BIN
+EXTERNAL ORDWILDSEEK
+
+
+
+
+
+
+EXTERNAL HB_SETCODEPAGE
+EXTERNAL HB_TRANSLATE
+EXTERNAL HB_CDPLIST
+EXTERNAL HB_STRTOUTF8
+EXTERNAL HB_UTF8CHR
+EXTERNAL HB_UTF8TOSTR
+EXTERNAL HB_UTF8LEN
+EXTERNAL HB_UTF8LEFT
+EXTERNAL HB_UTF8RIGHT
+EXTERNAL HB_UTF8PEEK
+EXTERNAL HB_UTF8POKE
+EXTERNAL HB_UTF8STUFF
+EXTERNAL HB_UTF8SUBSTR
+EXTERNAL HB_UTF8STRTRAN
+EXTERNAL HB_GTALERT
+EXTERNAL HB_GTVERSION
+EXTERNAL HB_GTSYS
+EXTERNAL HB_GTINFO
+EXTERNAL HB_SETDISPCP
+EXTERNAL HB_SETKEYCP
+EXTERNAL HB_SETTERMCP
+EXTERNAL HB_GFXPRIMITIVE
+EXTERNAL HB_GFXTEXT
+EXTERNAL HB_DISPOUTAT
+EXTERNAL HB_DISPBOX
+EXTERNAL HB_SCROLL
+
+EXTERNAL HB_GETSTDERR
+EXTERNAL HB_GETSTDIN
+EXTERNAL HB_GETSTDOUT
+
+
+EXTERNAL HB_CODEPAGE_BG866
+EXTERNAL HB_CODEPAGE_BGISO
+EXTERNAL HB_CODEPAGE_BGMIK
+EXTERNAL HB_CODEPAGE_BGWIN
+EXTERNAL HB_CODEPAGE_CS852
+EXTERNAL HB_CODEPAGE_CSISO
+EXTERNAL HB_CODEPAGE_CSKAM
+EXTERNAL HB_CODEPAGE_CSWIN
+EXTERNAL HB_CODEPAGE_DE850
+EXTERNAL HB_CODEPAGE_DEISO
+EXTERNAL HB_CODEPAGE_DEWIN
+EXTERNAL HB_CODEPAGE_EL737
+EXTERNAL HB_CODEPAGE_ELWIN
+EXTERNAL HB_CODEPAGE_EN
+EXTERNAL HB_CODEPAGE_ES850
+EXTERNAL HB_CODEPAGE_ES850C
+EXTERNAL HB_CODEPAGE_ESISO
+EXTERNAL HB_CODEPAGE_ESISOC
+EXTERNAL HB_CODEPAGE_ESWIN
+EXTERNAL HB_CODEPAGE_ESWINC
+EXTERNAL HB_CODEPAGE_FR850
+EXTERNAL HB_CODEPAGE_FRISO
+EXTERNAL HB_CODEPAGE_FRWIN
+EXTERNAL HB_CODEPAGE_HR437
+EXTERNAL HB_CODEPAGE_HR852
+EXTERNAL HB_CODEPAGE_HRWIN
+EXTERNAL HB_CODEPAGE_HU852
+EXTERNAL HB_CODEPAGE_HU852S
+EXTERNAL HB_CODEPAGE_HUISO
+EXTERNAL HB_CODEPAGE_HUISOS
+EXTERNAL HB_CODEPAGE_HUWIN
+EXTERNAL HB_CODEPAGE_HUWINS
+EXTERNAL HB_CODEPAGE_IT437
+EXTERNAL HB_CODEPAGE_IT850
+EXTERNAL HB_CODEPAGE_ITISB
+EXTERNAL HB_CODEPAGE_ITISO
+EXTERNAL HB_CODEPAGE_ITWIN
+EXTERNAL HB_CODEPAGE_LTWIN
+EXTERNAL HB_CODEPAGE_PL852
+EXTERNAL HB_CODEPAGE_PLISO
+EXTERNAL HB_CODEPAGE_PLMAZ
+EXTERNAL HB_CODEPAGE_PLWIN
+EXTERNAL HB_CODEPAGE_PT850
+EXTERNAL HB_CODEPAGE_PTISO
+EXTERNAL HB_CODEPAGE_RO852
+EXTERNAL HB_CODEPAGE_ROISO
+EXTERNAL HB_CODEPAGE_ROWIN
+EXTERNAL HB_CODEPAGE_RU866
+EXTERNAL HB_CODEPAGE_RUISO
+EXTERNAL HB_CODEPAGE_RUWIN
+EXTERNAL HB_CODEPAGE_RUKOI8
+EXTERNAL HB_CODEPAGE_SK852
+EXTERNAL HB_CODEPAGE_SKISO
+EXTERNAL HB_CODEPAGE_SKKAM
+EXTERNAL HB_CODEPAGE_SKWIN
+EXTERNAL HB_CODEPAGE_SL437
+EXTERNAL HB_CODEPAGE_SL852
+EXTERNAL HB_CODEPAGE_SLISO
+EXTERNAL HB_CODEPAGE_SLWIN
+EXTERNAL HB_CODEPAGE_SRWIN
+EXTERNAL HB_CODEPAGE_SV850
+EXTERNAL HB_CODEPAGE_SVCLIP
+EXTERNAL HB_CODEPAGE_SVISO
+EXTERNAL HB_CODEPAGE_SVWIN
+EXTERNAL HB_CODEPAGE_TR857
+EXTERNAL HB_CODEPAGE_TRWIN
+EXTERNAL HB_CODEPAGE_UA1125
+EXTERNAL HB_CODEPAGE_UA1251
+EXTERNAL HB_CODEPAGE_UA866
+EXTERNAL HB_CODEPAGE_UAKOI8
+
+
+
+
+
+EXTERNAL __DYNSCOUNT
+EXTERNAL __DYNSGETINDEX
+EXTERNAL __DYNSGETNAME
+EXTERNAL __PREPROCESS
+
+EXTERNAL CREATEOBJECT
+EXTERNAL GETACTIVEOBJECT
+
+EXTERNAL HB_ANSITOOEM
+EXTERNAL HB_ATX
+EXTERNAL HB_CLOCKS2SECS
+EXTERNAL HB_CLRAREA
+EXTERNAL HB_COLORTON
+EXTERNAL HB_DISKSPACE
+EXTERNAL HB_FCREATE
+EXTERNAL HB_FSIZE
+EXTERNAL HB_FTEMPCREATE
+EXTERNAL HB_GCALL
+EXTERNAL HB_KEYPUT
+EXTERNAL HB_OEMTOANSI
+EXTERNAL HB_SETKEYARRAY
+EXTERNAL HB_SETKEYCHECK
+EXTERNAL HB_SETKEYGET
+EXTERNAL HB_SETKEYSAVE
+EXTERNAL HB_SHADOW
+EXTERNAL HB_TRACELEVEL
+EXTERNAL HB_TRACESTATE
+EXTERNAL HB_VALTOSTR
+EXTERNAL HB_NTOS
+
+EXTERNAL HB_ARRAYID
+EXTERNAL HB_THISARRAY
+
+EXTERNAL SECONDSCPU
+EXTERNAL WILDMATCH
+EXTERNAL RDDINFO
+
+EXTERNAL HB_REGEXCOMP, HB_REGEX, HB_REGEXMATCH, HB_REGEXSPLIT, HB_REGEXATX, HB_REGEXALL, HB_REGEXREPLACE
+
+
+
+
+EXTERNAL HASH, HSETPARTITION, HGETPARTITION, HSETAUTOADD, HGETAUTOADD,  HSETCASEMATCH, HGETCASEMATCH, HGETKEYAT, HGETVALUEAT, HGETPAIRAT,  HSETVALUEAT, HDEL, HSCAN, HGETPOS, HGETKEYS, HGETVALUES, HSET,  HDELAT, HEVAL, HCLONE, HCOPY, HMERGE, HGET
+
+EXTERNAL HB_RANDOM, HB_RANDOMINT, HB_RANDOMSEED
+
+EXTERNAL HB_DUMPVAR, HB_CRYPT, HB_DECRYPT
+
+EXTERNAL HB_IDLEADD
+EXTERNAL HB_IDLEDEL
+EXTERNAL HB_IDLESLEEPMSEC
+EXTERNAL HB_IDLEWAITNOCPU
+
+EXTERNAL HB_BACKGROUNDRUN
+EXTERNAL HB_BACKGROUNDRUNFORCED
+EXTERNAL HB_BACKGROUNDRESET
+EXTERNAL HB_BACKGROUNDADD
+EXTERNAL HB_BACKGROUNDDEL
+EXTERNAL HB_BACKGROUNDACTIVE
+EXTERNAL HB_BACKGROUNDTIME
+
+EXTERNAL SECONDSSLEEP
+EXTERNAL THREADSLEEP
+
+EXTERNAL HBPersistent
+
+EXTERNAL _Array, _Block, _Character, _Date, _Logical, _Nil, _Numeric, _Pointer, _Hash
+
+EXTERNAL HB_Crypt, HB_Decrypt
+
+
+
+
+     EXTERNAL DLLPREPARECALL, LOADLIBRARY, FREELIBRARY, DLLLOAD, DLLUNLOAD, GETLASTERROR, SETLASTERROR,  GETPROCADDRESS, DLLEXECUTECALL, DLLCALL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXTERNAL STRPEEK
+EXTERNAL STRPOKE
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 13 "source\extmodul.ch"
+EXTERNAL __RUN, UPPER
+EXTERNAL DBCREATE, DBUSEAREA, DBCREATEINDEX, DBSEEK, DBCLOSEAREA, DBSELECTAREA, DBUNLOCK, DBUNLOCKALL
+EXTERNAL BOF, EOF, DBF, DBAPPEND, DBCLOSEALL, DBCLOSEAREA, DBCOMMIT,DBCOMMITALL, DBCREATE
+EXTERNAL DBDELETE, DBFILTER, DBSETFILTER, DBGOBOTTOM, DBGOTO, DBGOTOP, DBRLOCK, DBRECALL, DBDROP, DBEXISTS
+EXTERNAL DBRLOCKLIST, DBRUNLOCK,  LOCK, RECNO,  DBSETFILTER, DBFILEGET, DBFILEPUT
+EXTERNAL DBSKIP, DBSTRUCT, DBTABLEEXT, DELETED, DBINFO, DBORDERINFO, DBRECORDINFO
+EXTERNAL FCOUNT, FIELDDEC, FIELDGET, FIELDNAME, FIELDLEN, FIELDPOS, FIELDPUT
+EXTERNAL FIELDTYPE, FLOCK, FOUND, HEADER, LASTREC, LUPDATE, NETERR, AFIELDS
+EXTERNAL RECCOUNT, RECSIZE, SELECT, ALIAS, RLOCK
+EXTERNAL __DBZAP, USED, RDDSETDEFAULT, __DBPACK, __DBAPP, __DBCOPY
+EXTERNAL DBFCDX, DBFFPT
+
+EXTERNAL ORDKEYNO, ORDKEYCOUNT, ORDSCOPE, ORDCOUNT, ORDSETFOCUS, DBEVAL
+EXTERNAL ORDBAGEXT, ORDBAGNAME, ORDCONDSET, ORDCREATE, ORDDESTROY, ORDFOR
+EXTERNAL ORDKEY, ORDKEYCOUNT, ORDKEYNO, ORDKEYGOTO, ORDFINDREC, ORDSKIPRAW
+EXTERNAL ORDSKIPUNIQUE, ORDKEYVAL, ORDKEYADD, ORDKEYDEL, ORDDESCEND, ORDISUNIQUE
+EXTERNAL ORDCUSTOM, ORDWILDSEEK, ORDLISTADD, ORDLISTCLEAR, ORDLISTREBUILD, ORDNAME
+EXTERNAL ORDNUMBER
+EXTERNAL RDDSYS, RDDINFO, RDDLIST, RDDSETDEFAULT, RDDREGISTER, RDDNAME
+
+EXTERNAL TRANSFORM
+
+
+EXTERNAL GETDESKTOPWIDTH, GETDESKTOPHEIGHT, ISCAPSLOCKACTIVE, ISNUMLOCKACTIVE, ISSCROLLLOCKACTIVE
+EXTERNAL COPYSTRINGTOCLIPBOARD, GETSTOCKOBJECT, WINEXEC, GETKEYNAMETEXT, ACTIVATEKEYBOARDLAYOUT
+EXTERNAL PTS2PIX, GETWINDOWSDIR, GETSYSTEMDIR, GETTEMPDIR, SHELLABOUT
+EXTERNAL HWG_GETCOMPUTERNAME, HWG_GETUSERNAME
+
+
+EXTERNAL HWG_SETWINDOWSTYLE, HWG_SETWINDOWEXSTYLE, HWG_GETWINDOWSTYLE, HWG_GETWINDOWEXSTYLE
+
+
+EXTERNAL MSGSTOP, MSGOKCANCEL, MSGYESNO, MSGNOYES, MSGYESNOCANCEL, MSGEXCLAMATION, MSGRETRYCANCEL, MSGBEEP
+
+
+EXTERNAL SHELLMODIFYICON, SELECTFOLDER, SHELLEXECUTE, SHELLNOTIFYICON
+
+
+EXTERNAL HPRINTER, HWINPRN, PRINTDOS, SETPRINTERMODE, CLOSEPRINTER
+EXTERNAL HWG_OPENPRINTER, HWG_OPENDEFAULTPRINTER, HWG_GETPRINTERS, HWG_GETDEFAULTPRINTER
+#line 26 "source\designer.prg"
+STATIC lOmmitMenuFile := .F.
+STATIC oMenuTool, oDlgx
+
+EXTERNAL DRAWEDGE
+EXTERNAL DRAWICON
+EXTERNAL ELLIPSE
+EXTERNAL SETWINDOWFONT
+EXTERNAL INITMONTHCALENDAR
+EXTERNAL INITTRACKBAR
+EXTERNAL HTIMER, DBCREATE, DBUSEAREA, DBCREATEINDEX, DBSEEK
+
+
+EXTERNAL HWG_GETPRINTERS
+
+
+
+
+
+
+Function _AppMain( p0, p1, p2 )
+Local oPanel, oTab, oFont, oStatus1, cResForm, i
+
+Memvar oDesigner, cCurDir, oDlgx
+Memvar crossCursor, vertCursor, horzCursor, handCursor
+
+Public oDesigner, cCurDir, oMenuTool
+Public crossCursor, vertCursor, horzCursor, handCursor
+
+EXTERNAL DBFCDX,DBFFPT
+RDDSETDEFAULT("DBFCDX")
+
+
+
+   oDesigner := HDesigner():New()
+
+   IF p0 <> Nil .AND. ( p0 == "-r" .OR. p0 == "/r" )
+      oDesigner:lReport := .T.
+      IF p1 <> Nil
+         IF Left( p1,1 ) $ "-/"
+            p0 := p1
+            p1 := p2
+         ELSE
+            p0 := "-f"
+         ENDIF
+      ENDIF
+   ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF Valtype( cCurDir ) <> "C"
+      cCurDir := GetCurrentDir() + "\"
+   ENDIF
+   oDesigner:ds_mypath := cCurDir
+
+   IF !ReadIniFiles()
+      Return Nil
+   ENDIF
+
+   oFont := HFont():Add( "MS Sans Serif", 0, -13,,, iif( .F.,1,0 ), iif( .F.,1,0 ), iif( .F.,1,0 ) )
+   IF Valtype( crossCursor ) <> "N"
+      crossCursor := LoadCursor( 32515 )
+      horzCursor  := LoadCursor( 32644 )
+      vertCursor  := LoadCursor( 32645 )
+
+      handCursor   := LoadCursor( 32649 )
+
+   ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+   oDesigner:oMainWnd := HMainWindow():New( Iif(.F.,2,1),,,,0,0,400,200,iif(!oDesigner:lReport,"Form","Report")+" designer",,,oFont,,{||EndIde()},,,,,,,,,,,,,.F.)
+
+
+
+   Hwg_BeginMenu( oDesigner:oMainWnd,,,,,,.F. )
+      Hwg_BeginMenu(,, "&File",,,,.F. )
+         IF !oDesigner:lSingleForm
+            Hwg_DefineMenuItem( "&New "+iif(!oDesigner:lReport,"Form","Report"),, {|| HFormGen():New()}, .F.,,,, .F., .F.,.F. )
+            Hwg_DefineMenuItem( "&Open "+iif(!oDesigner:lReport,"Form","Report"),, {|| HFormGen():Open()}, .F.,,,, .F., .F.,.F. )
+            Hwg_DefineMenuItem()
+            Hwg_DefineMenuItem( "&Save "+iif(!oDesigner:lReport,"Form","Report"),, {|| Iif(HFormGen():oDlgSelected<>Nil,HFormGen():oDlgSelected:oParent:Save(),MsgStop("No Form in use!", "Designer"))}, .F.,,,, .F., .F.,.F. )
+            Hwg_DefineMenuItem( "&Save as ...",, {|| Iif(HFormGen():oDlgSelected<>Nil,HFormGen():oDlgSelected:oParent:Save(.T.),MsgStop("No Form in use!"))}, .F.,,,, .F., .F.,.F. )
+            Hwg_DefineMenuItem( "&Close "+iif(!oDesigner:lReport,"Form","Report"),, {|| Iif(HFormGen():oDlgSelected<>Nil,HFormGen():oDlgSelected:oParent:End(),MsgStop("No Form in use!", "Designer"))}, .F.,,,, .F., .F.,.F. )
+         ELSE
+            If !lOmmitMenuFile
+               Hwg_DefineMenuItem( "&Open "+iif(!oDesigner:lReport,"Form","Report"),, {|| HFormGen():OpenR()}, .F.,,,, .F., .F.,.F. )
+               Hwg_DefineMenuItem()
+               Hwg_DefineMenuItem( "&Save as ...",, {|| ( oDesigner:lSingleForm:=.F.,HFormGen():oDlgSelected:oParent:Save(.T.),oDesigner:lSingleForm:=.T. )}, .F.,,,, .F., .F.,.F. )
+            EndIf
+         ENDIF
+         Hwg_DefineMenuItem()
+         Hwg_BeginMenu(,, "Recent "+iif(!oDesigner:lReport,"Form","Report"),,,,.F. )
+         If !lOmmitMenuFile
+            i := 1
+            while i <= 8 .AND. oDesigner:aRecent[i] <> Nil
+
+               Hwg_DefineMenuItem( oDesigner:aRecent[i], 1020+i,  &( "{||HFormGen():Open('"+oDesigner:aRecent[i]+"')}" ) )
+               i ++
+            ENDDO
+         EndIf
+         Hwg_EndMenu()
+         Hwg_DefineMenuItem()
+         Hwg_DefineMenuItem( If(!lOmmitMenuFile,"&Exit","&Close Designer"),, {|| oDesigner:oMainWnd:Close()}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+      Hwg_BeginMenu(,, "&Edit",,,,.F. )
+         Hwg_DefineMenuItem( "&Copy control",, {|| (oDesigner:oClipBrd:=GetCtrlSelected(HFormGen():oDlgSelected),Iif(oDesigner:oClipBrd<>Nil,EnableMenuItem(,1012,.T.,.T.),.F.))}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem( "&Paste", 1012, {|| oDesigner:addItem := oDesigner:oClipbrd}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+      Hwg_BeginMenu(,, "&View",,,,.F. )
+         Hwg_DefineMenuItem( "&Object Inspector", 1010, {|| Iif( oDesigner:oDlgInsp==Nil,InspOpen(),oDesigner:oDlgInsp:Close() )}, .F.,,,, .F., .F.,.F. )
+    Hwg_DefineMenuItem()
+         Hwg_DefineMenuItem( "&Show Grid 5px", 1050, {|| ShowGrid5px()}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem( "&Show Grid 10px", 1052, {|| ShowGrid10px()}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem( "S&nap to Grid", 1051, {|| CheckMenuItem(oDesigner:oMainWnd:handle,1051,!IsCheckedMenuItem(oDesigner:oMainWnd:handle,1051))}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem()
+         Hwg_DefineMenuItem( "&Preview",, {|| DoPreview()}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem()
+         Hwg_DefineMenuItem( "&ToolBars",, {|| socontroles()}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+      Hwg_BeginMenu(,, "&Control",,,,.F. )
+         Hwg_DefineMenuItem( "&Delete",, {|| DeleteCtrl()}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+      Hwg_BeginMenu(,, "&Options",,,,.F. )
+         Hwg_DefineMenuItem( "&AutoAdjust", 1011, {|| CheckMenuItem(oDesigner:oMainWnd:handle,1011,!IsCheckedMenuItem(oDesigner:oMainWnd:handle,1011))}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+      Hwg_BeginMenu(,, "&Help",,,,.F. )
+         Hwg_DefineMenuItem( "&About",, {|| MsgInfo("Visual Designer", "Designer")}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+   Hwg_EndMenu()
+
+   if ( oDesigner:nPixelGrid == 12 )
+       CheckMenuItem(oDesigner:oMainWnd:handle,1050,.T.)
+   else
+       CheckMenuItem(oDesigner:oMainWnd:handle,1052,.T.)
+   endif
+
+   oPanel := HPanel():New(,,,0,0,280,200,,{|o,x,y|MoveWindow(o:handle,0,0,x,y-21),statusbarmsg("")},, ); oPanel:name := "oPanel"
+
+   IF !oDesigner:lSingleForm
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,2,3,24, 24,,,,{||HFormGen():New()},.T.,,,,,,,,"BMP_NEW",.T.,0,4,0, 0,.T.,,"New Form",!.F.,.F.,,,,.F., .F. );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,26,3,24, 24,,,,{||HFormGen():Open()},.T.,,,,,,,,"BMP_OPEN",.T.,0,4,0, 0,.T.,,"Open Form",!.F.,.F.,,,,.F., .F. );
+
+      HLine():New(,,.T.,55,6,18,,,,,, );
+
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,60,3,24, 24,,,,{||Iif(HFormGen():oDlgSelected<>Nil,HFormGen():oDlgSelected:oParent:Save(),MsgStop("No Form in use!"))},.T.,,,,,,,,"BMP_SAVE",.T.,0,4,0, 0,.T.,,"Save Form",!.F.,.F.,,,,.F., .F. );
+      HLine():New(,,.T.,84,6,18,,,,,, );
+
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,89,3,24, 24,,,,{||doPreview()},.T.,,,,,,,,"smNext",.T.,0,4,0, 0,.T.,,"Preview Form",!.F.,.F.,,,,.F., .F. );
+
+
+      HLine():New(,,.T.,164,6,18,,,,,, );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,166,3,24, 24,,,,{|| Iif( oDesigner:oDlgInsp==Nil,InspOpen(),InspShow())},.T.,,,,,,,,"smProprie",.T.,0,4,0, 0,.T.,,"Propriedades",!.F.,.F.,,,,.F., .F. );
+      HLine():New(,,.T.,192,6,18,,,,,, );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,194,3,24, 24,,,,{|| Asels_ajustar(1)},.T.,,,,,,,,"smAlignLeft",.T.,0,4,0, 0,.T.,,"Align left sides",!.F.,.F.,,,,.F., .F. );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,218,3,24, 24,,,,{|| Asels_ajustar(2)},.T.,,,,,,,,"smAlignRight",.T.,0,4,0, 0,.T.,,"Align Right sides",!.F.,.F.,,,,.F., .F. );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,242,3,24, 24,,,,{|| Asels_ajustar(3)},.T.,,,,,,,,"smAlignTop",.T.,0,4,0, 0,.T.,,"Align Top Edges",!.F.,.F.,,,,.F., .F. );
+      HLine():New(,,.T.,268,6,18,,,,,, );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,270,3,24, 24,,,,{|| Asels_ajustar(5)},.T.,,,,,,,,"smSameWidth",.T.,0,4,0, 0,.T.,,"Same Width",!.F.,.F.,,,,.F., .F. );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,294,3,24, 24,,,,{|| Asels_ajustar(6)},.T.,,,,,,,,"smSameHeight",.T.,0,4,0, 0,.T.,,"Same Height",!.F.,.F.,,,,.F., .F. );
+      HLine():New(,,.T.,320,6,18,,,,,, );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,322,3,24, 24,,,,{|| Asels_ajustar(7)},.T.,,,,,,,,"smCenterHorz",.T.,0,4,0, 0,.T.,,"Center Horizontally",!.F.,.F.,,,,.F., .F. );
+
+
+
+
+      HOWNBUTTON():New( oPanel,,,344,3,24, 24,,,,{|| Asels_ajustar(8)},.T.,,,,,,,,"smCentervert",.T.,0,4,0, 0,.T.,,"center Vertically",!.F.,.F.,,,,.F., .F. );
+
+
+
+   ENDIF
+
+
+
+    oStatus1 := HStatus():New( oDesigner:oMainWnd,,,HFont():Add( "MS Sans Serif",0,-12,400,,,),{oDesigner:oMainWnd:nWidth-280,80,80, 40,40,40},,,,,, ); oStatus1:name := "oStatus1"
+
+
+
+
+
+
+   oTab := HTab():New( oPanel,,,3,30,380, 310,,,{|o,x,y|ArrangeBtn(o,x,y)},,{},,, .F.,,,,,,.F. ) ; oTab:name := "oTab"
+
+   BuildSet( oTab )
+
+   oDesigner:oCtrlMenu := Hwg_ContextMenu()
+      Hwg_DefineMenuItem( "Copy",, {|| (oDesigner:oClipBrd:=GetCtrlSelected(HFormGen():oDlgSelected),Iif(oDesigner:oClipBrd<>Nil,EnableMenuItem(,1012,.T.,.T.),.F.))}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Adjust to left",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.T.,.F.,.F.,.F. )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to top",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.F.,.T.,.F.,.F. )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to right",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.F.,.F.,.T.,.F. )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to bottom",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.F.,.F.,.F.,.T. )}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Align left sides",, {|| Asels_ajustar(1)}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Align Right sides",, {|| Asels_ajustar(2)}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Align Top Edges",, {|| Asels_ajustar(3)}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem( "Same Width",, {|| Asels_ajustar(5)}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Same Height",, {|| Asels_ajustar(6)}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem()
+      IF oDesigner:lReport
+         Hwg_DefineMenuItem( "Fit into box", 1030, {|| FitLine( GetCtrlSelected(HFormGen():oDlgSelected) )}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem()
+      ENDIF
+      Hwg_DefineMenuItem( "Delete",, {|| DeleteCtrl()}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Properties",, {|| Iif( oDesigner:oDlgInsp==Nil,InspOpen(),InspShow())}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Objetos",, {|| socontroles()}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Classe Objeto",, {|| objinspector(GetCtrlSelected(HFormGen():oDlgSelected))}, .F.,,,, .F., .F.,.F. )
+
+
+   Hwg_EndMenu()
+
+   oDesigner:oTabMenu := Hwg_ContextMenu()
+      Hwg_DefineMenuItem( "New Page",, {|| Page_New( GetCtrlSelected(HFormGen():oDlgSelected) )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Next Page",, {|| Page_Next( GetCtrlSelected(HFormGen():oDlgSelected) )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Previous Page",, {|| Page_Prev( GetCtrlSelected(HFormGen():oDlgSelected) )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Copy",, {|| (oDesigner:oClipBrd:=GetCtrlSelected(HFormGen():oDlgSelected),Iif(oDesigner:oClipBrd<>Nil,EnableMenuItem(,1012,.T.,.T.),.F.))}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to left",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.T.,.F.,.F.,.F. )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to top",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.F.,.T.,.F.,.F. )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to right",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.F.,.F.,.T.,.F. )}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Adjust to bottom",, {|| AdjustCtrl( GetCtrlSelected(HFormGen():oDlgSelected),.F.,.F.,.F.,.T. )}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Align left sides",, {|| Asels_ajustar(1)}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Align Right sides",, {|| Asels_ajustar(2)}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Align Top Edges",, {|| Asels_ajustar(3)}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem( "Same Width",, {|| Asels_ajustar(5)}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Same Height",, {|| Asels_ajustar(6)}, .F.,,,, .F., .F.,.F. )
+
+         Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Delete",, {|| DeleteCtrl()}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Properties",, {|| Iif( oDesigner:oDlgInsp==Nil,InspOpen(),InspShow())}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Objetos",, {|| socontroles()}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Classe Objeto",, {|| objinspector(GetCtrlSelected(HFormGen():oDlgSelected))}, .F.,,,, .F., .F.,.F. )
+
+   Hwg_EndMenu()
+
+   oDesigner:oDlgMenu := Hwg_ContextMenu()
+      Hwg_DefineMenuItem( "Paste",, {|| oDesigner:addItem := oDesigner:oClipbrd}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Preview",, {|| DoPreview()}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Properties",, {|| Iif( oDesigner:oDlgInsp==Nil,InspOpen(),InspShow())}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem( "Objetos",, {|| socontroles()}, .F.,,,, .F., .F.,.F. )
+      Hwg_DefineMenuItem()
+      Hwg_DefineMenuItem( "Classe Objeto",, {|| objinspector(GetCtrlSelected(HFormGen():oDlgSelected))}, .F.,,,, .F., .F.,.F. )
+   Hwg_EndMenu()
+
+   HWG_InitCommonControlsEx()
+
+
+
+
+
+
+
+
+
+
+
+   StartDes( oDesigner:oMainWnd,p0,p1 )
+   oDesigner:oMainWnd:Activate( !.F., .F., .F., .F.,, .F.,.F. )
+
+
+
+Return cResForm
+
+static Function ShowGrid10px()
+
+memvar oDesigner
+if ( oDesigner:oDlgInsp == NIL )
+    CheckMenuItem(oDesigner:oMainWnd:handle,1052,!IsCheckedMenuItem(oDesigner:oMainWnd:handle,1052))
+    CheckMenuItem(oDesigner:oMainWnd:handle,1050,.F.)
+    if (IsCheckedMenuItem(oDesigner:oMainWnd:handle,1052))
+        oDesigner:nPixelGrid := 18
+   oDesigner:lShowGrid  := .T.
+    else
+        oDesigner:nPixelGrid := 0
+        oDesigner:lShowGrid  := .F.
+    endif
+else
+    msginfo( "Close the form(s) first to change the grid status","Warning")
+endif
+Return ( NIL )
+
+static Function ShowGrid5px()
+
+memvar oDesigner
+if ( oDesigner:oDlgInsp == NIL )
+    CheckMenuItem(oDesigner:oMainWnd:handle,1050,!IsCheckedMenuItem(oDesigner:oMainWnd:handle,1050))
+    CheckMenuItem(oDesigner:oMainWnd:handle,1052,.F.)
+    if (IsCheckedMenuItem(oDesigner:oMainWnd:handle,1050))
+        oDesigner:nPixelGrid := 12
+            oDesigner:lShowGrid  := .T.
+    else
+        oDesigner:nPixelGrid := 0
+        oDesigner:lShowGrid  := .F.
+    endif
+else
+    msginfo( "Close the form first to change the grid status","Warning")
+endif
+Return ( NIL )
+
+
+_HB_CLASS HDesigner ; UTILITY FUNCTION HDesigner(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HDesigner" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { oMainWnd, oDlgInsp} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oMainWnd" , "oDlgInsp" }, .F., .F. ), )
+   _HB_MEMBER { oCtrlMenu, oTabMenu, oDlgMenu} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oCtrlMenu" , "oTabMenu" , "oDlgMenu" }, .F., .F. ), )
+   _HB_MEMBER { oClipbrd} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oClipbrd" }, .F., .F. ), )
+   _HB_MEMBER { lReport} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lReport" }, .F., .F. ), )
+   _HB_MEMBER { ds_mypath} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ds_mypath" }, .F., .F. ), )
+   _HB_MEMBER { lChgPath} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lChgPath" }, .F., .F. ), )
+   _HB_MEMBER { aRecent} ; IIF( !.F., s_oClass:AddMultiData(, Array(8), nScope + IIF( .F., 32, 0 ), { "aRecent" }, .F., .F. ), )
+   _HB_MEMBER { lChgRecent} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lChgRecent" }, .F., .F. ), )
+   _HB_MEMBER { oWidgetsSet, oFormDesc} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oWidgetsSet" , "oFormDesc" }, .F., .F. ), )
+   _HB_MEMBER { oBtnPressed, addItem} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oBtnPressed" , "addItem" }, .F., .F. ), )
+   _HB_MEMBER { aFormats} ; IIF( !.F., s_oClass:AddMultiData(, { { "Hwgui XML format","xml" } }, nScope + IIF( .F., 32, 0 ), { "aFormats" }, .F., .F. ), )
+   _HB_MEMBER { aDataDef} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aDataDef" }, .F., .F. ), )
+   _HB_MEMBER { aMethDef} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aMethDef" }, .F., .F. ), )
+   _HB_MEMBER { lSingleForm} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lSingleForm" }, .F., .F. ), )
+   _HB_MEMBER { cResForm} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cResForm" }, .F., .F. ), )
+   _HB_MEMBER { nPixelGrid} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nPixelGrid" }, .F., .F. ), )
+   _HB_MEMBER { lShowGrid} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lShowGrid" }, .F., .F. ), )
+   _HB_MEMBER { lSnapToGrid} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lSnapToGrid" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModInline( "New", {|Self | Self, Self }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "New", {|Self | Self, Self }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HDesigner ;
+
+
+Static Function StartDes( oDlg,p1,cForm )
+
+   MoveWindow( oDlg:handle,0,0,oDlg:nWidth+10,oDlg:nHeight )
+
+   IF p1 <> Nil .AND. Left( p1,1 ) $ "-/"
+      IF ( p1 := Substr( p1,2,1 ) ) == "n"
+         HFormGen():New()
+      ELSEIF p1 == "f"
+         IF cForm == Nil
+            HFormGen():New()
+         ELSE
+            HFormGen():Open( cForm )
+         ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+      ENDIF
+   ENDIF
+
+Return Nil
+
+Static Function ReadIniFiles()
+Local oIni := HXMLDoc():Read( "Designer.iml" )
+Local i, oNode, cWidgetsFileName, cwitem, cfitem, critem, l_ds_mypath, j
+memvar oDesigner, cCurDir
+
+   IF oDesigner:lReport
+      cwItem := "rep_widgetset"
+      cfitem := "rep_format"
+      critem := "rep_recent"
+   ELSE
+      cwItem := "widgetset"
+      cfitem := "format"
+      critem := "recent"
+   ENDIF
+   IF Empty( oIni:aItems )
+      CreateIni( oIni )
+   ENDIF
+   FOR i := 1 TO Len( oIni:aItems[1]:aItems )
+      oNode := oIni:aItems[1]:aItems[i]
+      IF oNode:title == cwitem
+         IF !Empty( oNode:aItems)
+            cWidgetsFileName := oNode:aItems[1]
+         ENDIF
+      ELSEIF oNode:title == cfitem
+
+
+         Aadd( oDesigner:aFormats, { oNode:GetAttribute("name"), oNode:GetAttribute("ext"),  oNode:GetAttribute("file"),oNode:GetAttribute("rdscr"),  oNode:GetAttribute("wrscr"),oNode:GetAttribute("cnvtable") } )
+      ELSEIF oNode:title == "editor"
+         LoadEdOptions( oNode:aItems[1] )
+      ELSEIF oNode:title == "grid"
+             l_ds_mypath := oNode:GetAttribute("default")
+             IF !Empty( l_ds_mypath )
+                oDesigner:nPixelGrid := val( l_ds_mypath )
+                if empty( oDesigner:nPixelGrid )
+                    oDesigner:lShowGrid := .F.
+                else
+                    oDesigner:lShowGrid := .T.
+      endif
+             ENDIF
+      ELSEIF oNode:title == "dirpath"
+             l_ds_mypath := oNode:GetAttribute("default")
+             IF !Empty( l_ds_mypath )
+                oDesigner:ds_mypath := Lower( l_ds_mypath )
+             ENDIF
+      ELSEIF oNode:title == critem .AND. !oDesigner:lSingleForm
+         FOR j := 1 TO Min( Len( oNode:aItems ),8 )
+            oDesigner:aRecent[j] := Lower( Trim( oNode:aItems[j]:aItems[1] ) )
+         NEXT
+      ENDIF
+   NEXT
+
+   IF Valtype( cWidgetsFileName ) == "C"
+      oDesigner:oWidgetsSet := HXMLDoc():Read( cCurDir + cWidgetsFileName )
+   ENDIF
+   IF oDesigner:oWidgetsSet == Nil .OR. Empty( oDesigner:oWidgetsSet:aItems )
+      MsgStop( "Widgets file isn't found!","Designer error" )
+      Return .F.
+   ENDIF
+
+Return .T.
+
+Static Function BuildSet( oTab )
+Local i, j, j1, aSet, oWidget, oProperty, b1, b2, b3, cDlg, arr, b4
+Local x1, cText,cBmp, oButton
+Memvar oDesigner
+
+   IF !Empty( oDesigner:oWidgetsSet:aItems )
+      aSet := oDesigner:oWidgetsSet:aItems[1]:aItems
+      FOR i := 1 TO Len( aSet )
+         IF aSet[i]:title == "set"
+            oTab:StartPage( aSet[i]:GetAttribute( "name" ) )
+            x1 := 4
+            FOR j := 1 TO Len( aSet[i]:aItems )
+               IF aSet[i]:aItems[j]:title == "widget"
+                  oWidget := aSet[i]:aItems[j]
+                  cText := oWidget:GetAttribute( "text" )
+                  cBmp := oWidget:GetAttribute( "bmp" )
+                  IF cText <> Nil .OR. cBmp <> Nil
+
+
+
+
+                    oButton := HOwnButton():New( ,,,x1,32,30,26,  ,,,{|o,id|ClickBtn(o,id)},.T.,     cText,,,,,,,                       cBmp,At(".",cBmp)==0,,,,,.F.,,     oWidget:GetAttribute( "name" ) )
+                    oButton:cargo := oWidget
+                    x1 += 30
+                  ENDIF
+               ENDIF
+            NEXT
+            oTab:EndPage()
+         ELSEIF aSet[i]:title == "form"
+            oDesigner:oFormDesc := aSet[i]
+         ELSEIF aSet[i]:title == "data"
+            FOR j := 1 TO Len( aSet[i]:aItems )
+               IF aSet[i]:aItems[j]:title == "property"
+                  oProperty := aSet[i]:aItems[j]
+                  b1 := b2 := b3 := b4 := Nil
+                  FOR j1 := 1 TO Len( oProperty:aItems )
+                     IF oProperty:aItems[j1]:title == "code1"
+                        b1 := oProperty:aItems[j1]:aItems[1]:aItems[1]
+                     ELSEIF oProperty:aItems[j1]:title == "code2"
+                        b2 := oProperty:aItems[j1]:aItems[1]:aItems[1]
+                     ELSEIF oProperty:aItems[j1]:title == "code3"
+                        b3 := oProperty:aItems[j1]:aItems[1]:aItems[1]
+                     ELSEIF oProperty:aItems[j1]:title == "code_def"
+                        b4 := oProperty:aItems[j1]:aItems[1]:aItems[1]
+                     ENDIF
+                  NEXT
+
+                  cDlg := oProperty:GetAttribute("array")
+                  IF cDlg <> Nil
+                     arr := {}
+                      while ( j1 := At( ",",cDlg ) ) > 0
+                           Aadd( arr,Left( cDlg,j1-1 ) )
+                          cDlg := LTrim( SubStr( cDlg,j1+1 ) )
+                         ENDDO
+                      Aadd( arr, cDlg )
+                  ELSE
+                     arr := Nil
+                  ENDIF
+                  cDlg := oProperty:GetAttribute("dlg")
+                  IF cDlg <> Nil
+                     cDlg := Lower( cDlg )
+                  ENDIF
+
+
+                  Aadd( oDesigner:aDataDef, { Lower(oProperty:GetAttribute("name")),  b1,b2,b3,cDlg,arr,b4 } )
+               ENDIF
+            NEXT
+         ELSEIF aSet[i]:title == "methods"
+            FOR j := 1 TO Len( aSet[i]:aItems )
+               IF aSet[i]:aItems[j]:title == "method"
+
+                  Aadd( oDesigner:aMethDef, { Lower(aSet[i]:aItems[j]:GetAttribute("name")),  aSet[i]:aItems[j]:GetAttribute("params") } )
+               ENDIF
+            NEXT
+         ENDIF
+      NEXT
+   ENDIF
+Return Nil
+
+Static Function ArrangeBtn( oTab,x,y )
+Local i, x1, y1, oBtn
+
+   oTab:Move( ,, x-6, y-33 )
+   FOR i := 1 TO Len( oTab:aControls )
+      oBtn := oTab:aControls[i]
+      IF oBtn:Classname == "HOWNBUTTON"
+         IF oBtn:nLeft == 4 .AND. oBtn:nTop == 32
+            x1 := 4
+            y1 := 32
+         ELSE
+            IF oBtn:nLeft <> x1 .OR. oBtn:nTop <> y1
+               oBtn:Move( x1, y1 )
+            ENDIF
+         ENDIF
+         x1 += 30
+         IF x1 + oBtn:nWidth > x
+            x1 := 4
+            y1 += 30
+         ENDIF
+      ENDIF
+   NEXT
+Return Nil
+
+Static Function ClickBtn( oTab,nId )
+Local oBtn := oTab:FindControl( nId )
+Memvar oDesigner
+
+   IF !Empty( HFormGen():aForms )
+      oDesigner:addItem := oBtn:cargo
+      IF oDesigner:oBtnPressed <> Nil
+         oDesigner:oBtnPressed:Release()
+      ENDIF
+      oBtn:Press()
+      oDesigner:oBtnPressed := oBtn
+   ENDIF
+Return Nil
+
+Function DeleteCtrl()
+Local oDlg := HFormGen():oDlgSelected, oCtrl, i
+Memvar oDesigner
+
+   IF oDlg <> Nil .AND. ( oCtrl := GetCtrlSelected( oDlg ) ) <> Nil
+      IF oCtrl:oContainer <> Nil
+         i := Ascan( oCtrl:oContainer:aControls,{|o|o:handle==oCtrl:handle} )
+         IF i <> 0
+            Adel( oCtrl:oContainer:aControls,i )
+            Asize( oCtrl:oContainer:aControls,Len(oCtrl:oContainer:aControls)-1 )
+         ENDIF
+      ENDIF
+      IF oDesigner:lReport
+         oDlg:aControls[1]:aControls[1]:DelControl( oCtrl )
+      ELSE
+         oDlg:DelControl( oCtrl )
+      ENDIF
+     InspSetCombo( )
+      SetCtrlSelected( oDlg )
+      oDlg:oParent:lChanged := .T.
+   ENDIF
+
+Return Nil
+
+Function FindWidget( cClass )
+memvar  odesigner
+Local i, aSet := oDesigner:oWidgetsSet:aItems[1]:aItems, oNode
+
+   FOR i := 1 TO Len( aSet )
+      IF aSet[i]:title == "set"
+         IF ( oNode := aSet[i]:Find( "widget",1,{|o|o:GetAttribute("class")==cClass} ) ) <> Nil
+            Return oNode
+         ENDIF
+      ENDIF
+   NEXT
+Return Nil
+
+Function Evalcode( xCode )
+Local nLines
+
+   IF Valtype( xCode ) == "C"
+      nLines := mlCount( xCode )
+      IF nLines > 1
+         xCode := RdScript( ,xCode )
+      ELSE
+         xCode := &( "{||" + xCode + "}" )
+      ENDIF
+   ENDIF
+   IF Valtype( xCode ) == "A"
+      Return DoScript( xCode )
+   ELSE
+      Return Eval( xCode )
+   ENDIF
+
+Return Nil
+
+Static Function CreateIni( oIni )
+Local oNode := oIni:Add( HXMLNode():New( "designer" ) )
+
+   oNode:Add( HXMLNode():New( "widgetset",,,"widgets.xml" ) )
+
+   oIni:Save( "designer.iml" )
+Return Nil
+
+Function AddRecent( oForm )
+Local i, cItem := Lower( Trim( oForm:path+oForm:filename ) )
+Memvar oDesigner
+
+   IF oDesigner:aRecent[1] == Nil .OR. !( oDesigner:aRecent[1] == cItem )
+      FOR i := 1 TO 8
+         IF oDesigner:aRecent[i] == Nil
+            EXIT
+         ELSEIF oDesigner:aRecent[i] == cItem
+            Adel( oDesigner:aRecent,i )
+         ENDIF
+      NEXT
+      Ains( oDesigner:aRecent, 1 )
+      oDesigner:aRecent[1] := cItem
+      oDesigner:lChgRecent := .T.
+   ENDIF
+
+Return Nil
+
+Static Function EndIde
+Local i, j, alen := Len( HFormGen():aForms ), lRes := .T., oIni, critem, oNode
+Memvar oDesigner, cCurDir
+
+  IF alen > 0
+     IF MsgYesNo( "Do you really want to quit ?", "Designer" )
+        FOR i := Len( HFormGen():aForms ) TO 1 STEP -1
+           HFormGen():aForms[i]:End( ,.F. )
+        NEXT
+     ELSE
+        lRes := .F.
+     ENDIF
+  ENDIF
+  IF !oDesigner:lSingleForm .AND. ( oDesigner:lChgRecent .OR. oDesigner:lChgPath .OR. .T. )
+     critem := Iif( oDesigner:lReport, "rep_recent", "recent" )
+     oIni := HXMLDoc():Read( cCurDir+"Designer.iml" )
+     IF oDesigner:lChgPath
+        i := 1
+        oNode := HXMLNode():New( "dirpath",1,{{"default",oDesigner:ds_myPath}} )
+        IF oIni:aItems[1]:Find( "dirpath",@i ) == Nil
+           oIni:aItems[1]:Add( oNode )
+        ELSE
+           oIni:aItems[1]:aItems[i] := oNode
+        ENDIF
+     ENDIF
+     IF oDesigner:lChgRecent
+        i := 1
+        IF oIni:aItems[1]:Find( critem,@i ) == Nil
+           oIni:aItems[1]:Add( HXMLNode():New( critem,, ) )
+           i := Len( oIni:aItems[1]:aItems )
+        ENDIF
+        j := 1
+        oIni:aItems[1]:aItems[i]:aItems := {}
+        while j <= 8 .AND. oDesigner:aRecent[j] <> Nil
+           oIni:aItems[1]:aItems[i]:Add( HXMLNode():New( "file",,,oDesigner:aRecent[j] ) )
+           j ++
+        ENDDO
+     ENDIF
+
+        i := 1
+        oNode := HXMLNode():New( "grid",1,{{"default",alltrim(str(oDesigner:nPixelGrid))}} )
+        IF oIni:aItems[1]:Find( "grid",@i ) == Nil
+           oIni:aItems[1]:Add( oNode )
+        ELSE
+           oIni:aItems[1]:aItems[i] := oNode
+        ENDIF
+
+     oIni:Save( cCurDir+"Designer.iml" )
+  ENDIF
+  IF lRes
+     oDesigner:oCtrlMenu:End()
+     oDesigner:oTabMenu:End()
+     IF HDTheme():lChanged
+        SaveEdOptions()
+     ENDIF
+
+     oDesigner := Nil
+
+  ENDIF
+
+Return lRes
+
+
+Function SetOmmitMenuFile(lom)
+lOmmitMenuFile := lOm
+Return lOm
+
+
+Function StatusBarMsg(cfile,cpos,ctam)
+memvar oDesigner
+
+
+  cpos := IIF(cpos = Nil,"",cpos)
+  ctam := IIF(ctam = Nil,"",ctam)
+   IF cFile <> Nil
+     WriteStatus( oDesigner:oMainWnd,1,"File: "+cfile ,.T.)
+  ENDIF
+  WriteStatus( oDesigner:oMainWnd,2,cpos ,.T.)
+  WriteStatus(oDesigner:oMainWnd,3,ctam ,.T.)
+
+
+  WriteStatus(oDesigner:oMainWnd,5,IIF(IsNUmLockActive(),"NUM" ,"   "),.T.)
+  WriteStatus(oDesigner:oMainWnd,6,IIF(IsCapsLockActive(),"CAPS","    ") ,.T.)
+
+RETURN Nil
+
+
+FUNCTION SoControles
+LOCAL opanelx, oTabx
+Local oFont
+
+   IF !empty(hwg_findwindow(0,"Toolbars - Classes ") )
+     Showwindow(oDlgx:handle)
+     SetFocus( oDlgx:handle )
+     RETURN NIL
+   ENDIF
+
+   oFont := HFont():Add( "MS Sans Serif", 0, -13,,, iif( .F.,1,0 ), iif( .F.,1,0 ), iif( .F.,1,0 ) )
+
+
+
+
+   oDlgx := HDialog():New( Iif(.F.,10,11), 268435456 + 524288 + 2 + 262144 + 128,0,0,400,99,"Toolbars - Classes ",oFont,,{||  oDlgx := Nil, .T.},,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+
+
+
+   oPanelx := HPanel():New(,,,0,0,395,98,,{|o,x,y|MoveWindow(o:handle,0,0,x+4,y+20)},, ); oPanelx:name := "oPanelx"
+
+
+
+
+
+   oTabx := HTab():New( oPanelx,,,1,1,390, 98,,,{|o,x,y|ArrangeBtn(o,x,y)},,{},,, .F.,,,,,,.F. ) ; oTabx:name := "oTabx"
+
+   oMenuTool := Hwg_ContextMenu()
+      Hwg_DefineMenuItem( "AlwaysOnTop",, {|| ActiveTopMost( 0, .T. )}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem( "Normal",, {|| ActiveTopMost( 0, .F. )}, .F.,,,, .F., .F.,.F. )
+
+      Hwg_DefineMenuItem( "Hide",, {|| oDlgX:CLOSE()}, .F.,,,, .F., .F.,.F. )
+    Hwg_EndMenu()
+
+   BuildSet( oTabx )
+
+   HWG_InitCommonControlsEx()
+
+    ODLGx:Activate(.T.,,,.F. )
+
+RETURN nil
+
+
+Function InspShow()
+MEMVAR oDesigner
+
+  Iif( oDesigner:oDlgInsp==Nil,InspOpen(),oDesigner:oDlgInsp:show() )
+   HWG_BRINGWINDOWTOTOP(oDesigner:oDlgInsp:handle)
+RETURN NIL
+
+FUNCTION HWLASTKEY
+ LOCAL ckeyb := GETKEYBOARDSTATE() ,i
+ FOR i= 1 to 255
+   IF Asc(Substr(ckeyb,i,1)) >= 128
+         RETURN i - 1
+   ENDIF
+ NEXT
+ RETURN 0
+
+FUNCTION GETDESKTOPHEIGHT
+LOCAL nRET:=0
+IF HWG_GETNUMMONITORS()>1
+   TRY
+      nRET:=oTelaPrincipal:nHeight
+   CATCH
+      nRET:=HWG_GETDESKTOPHEIGHT()
+   END
+ELSE
+   nRET:=HWG_GETDESKTOPHEIGHT()
+ENDIF
+RETURN(nRET)
+
+FUNCTION GETDESKTOPWIDTH
+LOCAL nRET:=0
+IF HWG_GETNUMMONITORS()>1
+   TRY
+      nRET:=oTelaPrincipal:nWidth
+   CATCH
+      nRET:=HWG_GETDESKTOPWIDTH()
+   END
+ELSE
+   nRET:=HWG_GETDESKTOPWIDTH()
+ENDIF
+RETURN(nRET)
+
+Function Syg_Translator(cText)
+Return(cText)

@@ -1,0 +1,120 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\hpager.prg"
+_HB_CLASS HPager ; UTILITY FUNCTION HPager(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HPager" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiData(, "SysPager", nScope + IIF( .F., 32, 0 ), { "winclass" }, .F., .F. ), )
+   _HB_MEMBER { TEXT, id, nTop, nLeft, nwidth, nheight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "TEXT" , "id" , "nTop" , "nLeft" , "nwidth" , "nheight" }, .F., .F. ), )
+   _HB_MEMBER { oSelected} ; IIF( !.F., s_oClass:AddMultiClsData(, Nil, nScope + IIF( .F., 32, 0 ) + 64, { "oSelected" }, .F. ), )
+   _HB_MEMBER { ExStyle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ExStyle" }, .F., .F. ), )
+   _HB_MEMBER { bClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" }, .F., .F. ), )
+   _HB_MEMBER { lVert} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lVert" }, .F., .F. ), )
+   _HB_MEMBER { hTool} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hTool" }, .F., .F. ), )
+   _HB_MEMBER { m_nWidth, m_nHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_nWidth" , "m_nHeight" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lVert); IIF( .F., s_oClass:ModMethod( "New", @HPager_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HPager_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lVert); IIF( .F., s_oClass:ModMethod( "Redefine", @HPager_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HPager_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetScrollArea(nWidth, nHeight); IIF( .F., s_oClass:ModInline( "SetScrollArea", {|Self,nWidth, nHeight | Self, ::m_nWidth := nWidth, ::m_nHeight := nHeight }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetScrollArea", {|Self,nWidth, nHeight | Self, ::m_nWidth := nWidth, ::m_nHeight := nHeight }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HPager_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HPager_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT(); IIF( .F., s_oClass:ModMethod( "INIT", @HPager_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HPager_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Notify( lParam); IIF( .F., s_oClass:ModMethod( "Notify", @HPager_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Notify", @HPager_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PAGERSETCHILD(b); IIF( .F., s_oClass:ModInline( "PAGERSETCHILD", {|Self,b | Self, ::hTool := b, PAGERSETCHILD( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERSETCHILD", {|Self,b | Self, ::hTool := b, PAGERSETCHILD( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERRECALCSIZE(); IIF( .F., s_oClass:ModInline( "PAGERRECALCSIZE", {|Self | Self, PAGERRECALCSIZE( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERRECALCSIZE", {|Self | Self, PAGERRECALCSIZE( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERFORWARDMOUSE(b); IIF( .F., s_oClass:ModInline( "PAGERFORWARDMOUSE", {|Self,b | Self, PAGERFORWARDMOUSE( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERFORWARDMOUSE", {|Self,b | Self, PAGERFORWARDMOUSE( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERSETBKCOLOR(b); IIF( .F., s_oClass:ModInline( "PAGERSETBKCOLOR", {|Self,b | Self, PAGERSETBKCOLOR( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERSETBKCOLOR", {|Self,b | Self, PAGERSETBKCOLOR( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERGETBKCOLOR(); IIF( .F., s_oClass:ModInline( "PAGERGETBKCOLOR", {|Self | Self, PAGERGETBKCOLOR( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERGETBKCOLOR", {|Self | Self, PAGERGETBKCOLOR( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERSETBORDER(b); IIF( .F., s_oClass:ModInline( "PAGERSETBORDER", {|Self,b | Self, PAGERSETBORDER( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERSETBORDER", {|Self,b | Self, PAGERSETBORDER( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERGETBORDER(); IIF( .F., s_oClass:ModInline( "PAGERGETBORDER", {|Self | Self, PAGERGETBORDER( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERGETBORDER", {|Self | Self, PAGERGETBORDER( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERSETPOS(b); IIF( .F., s_oClass:ModInline( "PAGERSETPOS", {|Self,b | Self, PAGERSETPOS( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERSETPOS", {|Self,b | Self, PAGERSETPOS( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERGETPOS(); IIF( .F., s_oClass:ModInline( "PAGERGETPOS", {|Self | Self, PAGERGETPOS( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERGETPOS", {|Self | Self, PAGERGETPOS( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERSETBUTTONSIZE(b); IIF( .F., s_oClass:ModInline( "PAGERSETBUTTONSIZE", {|Self,b | Self, PAGERSETBUTTONSIZE( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERSETBUTTONSIZE", {|Self,b | Self, PAGERSETBUTTONSIZE( ::handle, b ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERGETBUTTONSIZE(); IIF( .F., s_oClass:ModInline( "PAGERGETBUTTONSIZE", {|Self | Self, PAGERGETBUTTONSIZE( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERGETBUTTONSIZE", {|Self | Self, PAGERGETBUTTONSIZE( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER PAGERGETBUTTONSTATE(); IIF( .F., s_oClass:ModInline( "PAGERGETBUTTONSTATE", {|Self | Self, PAGERGETBUTTONSTATE( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PAGERGETBUTTONSTATE", {|Self | Self, PAGERGETBUTTONSTATE( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HPager ;
+
+
+
+UTILITY STATIC function HPager_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lvert) ; local Self AS CLASS HPager := QSelf() AS CLASS HPager
+
+   ( (cCaption) := (cCaption) )
+
+   IF lvert == NIL ; lvert := .F. ; END
+   ::lvert := lvert
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ),  268435456 + 1073741824 + IF( lvert, 0x00000000, 0x00000001 ) )
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+   HWG_InitCommonControlsEx()
+
+
+   ::Activate()
+
+   RETURN Self
+
+
+
+
+UTILITY STATIC function HPager_Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lVert) ; local Self AS CLASS HPager := QSelf() AS CLASS HPager
+
+   ( (cCaption) := (cCaption) )
+
+   IF lVert == NIL ; lVert := .F. ; END
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+   HWG_InitCommonControlsEx()
+
+   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+
+   RETURN Self
+
+
+UTILITY STATIC function HPager_Activate() ; local Self AS CLASS HPager := QSelf() AS CLASS HPager
+
+   IF ! Empty( ::oParent:handle )
+
+
+      ::handle := CREATEPAGER( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, IF( ::lVert, 0x00000000, 0x00000001 ) )
+
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HPager_INIT() ; local Self AS CLASS HPager := QSelf() AS CLASS HPager
+
+   IF ! ::lInit
+      ::HControl:Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HPager_Notify( lParam) ; local Self AS CLASS HPager := QSelf() AS CLASS HPager
+
+   LOCAL nCode :=  GetNotifyCode( lParam )
+
+   IF nCode == (-900-2)
+      PAGERONPAGERCALCSIZE( lParam, ::hTool )
+   ELSEIF nCode == (-900-1)
+      PAGERONPAGERSCROLL( lParam )
+   ENDIF
+
+   RETURN 0

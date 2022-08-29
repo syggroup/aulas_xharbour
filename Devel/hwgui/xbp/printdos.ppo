@@ -1,0 +1,636 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 34 "source\printdos.prg"
+_HB_CLASS PrintDos ; UTILITY FUNCTION PrintDos(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "PrintDos" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER {AS CHARACTER cCompr, cNormal, oText, cDouble, cBold, cUnBold} ; IIF( !.F., s_oClass:AddMultiData( "CHARACTER",, nScope + IIF( .F., 32, 0 ), { "cCompr" , "cNormal" , "oText" , "cDouble" , "cBold" , "cUnBold" }, .F., .F. ), )
+   _HB_MEMBER {AS CHARACTER oPorta, oPicture} ; IIF( !.F., s_oClass:AddMultiData( "CHARACTER",, nScope + IIF( .F., 32, 0 ), { "oPorta" , "oPicture" }, .F., .F. ), )
+   _HB_MEMBER {AS NUMERIC orow, oCol} ; IIF( !.F., s_oClass:AddMultiData( "NUMERIC",, nScope + IIF( .F., 32, 0 ), { "orow" , "oCol" }, .F., .F. ), )
+   _HB_MEMBER { cEject, nProw, nPcol, fText, gText} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cEject" , "nProw" , "nPcol" , "fText" , "gText" }, .F., .F. ), )
+   _HB_MEMBER {AS NUMERIC oTopMar} ; IIF( !.F., s_oClass:AddMultiData( "NUMERIC",, nScope + IIF( .F., 32, 0 ), { "oTopMar" }, .F., .F. ), )
+   _HB_MEMBER {AS NUMERIC oLeftMar} ; IIF( !.F., s_oClass:AddMultiData( "NUMERIC",, nScope + IIF( .F., 32, 0 ), { "oLeftMar" }, .F., .F. ), )
+   _HB_MEMBER {AS LOGIC oAns2Oem} ; IIF( !.F., s_oClass:AddMultiData( "LOGIC",, nScope + IIF( .F., 32, 0 ), { "oAns2Oem" }, .F., .F. ), )
+   _HB_MEMBER { LastError} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "LastError" }, .F., .F. ), )
+   _HB_MEMBER { oPrintStyle} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "oPrintStyle" }, .F., .F. ), )
+   _HB_MEMBER { colorPreview} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "colorPreview" }, .F., .F. ), )
+   _HB_MEMBER { nStartPage} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nStartPage" }, .F., .F. ), )
+   _HB_MEMBER { nEndPage} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nEndPage" }, .F., .F. ), )
+   _HB_MEMBER { nCopy} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCopy" }, .F., .F. ), )
+
+   _HB_MEMBER New( oPorta) AS CLASS PrintDos; IIF( .F., s_oClass:ModMethod( "New", @PrintDos_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @PrintDos_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Say( oPRow, oPCol, oTexto, oPicture); IIF( .F., s_oClass:ModMethod( "Say", @PrintDos_Say(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Say", @PrintDos_Say(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER SetCols( nPRow, nPCol); IIF( .F., s_oClass:ModMethod( "SetCols", @PrintDos_SetCols(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetCols", @PrintDos_SetCols(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER gWrite( oText); IIF( .F., s_oClass:ModMethod( "gWrite", @PrintDos_gWrite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "gWrite", @PrintDos_gWrite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER NewLine(); IIF( .F., s_oClass:ModMethod( "NewLine", @PrintDos_NewLine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NewLine", @PrintDos_NewLine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Eject(); IIF( .F., s_oClass:ModMethod( "Eject", @PrintDos_Eject(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Eject", @PrintDos_Eject(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Compress(); IIF( .F., s_oClass:ModMethod( "Compress", @PrintDos_Compress(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Compress", @PrintDos_Compress(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Double(); IIF( .F., s_oClass:ModMethod( "Double", @PrintDos_Double(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Double", @PrintDos_Double(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER DesCompress(); IIF( .F., s_oClass:ModMethod( "DesCompress", @PrintDos_DesCompress(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DesCompress", @PrintDos_DesCompress(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Bold(); IIF( .F., s_oClass:ModMethod( "Bold", @PrintDos_Bold(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Bold", @PrintDos_Bold(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER UnBold(); IIF( .F., s_oClass:ModMethod( "UnBold", @PrintDos_UnBold(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "UnBold", @PrintDos_UnBold(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7,  oComm8, oComm9, oComm10); IIF( .F., s_oClass:ModMethod( "Comando", @PrintDos_Comando(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Comando", @PrintDos_Comando(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER SetPrc( x, y); IIF( .F., s_oClass:ModMethod( "SetPrc", @PrintDos_SetPrc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetPrc", @PrintDos_SetPrc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER PrinterFile( fName); IIF( .F., s_oClass:ModMethod( "PrinterFile", @PrintDos_PrinterFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PrinterFile", @PrintDos_PrinterFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER TxttoGraphic( fName, osize, oPreview); IIF( .F., s_oClass:ModMethod( "TxttoGraphic", @PrintDos_TxttoGraphic(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "TxttoGraphic", @PrintDos_TxttoGraphic(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Preview( fname, cTitle); IIF( .F., s_oClass:ModMethod( "Preview", @PrintDos_Preview(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Preview", @PrintDos_Preview(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @PrintDos_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @PrintDos_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS PrintDos ;
+
+UTILITY STATIC function PrintDos_New( oPorta) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+   LOCAL oDouble  := { "14",   "27,33,32",   "27,40,115,49,48,72" }
+   LOCAL oNormal  := { "18",   "27,33,00",   "27,40,115,49,50,72" }
+   LOCAL oCompress := { "15", "27,33,04", "27,40,115,49,56,72" }
+   LOCAL oBold    := { "27,71",     "27,40,115,55,66",     "27,40,49,54,46,54,55,72"  }
+   LOCAL oUnBold  := { "27,72",   "27,40,115,48,66",   "27,40,115,49,50,72" }
+   LOCAL oPtrSetup, oPtrName
+
+   ::cCompr   := oCompress[ ::oPrintStyle ]
+   ::cNormal  := oNormal[ ::oPrintStyle ]
+   ::cDouble  := oDouble[ ::oPrintStyle ]
+   ::cBold    := oBold[ ::oPrintStyle ]
+   ::cUnBold  := oUnBold[ ::oPrintStyle ]
+   ::cEject   := "12"
+   ::nProw    := 0
+   ::nPcol    := 0
+   ::oTopMar  := 0
+   ::oAns2Oem := .T.
+   ::oLeftMar := 0
+   ::oText    := ""
+
+   IF Empty( oPorta )
+      ::oPorta       := "LPT1"
+   ELSE
+      IF oPorta == "DEFAULT"
+         oPtrName := PrintPortName()
+         IF oPtrName == Nil
+            MsgInfo( "Error, file to:ERROR.TXT" )
+            ::oPorta := "Error.txt"
+         ELSE
+            ::oPorta := oPtrName
+         ENDIF
+      ELSEIF oPorta == "SELECT"
+
+
+            oPtrSetup := PrintSetupDos( @::nStartPage, @::nEndPage, @::nCopy )
+
+
+
+         IF oPtrSetup == Nil
+            MsgInfo( "Error, file to:ERROR.TXT" )
+            ::oPorta := "Error.txt"
+         ELSE
+            oPtrName := PrintPortName()
+            IF oPtrName == Nil
+               MsgInfo( "Error, file to:ERROR.TXT" )
+               ::oPorta := "Error.txt"
+            ELSE
+               oPtrName := AllTrim( oPtrName )
+               IF SubStr( oPtrName, 1, 3 ) == "LPT"
+                  oPtrName := Left( oPtrName, Len( oPtrName ) - 1 )
+               ENDIF
+               ::oPorta := oPtrName
+            ENDIF
+         ENDIF
+      ELSE
+         ::oPorta     := oPorta
+      ENDIF
+   ENDIF
+
+   IF oPorta == "GRAPHIC" .OR. oPorta == "PREVIEW"
+      ::gText := ""
+   ELSE
+
+      ::gText := FCreate( ::oPorta )
+
+      IF ::gText < 0
+         ::LastError := FError()
+      ELSE
+         ::LastError := 0
+      ENDIF
+   ENDIF
+
+
+   RETURN Self
+
+
+
+UTILITY STATIC function PrintDos_Comando( oComm1, oComm2, oComm3, oComm4, oComm5, oComm6, oComm7,  oComm8, oComm9, oComm10) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   LOCAL oStr := oComm1
+
+   oStr := Chr( Val ( oComm1 ) )
+
+   IF oComm2  <> NIL ;  oStr += Chr( Val( oComm2 ) ) ;   ENDIF
+   IF oComm3  <> NIL ;  oStr += Chr( Val( oComm3 ) ) ;   ENDIF
+   IF oComm4  <> NIL ;  oStr += Chr( Val( oComm4 ) ) ;   ENDIF
+   IF oComm5  <> NIL ;  oStr += Chr( Val( oComm5 ) ) ;   ENDIF
+   IF oComm6  <> NIL ;  oStr += Chr( Val( oComm6 ) ) ;   ENDIF
+   IF oComm7  <> NIL ;  oStr += Chr( Val( oComm7 ) ) ;   ENDIF
+   IF oComm8  <> NIL ;  oStr += Chr( Val( oComm8 ) ) ;   ENDIF
+   IF oComm9  <> NIL ;  oStr += Chr( Val( oComm9 ) ) ;   ENDIF
+   IF oComm10 <> NIL ;  oStr += Chr( Val( oComm10 ) ) ;   ENDIF
+
+
+   IF ::oAns2Oem
+      ::oText += HB_ANSITOOEM( oStr )
+   ELSE
+      ::oText += oStr
+   ENDIF
+
+   RETURN Nil
+
+
+UTILITY STATIC function PrintDos_gWrite( oText) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+
+   IF ::oAns2Oem
+      ::oText += HB_ANSITOOEM( oText )
+      ::nPcol += Len( HB_ANSITOOEM( oText ) )
+   ELSE
+      ::oText += oText
+      ::nPcol += Len( oText )
+   ENDIF
+
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_Eject() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+
+   FWrite( ::gText, ::oText )
+
+   IF ::oAns2Oem
+      FWrite( ::gText, HB_ANSITOOEM( Chr( 13 ) + Chr( 10 ) + Chr( Val( ::cEject ) ) ) )
+      FWrite( ::gText, HB_ANSITOOEM( Chr( 13 ) + Chr( 10 ) ) )
+   ELSE
+      FWrite( ::gText, Chr( 13 ) + Chr( 10 ) + Chr( Val( ::cEject ) ) )
+      FWrite( ::gText, Chr( 13 ) + Chr( 10 ) )
+   ENDIF
+
+   ::oText := ""
+   ::nProw := 0
+   ::nPcol := 0
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_Compress() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   ::Comando( ::cCompr )
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_Double() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   ::Comando( ::cDouble )
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_DesCompress() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   ::Comando( ::cNormal )
+
+   RETURN Nil
+
+
+
+UTILITY STATIC function PrintDos_Bold() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   ::Comando( ::cBold )
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_UnBold() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   ::Comando( ::cUnBold )
+
+   RETURN Nil
+
+
+UTILITY STATIC function PrintDos_NewLine() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   IF ::oAns2Oem
+      ::oText += HB_ANSITOOEM( Chr( 13 ) + Chr( 10 ) )
+   ELSE
+      ::oText += Chr( 13 ) + Chr( 10 )
+   ENDIF
+   ::nPcol := 0
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_Say( oProw, oPcol, oTexto, oPicture) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   IF ValType( oTexto ) == "N"
+
+      IF ! Empty( oPicture ) .OR. oPicture # Nil
+         oTexto := Transform( oTexto, oPicture )
+      ELSE
+         oTexto := Str( oTexto )
+      ENDIF
+
+   ELSEIF ValType( oTexto ) == "D"
+      oTexto := DToC( oTexto )
+   ELSE
+      IF ! Empty( oPicture ) .OR. oPicture # Nil
+         oTexto := Transform( oTexto, oPicture )
+      ENDIF
+   ENDIF
+
+   ::SetCols( oProw, oPcol )
+
+   ::gWrite( oTexto )
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_SetCols( nProw, nPcol) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   IF ::nProw > nProw
+      ::Eject()
+   ENDIF
+
+   IF ::nProw < nProw
+      while ::nProw < nProw
+         ::NewLine()
+         ++ ::nProw
+      ENDDO
+   ENDIF
+
+   IF nProw == ::nProw  .AND. nPcol < ::nPcol
+      ::Eject()
+   ENDIF
+
+   IF nPcol > ::nPcol
+      ::gWrite( Space( nPcol - ::nPcol ) )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_SetPrc( x, y) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+   ::nProw := x
+   ::nPCol := y
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_END() ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   FWrite( ::gText, ::oText )
+   FClose( ::gText )
+
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_PrinterFile( fname) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+   LOCAL strbuf := Space( 2048 )
+   LOCAL han, nRead
+
+   IF ! File( fname )
+      MsgStop( "Error open file " + fname, "Error" )
+      RETURN .F.
+   ENDIF
+
+   han := FOpen( fname, 2 + 16 )
+
+   IF han <> - 1
+
+      while .T.
+
+         nRead := FRead( han, @strbuf, 2048 )
+
+         IF nRead = 0 ; EXIT ; ENDIF
+
+         IF FWrite( ::gText, Left( strbuf, nRead ) ) < nRead
+            ::ErrosAnt := FError()
+            FClose( han )
+            RETURN .F.
+         ENDIF
+
+      ENDDO
+
+   ELSE
+
+      MsgStop( "Can't Open port" )
+      FClose( han )
+
+   ENDIF
+
+   RETURN .T.
+
+FUNCTION wProw( oPrinter )
+   RETURN oPrinter:nProw
+
+FUNCTION wPCol( oPrinter )
+   RETURN oPrinter:nPcol
+
+FUNCTION wSetPrc( x, y, oPrinter )
+   oPrinter:SetPrc( x, y )
+   RETURN Nil
+
+UTILITY STATIC function PrintDos_TxttoGraphic( fName, osize, oPreview) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+
+   LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
+   LOCAL han := FOpen( fName, 0 + 64 )
+   LOCAL oCol := 0
+   LOCAL oPrinter
+   LOCAL oFont
+
+   oPrinter := HPrinter():New(,!.F.,,, .F., )
+
+   IF oPrinter == nil
+      RETURN .F.
+   ENDIF
+
+   oFont := oPrinter:AddFont( "Courier New", osize )
+
+   oPrinter:StartDoc( oPreview  )
+   oPrinter:StartPage()
+
+   SelectObject( oPrinter:hDC, oFont:handle )
+
+   IF han <> - 1
+      while .T.
+         stroka := RDSTR( han, @strbuf, @poz, 2052 )
+         IF Len( stroka ) = 0
+            EXIT
+         ENDIF
+         IF osize < 0
+            oPrinter:Say( stroka, 0, oCol, 2400, oCol + ( - osize + 2 ),, oFont )
+            oCol := oCol + ( - osize + 2 )
+         ELSE
+            oPrinter:Say( stroka, 0, oCol, 2400, oCol + ( osize + 2 ),, oFont )
+            oCol := oCol + ( osize + 2 )
+         ENDIF
+
+         IF Left( stroka, 1 ) == Chr( 12 )
+            oPrinter:EndPage()
+            oPrinter:StartPage()
+            oCol := 0
+         ENDIF
+
+      ENDDO
+      FClose( han )
+   ELSE
+      MsgStop( "Can't open " + fName )
+      RETURN .F.
+   ENDIF
+   oPrinter:EndPage()
+   oPrinter:EndDoc()
+   oPrinter:Preview()
+   oPrinter:END()
+   oFont:Release()
+
+   RETURN .T.
+
+UTILITY STATIC function PrintDos_Preview( fName, cTitle) ; local Self AS CLASS PrintDos := QSelf() AS CLASS PrintDos
+   LOCAL oedit1
+   LOCAL strbuf := Space( 2052 ), poz := 2052, stroka
+   LOCAL han := FOpen( fName, 0 + 64 )
+   LOCAL oPage := 1, nPage := 1
+   LOCAL oFont := HFont():Add( "Courier New", 0, - 13 )
+   LOCAL oText := { "" }
+   LOCAL oDlg, oColor1, oColor2
+   LOCAL oEdit
+   LOCAL oPrt := IIf( Empty( ::oPorta ) .OR. ::oPorta == "PREVIEW", "LPT1", ::oPorta )
+
+   IF han <> - 1
+      while .T.
+         stroka := RDSTR( han, @strbuf, @poz, 2052 )
+         IF Len( stroka ) = 0
+            EXIT
+         ENDIF
+         IF ::oAns2Oem
+            oText[ oPage ] += HB_ANSITOOEM( stroka ) + Chr( 13 ) + Chr( 10 )
+         ELSE
+            oText[ oPage ] += stroka + Chr( 13 ) + Chr( 10 )
+         ENDIF
+         IF Left( stroka, 1 ) == Chr( 12 )
+            AAdd( oText, "" )
+            ++ oPage
+         ENDIF
+      ENDDO
+      FClose( han )
+   ELSE
+      MsgStop( "Can't open " + fName )
+      RETURN .F.
+   ENDIF
+
+   oEdit := SUBS( oText[ nPage ], 2 )
+
+   IF ! Empty( ::colorpreview )
+      oColor1 := ::colorpreview[ 1 ]
+      oColor2 := ::colorpreview[ 2 ]
+   ELSE
+      oColor1 := 16777088
+      oColor2 := 0
+   ENDIF
+
+   IIf( cTitle == Nil, cTitle := "Print Preview", cTitle := cTitle )
+
+
+   oDlg := HDialog():New( Iif(.F.,10,11),,0,0,GETDESKTOPWIDTH(),GETDESKTOPHEIGHT(),cTitle,,{ || Sendmessage( oedit1:handle, 277  , 6, 0 ) },,,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+
+
+
+
+
+
+
+
+   oedit1 := HEdit():New(,1001,oEdit,,2097152 + 1048576 + 128 + 4,88,19,GETDESKTOPWIDTH() - 100, GETDESKTOPHEIGHT() - 100,oFont,,,,,,,oColor1,oColor2,,.F.,,.F.,,,,.F. ); oedit1:name := "oedit1"
+
+
+
+
+
+
+
+   HButton():New(,,IF( nPage = 1, 134217728, 0 ),6,30,69, 32,"<<",,,,,{ || nPage := PrintDosAnt( nPage, oText ) },,,,,.F. );
+   HButton():New(,,IF( nPage = 1, 134217728, 0 ),6,80,69, 32,">>",,,,,{ || nPage := PrintDosNext( oPage, nPage, oText ) },,,,,.F. );
+   HButton():New(,,,6,130,69, 32,"Imprimir",,,,,{ || PrintDosPrint( oText, oPrt ) },,,,,.F. );
+
+   HButton():New(,,,6,230,69, 32,"Fechar",,,,,{ || EndDialog() },,,,,.F. );
+
+   oDlg:Activate()
+
+   RETURN .T.
+
+STATIC FUNCTION PrintDosPrint( oText, oPrt )
+   LOCAL i
+   LOCAL nText := FCreate( oPrt )
+   FOR i := 1 TO Len( oText )
+      FWrite( nText, oText[ i ] )
+   NEXT
+   FClose( nText )
+   RETURN Nil
+
+
+STATIC FUNCTION PrintDosAnt( nPage, oText )
+   LOCAL oDlg := GetModalhandle()
+   nPage := -- nPage
+   IF nPage < 1 ; nPage := 1 ; ENDIF
+   IF nPage = 1
+      SetDlgItemText( oDlg, 1001, SUBS( oText[ nPage ], 2 ) )
+   ELSE
+      SetDlgItemText( oDlg, 1001, oText[ nPage ] )
+   ENDIF
+   RETURN nPage
+
+STATIC FUNCTION PrintDosNext( oPage, nPage, oText )
+   LOCAL oDlg := GetModalhandle()
+   nPage := ++ nPage
+   IF nPage > oPage ; nPage := oPage ; ENDIF
+   SetDlgItemText( oDlg, 1001, oText[ nPage ] )
+   RETURN nPage
+
+FUNCTION regenfile( o, new )
+   LOCAL aText := AFillText( o )
+   LOCAL stroka
+   LOCAL o1 := printdos():new( new )
+   LOCAL nLine := 0
+   LOCAL nChr12
+   LOCAL i
+
+   FOR i := 1 TO Len( aText )
+
+      stroka := aText[ i ]
+      nChr12 := At( Chr( 12 ), stroka )
+
+      IF nChr12 > 0
+         stroka := SubStr( stroka, 1, nChr12 - 1 )
+      ENDIF
+      o1:say( nLine, 0, stroka )
+      nLine ++
+
+      IF nChr12 > 0
+         o1:eject()
+         nLine := 0
+      ENDIF
+
+   NEXT
+
+   RETURN Nil
+
+#pragma BEGINDUMP
+/*
+   txtfile.c
+   AFILLTEXT( cFile ) -> aArray
+   NTXTLINE( cFile )  -> nLines
+*/
+
+#include "guilib.h"
+#include "hbapiitm.h"
+#include "hbstack.h"
+#ifdef __XHARBOUR__
+#include "hbfast.h"
+#endif
+
+#undef LINE_MAX
+// #define LINE_MAX 4096
+// #define LINE_MAX 8192
+// #define LINE_MAX 16384
+#define LINE_MAX    0x20000
+//----------------------------------------------------------------------------//
+static HB_BOOL file_read ( FILE *stream, char *string )
+{
+   int ch, cnbr = 0;
+
+   memset (string, ' ', LINE_MAX);
+
+   for (;;)
+   {
+      ch = fgetc (stream);
+
+      if ( (ch == '\n') ||  (ch == EOF) ||  (ch == 26) )
+      {
+         string [cnbr] = '\0';
+         return (ch == '\n' || cnbr);
+      }
+      else
+      {
+         if ( cnbr < LINE_MAX && ch != '\r' )
+         {
+            string [cnbr++] = (char) ch;
+         }
+      }
+
+      if (cnbr >= LINE_MAX)
+      {
+         string [LINE_MAX] = '\0';
+         return (HB_TRUE);
+      }
+   }
+}
+
+//----------------------------------------------------------------------------//
+HB_FUNC( AFILLTEXT )
+{
+   FILE *inFile ;
+   const char *pSrc = hb_parc(1) ;
+   PHB_ITEM pArray = hb_itemNew(NULL);
+   PHB_ITEM pTemp = hb_itemNew(NULL);
+   char *string ;
+
+   if ( !pSrc )
+   {
+      hb_reta( 0 );
+      return;
+   }
+
+   if ( strlen( pSrc ) == 0 )
+   {
+      hb_reta( 0 );
+      return;
+   }
+   inFile = fopen( pSrc, "r" );
+
+   if ( !inFile )
+   {
+      hb_reta( 0 );
+      return;
+   }
+
+   string = (char*) hb_xgrab( LINE_MAX + 1 );
+   hb_arrayNew( pArray, 0 );
+
+   while ( file_read ( inFile, string ) )
+   {
+      hb_arrayAddForward( pArray, hb_itemPutC( pTemp, string ));
+   }
+
+   hb_itemRelease( hb_itemReturn( pArray ) );
+   hb_itemRelease( pTemp );
+   hb_xfree( string );
+   fclose( inFile );
+}
+
+#pragma ENDDUMP

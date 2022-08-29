@@ -1,0 +1,210 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 20 "source\hfreeimg.prg"
+_HB_CLASS HFreeImage ; UTILITY FUNCTION HFreeImage(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HFreeImage" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aImages} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aImages" }, .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { hBitmap} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hBitmap" }, .F., .F. ), )
+   _HB_MEMBER { name} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "name" }, .F., .F. ), )
+   _HB_MEMBER { nWidth, nHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nWidth" , "nHeight" }, .F., .F. ), )
+   _HB_MEMBER { nCounter} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCounter" }, .F., .F. ), )
+
+   _HB_MEMBER AddFile( name); IIF( .F., s_oClass:ModMethod( "AddFile", @HFreeImage_AddFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddFile", @HFreeImage_AddFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddFromVar( cImage, cType); IIF( .F., s_oClass:ModMethod( "AddFromVar", @HFreeImage_AddFromVar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddFromVar", @HFreeImage_AddFromVar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER FromBitmap( oBitmap); IIF( .F., s_oClass:ModMethod( "FromBitmap", @HFreeImage_FromBitmap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FromBitmap", @HFreeImage_FromBitmap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Draw( hDC, nLeft, nTop, nWidth, nHeight); IIF( .F., s_oClass:ModMethod( "Draw", @HFreeImage_Draw(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Draw", @HFreeImage_Draw(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HFreeImage_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HFreeImage_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HFreeImage ;
+
+UTILITY STATIC function HFreeImage_AddFile( name) ; local Self AS CLASS HFreeImage := QSelf() AS CLASS HFreeImage
+   LOCAL i
+
+
+      FOR EACH i IN ::aImages
+         IF i:name == name
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+   IF Empty( ::handle := FI_Load( name ) )
+      RETURN Nil
+   ENDIF
+   ::name := name
+   ::nWidth  := FI_GetWidth( ::handle )
+   ::nHeight := FI_GetHeight( ::handle )
+   AAdd( ::aImages, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HFreeImage_AddFromVar( cImage, cType) ; local Self AS CLASS HFreeImage := QSelf() AS CLASS HFreeImage
+
+   IF Empty( ::handle := FI_LoadFromMem( cImage, cType ) )
+      RETURN Nil
+   ENDIF
+   ::name := LTrim( Str( ::handle ) )
+   ::nWidth  := FI_GetWidth( ::handle )
+   ::nHeight := FI_GetHeight( ::handle )
+   AAdd( ::aImages, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HFreeImage_FromBitmap( oBitmap) ; local Self AS CLASS HFreeImage := QSelf() AS CLASS HFreeImage
+
+   ::handle := FI_Bmp2FI( oBitmap:handle )
+   ::name := LTrim( Str( oBitmap:handle ) )
+   ::nWidth  := FI_GetWidth( ::handle )
+   ::nHeight := FI_GetHeight( ::handle )
+   AAdd( ::aImages, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HFreeImage_Draw( hDC, nLeft, nTop, nWidth, nHeight) ; local Self AS CLASS HFreeImage := QSelf() AS CLASS HFreeImage
+
+   FI_Draw( ::handle, hDC, ::nWidth, ::nHeight, nLeft, nTop, nWidth, nHeight )
+
+   RETURN Nil
+
+UTILITY STATIC function HFreeImage_Release() ; local Self AS CLASS HFreeImage := QSelf() AS CLASS HFreeImage
+   LOCAL i, nlen := Len( ::aImages )
+
+   ::nCounter --
+   IF ::nCounter == 0
+
+         FOR EACH i IN ::aImages
+            IF i:handle == ::handle
+               FI_Unload( ::handle )
+               IF ::hBitmap <> Nil
+                  DeleteObject( ::hBitmap )
+               ENDIF
+               ADel( ::aImages, hB_enumIndex() )
+               ASize( ::aImages, nlen - 1 )
+               EXIT
+            ENDIF
+         NEXT
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+
+
+_HB_CLASS HSayFImage ; UTILITY FUNCTION HSayFImage(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HSayFImage" , {HSayImage():classh} ) ) ; ;
+
+   _HB_MEMBER { nOffsetV} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nOffsetV" }, .F., .F. ), )
+   _HB_MEMBER { nOffsetH} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nOffsetH" }, .F., .F. ), )
+   _HB_MEMBER { nZoom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nZoom" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit,  bSize, ctooltip, cType); IIF( .F., s_oClass:ModMethod( "New", @HSayFImage_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HSayFImage_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip); IIF( .F., s_oClass:ModMethod( "Redefine", @HSayFImage_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HSayFImage_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReplaceImage( Image, cType); IIF( .F., s_oClass:ModMethod( "ReplaceImage", @HSayFImage_ReplaceImage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReplaceImage", @HSayFImage_ReplaceImage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpdis); IIF( .F., s_oClass:ModMethod( "Paint", @HSayFImage_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HSayFImage_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HSayFImage ;
+
+
+UTILITY STATIC function HSayFImage_New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, Image, bInit,  bSize, ctooltip, cType) ; local Self AS CLASS HSayFImage := QSelf() AS CLASS HSayFImage
+
+   IF Image <> Nil
+
+      ::oImage := IIf( ValType( Image ) == "C",  IIf( cType <> Nil, HFreeImage():AddFromVar( Image, cType ), HFreeImage():AddFile( Image ) ), Image )
+      IF nWidth == Nil
+         nWidth  := ::oImage:nWidth
+         nHeight := ::oImage:nHeight
+      ENDIF
+   ENDIF
+   ::HSayImage:New( oWndParent, nId, 13, nLeft, nTop, nWidth, nHeight, bInit, bSize, ctooltip )
+
+
+   ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
+
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HSayFImage_Redefine( oWndParent, nId, Image, bInit, bSize, ctooltip) ; local Self AS CLASS HSayFImage := QSelf() AS CLASS HSayFImage
+
+   ::oImage := IIf( ValType( Image ) == "C", HFreeImage():AddFile( Image ), Image )
+
+   ::HSayImage:Redefine( oWndParent, nId, bInit, bSize, ctooltip )
+
+
+   ::bPaint  := { | o, lpdis | o:Paint( lpdis ) }
+
+   RETURN Self
+
+UTILITY STATIC function HSayFImage_ReplaceImage( Image, cType) ; local Self AS CLASS HSayFImage := QSelf() AS CLASS HSayFImage
+
+   IF ::oImage <> Nil
+      ::oImage:Release()
+   ENDIF
+
+   ::oImage := IIf( ValType( Image ) == "C",  IIf( cType <> Nil, HFreeImage():AddFromVar( Image, cType ), HFreeImage():AddFile( Image ) ), Image )
+
+   RETURN Nil
+
+UTILITY STATIC function HSayFImage_Paint( lpdis) ; local Self AS CLASS HSayFImage := QSelf() AS CLASS HSayFImage
+   LOCAL drawInfo := GetDrawItemInfo( lpdis )
+   LOCAL hDC := drawInfo[ 3 ]
+
+   IF ::oImage <> Nil
+      IF ::nZoom == Nil
+         ::oImage:Draw( hDC, ::nOffsetH, ::nOffsetV, ::nWidth, ::nHeight )
+      ELSE
+         ::oImage:Draw( hDC, ::nOffsetH, ::nOffsetV, ::oImage:nWidth * ::nZoom, ::oImage:nHeight * ::nZoom )
+      ENDIF
+   ENDIF
+
+   RETURN Self
+
+
+   EXIT PROCEDURE CleanImages
+   LOCAL i
+
+   FOR i := 1 TO Len( HFreeImage():aImages )
+      FI_Unload( HFreeImage():aImages[ i ]:handle )
+      IF HFreeImage():aImages[ i ]:hBitmap <> Nil
+         DeleteObject( HFreeImage():aImages[ i ]:hBitmap )
+      ENDIF
+   NEXT
+   FI_End()
+
+   RETURN

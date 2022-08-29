@@ -1,0 +1,7 @@
+testget1.prg
+-i..\..\include
+-lhwgui
+-lprocmisc
+-lhbxml
+-L..\..\lib
+-gui

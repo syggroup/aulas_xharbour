@@ -1,0 +1,20 @@
+Error BASE/1073  Argument error: <
+Called from source\hcontrol.prg->HSTATIC:ONANCHOR(484)
+Called from source\hcwindow.prg->HDIALOG:ANCHOR(413)
+Called from source\hdialog.prg->ONSIZE(652)
+Called from source\hdialog.prg->(b)(_INITSTATICS00003)(0)
+Called from source\hdialog.prg->HDIALOG:ONEVENT(254)
+Called from ->HWG_DLGBOXINDIRECT(0)
+Called from source\hdialog.prg->HDIALOG:ACTIVATE(187)
+Called from calculator.prg->CALCULATOR(62)
+Called from calculator.prg->(b)MAIN(22)
+Called from source\hwindow.prg->ONCOMMAND(833)
+Called from source\hwindow.prg->(b)HMAINWINDOW(235)
+Called from source\hwindow.prg->HMAINWINDOW:ONEVENT(428)
+Called from ->HWG_ACTIVATEMAINWINDOW(0)
+Called from source\hwindow.prg->HMAINWINDOW:ACTIVATE(386)
+Called from calculator.prg->MAIN(25)
+
+HwGUI 2.17 xHarbour build 1.2.1 Intl. (SimpLex) (Rev. 6633)
+Date:09/06/12
+Time:11:26:59

@@ -1,0 +1,47 @@
+application_ico  ICON     res\icone.ico
+1 24 "res\WindowsXP.Manifest"
+
+ICON_1 ICON  res\icone.ico
+
+1003 BITMAP "Res\\\selo.bmp"
+1004 ICON   "Res\\icone.ico"
+1005 BITMAP "Res\\sair.bmp"
+1006 BITMAP "Res\\ok.bmp"
+1007 BITMAP "Res\\maiszoon.bmp"
+1008 BITMAP "Res\\menoszoon.bmp"
+1009 BITMAP "Res\\printer.bmp"
+1010 BITMAP "Res\\pdf.bmp"
+1011 BITMAP "Res\\word.bmp"
+1012 BITMAP "Res\\html.bmp"
+1013 BITMAP "Res\\excel.bmp"
+1014 BITMAP "Res\\email.bmp"
+1015 BITMAP "Res\\construcao.bmp"
+
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEOS 0x4
+FILETYPE 0x1
+{
+BLOCK "StringFileInfo"
+{
+ BLOCK "040904b0"
+ {
+        VALUE "FileDescription", "SISTEMA GERENCIADOR DE MENSALIDADE\000"
+        VALUE "FileVersion", "1.0076\000"
+        VALUE "InternalName", "Projeto Gerenciador\000"
+        VALUE "LegalCopyright", "Sygecom Informática Ltda\000"
+        VALUE "LegalTrademarks", "SCM / SYGECOM\000"
+        VALUE "OriginalFilename", "SCM.EXE"
+        VALUE "CompanyName", "Sygecom Informática Ltda\000"
+        VALUE "ProductName", "SISTEMA DE CONTROLE DE MENSALIDADES\000"
+        VALUE "ProductVersion", "1.0000\000"
+        VALUE "Comments", "Sistema Desenvolvido Pela Sygecom Informática - sygecom@sygecom.com.br - www.sygecom.com.br - Programador Responsavel.: Leonardo Machado\000"
+ }
+}
+
+BLOCK "VarFileInfo"
+{
+ VALUE "Translation", 0x0409 0x04B0
+}
+}

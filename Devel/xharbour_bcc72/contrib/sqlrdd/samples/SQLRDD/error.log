@@ -1,0 +1,165 @@
+----------------------------- xHarbour Error Log ------------------------------
+
+Date...............: 06/10/2011
+Time...............: 15:21:21
+
+Application name...: D:\devel\xharbour\contrib\sqlrdd\samples\SQLRDD\demo01.exe
+Workstation name...: LEONARDO-PC
+Available memory...: 2768704
+Current disk.......: D
+Current directory..: devel\xharbour\contrib\sqlrdd\samples\SQLRDD
+Free disk space....: 113783914496
+
+Operating system...: Windows  Windows Vista Professional 6.01.7600
+xHarbour version...: xHarbour build 1.2.1 Intl. (SimpLex) (Rev. 6633)
+xHarbour built on..: Nov  5 2009 13:17:52
+C/C++ compiler.....: Borland C++ 5.5.1 (32 bit)
+Multi Threading....: NO
+VM Optimization....: 2
+
+-------------------------- Environmental Information --------------------------
+
+SET ALTERNATE......: OFF
+SET ALTFILE........: 
+SET AUTOPEN........: ON
+SET AUTORDER.......: 0
+SET AUTOSHARE......: 0
+SET BACKGROUNDTASKS: OFF
+SET BACKGROUNDTICK.: 1000
+SET BELL...........: OFF
+SET BLINK..........: .T.
+SET CANCEL.........: ON
+SET CENTURY........: ON
+SET COLOR..........: W/N,N/W,N/N,N/N,N/W
+SET CONFIRM........: ON
+SET CONSOLE........: ON
+SET COUNT..........: 0
+SET CURSOR.........: 1
+SET DATE FORMAT....: DD/MM/YYYY
+SET DBFLOCKSCHEME..: 0
+SET DEBUG..........: OFF
+SET DECIMALS.......: 2
+SET DEFAULT........: 
+SET DEFEXTENSIONS..: ON
+SET DELETED........: ON
+SET DELIMCHARS.....: ::
+SET DELIMETERS.....: OFF
+SET DEVICE.........: SCREEN
+SET DIRCASE........: 0
+SET DIRSEPARATOR...: \
+SET EOL............: 13
+SET EPOCH..........: 2000
+SET ERRORLOG.......: ERROR.LOG,.F.
+SET ERRORLOOP......: 8
+SET ESCAPE.........: ON
+SET EVENTMASK......: 128
+SET EXACT..........: ON
+SET EXCLUSIVE......: OFF
+SET EXIT...........: OFF
+SET EXTRA..........: OFF
+SET EXTRAFILE......: 
+SET FILECASE.......: 0
+SET FIXED..........: OFF
+SET FORCEOPT.......: OFF
+SET HARDCOMMIT.....: ON
+SET IDLEREPEAT.....: ON
+SET INSERT.........: OFF
+SET INTENSITY......: ON
+SET LANGUAGE.......: EN
+SET MARGIN.........: 0
+SET MBLOCKSIZE.....: 0
+SET MCENTER........: OFF
+SET MESSAGE........: 0
+SET MFILEEXT.......: 
+SET OPTIMIZE.......: ON
+SET OUTPUTSAFETY...: ON
+SET PATH...........: 
+SET PRINTER........: OFF
+SET PRINTERJOB.....: 
+SET PRINTFILE......: PRN
+SET SCOREBOARD.....: OFF
+SET SCROLLBREAK....: ON
+SET SOFTSEEK.......: OFF
+SET STRICTREAD.....: ON
+SET TRACE..........: ON
+SET TRACEFILE......: TRACE.LOG
+SET TRACESTACK.....: 2
+SET TRIMFILENAME...: .F.
+SET TYPEAHEAD......: 50
+SET UNIQUE.........: OFF
+SET VIDEOMODE......: 0
+SET WRAP...........: ON
+
+---------------------------Detailed Work Area Items----------------------------
+
+
+-------------------- Internal Error Handling Information  ---------------------
+
+Subsystem Call ....: SR_PGS
+System Code .......: 0
+Default Status ....: .F.
+Description .......: SQLExecDirect Error
+(-1) PGRES_FATAL_ERROR - ERRO:  coluna "recebido" não existe
+LINE 1: ...pediten_c where codpro='000008' and subcod='' and recebido O...
+                                                             ^
+
+Command sent to database : 
+select preco,dataped from pediten_c where codpro='000008' and subcod='' and recebido ORDER BY dataped DESC LIMIT 1
+Steatment handle  : 
+Connection handle : 
+RetCode           :         -1
+ - RollBack executed.
+Operation .........: 
+Arguments .........: 
+Involved File .....: 
+Dos Error Code ....: 0
+
+ Trace Through:
+----------------
+SR_PGS:RUNTIMEERR     :     836 in Module: ..\source\sqlconnection.prg
+SR_PGS:RUNTIMEERR     :     861 in Module: ..\source\sqlconnection.prg
+SR_PGS:EXEC           :     367 in Module: ..\source\sqlconnection.prg
+MAIN                  :      68 in Module: demo01.prg
+
+
+############################## Video Screen Dump ##############################
+
++--------------------------------------------------------------------------------+
+|                                                                                |
+|Connecting to pgs=localhost;uid=sygecom;dtb=cofarja3;pwd=253565                 |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|Table opened. Alias :          1 PRO_DIV SQLRDD                                 |
+|Error SR_PGS/0  SQLExecDirect Error                                             |
+|(-1) PGRES_FATAL_ERROR - ERRO:  coluna "recebido" não existe                    |
+|LINE 1: ...pediten_c where codpro='000008' and subcod='' and recebido O...      |
+|                                                             ^                  |
+|                                                                                |
+|Command sent to database :                                                      |
+|select preco,dataped from pediten_c where codpro='000008' and subcod='' and rece|
+|bido ORDER BY dataped DESC LIMIT 1                                              |
+|Steatment handle  :                                                             |
+|Connection handle :                                                             |
+|RetCode           :         -1                                                  |
+| - RollBack executed. Arguments: ()                                             |
+|                                                                                |
+|Error at ...: SR_PGS:RUNTIMEERR(836) in Module: ..\source\sqlconnection.prg     |
+|Called from : SR_PGS:RUNTIMEERR(861) in Module: ..\source\sqlconnection.prg     |
+|Called from : SR_PGS:EXEC(367) in Module: ..\source\sqlconnection.prg           |
+|Called from : MAIN(68) in Module: demo01.prg                                    |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
+|                                                                                |
++--------------------------------------------------------------------------------+
+
+

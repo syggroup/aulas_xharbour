@@ -1,0 +1,17 @@
+Anchor é uma propriedade para Reposicionar, Redimensionar objetos caso desejar , quando o form é redimensionado.
+Valores do anchor
+1   - TOP ABSOLUTO
+2   - LEFT ABSOLUTO
+4   - BOTTOM ABSOLUTO
+8   - RIGHT ABSOLUTO
+16  - TOP RELATIVO
+32  - LEFT RELATIVO
+64  - BOTTOM RELATIVO
+128 - RIGHT RELATIVO
+
+ou pode se usar uma combinações deles
+Exemplo
+
+Então 12 = BOTTOM ABSOLUTO + RIGHT ABSOLUTO
+significa FUNDO ABSOLUTO + DIREITA ABSOLUTO
+SIGNIFICA no fundo do lado direito

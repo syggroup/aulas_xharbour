@@ -1,0 +1,307 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 22 "source\hdatepic.prg"
+_HB_CLASS HDatePicker ; UTILITY FUNCTION HDatePicker(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HDatePicker" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "SYSDATETIMEPICK32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { bSetGet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSetGet" }, .F., .F. ), )
+   _HB_MEMBER { dValue, tValue} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "dValue" , "tValue" }, .F., .F. ), )
+   _HB_MEMBER { bChange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChange" }, .F., .F. ), )
+   _HB_MEMBER { lnoValid} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lnoValid" }, .F., .F. ), )
+   _HB_MEMBER { lShowTime} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lShowTime" }, .F., .F. ), )
+   _HB_MEMBER { lNAOTraduz} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lNAOTraduz" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime, lNAOTraduz); IIF( .F., s_oClass:ModMethod( "New", @HDatePicker_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HDatePicker_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HDatePicker_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HDatePicker_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HDatePicker_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HDatePicker_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OnEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "OnEvent", @HDatePicker_OnEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OnEvent", @HDatePicker_OnEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HDatePicker_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HDatePicker_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetValue(); IIF( .F., s_oClass:ModMethod( "GetValue", @HDatePicker_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetValue", @HDatePicker_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetValue( xValue); IIF( .F., s_oClass:ModMethod( "SetValue", @HDatePicker_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HDatePicker_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetText(xValue); IIF( .F., s_oClass:ModInline( "SetText", {|Self,xValue | Self, ( ::SetValue( xValue ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetText", {|Self,xValue | Self, ( ::SetValue( xValue ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit,  bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime); IIF( .F., s_oClass:ModMethod( "Redefine", @HDatePicker_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HDatePicker_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onChange( nMess); IIF( .F., s_oClass:ModMethod( "onChange", @HDatePicker_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onChange", @HDatePicker_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER When(); IIF( .F., s_oClass:ModMethod( "When", @HDatePicker_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "When", @HDatePicker_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Valid(); IIF( .F., s_oClass:ModMethod( "Valid", @HDatePicker_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Valid", @HDatePicker_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Value(Value); _HB_MEMBER _Value(Value); IIF( .F., s_oClass:ModMethod( "Value", @HDatePicker_Value(), 1 + 32, .F. ), s_oClass:AddMethod( "Value", @HDatePicker_Value(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Value", @HDatePicker_Value() ), s_oClass:AddMethod( "_Value", @HDatePicker_Value() ) ) ;
+   _HB_MEMBER VarGet(); IIF( .F., s_oClass:ModInline( "VarGet", {|Self | Self, ::GetValue() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "VarGet", {|Self | Self, ::GetValue() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER GetText(); IIF( .F., s_oClass:ModInline( "GetText", {|Self | Self, ::GetValue() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetText", {|Self | Self, ::GetValue() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HDatePicker ;
+
+
+UTILITY STATIC function HDatePicker_New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bInit, bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime, lNAOTraduz) ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+
+   nStyle := Hwg_BitOr( Iif( nStyle==Nil,0,nStyle ), IIF( bSetGet <> Nil,65536 , 0 ) +  IIF( lShowTime == Nil.OR. ! lShowTime, 0, 9 ) )
+
+   ::lNAOTraduz     := IIf( lNAOTraduz  == Nil, .F., lNAOTraduz  )
+
+
+   IF ::lNAOTraduz
+      ctooltip  := ctooltip
+   Else
+      If Valtype( vari ) = "C"
+         vari      := HWG_TRANSLATOR( vari , "DATEPICKER" )
+      Endif
+      ctooltip  := HWG_TRANSLATOR( ctooltip, "DATEPICKER / TOOLTIP" )
+   Endif
+
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  ,, ctooltip, tcolor, bcolor )
+
+   ::lShowTime := Hwg_BitAnd( nStyle, 9 ) > 0
+   ::dValue    := IIF( vari == Nil .OR. ValType( vari ) <> "D", CToD( Space( 8 ) ), vari )
+   ::tValue    := IIF( vari == Nil .OR. Valtype( vari ) <> "C", SPACE(6), vari )
+   ::title     := IIF( ! ::lShowTime, ::dValue, ::tValue )
+
+   ::bSetGet := bSetGet
+   ::bChange := bChange
+
+   HWG_InitCommonControlsEx()
+   ::Activate()
+
+   IF bSetGet <> Nil
+      ::bGetFocus := bGfocus
+      ::bLostFocus := bLfocus
+      ::oParent:AddEvent( - 7 , Self, { | o, id | ::When( o:FindControl( id ) )  }, .T., "onGotFocus" )
+      ::oParent:AddEvent( - 8, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .T., "onLostFocus" )
+   ELSE
+      IF bGfocus <> Nil
+         ::lnoValid := .T.
+         ::oParent:AddEvent( - 7, Self, bGfocus, .T., "onGotFocus" )
+      ENDIF
+      IF bLfocus <> Nil
+         ::oParent:AddEvent( - 8, Self, bLfocus, .T., "onLostFocus" )
+      ENDIF
+   ENDIF
+   ::oParent:AddEvent( - 759, Self, { | | ::onChange( - 759 ) }, .T., "onChange" )
+   ::oParent:AddEvent( - 753, Self, { | | ::onChange( - 753 ) }, .T., "onClose" )
+
+   RETURN Self
+
+
+UTILITY STATIC function HDatePicker_Redefine( oWndParent, nId, vari, bSetGet, oFont, bSize, bInit,  bGfocus, bLfocus, bChange, ctooltip, tcolor, bcolor, lShowTime) ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize,, ctooltip, tcolor, bcolor )
+
+   HWG_InitCommonControlsEx()
+   ::dValue   := IIf( vari == Nil .OR. ValType( vari ) <> "D", CToD( Space( 8 ) ), vari )
+   ::tValue    := IIF( vari == Nil .OR. Valtype( vari ) <> "C", SPACE(6), vari )
+   ::bSetGet := bSetGet
+   ::bChange := bChange
+   ::lShowTime := lShowTime
+   IF bGfocus <> Nil
+      ::oParent:AddEvent( - 7, Self, bGfocus, .T., "onGotFocus" )
+   ENDIF
+   ::oParent:AddEvent( - 759, Self, { | | ::onChange( - 759 ) }, .T., "onChange" )
+   ::oParent:AddEvent( - 753, Self, { | | ::onChange(  - 753 ) }, .T., "onClose" )
+   IF bSetGet <> Nil
+      ::bLostFocus := bLfocus
+      ::oParent:AddEvent( - 8, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .T., "onLostFocus" )
+   ELSE
+      IF bLfocus <> Nil
+         ::oParent:AddEvent( - 8, Self, bLfocus, .T., "onLostFocus" )
+      ENDIF
+   ENDIF
+
+
+   RETURN Self
+
+UTILITY STATIC function HDatePicker_Activate() ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateDatePicker( ::oParent:handle, ::id,  ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HDatePicker_Init() ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+   IF ! ::lInit
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      HWG_INITDATEPICKERPROC( ::handle )
+      ::HControl:Init()
+      IF Empty( ::dValue )
+         SetDatePickerNull( ::handle )
+      ELSE
+         SetDatePicker( ::handle, ::dValue, ::tValue )
+      ENDIF
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HDatePicker_OnEvent( msg, wParam, lParam) ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+   IF ::bOther <> Nil
+      IF Eval( ::bOther,Self,msg,wParam,lParam ) <> -1
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF msg == 258
+      IF wParam = 0x09
+        GetSkip( ::oParent, ::handle, , iif( IsCtrlShift(.F., .T.), -1, 1) )
+        RETURN 0
+      ELSEIF wParam == 0x0D
+         GetSkip( ::oParent, ::handle, , 1 )
+         RETURN 0
+          ENDIF
+     ELSEIF msg = 256
+          IF  ProcKeyList( Self, wParam )
+             RETURN 0
+          ENDIF
+   ELSEIF  msg = 135
+      IF wParam = 0x09
+
+         RETURN 0x0002
+      ENDIF
+     ENDIF
+  IF msg == 7
+     POSTMESSAGE( ::handle, 256, 0x25, 0 )
+     POSTMESSAGE( ::handle, 256, 0x27, 0 )
+  ENDIF
+RETURN -1
+
+UTILITY STATIC function HDatePicker_Value(Value) ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+   IF Value <> Nil
+      ::SetValue( ::dValue, Value  )
+   ENDIF
+   RETURN IIF( ::lShowTime, ::tValue, ::dValue )
+
+UTILITY STATIC function HDatePicker_GetValue() ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+   RETURN IIF( ! ::lShowTime, GetDatePicker( ::handle ), GetTimePicker( ::handle ) )
+
+UTILITY STATIC function HDatePicker_SetValue( xValue) ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+   IF Empty( xValue )
+      SetDatePickerNull( ::handle )
+   ELSEIF ::lShowTime
+      SetDatePicker( ::handle, Date(), STRTRAN( xValue, ":", "" ) )
+   ELSE
+      SetDatePicker( ::handle, xValue, STRTRAN( ::tValue, ":", "" ) )
+   ENDIF
+   ::dValue := GetDatePicker( ::handle )
+   ::tValue := GetTimePicker( ::handle )
+   ::title := IIF( ::lShowTime, ::tValue, ::dValue )
+   IF ::bSetGet <> Nil
+      Eval( ::bSetGet, IIF( ::lShowTime, ::tValue,::dValue ), Self )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HDatePicker_Refresh() ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+   IF ::bSetGet <> Nil
+      IF ! ::lShowTime
+         ::dValue := Eval( ::bSetGet,, Self )
+      ELSE
+         ::tValue := Eval( ::bSetGet,, Self )
+      ENDIF
+   ENDIF
+   IF Empty( ::dValue ) .AND. ! ::lShowTime
+
+      SetDatePicker( ::handle, date(), STRTRAN( Time(), ":", "" ) )
+   ELSE
+      ::SetValue( IIF( ! ::lShowTime, ::dValue, ::tValue ) )
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HDatePicker_onChange( nMess) ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+
+
+
+   IF ( nMess == - 759 .AND.  SendMessage( ::handle, 4104, 0, 0 ) == 0 ) .OR.  nMess == - 753
+      IF nMess = - 753
+         POSTMESSAGE( ::handle, 256, 0x27, 0 )
+         ::SetFocus()
+      ENDIF
+      ::dValue := GetDatePicker( ::handle )
+      ::tValue := GetTimePicker( ::handle )
+      IF ::bSetGet <> Nil
+         Eval( ::bSetGet, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
+      ENDIF
+      IF ::bChange <> Nil
+         ::oparent:lSuspendMsgsHandling := .T.
+         Eval( ::bChange, IIF( ::lShowTime, ::tValue, ::dValue), Self )
+         ::oparent:lSuspendMsgsHandling := .F.
+      ENDIF
+   ENDIF
+   RETURN .T.
+
+UTILITY STATIC function HDatePicker_When() ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+   LOCAL res := .T.,  nSkip
+
+   IF ! CheckFocus( Self, .F. )
+      RETURN .T.
+   ENDIF
+   IF ::bGetFocus <> Nil
+      nSkip := IIf( GetKeyState( 0x26 ) < 0 .OR. ( GetKeyState( 0x09 ) < 0 .AND. GetKeyState( 0x10 ) < 0 ), - 1, 1 )
+      ::oParent:lSuspendMsgsHandling := .T.
+      ::lnoValid := .T.
+      res :=  Eval( ::bGetFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
+      IF VALTYPE(res) = "L"
+         ::lnoValid := ! res
+      ELSE
+         ::lnoValid := .F.
+      ENDIF
+      ::oParent:lSuspendMsgsHandling := .F.
+      IF VALTYPE(res) = "L" .AND. ! res
+         WhenSetFocus( Self, nSkip )
+         SendMessage( ::handle, 4109, 0, 0 )
+      ELSE
+         ::SetFocus()
+      ENDIF
+   ENDIF
+
+   RETURN res
+
+UTILITY STATIC function HDatePicker_Valid() ; local Self AS CLASS HDatePicker := QSelf() AS CLASS HDatePicker
+   LOCAL  res := .T.
+
+
+
+
+
+
+   IF ! CheckFocus( Self, .T. ) .OR. ::lnoValid
+      RETURN .T.
+   ENDIF
+   ::dValue := GetDatePicker( ::handle )
+   IF ::bSetGet <> Nil
+      Eval( ::bSetGet, IIF( ::lShowTime, ::tValue,::dValue ), Self )
+   ENDIF
+   IF ::bLostFocus <> Nil
+      ::oparent:lSuspendMsgsHandling := .T.
+      res := Eval( ::bLostFocus, IIF( ::lShowTime, ::tValue, ::dValue ), Self )
+      res := IIF( ValType( res ) == "L", res, .T. )
+      ::oparent:lSuspendMsgsHandling := .F.
+      IF ! res
+         POSTMESSAGE( ::handle, 256, 0x27, 0 )
+         ::SetFocus( .T. )
+      ENDIF
+   ENDIF
+   RETURN res

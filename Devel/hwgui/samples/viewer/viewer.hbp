@@ -1,0 +1,7 @@
+viewer.prg
+-i..\..\include
+-lhwgui
+-lprocmisc
+-lhbxml
+-L..\..\lib
+-gui

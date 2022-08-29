@@ -1,0 +1,119 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 31 "source\activex\h_activex.prg"
+_HB_CLASS HActiveX ; UTILITY FUNCTION HActiveX(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HActiveX" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "ACTIVEX", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { oOle} ; IIF( !.F., s_oClass:AddMultiData(, Nil, nScope + IIF( .F., 32, 0 ), { "oOle" }, .F., .F. ), )
+   _HB_MEMBER { hSink} ; IIF( !.F., s_oClass:AddMultiData(, Nil, nScope + IIF( .F., 32, 0 ), { "hSink" }, .F., .F. ), )
+   _HB_MEMBER { hAtl} ; IIF( !.F., s_oClass:AddMultiData(, Nil, nScope + IIF( .F., 32, 0 ), { "hAtl" }, .F., .F. ), )
+   _HB_MEMBER { hObj} ; IIF( !.F., s_oClass:AddMultiData(, Nil, nScope + IIF( .F., 32, 0 ), { "hObj" }, .F., .F. ), )
+
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HActiveX_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HActiveX_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @HActiveX_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HActiveX_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Set(); IIF( !.F., s_oClass:AddDelegate( "Set",, "oOle", nScope + IIF( .F., 16, 0 ) ), )
+   _HB_MEMBER Get(); IIF( !.F., s_oClass:AddDelegate( "Get",, "oOle", nScope + IIF( .F., 16, 0 ) ), )
+   _HB_MEMBER __Error(); s_oClass:SetOnError( @HActiveX___Error() ) ;
+
+   _HB_MEMBER { aAxEv} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aAxEv" }, .F., .F. ), )
+   _HB_MEMBER { aAxExec} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aAxExec" }, .F., .F. ), )
+   _HB_MEMBER EventMap( nMsg, xExec, oSelf); IIF( .F., s_oClass:ModMethod( "EventMap", @HActiveX_EventMap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "EventMap", @HActiveX_EventMap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HActiveX ;
+
+UTILITY STATIC function HActiveX_New( oWnd, cProgId, nTop, nLeft, nWidth, nHeight, bSize) ; local Self AS CLASS HActiveX := QSelf() AS CLASS HActiveX
+   LOCAL nStyle, nExStyle, cClsName, hSink
+   LOCAL i,a,h,n
+   LOCAL oError, bErrorBlock
+
+   nStyle   := 1073741824 + 268435456
+   nExStyle := 0
+   cClsName := "AtlAxWin"
+
+   ::HControl:New( oWnd, , nStyle, nLeft, nTop, nWidth, nHeight )
+   ::title = cProgId
+
+
+
+
+   ::handle := hwg_Createactivex(  nExStyle, cClsName, cProgId, ::style,  ::nLeft, ::nTop, ::nWidth, ::nHeight,  ::oParent:handle, ::Id      )
+
+   ::Init()
+
+   ::hObj := hwg_Atlaxgetdisp( ::handle )
+
+
+      bErrorBlock := ErrorBlock( { |x| break( x ) } )
+      TRY
+         ::oOle := ToleAuto():New( ::hObj )
+      CATCH oError
+         hwg_Msginfo( oError:Description )
+      END
+      ErrorBlock( bErrorBlock )
+
+
+
+
+
+
+
+
+
+
+
+
+   hwg_Setupconnectionpoint( ::hObj, @hSink, ::aAxEv , ::aAxExec )
+   ::hSink := hSink
+
+   RETURN SELF
+
+
+UTILITY STATIC function HActiveX_Release() ; local Self AS CLASS HActiveX := QSelf() AS CLASS HActiveX
+
+   hwg_Shutdownconnectionpoint( ::hSink )
+   hwg_Releasedispatch( ::hObj )
+
+Return Nil
+
+
+UTILITY STATIC function HActiveX___Error(...) ; local Self AS CLASS HActiveX := QSelf() AS CLASS HActiveX
+
+Local cMessage, uRet
+cMessage := __GetMessage()
+
+   IF SubStr( cMessage, 1, 1 ) == "_"
+      cMessage := SubStr( cMessage, 2 )
+   ENDIF
+
+
+   RETURN HB_ExecFromArray( ::oOle, cMessage, HB_aParams() )
+
+
+UTILITY STATIC function HActiveX_EventMap( nMsg, xExec, oSelf) ; local Self AS CLASS HActiveX := QSelf() AS CLASS HActiveX
+   LOCAL nAt
+   nAt := AScan( ::aAxEv, nMsg )
+   IF nAt == 0
+      AAdd( ::aAxEv, nMsg )
+      AAdd( ::aAxExec, { NIL, NIL } )
+      nAt := Len( ::aAxEv )
+   ENDIF
+   ::aAxExec[ nAt ] := { xExec, oSelf }
+RETURN NIL

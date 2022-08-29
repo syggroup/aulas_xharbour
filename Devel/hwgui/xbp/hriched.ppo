@@ -1,0 +1,299 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 15 "source\hriched.prg"
+_HB_CLASS HRichEdit ; UTILITY FUNCTION HRichEdit(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HRichEdit" , {HControl():classh} ) ) ; ;
+
+
+
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "RichEdit20A", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { lChanged} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lChanged" }, .F., .F. ), )
+   _HB_MEMBER { lSetFocus} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lSetFocus" }, .F., .F. ), )
+   _HB_MEMBER { lAllowTabs} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lAllowTabs" }, .F., .F. ), )
+   _HB_MEMBER { lctrltab} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "lctrltab" }, .F., .F. ), )
+   _HB_MEMBER { lReadOnly} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lReadOnly" }, .F., .F. ), )
+   _HB_MEMBER { Col} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "Col" }, .F., .F. ), )
+   _HB_MEMBER { Line} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "Line" }, .F., .F. ), )
+   _HB_MEMBER { LinesTotal} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "LinesTotal" }, .F., .F. ), )
+   _HB_MEMBER { SelStart} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "SelStart" }, .F., .F. ), )
+   _HB_MEMBER { SelText} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "SelText" }, .F., .F. ), )
+   _HB_MEMBER { SelLength} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "SelLength" }, .F., .F. ), )
+
+   _HB_MEMBER { hdcPrinter} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hdcPrinter" }, .F., .F. ), )
+
+   _HB_MEMBER { bChange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChange" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip, tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder); IIF( .F., s_oClass:ModMethod( "New", @HRichEdit_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HRichEdit_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HRichEdit_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HRichEdit_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HRichEdit_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HRichEdit_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HRichEdit_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HRichEdit_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onGotFocus(); IIF( .F., s_oClass:ModMethod( "onGotFocus", @HRichEdit_onGotFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onGotFocus", @HRichEdit_onGotFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onLostFocus(); IIF( .F., s_oClass:ModMethod( "onLostFocus", @HRichEdit_onLostFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onLostFocus", @HRichEdit_onLostFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER When(); IIF( .F., s_oClass:ModMethod( "When", @HRichEdit_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "When", @HRichEdit_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Valid(); IIF( .F., s_oClass:ModMethod( "Valid", @HRichEdit_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Valid", @HRichEdit_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER UpdatePos(); IIF( .F., s_oClass:ModMethod( "UpdatePos", @HRichEdit_UpdatePos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "UpdatePos", @HRichEdit_UpdatePos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onChange(); IIF( .F., s_oClass:ModMethod( "onChange", @HRichEdit_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onChange", @HRichEdit_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReadOnly(lreadOnly); _HB_MEMBER _ReadOnly(lreadOnly); IIF( .F., s_oClass:ModMethod( "ReadOnly", @HRichEdit_ReadOnly(), 1 + 32, .F. ), s_oClass:AddMethod( "ReadOnly", @HRichEdit_ReadOnly(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_ReadOnly", @HRichEdit_ReadOnly() ), s_oClass:AddMethod( "_ReadOnly", @HRichEdit_ReadOnly() ) ) ;
+   _HB_MEMBER SetColor( tColor, bColor, lRedraw); IIF( .F., s_oClass:ModMethod( "SetColor", @HRichEdit_SetColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetColor", @HRichEdit_SetColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SaveFile( cFile); IIF( .F., s_oClass:ModMethod( "SaveFile", @HRichEdit_SaveFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SaveFile", @HRichEdit_SaveFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OpenFile( cFile); IIF( .F., s_oClass:ModMethod( "OpenFile", @HRichEdit_OpenFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OpenFile", @HRichEdit_OpenFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Print(); IIF( .F., s_oClass:ModMethod( "Print", @HRichEdit_Print(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Print", @HRichEdit_Print(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HRichEdit ;
+
+
+
+UTILITY STATIC function HRichEdit_New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bInit, bSize, bPaint, bGfocus, bLfocus, ctooltip,  tcolor, bcolor, bOther, lAllowTabs, bChange, lnoBorder) ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+
+   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 1073741824 + 268435456 + 65536 +  IIf( lNoBorder = Nil.OR. ! lNoBorder, 8388608, 0 ) )
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, IIf( bcolor == Nil, GetSysColor( 20 ), bcolor ) )
+
+   ::title   := vari
+   ::bOther  := bOther
+   ::bChange := bChange
+   ::lAllowTabs := IIF( EMPTY( lAllowTabs ), ::lAllowTabs, lAllowTabs )
+   ::lReadOnly := Hwg_BitAnd( nStyle, 2048 ) <> 0
+
+   hwg_InitRichEdit()
+
+   ::Activate()
+
+   IF bGfocus <> Nil
+
+      ::bGetFocus := bGfocus
+      ::oParent:AddEvent( 256, Self, { | o | ::When( o ) }, , "onGotFocus" )
+   ENDIF
+   IF bLfocus <> Nil
+
+      ::bLostFocus := bLfocus
+      ::oParent:AddEvent( 512, Self, { | o | ::Valid( o ) }, , "onLostFocus" )
+   ENDIF
+
+   RETURN Self
+
+UTILITY STATIC function HRichEdit_Activate() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateRichEdit( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HRichEdit_Init() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+   IF ! ::lInit
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      Hwg_InitRichProc( ::handle )
+      ::HControl:Init()
+      ::SetColor( ::tColor, ::bColor )
+      IF ::bChange <> Nil
+         SendMessage( ::handle, 1093, 0, 524288 + 1 )
+         ::oParent:AddEvent( 768, ::id, {| | ::onChange( )} )
+      ENDIF
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HRichEdit_onEvent( msg, wParam, lParam) ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+   LOCAL nDelta, nret
+
+
+   IF msg = 257 .OR. msg == 513 .OR. msg == 514
+      ::updatePos()
+   ELSEIF msg == 33  .AND. ::GetParentForm( ):Type < 10
+      ::SetFocus( )
+   ENDIF
+
+
+   IF  msg = 176 .OR. msg = 201 .OR. msg = 187 .OR.  msg = 186 .OR. msg = 177 .OR. msg = 1092 .OR.  msg = 1087 .OR. msg = 14 .OR. msg = 206
+      Return - 1
+   ENDIF
+   IF msg = 7 .AND. ::lSetFocus
+      ::lSetFocus := .F.
+      PostMessage( ::handle, 177, 0, 0 )
+   ELSEIF msg = 7 .AND. ::lAllowTabs .AND. ::GetParentForm( Self ):Type < 10
+        ::lctrltab := ::GetParentForm( Self ):lDisableCtrlTab
+        ::GetParentForm( Self ):lDisableCtrlTab := ::lAllowTabs
+   ELSEIF msg = 8 .AND. ::lAllowTabs .AND. ::GetParentForm( Self ):Type < 10
+        ::GetParentForm( Self ):lDisableCtrlTab := ::lctrltab
+   ENDIF
+   IF msg == 256 .AND. ( wParam = 0x2E .OR. wParam = 0x08 )
+      ::lChanged := .T.
+   ENDIF
+   IF msg == 258
+      IF wParam = 0x09 .AND. ::GetParentForm( Self ):Type < 10
+         IF  ( IsCtrlShift(.T.,.F.) .OR. ! ::lAllowTabs )
+            RETURN 0
+         ENDIF
+      ENDIF
+       IF !IsCtrlShift( .T., .F.)
+         ::lChanged := .T.
+      ENDIF
+   ELSEIF ::bOther <> Nil
+      nret := Eval( ::bOther, Self, msg, wParam, lParam )
+      IF ValType( nret ) <> "N" .OR. nret > - 1
+         RETURN nret
+      ENDIF
+   ENDIF
+   IF msg == 257
+     IF wParam = 0x09 .AND. ::GetParentForm( Self ):Type < 10
+         IF   IsCtrlShift(.T.,.F.)
+
+            GetSkip( ::oParent, ::handle, ,  iif( IsCtrlShift(.F., .T.), -1, 1) )
+            RETURN 0
+         ENDIF
+      ENDIF
+   ELSEIF msg == 256
+      IF wParam = 0x09 .AND. ( IsCtrlShift(.T.,.F.) .OR. ! ::lAllowTabs )
+
+         GetSkip( ::oParent, ::handle, ,  iif( IsCtrlShift(.F., .T.), -1, 1) )
+         RETURN 0
+      ELSEIF wParam = 0x09 .AND. ::GetParentForm( Self ):Type >= 10
+         RE_INSERTTEXT( ::handle, CHR( 0x09 ) )
+          RETURN 0
+      ENDIF
+      IF wParam == 0x1B .AND. ::GetParentForm():Handle <> ::oParent:handle
+         IF GetParent(::oParent:handle) <> Nil
+
+         ENDIF
+         RETURN 0
+      ENDIF
+   ELSEIF msg == 522
+      nDelta := HIWORD( wParam )
+      IF nDelta > 32768
+         nDelta -= 65535
+      ENDIF
+      SendMessage( ::handle, 181, IIf( nDelta > 0, 0, 1 ), 0 )
+
+   ELSEIF msg == 2
+      ::END()
+   ENDIF
+
+   RETURN - 1
+
+UTILITY STATIC function HRichEdit_SetColor( tColor, bColor, lRedraw) ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF tcolor <> NIL
+      re_SetDefault( ::handle, tColor )
+   ENDIF
+   IF bColor <> NIL
+      SendMessage( ::Handle, 1091, 0, bColor )
+   ENDIF
+   ::HControl:SetColor( tColor, bColor, lRedraw )
+
+   RETURN NIL
+
+UTILITY STATIC function HRichEdit_ReadOnly(lreadOnly) ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF lreadOnly <> Nil
+      IF ! EMPTY( SENDMESSAGE( ::handle,  207, IIF( lReadOnly, 1, 0 ), 0 ) )
+          ::lReadOnly := lReadOnly
+      ENDIF
+   ENDIF
+   RETURN ::lReadOnly
+
+UTILITY STATIC function HRichEdit_UpdatePos() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+    LOCAL npos := SendMessage( ::handle, 176, 0, 0 )
+   LOCAL pos1 := Loword( npos ) + 1,   pos2 := Hiword( npos ) + 1
+
+    ::Line := SendMessage( ::Handle, 201, pos1 - 1, 0 ) + 1
+    ::LinesTotal := SendMessage( ::handle, 186, 0, 0 )
+    ::SelText := RE_GETTEXTRANGE( ::handle, pos1, pos2 )
+    ::SelStart := pos1
+    ::SelLength := pos2 - pos1
+   ::Col := pos1 - SendMessage( ::Handle, 187, - 1, 0 )
+
+   RETURN nPos
+
+UTILITY STATIC function HRichEdit_onChange() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF ::bChange <> Nil
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval( ::bChange, ::gettext(), Self  )
+      ::oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HRichEdit_onGotFocus() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+  RETURN ::When()
+
+UTILITY STATIC function HRichEdit_onLostFocus() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+  RETURN ::Valid()
+
+
+UTILITY STATIC function HRichEdit_When() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+    IF !CheckFocus( Self, .F. )
+       RETURN .T.
+   ENDIF
+   ::title := ::GetText()
+   ::oparent:lSuspendMsgsHandling := .T.
+   Eval( ::bGetFocus, ::title, Self )
+   ::oparent:lSuspendMsgsHandling := .F.
+ RETURN .T.
+
+
+UTILITY STATIC function HRichEdit_Valid() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF ::bLostFocus <> Nil .AND. !CheckFocus( Self, .T. )
+       RETURN .T.
+   ENDIF
+   ::title := ::GetText()
+   ::oparent:lSuspendMsgsHandling := .T.
+   Eval( ::bLostFocus, ::title, Self )
+   ::oparent:lSuspendMsgsHandling := .F.
+
+  RETURN .T.
+
+UTILITY STATIC function HRichEdit_SaveFile( cFile) ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF !EMPTY( cFile )
+      IF ! EMPTY( SAVERICHEDIT( ::Handle, cFile ) )
+          RETURN .T.
+      ENDIF
+   ENDIF
+   RETURN .F.
+
+UTILITY STATIC function HRichEdit_OpenFile( cFile) ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF !EMPTY( cFile )
+      IF ! EMPTY( LOADRICHEDIT( ::Handle, cFile ) )
+          RETURN .T.
+      ENDIF
+   ENDIF
+   RETURN .F.
+
+UTILITY STATIC function HRichEdit_Print() ; local Self AS CLASS HRichEdit := QSelf() AS CLASS HRichEdit
+
+   IF ::hDCPrinter = Nil
+
+   ENDIF
+   IF HWG_STARTDOC( ::hDCPrinter ) <> 0
+      IF PrintRTF( ::Handle, ::hDCPrinter ) <> 0
+          HWG_ENDDOC( ::hDCPrinter )
+      ELSE
+         HWG_ABORTDOC( ::hDCPrinter )
+      ENDIF
+   ENDIF
+   RETURN .F.

@@ -1,0 +1,17 @@
+
+Type: C >>>harbour.exe -o"obj\designer.c" -m -n -pOobj\ -q -gc0  -I"D:\Devel\xharbour_bcc7\contrib\sqlrdd\include" -I"D:\Devel\hwgui\include"  -I"d:\devel\xharbour_bcc7\include" "source\designer.prg"<<<
+
+xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
+Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
+
+Type: C >>>bcc32.exe -o"obj\designer.obj" -c   -I"D:\Devel\xharbour_bcc7\contrib\sqlrdd\include" -I"D:\Devel\hwgui\include" -I"d:\devel\xharbour_bcc7\include" "obj\designer.c"<<<
+
+Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
+obj\designer.c:
+
+Type: C >>>ilink32.exe -Gn -s  -aa -L"D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib" -L"" -L"d:\devel\xharbour_bcc7\lib" -L"D:\Devel\bcc72\lib" -L"D:\Devel\bcc72\lib\psdk" c0w32.obj "obj\designer.obj" "obj\editor.obj" "obj\hctrl.obj" "obj\hformgen.obj" "obj\inspect.obj" , "designer.exe", , "D:\Devel\hwgui\lib\hwgui_xhb72.lib" "D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5\sql.lib" "D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5\libpq.lib" "D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5\odbccp32.lib" "D:\Devel\xharbour_bcc7\lib\rddsql.lib" "D:\Devel\xharbour_bcc7\lib\sddodbc.lib" "D:\Devel\xharbour_bcc7\contrib\sygecom.lib" "D:\Devel\xharbour_bcc7\lib\gdlib.lib" "D:\Devel\xharbour_bcc7\lib\libbgd.lib" "D:\Devel\xharbour_bcc7\lib\hbhpdf.lib" "D:\Devel\xharbour_bcc7\lib\pdflib.lib" "D:\Devel\xharbour_bcc7\lib\hbmzip.lib" "D:\Devel\xharbour_bcc7\lib\hbzip.lib" "D:\devel\xharbour_bcc7\lib\tipssl.lib" "D:\devel\xharbour_bcc7\lib\ssleay32.lib" "D:\devel\xharbour_bcc7\lib\libeay32.lib" "D:\Devel\xharbour_bcc7\lib\tip.lib" "D:\Devel\xharbour_bcc7\lib\codepage.lib" "D:\Devel\xharbour_bcc7\lib\libfi.lib" "D:\Devel\xharbour_bcc7\lib\png.lib" "D:\Devel\xharbour_bcc7\contrib\syg_pgsql\syg_pgsql.lib" "gtgui.lib" "vm.lib" "rtl.lib" "macro.lib" "pp.lib" "common.lib" "lang.lib" "rdd.lib" "dbfntx.lib" "dbfnsx.lib" "dbfcdx.lib" "dbffpt.lib" "debug.lib" "pcrepos.lib" "hsx.lib" "hbsix.lib" "ct.lib" "zlib.lib" "codepage.lib" cw32.lib import32.lib odbc32.lib , , "obj\designer.res" <<<
+
+Turbo Incremental Link 6.75 Copyright (c) 1997-2016 Embarcadero Technologies, Inc.
+
+Type: C >>>Sorry, could not build your project (6).;;Operation: TMAKEPROJECT;Description: Couldn't build: designer.exe<<<
+

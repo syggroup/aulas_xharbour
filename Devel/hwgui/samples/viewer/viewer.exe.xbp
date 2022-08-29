@@ -1,0 +1,49 @@
+CINI = 
+C_OUTPUTFOLDER = 
+DEFFILE = 
+INCLUDEFOLDERS = d:\devel\xHarbour\contrib\hwgui\include
+LAUTORUN = .F.
+LDEBUG = .F.
+LGUI = .T.
+LIBFOLDERS = 
+LMT = .F.
+LPRG_CLASSICDEBUG = .F.
+LPRG_DEBUG = .F.
+LUSEDLL = .F.
+MAPFILE = 
+MYC_FLAGS = 
+MYDEFINES =
+MYLINK_FLAGS = 
+MYPRG_FLAGS = 
+MYRC_FLAGS = 
+MYSLY_FLAGS = 
+OUTPUTFOLDER = obj
+PRG_OUTPUTFOLDER = 
+RC_OUTPUTFOLDER = 
+RUNARGUMENTS = 
+SLY_OUTPUTFOLDER = 
+STARTIN = 
+TARGETFOLDER = 
+
+[viewer.PRG]
+MYC_FLAGS = 
+MYDEFINES = 
+MYPRG_FLAGS = 
+
+[viewer.rc]
+MYDEFINES =
+MYRC_FLAGS =
+
+[d:\devel\xHarbour\contrib\hwgui\lib\hwgui.lib]
+
+[D:\devel\xharbour\lib\gdlib.lib]
+
+[D:\devel\xharbour\lib\libbgd.lib]
+
+[D:\devel\xharbour\contrib\sygecom.lib]
+
+[D:\devel\xharbour\lib\hbmzip.lib]
+
+[D:\devel\xharbour\lib\hbzip.lib]
+
+[D:\devel\xharbour\lib\tip.lib]

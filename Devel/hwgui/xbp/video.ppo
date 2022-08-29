@@ -1,0 +1,89 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\video.prg"
+_HB_CLASS TVideo ; UTILITY FUNCTION TVideo(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "TVideo" , {hControl():classh} ) ) ; ;
+
+
+   _HB_MEMBER { oMci} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oMci" }, .F., .F. ), )
+   _HB_MEMBER { cAviFile} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cAviFile" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( nRow, nCol, nWidth, nHeight, cFileName, oWnd,  bWhen, bValid, lNoBorder , nid) AS CLASS TVideo; IIF( .F., s_oClass:ModMethod( "New", @TVideo_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @TVideo_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER ReDefine( nId, cFileName, oDlg, bWhen, bValid) AS CLASS TVideo; IIF( .F., s_oClass:ModMethod( "ReDefine", @TVideo_ReDefine(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReDefine", @TVideo_ReDefine(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Initiate(); IIF( .F., s_oClass:ModMethod( "Initiate", @TVideo_Initiate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Initiate", @TVideo_Initiate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Play(nFrom, nTo); IIF( .F., s_oClass:ModInline( "Play", {|Self,nFrom, nTo | Self, ::oMci:Play( nFrom, nTo, ::oparent:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Play", {|Self,nFrom, nTo | Self, ::oMci:Play( nFrom, nTo, ::oparent:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS TVideo ;
+
+
+
+UTILITY STATIC function TVideo_New( nRow, nCol, nWidth, nHeight, cFileName, oWnd, lNoBorder, nid) ; local Self AS CLASS TVideo := QSelf() AS CLASS TVideo
+
+
+   IF nWidth == NIL ; nWidth := 200 ; END ; IF nHeight == NIL ; nHeight := 200 ; END ; IF cFileName == NIL ; cFileName := "" ; END ; IF lNoBorder == NIL ; lNoBorder := .F. ; END
+
+   ::nTop      := nRow *  14
+   ::nLeft     := nCol * 8
+   ::nHeight   := ::nTop  + nHeight - 1
+   ::nWidth    := ::nLeft + nWidth + 1
+   ::Style     := hwg_bitOR( 1073741824 + 268435456 + 65536, IF( ! lNoBorder, 8388608, 0 ) )
+
+   ::oParent   := IIf( oWnd == Nil, ::oDefaultParent, oWnd )
+   ::id        := IIf( nid == Nil, ::NewId(), nid )
+   ::cAviFile  := cFileName
+   ::oMci      := TMci():New( "avivideo", cFileName )
+   ::Initiate()
+
+   IF ! Empty( ::oparent:handle )
+      ::oMci:lOpen()
+      ::oMci:SetWindow( Self )
+   ELSE
+      ::oparent:AddControl( Self )
+   ENDIF
+
+   RETURN Self
+
+
+
+UTILITY STATIC function TVideo_ReDefine( nId, cFileName, oDlg, bWhen, bValid) ; local Self AS CLASS TVideo := QSelf() AS CLASS TVideo
+
+   ::nId      = nId
+   ::cAviFile = cFileName
+   ::bWhen    = bWhen
+   ::bValid   = bValid
+   ::oWnd     = oDlg
+   ::oMci     = TMci():New( "avivideo", cFileName )
+
+   oDlg:AddControl( Self )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function TVideo_Initiate() ; local Self AS CLASS TVideo := QSelf() AS CLASS TVideo
+
+   ::hControl:Init(  )
+   ::oMci:lOpen()
+   ::oMci:SetWindow( Self )
+
+   RETURN nil

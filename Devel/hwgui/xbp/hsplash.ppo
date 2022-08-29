@@ -1,0 +1,68 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 16 "source\hsplash.prg"
+_HB_CLASS HSplash ; UTILITY FUNCTION HSplash(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HSplash" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { oTimer} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oTimer" }, .F., .F. ), )
+   _HB_MEMBER { oDlg} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oDlg" }, .F., .F. ), )
+
+   _HB_MEMBER Create( cFile, oTime, oResource, nWidth, nHeight, nStyle) AS CLASS HSplash; IIF( .F., s_oClass:ModMethod( "Create", @HSplash_Create(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @HSplash_Create(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CountSeconds( oTime, oDlg); IIF( .F., s_oClass:ModMethod( "CountSeconds", @HSplash_CountSeconds(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CountSeconds", @HSplash_CountSeconds(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModInline( "Release", {|Self | Self, ::oDlg:Close() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Release", {|Self | Self, ::oDlg:Close() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HSplash ;
+
+UTILITY STATIC function HSplash_Create( cFile, oTime, oResource, nWidth, nHeight, nStyle) ; local Self AS CLASS HSplash := QSelf() AS CLASS HSplash
+   LOCAL aWidth, aHeigth
+   LOCAL bitmap
+
+   IIf( Empty( oTime ) .OR. oTime == Nil, oTime := 2000, oTime := oTime )
+
+   IF oResource == Nil .OR. ! oResource
+      bitmap  := HBitmap():AddFile( cFile,,, nWidth, nHeight )
+   ELSE
+      bitmap  := HBitmap():AddResource( cFile,,, nWidth, nHeight )
+   ENDIF
+
+   aWidth := IIF( nWidth = Nil, bitmap:nWidth, nWidth )
+   aHeigth := IIF( nHeight = Nil, bitmap:nHeight, nHeight )
+
+   IF nWidth = Nil .OR. nHeight = Nil
+
+
+      ::oDlg := HDialog():New( Iif(.F.,10,11), 2147483648 + 2048 + 268435456 + 4194304,0,0,aWidth,aHeigth,"",,{ || ::CountSeconds( oTime, ::oDlg ) },,,,,,,.F.,bitmap,,.F.,,,.F.,,, .F.,.F.)
+
+   ELSE
+
+
+      ::oDlg := HDialog():New( Iif(.F.,10,11), 2147483648 + 2048 + 268435456 + 4194304,0,0,aWidth,aHeigth,"",,{ || ::CountSeconds( oTime, ::oDlg ) },,,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+      Bitmap := HSayBmp():New(,,0,0,nWidth, nHeight,cFile,.F.,,,,,, .F.,0, nStyle,.F. ); Bitmap:name := "Bitmap"
+   ENDIF
+
+   ::oDlg:Activate( otime < 0 )
+   ::oTimer:END()
+
+   RETURN Self
+
+UTILITY STATIC function HSplash_CountSeconds( oTime, oDlg) ; local Self AS CLASS HSplash := QSelf() AS CLASS HSplash
+
+   ::oTimer := HTimer():New( oDlg,, oTime, { || EndDialog( GetModalHandle() ) } ); ::oTimer:name := "::oTimer"
+
+   RETURN Nil

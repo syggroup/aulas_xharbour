@@ -1,0 +1,662 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 108 "source\htree.prg"
+Static s_aEvents
+
+_HB_CLASS HTreeNode ; UTILITY FUNCTION HTreeNode(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HTreeNode" , {HObject():classh} ) ) ; ;
+
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { oTree, oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oTree" , "oParent" }, .F., .F. ), )
+   _HB_MEMBER { aItems} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aItems" }, .F., .F. ), )
+   _HB_MEMBER { bAction, bClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bAction" , "bClick" }, .F., .F. ), )
+   _HB_MEMBER { cargo} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cargo" }, .F., .F. ), )
+   _HB_MEMBER { title} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "title" }, .F., .F. ), )
+   _HB_MEMBER { image1, image2} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "image1" , "image2" }, .F., .F. ), )
+   _HB_MEMBER { lchecked} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lchecked" }, .F., .F. ), )
+   _HB_MEMBER { aImages} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aImages" }, .F., .F. ), )
+
+   _HB_MEMBER New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bClick); IIF( .F., s_oClass:ModMethod( "New", @HTreeNode_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HTreeNode_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddNode( cTitle, oPrev, oNext, bAction, aImages); IIF( .F., s_oClass:ModMethod( "AddNode", @HTreeNode_AddNode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddNode", @HTreeNode_AddNode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Delete( lInternal); IIF( .F., s_oClass:ModMethod( "Delete", @HTreeNode_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Delete", @HTreeNode_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER FindChild( h); IIF( .F., s_oClass:ModMethod( "FindChild", @HTreeNode_FindChild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FindChild", @HTreeNode_FindChild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetText(); IIF( .F., s_oClass:ModInline( "GetText", {|Self | Self, TreeGetNodeText( ::oTree:handle, ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetText", {|Self | Self, TreeGetNodeText( ::oTree:handle, ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetText(cText); IIF( .F., s_oClass:ModInline( "SetText", {|Self,cText | Self, TreeSetItem( ::oTree:handle, ::handle, 1, cText ), ::title := cText }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetText", {|Self,cText | Self, TreeSetItem( ::oTree:handle, ::handle, 1, cText ), ::title := cText }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Checked(lChecked); _HB_MEMBER _Checked(lChecked); IIF( .F., s_oClass:ModMethod( "Checked", @HTreeNode_Checked(), 1 + 32, .F. ), s_oClass:AddMethod( "Checked", @HTreeNode_Checked(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Checked", @HTreeNode_Checked() ), s_oClass:AddMethod( "_Checked", @HTreeNode_Checked() ) ) ;
+   _HB_MEMBER GetLevel( h); IIF( .F., s_oClass:ModMethod( "GetLevel", @HTreeNode_GetLevel(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetLevel", @HTreeNode_GetLevel(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HTreeNode ;
+
+UTILITY STATIC function HTreeNode_New( oTree, oParent, oPrev, oNext, cTitle, bAction, aImages, lchecked, bClick) ; local Self AS CLASS HTreeNode := QSelf() AS CLASS HTreeNode
+   LOCAL aItems, i, h, im1, im2, cImage, op, nPos
+
+   ::oTree    := oTree
+   ::oParent  := oParent
+   ::Title    := cTitle
+   ::bAction  := bAction
+   ::bClick   := bClick
+   ::lChecked := IIF( lChecked = Nil, .F., lChecked )
+
+   IF aImages == Nil .AND. Empty( aImages )
+      IF oTree:Image1 <> Nil
+         im1 := oTree:Image1
+         IF oTree:Image2 <> Nil
+            im2 := oTree:Image2
+         ENDIF
+      ENDIF
+   ELSE
+      oTree:aImages := { }
+      FOR i := 1 TO Len( aImages )
+         cImage := Upper( aImages[ i ] )
+         IF ( h := AScan( oTree:aImages, cImage ) ) == 0
+            AAdd( oTree:aImages, cImage )
+            aImages[ i ] := IIf( oTree:Type, LoadBitmap( aImages[ i ] ), OpenBitmap( aImages[ i ] ) )
+            Imagelist_Add( oTree:himl, aImages[ i ] )
+            h := Len( oTree:aImages )
+         ENDIF
+         h --
+         IF i == 1
+            im1 := h
+         ELSE
+            im2 := h
+         ENDIF
+      NEXT
+   ENDIF
+   IF im2 == Nil
+      im2 := im1
+   ENDIF
+
+   nPos := IIf( oPrev == Nil, 2, 0 )
+   IF oPrev == Nil .AND. oNext <> Nil
+      op := IIf( oNext:oParent == Nil, oNext:oTree, oNext:oParent )
+      FOR i := 1 TO Len( op:aItems )
+         IF op:aItems[ i ]:handle == oNext:handle
+            EXIT
+         ENDIF
+      NEXT
+      IF i > 1
+         oPrev := op:aItems[ i - 1 ]
+         nPos := 0
+      ELSE
+         nPos := 1
+      ENDIF
+   ENDIF
+
+
+   ::handle := TreeAddNode( Self, oTree:handle,                IIf( oParent == Nil, Nil, oParent:handle ),  IIf( oPrev == Nil, Nil, oPrev:handle ), nPos, cTitle, im1, im2 )
+
+   aItems := IIf( oParent == Nil, oTree:aItems, oParent:aItems )
+   IF nPos == 2
+      AAdd( aItems, Self )
+   ELSEIF nPos == 1
+      AAdd( aItems, Nil )
+      AIns( aItems, 1 )
+      aItems[ 1 ] := Self
+   ELSE
+      AAdd( aItems, Nil )
+      h := oPrev:handle
+      IF ( i := AScan( aItems, { | o | o:handle == h } ) ) == 0
+         aItems[ Len( aItems ) ] := Self
+      ELSE
+         AIns( aItems, i + 1 )
+         aItems[ i + 1 ] := Self
+      ENDIF
+   ENDIF
+   ::image1 := im1
+   ::image2 := im2
+
+   RETURN Self
+
+UTILITY STATIC function HTreeNode_AddNode( cTitle, oPrev, oNext, bAction, aImages) ; local Self AS CLASS HTreeNode := QSelf() AS CLASS HTreeNode
+   LOCAL oParent := Self
+   LOCAL oNode := HTreeNode():New( ::oTree, oParent, oPrev, oNext, cTitle, bAction, aImages )
+
+   RETURN oNode
+
+UTILITY STATIC function HTreeNode_Delete( lInternal) ; local Self AS CLASS HTreeNode := QSelf() AS CLASS HTreeNode
+   LOCAL h := ::handle, j, alen, aItems
+
+   IF ! Empty( ::aItems )
+      alen := Len( ::aItems )
+      FOR j := 1 TO alen
+         ::aItems[ j ]:Delete( .T. )
+         ::aItems[ j ] := Nil
+      NEXT
+   ENDIF
+   tree_ReleaseNode( ::oTree:handle, ::handle )
+   SendMessage( ::oTree:handle, 4353, 0, ::handle )
+   IF lInternal == Nil
+      aItems := IIf( ::oParent == Nil, ::oTree:aItems, ::oParent:aItems )
+      j := AScan( aItems, { | o | o:handle == h } )
+      ADel( aItems, j )
+      ASize( aItems, Len( aItems ) - 1 )
+   ENDIF
+
+
+   RETURN Nil
+
+UTILITY STATIC function HTreeNode_FindChild( h) ; local Self AS CLASS HTreeNode := QSelf() AS CLASS HTreeNode
+   LOCAL aItems := ::aItems, i, alen := Len( aItems ), oNode
+   FOR i := 1 TO alen
+      IF aItems[ i ]:handle == h
+         RETURN aItems[ i ]
+      ELSEIF ! Empty( aItems[ i ]:aItems )
+         IF ( oNode := aItems[ i ]:FindChild( h ) ) <> Nil
+            RETURN oNode
+         ENDIF
+      ENDIF
+   NEXT
+   RETURN Nil
+
+UTILITY STATIC function HTreeNode_Checked(lChecked) ; local Self AS CLASS HTreeNode := QSelf() AS CLASS HTreeNode
+   LOCAL state
+
+   IF lChecked <> NIL
+      TreeSetItem( ::oTree:handle, ::handle, 2, IIF( lChecked, 2, 1 ) )
+      ::lChecked := lChecked
+   ELSE
+      state =  SendMessage( ::oTree:handle, 4391, ::handle,, 61440 ) - 1
+      ::lChecked := int( state/4092 ) = 2
+   ENDIF
+   RETURN ::lChecked
+
+UTILITY STATIC function HTreeNode_GetLevel( h) ; local Self AS CLASS HTreeNode := QSelf() AS CLASS HTreeNode
+   LOCAL iLevel := 1
+
+   LOCAL oNode := IIF( EMPTY( h ), Self, h )
+   while ( oNode:oParent ) <> Nil
+        oNode := oNode:oParent
+        iLevel ++
+   ENDDO
+   RETURN iLevel
+
+_HB_CLASS HTree ; UTILITY FUNCTION HTree(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HTree" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "SysTreeView32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { aItems} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aItems" }, .F., .F. ), )
+   _HB_MEMBER { oSelected} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oSelected" }, .F., .F. ), )
+   _HB_MEMBER { oItem, oItemOld} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oItem" , "oItemOld" }, .F., .F. ), )
+   _HB_MEMBER { hIml, aImages, Image1, Image2} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hIml" , "aImages" , "Image1" , "Image2" }, .F., .F. ), )
+   _HB_MEMBER { bItemChange, bExpand, bRClick, bDblClick, bAction, bCheck, bKeyDown} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bItemChange" , "bExpand" , "bRClick" , "bDblClick" , "bAction" , "bCheck" , "bKeyDown" }, .F., .F. ), )
+   _HB_MEMBER { bdrag, bdrop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bdrag" , "bdrop" }, .F., .F. ), )
+   _HB_MEMBER { lEmpty} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lEmpty" }, .F., .F. ), )
+   _HB_MEMBER { lEditLabels} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lEditLabels" }, .F., .F. ), )
+   _HB_MEMBER { lCheckbox} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lCheckbox" }, .F., .F. ), )
+   _HB_MEMBER { lDragDrop} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lDragDrop" }, .F., .F. ), )
+
+   _HB_MEMBER { lDragging} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lDragging" }, .F., .F. ), )
+      _HB_MEMBER { hitemDrag, hitemDrop} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "hitemDrag" , "hitemDrop" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, color, bcolor,  aImages, lResour, lEditLabels, bAction, nBC, bRClick, bDblClick, lCheckbox,  bCheck, lDragDrop, bDrag, bDrop, bOther); IIF( .F., s_oClass:ModMethod( "New", @HTree_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HTree_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HTree_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HTree_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HTree_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HTree_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddNode( cTitle, oPrev, oNext, bAction, aImages); IIF( .F., s_oClass:ModMethod( "AddNode", @HTree_AddNode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddNode", @HTree_AddNode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER FindChild( h); IIF( .F., s_oClass:ModMethod( "FindChild", @HTree_FindChild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FindChild", @HTree_FindChild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER FindChildPos( oNode, h); IIF( .F., s_oClass:ModMethod( "FindChildPos", @HTree_FindChildPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FindChildPos", @HTree_FindChildPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetSelected(); IIF( .F., s_oClass:ModInline( "GetSelected", {|Self | Self, IIF( VALTYPE( ::oItem := TreeGetSelected( ::handle ) ) = "O", ::oItem, Nil ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetSelected", {|Self | Self, IIF( VALTYPE( ::oItem := TreeGetSelected( ::handle ) ) = "O", ::oItem, Nil ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER EditLabel( oNode ); IIF( .F., s_oClass:ModInline( "EditLabel", { | Self, o | SendMessage( ::handle, 4366, 0, o:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "EditLabel", { | Self, o | SendMessage( ::handle, 4366, 0, o:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Expand( oNode, lAllNode); IIF( .F., s_oClass:ModMethod( "Expand", @HTree_Expand(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Expand", @HTree_Expand(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Select( oNode ); IIF( .F., s_oClass:ModInline( "Select", { | Self, o | SendMessage( ::handle, 4363, 9, o:handle ), ::oItem := TreeGetSelected( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Select", { | Self, o | SendMessage( ::handle, 4363, 9, o:handle ), ::oItem := TreeGetSelected( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Clean(); IIF( .F., s_oClass:ModMethod( "Clean", @HTree_Clean(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Clean", @HTree_Clean(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Notify( lParam); IIF( .F., s_oClass:ModMethod( "Notify", @HTree_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Notify", @HTree_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModInline( "END", {|Self | Self, ( ::HControl:END(), ReleaseTree( ::aItems ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "END", {|Self | Self, ( ::HControl:END(), ReleaseTree( ::aItems ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER isExpand(oNodo); IIF( .F., s_oClass:ModInline( "isExpand", {|Self,oNodo | Self, ! CheckBit( oNodo, 0x0002 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "isExpand", {|Self,oNodo | Self, ! CheckBit( oNodo, 0x0002 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HTree_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HTree_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ItemHeight(nHeight); _HB_MEMBER _ItemHeight(nHeight); IIF( .F., s_oClass:ModMethod( "ItemHeight", @HTree_ItemHeight(), 1 + 32, .F. ), s_oClass:AddMethod( "ItemHeight", @HTree_ItemHeight(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_ItemHeight", @HTree_ItemHeight() ), s_oClass:AddMethod( "_ItemHeight", @HTree_ItemHeight() ) ) ;
+   _HB_MEMBER SearchString( cText, iNivel, oNode, inodo, lParcial); IIF( .F., s_oClass:ModMethod( "SearchString", @HTree_SearchString(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SearchString", @HTree_SearchString(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Selecteds( oItem, aSels); IIF( .F., s_oClass:ModMethod( "Selecteds", @HTree_Selecteds(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Selecteds", @HTree_Selecteds(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Top(); IIF( .F., s_oClass:ModInline( "Top", {|Self | Self, IIF( !Empty( ::aItems ), ( ::Select( ::aItems[ 1 ] ), SendMessage( ::Handle, 277, MAKEWPARAM( 0, 6 ), Nil ) ), ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Top", {|Self | Self, IIF( !Empty( ::aItems ), ( ::Select( ::aItems[ 1 ] ), SendMessage( ::Handle, 277, MAKEWPARAM( 0, 6 ), Nil ) ), ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Bottom(); IIF( .F., s_oClass:ModInline( "Bottom", {|Self | Self, IIF( !Empty( ::aItems ), ( ::Select( ::aItems[ LEN( ::aItems ) ] ), SendMessage( ::Handle, 277, MAKEWPARAM( 0, 7 ), Nil ) ),) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Bottom", {|Self | Self, IIF( !Empty( ::aItems ), ( ::Select( ::aItems[ LEN( ::aItems ) ] ), SendMessage( ::Handle, 277, MAKEWPARAM( 0, 7 ), Nil ) ),) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HTree ;
+
+
+UTILITY STATIC function HTree_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, color, bcolor,  aImages, lResour, lEditLabels, bAction, nBC, bRClick, bDblClick, lcheckbox,  bCheck, lDragDrop, bDrag, bDrop, bOther) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL i, aBmpSize
+
+
+   lEditLabels := IIf( lEditLabels == Nil, .F., lEditLabels )
+   lCheckBox   := IIf( lCheckBox == Nil, .F., lCheckBox )
+   lDragDrop   := IIf( lDragDrop == Nil, .F., lDragDrop )
+
+
+
+
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 65536  + 4096 + 512+ 4 + 1  + 32 +  IIf( lEditLabels == Nil.OR. ! lEditLabels, 0, 8 ) + IIf( lCheckBox == Nil.OR. ! lCheckBox, 0, 256 ) + IIF( ! lDragDrop, 16, 0 ) )
+
+   ::sTyle := nStyle
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize,,, color, bcolor )
+
+   ::lEditLabels :=  lEditLabels
+   ::lCheckBox   :=  lCheckBox
+   ::lDragDrop   :=  lDragDrop
+
+   ::title   := ""
+   ::Type    := IIf( lResour == Nil, .F., lResour )
+   ::bAction := bAction
+   ::bRClick := bRClick
+   ::bDblClick := bDblClick
+   ::bCheck  :=  bCheck
+   ::bDrag   := bDrag
+   ::bDrop   := bDrop
+   ::bOther  := bOther
+
+   IF aImages <> Nil .AND. ! Empty( aImages )
+      ::aImages := { }
+      FOR i := 1 TO Len( aImages )
+         AAdd( ::aImages, Upper( aImages[ i ] ) )
+         aImages[ i ] := IIf( lResour <> NIL.AND.lResour, LoadBitmap( aImages[ i ] ), OpenBitmap( aImages[ i ] ) )
+      NEXT
+      aBmpSize := GetBitmapSize( aImages[ 1 ] )
+      ::himl := CreateImageList( aImages, aBmpSize[ 1 ], aBmpSize[ 2 ], 12, nBC )
+      ::Image1 := 0
+      IF Len( aImages ) > 1
+         ::Image2 := 1
+      ENDIF
+   ENDIF
+
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HTree_Init() ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+
+   IF ! ::lInit
+      ::HControl:Init()
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      Hwg_InitTreeView( ::handle )
+      IF ::himl <> Nil
+         SendMessage( ::handle, 4361, 0, ::himl )
+      ENDIF
+
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HTree_Activate() ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateTree( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::tcolor, ::bcolor )
+      ::Init()
+   ENDIF
+
+   RETURN Nil
+
+
+UTILITY STATIC function HTree_onEvent( msg, wParam, lParam) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   Local nEval, hitemNew, htiParent, htiPrev, htiNext
+
+   IF ::bOther <> Nil
+      IF ( nEval := Eval( ::bOther,Self,msg,wParam,lParam )) <> Nil .AND. nEval <> - 1
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF msg = 20
+      RETURN 0
+   ELSEIF msg = 258
+      IF wParam = 27
+         Return 0x0004
+      ENDIF
+      RETURN 0
+
+   ELSEIF msg = 257
+      IF  ProcKeyList( Self, wParam )
+         RETURN 0
+      ENDIF
+
+   ELSEIF msg == 513
+
+   ELSEIF msg == 514 .AND. ::lDragging .AND. ::hitemDrop <> Nil
+      ::lDragging := .F.
+      SendMessage( ::handle, 4363, 8, Nil )
+
+      IF ::bDrag <> Nil
+         nEval :=  Eval( ::bDrag, Self, ::hitemDrag, ::hitemDrop )
+         nEval := IIF( VALTYPE( nEval ) = "L", nEval, .T. )
+         IF ! nEval
+            RETURN 0
+         ENDIF
+      ENDIF
+      IF ::hitemDrop <> Nil
+         IF ::hitemDrag:handle == ::hitemDrop:handle
+                   Return 0
+         ENDIF
+         htiParent := ::hitemDrop
+         while ( htiParent:oParent ) <> Nil
+            htiParent := htiParent:oParent
+            IF htiParent:handle = ::hitemDrag:handle
+               RETURN 0
+            ENDIF
+         ENDDO
+         IF ! IsCtrlShift( .T. )
+
+            IF ( ::hitemDrag:oParent = Nil .OR. ::hitemDrop:oParent = Nil ) .OR.  ( ::hitemDrag:oParent:handle == ::hitemDrop:oParent:handle )
+               IF ::FindChildPos( ::hitemDrop:oParent, ::hitemDrag:Handle ) > ::FindChildPos( ::hitemDrop:oParent, ::hitemDrop:Handle )
+                  htiNext := ::hitemDrop
+               ELSE
+                  htiPrev := ::hitemDrop
+               ENDIF
+            ELSE
+            ENDIF
+         ENDIF
+      ENDIF
+
+      IF  ! IsCtrlShift( .T. )
+         IF ::hitemDrop:oParent <> Nil
+            hitemNew := ::hitemDrop:oParent:AddNode( ::hitemDrag:GetText(), htiPrev ,htiNext, ::hitemDrag:bAction,, ::hitemDrag:lchecked, ::hitemDrag:bClick  )
+         ELSE
+            hitemNew := ::AddNode( ::hitemDrag:GetText(), htiPrev ,htiNext, ::hitemDrag:bAction,, ::hitemDrag:lchecked, ::hitemDrag:bClick  )
+         ENDIF
+         DragDropTree( ::hitemDrag, hitemNew , ::hitemDrop )
+      ELSEIF ::hitemDrop <> Nil
+         hitemNew := ::hitemDrop:AddNode( ::hitemDrag:Title, htiPrev ,htiNext, ::hitemDrag:bAction,, ::hitemDrag:lchecked, ::hitemDrag:bClick  )
+         DragDropTree( ::hitemDrag, hitemNew,::hitemDrop )
+      ENDIF
+      hitemNew:cargo  := ::hitemDrag:cargo
+      hitemNew:image1 := ::hitemDrag:image1
+      hitemNew:image2 := ::hitemDrag:image2
+      ::hitemDrag:delete()
+      ::Select( hitemNew )
+
+      IF ::bDrop <> Nil
+         Eval( ::bDrop, Self, hitemNew, ::hitemDrop )
+      ENDIF
+
+   ELSEIF  ::lEditLabels .AND. ( ( msg = 515 .AND. ::bDblClick = Nil ) .OR. msg = 258 )
+      ::EditLabel( ::oSelected )
+      RETURN 0
+   ENDIF
+   RETURN -1
+
+
+UTILITY STATIC function HTree_AddNode( cTitle, oPrev, oNext, bAction, aImages) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL oNode := HTreeNode():New( Self, Nil, oPrev, oNext, cTitle, bAction, aImages )
+   ::lEmpty := .F.
+   RETURN oNode
+
+UTILITY STATIC function HTree_FindChild( h) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL aItems := ::aItems, i, alen := Len( aItems ), oNode
+   FOR i := 1 TO alen
+      IF aItems[ i ]:handle == h
+         RETURN aItems[ i ]
+      ELSEIF ! Empty( aItems[ i ]:aItems )
+         IF ( oNode := aItems[ i ]:FindChild( h ) ) <> Nil
+            RETURN oNode
+         ENDIF
+      ENDIF
+   NEXT
+   RETURN Nil
+
+UTILITY STATIC function HTree_FindChildPos( oNode, h) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL aItems := IIF( oNode = Nil, ::aItems,  oNode:aItems )
+   LOCAL  i := 0, alen := Len( aItems )
+
+   FOR i := 1 TO alen
+      IF aItems[ i ]:handle == h
+         RETURN i
+      ELSEIF .F.
+         RETURN ::FindChildPos( aItems[ i ], h )
+      ENDIF
+   NEXT
+   RETURN 0
+
+UTILITY STATIC function HTree_SearchString( cText, iNivel, oNode, inodo, lParcial) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL aItems := IIF( oNode = Nil, ::aItems,  oNode:aItems )
+   Local  i:=0 , alen := Len( aItems )
+   LOCAL oNodeRet
+   IF lParcial=NIL
+      lParcial:=.F.
+   ENDIF
+
+   iNodo := IIF( inodo = Nil, 0, iNodo )
+   FOR i := 1 TO aLen
+
+      IF ! Empty( aItems[ i ]:aItems ) .AND.  ( oNodeRet := ::SearchString( cText, iNivel, aItems[ i ], iNodo, lParcial ) ) <> Nil
+         RETURN oNodeRet
+      ENDIF
+
+      IF lParcial
+         IF AT( ALLTRIM(cText), ALLTRIM(aItems[ i ]:Title)) > 0 .AND. ( iNivel == Nil .OR. aItems[ i ]:GetLevel( ) = iNivel )
+            RETURN aItems[ i ]
+         ENDIF
+      ELSE
+         IF  aItems[ i ]:Title = cText .AND. ( iNivel == Nil .OR. aItems[ i ]:GetLevel( ) = iNivel )
+            iNodo ++
+            RETURN aItems[ i ]
+         ELSE
+            iNodo ++
+         ENDIF
+      ENDIF
+   NEXT
+   RETURN Nil
+
+UTILITY STATIC function HTree_Clean() ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+
+   ::lEmpty := .T.
+   ReleaseTree( ::aItems )
+   SendMessage( ::handle, 4353, 0, ( - 65536 ) )
+   ::aItems := { }
+
+   RETURN Nil
+
+UTILITY STATIC function HTree_ItemHeight(nHeight) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+
+   IF nHeight <> Nil
+      SendMessage( ::handle, 4379, nHeight, 0 )
+   ELSE
+      nHeight := SendMessage( ::handle, 4380, 0, 0 )
+   ENDIF
+   RETURN  nHeight
+
+UTILITY STATIC function HTree_Notify( lParam) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL nCode := GetNotifyCode( lParam ), oItem, cText, nAct, nHitem, leval
+   LOCAL nkeyDown := GetNotifyKeydown( lParam )
+
+    IF ncode = - 17 .AND. ::lDragging
+       ::hitemDrop := tree_Hittest( ::handle,,, @nAct )
+       IF ::hitemDrop <> Nil
+          SendMessage( ::handle, 4363, 8, ::hitemDrop:handle )
+       ENDIF
+    ENDIF
+
+    IF nCode == ( - 401 )
+
+   ELSEIF nCode == ( - 402 )
+      ::oItemOld := Tree_GetNotify( lParam, 6 )
+      oItem := Tree_GetNotify( lParam, 2 )
+      IF ValType( oItem ) == "O"
+         oItem:oTree:oSelected := oItem
+         IF oItem <> Nil .AND. ! oItem:oTree:lEmpty
+            IF oItem:bAction <> Nil
+               Eval( oItem:bAction, oItem, Self )
+            ELSEIF oItem:oTree:bAction <> Nil
+               Eval( oItem:oTree:bAction, oItem, Self )
+            ENDIF
+            SENDMESSAGE( ::handle,4426, , oitem:HANDLE)
+         ENDIF
+      ENDIF
+
+   ELSEIF nCode == ( - 410 ) .OR. nCode == ( - 459 )
+      s_aEvents := aClone( ::oParent:aEvents )
+      ::oParent:AddEvent( 0, 1, { || SendMessage( ::handle, 4374 , 0, 0 ) } )
+      ::oParent:AddEvent( 0, 2, { || SendMessage( ::handle, 4374 , 1, 0 ) } )
+
+
+
+   ELSEIF nCode == ( - 411 )  .OR. nCode == ( - 460 )
+      IF ! Empty( cText := Tree_GetNotify( lParam, 3 ) )
+         oItem := Tree_GetNotify( lParam, 4 )
+         IF ValType( oItem ) == "O"
+
+            IF ! cText ==  oItem:GetText()  .AND.  ( oItem:oTree:bItemChange == Nil .OR. Eval( oItem:oTree:bItemChange, oItem, cText ) )
+               TreeSetItem( oItem:oTree:handle, oItem:handle, 1, cText )
+            ENDIF
+         ENDIF
+      ENDIF
+      ::oParent:aEvents := s_aEvents
+
+   ELSEIF nCode == ( - 405 ) .OR. nCode == ( - 454 )
+      oItem := Tree_GetNotify( lParam, 2 )
+      IF ValType( oItem ) == "O"
+         IF ::bExpand <> Nil
+
+
+            RETURN IIf( Eval( oItem:oTree:bExpand, oItem,  CheckBit( Tree_GetNotify( lParam, 5 ), 0x0002 ) ),  0, 1 )
+         ENDIF
+      ENDIF
+
+   ELSEIF nCode = ( - 407 ) .AND. ::lDragDrop
+      ::hitemDrag := Tree_GetNotify( lParam, 2 )
+      ::lDragging := .T.
+
+   ELSEIF nCode = ( - 412 )
+      IF ::oItem:oTree:bKeyDown <> Nil
+         Eval( ::oItem:oTree:bKeyDown, ::oItem, nKeyDown, Self )
+      ENDIF
+
+     ELSEIF nCode = (0-2)
+     nHitem :=  Tree_GetNotify( lParam, 1 )
+
+        oItem  := tree_Hittest( ::handle,,, @nAct )
+        IF nAct = 64
+        IF ::oItem == Nil .OR. oItem:Handle <> ::oitem:Handle
+            ::Select( oItem )
+            ::oItem := oItem
+         ENDIF
+         IF ::bCheck <> Nil
+            lEval := Eval( ::bCheck, ! ::oItem:checked, ::oItem, Self )
+         ENDIF
+         IF lEval == Nil .OR. ! EMPTY( lEval )
+            MarkCheckTree( ::oItem, IIF( ::oItem:checked, 1, 2 ) )
+            RETURN 0
+         ENDIF
+         RETURN 1
+      ELSEIF ! ::lEditLabels .AND. EMPTY( nHitem )
+         IF ! ::oItem:oTree:lEmpty
+            IF ::oItem:bClick <> Nil
+               Eval( ::oItem:bClick, ::oItem, Self )
+            ENDIF
+         ENDIF
+      ENDIF
+   ELSEIF nCode == - 3
+      IF ::bDblClick <> Nil
+         oItem  := tree_Hittest( ::handle,,, @nAct )
+         Eval( ::bDblClick, oItem, Self, nAct )
+      ENDIF
+   ELSEIF nCode == - 5
+      IF ::bRClick <> Nil
+         oItem  := tree_Hittest( ::handle,,, @nAct )
+         Eval( ::bRClick, oItem, Self, nAct )
+      ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+
+   IF ValType( oItem ) == "O"
+      ::oItem := oItem
+   ENDIF
+   RETURN 0
+
+UTILITY STATIC function HTree_Selecteds( oItem, aSels) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL i, iLen
+   LOCAL aSelecteds := IIF( aSels = Nil, {}, aSels )
+
+   oItem := IIF( oItem = Nil, Self, oItem )
+   iLen :=  Len( oItem:aitems )
+
+   FOR i := 1 TO iLen
+      IF oItem:aItems[ i ]:checked
+         AADD( aSelecteds, oItem:aItems[ i ] )
+      ENDIF
+      ::Selecteds( oItem:aItems[ i ], aSelecteds )
+   NEXT
+   RETURN aSelecteds
+
+UTILITY STATIC function HTree_Expand( oNode, lAllNode) ; local Self AS CLASS HTree := QSelf() AS CLASS HTree
+   LOCAL i, iLen := Len( oNode:aitems  )
+
+   SendMessage( ::handle, 4354, 0x0002, oNode:handle )
+   FOR i := 1 TO iLen
+      IF ! EMPTY( lAllNode ) .AND. Len( oNode:aitems ) > 0
+         ::Expand( oNode:aItems[ i ], lAllNode )
+      ENDIF
+   NEXT
+   REDRAWWINDOW( ::handle , 32 + 1024 + 1  )
+   RETURN Nil
+
+STATIC PROCEDURE ReleaseTree( aItems )
+   LOCAL i, iLen := Len( aItems )
+
+   FOR i := 1 TO iLen
+      tree_ReleaseNode( aItems[ i ]:oTree:handle, aItems[ i ]:handle )
+      ReleaseTree( aItems[ i ]:aItems )
+
+   NEXT
+
+   RETURN
+
+STATIC PROCEDURE MarkCheckTree( oItem, state )
+   LOCAL i, iLen := Len( oItem:aitems  ), oParent
+
+   FOR i := 1 TO iLen
+      TreeSetItem( oItem:oTree:handle, oItem:aitems[ i ]:handle, 2, state )
+      MarkCheckTree( oItem:aItems[ i ], state )
+   NEXT
+   IF state = 1
+      oParent = oItem:oParent
+      while oParent <> Nil
+         TreeSetItem( oItem:oTree:handle, oParent:handle, 2, state )
+         oParent := oParent:oParent
+      ENDDO
+   ENDIF
+   RETURN
+
+
+STATIC PROCEDURE DragDropTree( oDrag, oItem, oDrop )
+   LOCAL i, iLen := Len( oDrag:aitems  ), hitemNew
+
+   FOR i := 1 TO iLen
+      hitemNew := oItem:AddNode( oDrag:aItems[ i ]:GetText(), ,, oDrag:aItems[ i ]:bAction,, oDrag:aItems[ i ]:lchecked, oDrag:aItems[ i ]:bClick )
+      hitemNew:oTree  := oDrag:aItems[ i ]:oTree
+      hitemNew:cargo  := oDrag:aItems[ i ]:cargo
+      hitemNew:image1 := oDrag:aItems[ i ]:image1
+      hitemNew:image2 := oDrag:aItems[ i ]:image2
+      IF Len( oDrag:aitems[ i ]:aitems ) > 0
+         DragDropTree( oDrag:aItems[ i ], hitemNew, oDrop )
+      ENDIF
+
+   NEXT
+   RETURN

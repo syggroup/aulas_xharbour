@@ -1,0 +1,360 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 65 "smtpcln.prg"
+_HB_CLASS tIPClientSMTP ; UTILITY FUNCTION tIPClientSMTP(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "tIPClientSMTP" , {tIPClient():classh} ) ) ; ;
+
+  _HB_MEMBER { lStartTls} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lStartTls" }, .F., .F. ), )
+  _HB_MEMBER { lAuthLogin} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lAuthLogin" }, .F., .F. ), )
+  _HB_MEMBER { lAuthPlain} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lAuthPlain" }, .F., .F. ), )
+  _HB_MEMBER { lTls} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lTls" }, .F., .F. ), )
+
+   _HB_MEMBER New( oUrl, lTrace, oCredentials,CAFile,CaPath); IIF( .F., s_oClass:ModMethod( "New", @tIPClientSMTP_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @tIPClientSMTP_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Open(); IIF( .F., s_oClass:ModMethod( "Open", @tIPClientSMTP_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Open", @tIPClientSMTP_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @tIPClientSMTP_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @tIPClientSMTP_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Write( cData, nLen, bCommit); IIF( .F., s_oClass:ModMethod( "Write", @tIPClientSMTP_Write(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Write", @tIPClientSMTP_Write(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Mail( cFrom); IIF( .F., s_oClass:ModMethod( "Mail", @tIPClientSMTP_Mail(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Mail", @tIPClientSMTP_Mail(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Rcpt( cRcpt); IIF( .F., s_oClass:ModMethod( "Rcpt", @tIPClientSMTP_Rcpt(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Rcpt", @tIPClientSMTP_Rcpt(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Data( cData); IIF( .F., s_oClass:ModMethod( "Data", @tIPClientSMTP_Data(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Data", @tIPClientSMTP_Data(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Commit(); IIF( .F., s_oClass:ModMethod( "Commit", @tIPClientSMTP_Commit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Commit", @tIPClientSMTP_Commit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Quit(); IIF( .F., s_oClass:ModMethod( "Quit", @tIPClientSMTP_Quit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Quit", @tIPClientSMTP_Quit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetOK(); IIF( .F., s_oClass:ModMethod( "GetOK", @tIPClientSMTP_GetOK(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetOK", @tIPClientSMTP_GetOK(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER OpenSecure(); IIF( .F., s_oClass:ModMethod( "OpenSecure", @tIPClientSMTP_OpenSecure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OpenSecure", @tIPClientSMTP_OpenSecure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AUTH( cUser, cPass); IIF( .F., s_oClass:ModMethod( "AUTH", @tIPClientSMTP_AUTH(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AUTH", @tIPClientSMTP_AUTH(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AUTHplain( cUser, cPass); IIF( .F., s_oClass:ModMethod( "AUTHplain", @tIPClientSMTP_AUTHplain(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AUTHplain", @tIPClientSMTP_AUTHplain(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ServerSuportSecure( lAuthp,lAuthl); IIF( .F., s_oClass:ModMethod( "ServerSuportSecure", @tIPClientSMTP_ServerSuportSecure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ServerSuportSecure", @tIPClientSMTP_ServerSuportSecure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER smtpClnDestructor(); s_oClass:SetDestructor( @tIPClientSMTP_smtpClnDestructor() ) ;
+   _HB_MEMBER DetectSecurity(); IIF( .F., s_oClass:ModMethod( "DetectSecurity", @tIPClientSMTP_DetectSecurity(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DetectSecurity", @tIPClientSMTP_DetectSecurity(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER sENDMail(); IIF( .F., s_oClass:ModMethod( "sENDMail", @tIPClientSMTP_sENDMail(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "sENDMail", @tIPClientSMTP_sENDMail(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER StartTLS(); IIF( .F., s_oClass:ModMethod( "StartTLS", @tIPClientSMTP_StartTLS(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "StartTLS", @tIPClientSMTP_StartTLS(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ActivateSSL(); IIF( .F., s_oClass:ModMethod( "ActivateSSL", @tIPClientSMTP_ActivateSSL(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ActivateSSL", @tIPClientSMTP_ActivateSSL(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   nScope := 8 ; ( nScope )
+   _HB_MEMBER { isAuth} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "isAuth" }, .F., .F. ), )
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS tIPClientSMTP ;
+
+UTILITY STATIC function tIPClientSMTP_New( oUrl, lTrace, oCredentials, CAFile,CaPath) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+local cFile :="sENDmail"
+local n:=1
+   ::tIPClient:New( oUrl, lTrace, oCredentials, ,CAFile,CaPath )
+
+   ::nDefaultPort := 25
+   ::nConnTimeout := 5000
+   ::nAccessMode := 1
+
+   IF ::ltrace
+      IF !file("sENDmail.log")
+         ::nHandle := fcreate("sENDmail.log")
+      ELSE
+         while file(cFile+alltrim(str(n,4))+".log")
+           n++
+         ENDdo
+         ::nHandle := fcreate(cFile+alltrim(str(n,4))+".log")
+      ENDIF
+   ENDIF
+RETURN Self
+
+UTILITY STATIC function tIPClientSMTP_Open( cUrl) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+
+   IF ! ::tIPClient:Open( cUrl )
+      RETURN .F.
+   ENDIF
+   IF ::lSSL
+      InetSSLSetTimeout( ::SocketSSLCon, ::nConnTimeout )
+   ELSE
+      InetSetTimeout( ::SocketCon, ::nConnTimeout )
+   ENDIF
+
+   IF ! Empty ( ::oUrl:cUserID )
+      ::InetSENDall( ::SocketCon, "HELO " +  ::oUrl:cuserid + ::cCRLF )
+   ELSE
+      ::InetSENDall( ::SocketCon, "HELO tipClientSMTP" + ::cCRLF )
+   ENDIF
+
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientSMTP_GetOK() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   LOCAL nLen
+
+   ::cReply := ::InetRecvLine( ::SocketCon, @nLen, 512 )
+   IF ::InetErrorCode( ::SocketCon ) <> 0  .OR. ! HB_ISSTRING( ::cReply ) .OR. Substr( ::cReply, 1, 1 ) == "5"
+      RETURN .F.
+   ENDIF
+RETURN .T.
+
+
+UTILITY STATIC function tIPClientSMTP_Close() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   IF ::lSSL
+      InetSSLSetTimeOut( ::SocketSSLCon, ::nConnTimeout )
+   ELSE
+      InetSetTimeOut( ::SocketCon, ::nConnTimeout )
+   ENDIF
+
+   IF ::ltrace
+      fClose( ::nHandle )
+      ::nHandle := -1
+   ENDIF
+   ::Quit()
+RETURN ::tIPClient:Close()
+
+UTILITY STATIC function tIPClientSMTP_Commit() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   ::InetSENDall( ::SocketCon, ::cCRLF + "." + ::cCRLF )
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientSMTP_Quit() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   ::InetSENDall( ::SocketCon, "QUIT" + ::cCRLF )
+   ::isAuth := .F.
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientSMTP_Mail( cFrom) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   ::InetSENDall( ::SocketCon, "MAIL FROM: <" + cFrom +">" + ::cCRLF )
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientSMTP_Rcpt( cTo) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   ::InetSENDall( ::SocketCon, "RCPT TO: <" + cTo + ">" + ::cCRLF )
+RETURN ::GetOk()
+
+
+UTILITY STATIC function tIPClientSMTP_Data( cData) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   ::InetSENDall( ::SocketCon, "DATA" + ::cCRLF )
+   IF ! ::GetOk()
+      RETURN .F.
+   ENDIF
+   ::InetSENDall(::SocketCon, cData + ::cCRLF + "." + ::cCRLF )
+RETURN ::GetOk()
+
+
+
+UTILITY STATIC function tIPClientSMTP_OpenSecure( cUrl,lSSL) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+
+   Local cUser,lOk
+   IF lSSL == NIL ; lSSL := .F. ; END
+
+   IF ! ::tIPClient:Open( cUrl )
+      RETURN .F.
+   ENDIF
+   IF ::lSSL
+      InetSSLSetTimeout( ::SocketSSLCon, ::nConnTimeout )
+   ELSE
+      InetSetTimeout( ::SocketCon, ::nConnTimeout )
+   ENDIF
+
+   cUser := ::oUrl:cuserid
+
+   IF ! Empty ( ::oUrl:cuserid )
+      ::InetSENDall( ::SocketCon, "EHLO " +  cUser + ::cCRLF )
+   ELSE
+      ::InetSENDall( ::SocketCon, "EHLO tipClientSMTP" + ::cCRLF )
+   ENDIF
+
+   lok := ::DetectSecurity()
+
+   IF ! lSSL
+     if lok
+       if ::lTLS
+          lok := ::StartTLS()
+       endif
+     endif
+   ENDIF
+
+RETURN lOk
+
+
+UTILITY STATIC function tIPClientSMTP_AUTH( cUser, cPass) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+
+   Local cEncodedUser
+   Local cEncodedPAss
+
+   cUser := StrTran( cUser,"&at;", "@")
+
+   cEncodedUser := alltrim(HB_BASE64(cuser,len(cuser)))
+   cEncodedPAss :=alltrim(HB_BASE64(cPass,len(cpass)))
+
+
+   ::InetSENDall( ::SocketCon, "AUTH LOGIN" +::ccrlf )
+
+   IF ::GetOk()
+      ::InetSENDall( ::SocketCon, cEncodedUser+::cCrlf  )
+      IF ::Getok()
+         ::InetSENDall( ::SocketCon, cEncodedPass +::cCrlf )
+      ENDIF
+   ENDIF
+
+   return ( ::isAuth := ::GetOk() )
+
+UTILITY STATIC function tIPClientSMTP_AUTHplain( cUser, cPass) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+
+   Local cBase := BUILDUSERPASSSTRING( cUser, cPass )
+   Local cen   := HB_BASE64( cBase, 2 + Len( cUser ) + Len( cPass ) )
+
+   ::InetSENDall( ::SocketCon, "AUTH PLAIN" + cen + ::cCrlf)
+   return ( ::isAuth := ::GetOk() )
+
+
+UTILITY STATIC function tIPClientSMTP_Write( cData, nLen, bCommit) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+Local aTo,cRecpt
+   IF ! ::bInitialized
+
+      IF Empty( ::oUrl:cFile )
+         RETURN -1
+      ENDIF
+
+      IF ! ::Mail( ::oUrl:cUserid )
+         RETURN -1
+      ENDIF
+      aTo:= HB_RegexSplit(",", ::oUrl:cFile )
+
+      FOR each cRecpt in Ato
+         IF !   ::Rcpt(cRecpt)
+            RETURN -1
+         ENDIF
+      NEXT
+
+      ::InetSENDall( ::SocketCon, "DATA" + ::cCRLF )
+      IF ! ::GetOk()
+         RETURN -1
+      ENDIF
+      ::bInitialized := .T.
+   ENDIF
+
+   ::nLastWrite := ::tIPClient:Write( cData, nLen, bCommit )
+RETURN ::nLastWrite
+
+UTILITY STATIC function tIPClientSMTP_ServerSuportSecure( lAuthp,lAuthl) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   Local lAuthLogin := .F.,lAuthPlain :=.F.
+
+   IF ::OPENSECURE()
+      WHILE .T.
+         ::GetOk()
+         IF ::cReply == NIL
+            EXIT
+         ELSEIF "LOGIN" IN ::cReply
+            lAuthLogin := .T.
+         ELSEIF "PLAIN" IN ::cReply
+            lAuthPlain := .T.
+         ENDIF
+      ENDDO
+    ::CLOSE()
+ ENDIF
+
+   lAuthp:=lAuthPlain
+   lAuthl:=lAuthLogin
+
+RETURN  lAuthLogin .OR. lAuthPlain
+
+
+UTILITY STATIC function tIPClientSMTP_sENDMail( oTIpMail) ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   LOCAL cFrom, cTo, aTo
+
+   IF ! ::isOpen
+      RETURN .F.
+   ENDIF
+
+   IF ! ::isAuth
+      ::auth( ::oUrl:cUserId, ::oUrl:cPassWord )
+      IF ! ::isAuth
+         RETURN .F.
+      ENDIF
+   ENDIF
+
+   cFrom := oTIpMail:getFieldPart( "From" )
+   cTo   := oTIpMail:getFieldPart( "To" )
+
+   cTo   := StrTran( cTo, InetCRLF(), "" )
+   cTo   := StrTran( cTo, Chr(9)    , "" )
+   cTo   := StrTran( cTo, Chr(32)   , "" )
+
+   aTo   := HB_RegExSplit( "," , cTo )
+
+   ::mail( cFrom )
+   FOR EACH cTo IN aTo
+      ::rcpt( cTo   )
+   NEXT
+
+RETURN ::data( oTIpMail:toString() )
+
+UTILITY STATIC PROCEDURE tIPClientSMTP_smtpClnDestructor ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   IF ::ltrace .AND. ::nhandle > 0
+      fClose( ::nHandle )
+      ::nhandle := -1
+   ENDIF
+
+
+RETURN
+
+UTILITY STATIC function tIPClientSMTP_StartTLS() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+   ::inetSendAll( ::SocketCon, "STARTTLS" + ::cCRLF )
+   if ::GetOk()
+     ::lSsl := .T.
+     ::ActivateSSL(Self)
+   else
+    RETURN .F.
+   endif
+
+   RETURN .T.
+
+
+UTILITY STATIC function tIPClientSMTP_DetectSecurity() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+Local lok
+
+     while .T.
+       IF ! (lok := ::GetOk())
+         EXIT
+       ENDIF
+       IF ::cReply == NIL
+         EXIT
+       ENDIF
+       IF "LOGIN" $ ::cReply
+         ::lAuthLogin := .T.
+       ENDIF
+       IF "PLAIN" $ ::cReply
+         ::lAuthPlain := .T.
+       ENDIF
+       IF "STARTTLS" $ ::cReply
+         ::lTLS := .T.
+         ::lAuthLogin := .T.
+         ::lAuthPlain := .T.
+       ENDIF
+       IF Left( ::cReply, 4 ) == "250-"
+         LOOP
+       ELSEIF Left( ::cReply, 4 ) == "250 "
+         EXIT
+       ENDIF
+     ENDDO
+   RETURN lOk
+
+UTILITY STATIC function tIPClientSMTP_ActivateSSL() ; local Self AS CLASS tIPClientSMTP := QSelf() AS CLASS tIPClientSMTP
+LOCAL SocketCon
+Local nSock
+
+   SSL_INIT()
+   INITSSLRANDFILE()
+
+   SocketCon := ::SocketCon
+   ::SocketSSLCon := InetSSLCreate( , ::CAFile, ::CaPath )
+   InetSSLSetTimeout( ::SocketSSLCon, ::nConnTimeout )
+   nSock := HB_INETFD(::SocketCon)
+   INETSSLCONNECTFROMFD(nSock , ::oUrl:nPort, ::SocketSSLCon )
+   ::SocketConOld := SocketCon
+
+RETURN .T.

@@ -1,0 +1,162 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\hipedit.prg"
+_HB_CLASS HIPedit ; UTILITY FUNCTION HIPedit(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HIPedit" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "SysIPAddress32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { bSetGet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSetGet" }, .F., .F. ), )
+   _HB_MEMBER { bChange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChange" }, .F., .F. ), )
+   _HB_MEMBER { bKillFocus} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bKillFocus" }, .F., .F. ), )
+   _HB_MEMBER { bGetFocus} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bGetFocus" }, .F., .F. ), )
+   _HB_MEMBER { lnoValid} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lnoValid" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bGetFocus, bKillFocus); IIF( .F., s_oClass:ModMethod( "New", @HIPedit_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HIPedit_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HIPedit_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HIPedit_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HIPedit_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HIPedit_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetValue( aValue); IIF( .F., s_oClass:ModMethod( "SetValue", @HIPedit_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HIPedit_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetValue(); IIF( .F., s_oClass:ModMethod( "GetValue", @HIPedit_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetValue", @HIPedit_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Clear(); IIF( .F., s_oClass:ModMethod( "Clear", @HIPedit_Clear(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Clear", @HIPedit_Clear(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HIPedit_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HIPedit_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   nScope := 8 ; ( nScope )
+   _HB_MEMBER { aValue} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aValue" }, .F., .F. ), )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HIPedit ;
+
+
+UTILITY STATIC function HIPedit_New( oWndParent, nId, aValue, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bGetFocus, bKillFocus) ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 65536 )
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont )
+
+   ::title   := ""
+
+   ::bSetGet := bSetGet
+   aValue := IIf( aValue == nil, { 0, 0, 0, 0 }, aValue ) ;
+   ::aValue  := aValue
+   ::bGetFocus  := bGetFocus
+   ::bKillFocus := bKillFocus
+
+   HWG_InitCommonControlsEx()
+   ::Activate()
+
+
+
+
+
+
+
+
+
+
+
+   IF bGetFocus <> Nil
+      ::lnoValid := .T.
+
+   ENDIF
+   IF bKillFocus <> Nil
+
+      ::oParent:AddEvent( 4294966436, Self, ::bKillFocus, .T., "onChange" )
+   ENDIF
+
+
+
+
+   ::oParent:AddEvent( 256 , Self, { | o, id | __GetFocus( o:FindControl( id ) ) },, "onGotFocus" )
+   ::oParent:AddEvent( 512, Self, { | o, id | __KillFocus( o:FindControl( id ) ) },, "onLostFocus" )
+
+
+   RETURN Self
+
+UTILITY STATIC function HIPedit_Activate() ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := InitIPAddress ( ::oParent:handle, ::id, ::style ,  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HIPedit_Init() ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+
+   IF ! ::lInit
+      ::HControl:Init()
+      ::SetValue( ::aValue )
+      ::lInit := .T.
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HIPedit_SetValue( aValue) ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+   SETIPADDRESS( ::handle , aValue[ 1 ], aValue[ 2 ], aValue[ 3 ], aValue[ 4 ] )
+   ::aValue := aValue
+   RETURN Nil
+
+
+UTILITY STATIC function HIPedit_GetValue() ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+   ::aValue := GETIPADDRESS( ::handle )
+   RETURN ( ::aValue )
+
+UTILITY STATIC function HIPedit_Clear() ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+   CLEARIPADDRESS( ::handle )
+   ::aValue := { 0, 0, 0, 0 }
+   RETURN ( ::aValue )
+
+
+UTILITY STATIC function HIPedit_END() ; local Self AS CLASS HIPedit := QSelf() AS CLASS HIPedit
+
+
+   ::HControl:END()
+
+   RETURN Nil
+
+
+STATIC FUNCTION __GetFocus( oCtrl )
+   LOCAL xRet
+
+   IF ! CheckFocus( oCtrl, .F. )
+      RETURN .T.
+   ENDIF
+
+   IF ValType( oCtrl:bGetFocus ) == "B"
+      oCtrl:oparent:lSuspendMsgsHandling := .T.
+      oCtrl:lnoValid := .T.
+      xRet := Eval( oCtrl:bGetFocus, oCtrl )
+      oCtrl:oparent:lSuspendMsgsHandling := .F.
+      oCtrl:lnoValid := xRet
+   ENDIF
+
+   RETURN xRet
+
+
+STATIC FUNCTION __KillFocus( oCtrl )
+   LOCAL xRet
+
+   IF ! CheckFocus( oCtrl, .T. ) .OR. oCtrl:lNoValid
+      RETURN .T.
+   ENDIF
+
+   IF ValType( oCtrl:bKillFocus ) == "B"
+      oCtrl:oparent:lSuspendMsgsHandling := .T.
+      xRet := Eval( oCtrl:bKillFocus, oCtrl )
+      oCtrl:oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+
+   RETURN xRet

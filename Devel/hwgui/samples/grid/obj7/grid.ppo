@@ -1,0 +1,88 @@
+#line 16 "grid.prg"
+Static oMain, oForm, oFont, oGrid
+
+Function Main()
+
+
+
+        oMain := HMainWindow():New( Iif(.F.,2,1),,,,0,0,GetDesktopWidth(),GetDesktopHeight() - 28,"Grid Sample",,,,,,,,,,,,,,,,,,.F.)
+
+                Hwg_BeginMenu( oMain,,,,,,.F. )
+                        Hwg_DefineMenuItem( "&Exit",, {|| oMain:Close()}, .F.,,,, .F., .F.,.F. )
+                        Hwg_DefineMenuItem( "&Grid Demo",, {|| Test()}, .F.,,,, .F., .F.,.F. )
+                Hwg_EndMenu()
+
+        oMain:Activate( !.F., .F., .F., .F.,, .F.,.F. )
+Return Nil
+
+Function Test()
+        oFont := HFont():Add( "Courier New", 0, -11,,, iif( .F.,1,0 ), iif( .F.,1,0 ), iif( .F.,1,0 ) )
+
+
+
+
+        oForm := HDialog():New( Iif(.F.,10,11), 2048 + 2147483648 + 268435456 + 12582912 + 524288,0,0,700,425,"Grid Demo",oFont,,,,,,,,.T.,,,.T.,,,.F.,,, .F.,.F.)
+
+
+
+
+
+
+
+
+             oGrid := HGrid():New( oForm,,, 10, 10, 680, 375,,,,, {|oCtrl| OnClick(oCtrl) },,, .F., .F., {|oCtrl, key| OnKey(oCtrl, key) }, {|oCtrl, nRow| OnPoschange(oCtrl, nRow) }, {|oCtrl, nRow, nCol| OnDispInfo( oCtrl, nRow, nCol ) }, 10000, .F., VColor("D3D3D3"), VColor("BEBEBE"), .F. ,); oGrid:name := "oGrid"
+
+             oGrid:AddColumn( "Column 1", 150, ,)
+             oGrid:AddColumn( "Column 2", 150, ,)
+             oGrid:AddColumn( "Column 3", 150, ,)
+
+             HButton():New(,,,620,395,75, 25,"Close",,,,,{|| oForm:Close() },,,,,.F. );
+
+        oForm:Activate(.F.,,,.F. )
+
+Return Nil
+
+Function OnKey( o, k )
+
+return nil
+
+Function OnPosChange( o, row )
+
+return nil
+
+Function OnClick( o )
+
+return nil
+
+Function OnDispInfo( o, x, y )
+return "Row: " + ltrim(str(x)) + " Col: " + ltrim(str(y))
+
+
+function SYG_TRANSLATOR(cTEXT)
+RETURN(cTEXT)
+
+FUNCTION GETDESKTOPHEIGHT
+LOCAL nRET:=0
+IF HWG_GETNUMMONITORS()>1
+   TRY
+      nRET:=oTelaPrincipal:nHeight
+   CATCH
+      nRET:=HWG_GETDESKTOPHEIGHT()
+   END
+ELSE
+   nRET:=HWG_GETDESKTOPHEIGHT()
+ENDIF
+RETURN(nRET)
+
+FUNCTION GETDESKTOPWIDTH
+LOCAL nRET:=0
+IF HWG_GETNUMMONITORS()>1
+   TRY
+      nRET:=oTelaPrincipal:nWidth
+   CATCH
+      nRET:=HWG_GETDESKTOPWIDTH()
+   END
+ELSE
+   nRET:=HWG_GETDESKTOPWIDTH()
+ENDIF
+RETURN(nRET)

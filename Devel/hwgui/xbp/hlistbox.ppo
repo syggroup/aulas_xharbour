@@ -1,0 +1,343 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 16 "source\hlistbox.prg"
+_HB_CLASS HListBox ; UTILITY FUNCTION HListBox(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HListBox" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "LISTBOX", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { aItems} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aItems" }, .F., .F. ), )
+   _HB_MEMBER { bSetGet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSetGet" }, .F., .F. ), )
+   _HB_MEMBER { value} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "value" }, .F., .F. ), )
+   _HB_MEMBER { nItemHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nItemHeight" }, .F., .F. ), )
+   _HB_MEMBER { bChangeSel} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChangeSel" }, .F., .F. ), )
+   _HB_MEMBER { bkeydown, bDblclick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bkeydown" , "bDblclick" }, .F., .F. ), )
+   _HB_MEMBER { bValid} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bValid" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,  aItems,oFont,bInit,bSize,bPaint,bChange,cTooltip,tColor,bcolor,bGFocus,bLFocus, bKeydown, bDblclick,bOther); IIF( .F., s_oClass:ModMethod( "New", @HListBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HListBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HListBox_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HListBox_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint,  bChange, cTooltip, bKeydown, bOther); IIF( .F., s_oClass:ModMethod( "Redefine", @HListBox_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HListBox_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HListBox_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HListBox_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HListBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HListBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Requery(); IIF( .F., s_oClass:ModMethod( "Requery", @HListBox_Requery(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Requery", @HListBox_Requery(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Setitem( nPos); IIF( .F., s_oClass:ModMethod( "Setitem", @HListBox_Setitem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Setitem", @HListBox_Setitem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddItems( p); IIF( .F., s_oClass:ModMethod( "AddItems", @HListBox_AddItems(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddItems", @HListBox_AddItems(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeleteItem( nPos); IIF( .F., s_oClass:ModMethod( "DeleteItem", @HListBox_DeleteItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DeleteItem", @HListBox_DeleteItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Valid( oCtrl); IIF( .F., s_oClass:ModMethod( "Valid", @HListBox_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Valid", @HListBox_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER When( oCtrl); IIF( .F., s_oClass:ModMethod( "When", @HListBox_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "When", @HListBox_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onChange( oCtrl); IIF( .F., s_oClass:ModMethod( "onChange", @HListBox_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onChange", @HListBox_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onDblClick(); IIF( .F., s_oClass:ModMethod( "onDblClick", @HListBox_onDblClick(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onDblClick", @HListBox_onDblClick(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Clear(); IIF( .F., s_oClass:ModMethod( "Clear", @HListBox_Clear(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Clear", @HListBox_Clear(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HListBox_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HListBox_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HListBox ;
+
+
+UTILITY STATIC function HListBox_New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont,  bInit, bSize, bPaint, bChange, cTooltip, tColor, bcolor, bGFocus, bLFocus,bKeydown, bDblclick,bOther) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 65536 + 2097152 + 0x1000 + 0x0001 + 0x0100 + 8388608 )
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize, bPaint, cTooltip, tColor, bcolor )
+
+   ::value   := IIf( vari == Nil .OR. ValType( vari ) <> "N", 0, vari )
+   ::bSetGet := bSetGet
+
+   IF aItems == Nil
+      ::aItems := { }
+   ELSE
+      ::aItems  := aItems
+   ENDIF
+
+   ::Activate()
+
+   ::bChangeSel := bChange
+   ::bGetFocus := bGFocus
+   ::bLostFocus := bLFocus
+    ::bKeydown := bKeydown
+    ::bDblclick := bDblclick
+      ::bOther := bOther
+
+   IF bSetGet <> Nil
+      IF bGFocus <> Nil
+         ::lnoValid := .T.
+         ::oParent:AddEvent( 4, Self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      ENDIF
+      ::oParent:AddEvent( 5, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .F., "onLostFocus" )
+      ::bValid := { | o | ::Valid( o ) }
+   ELSE
+      IF bGFocus <> Nil
+         ::oParent:AddEvent( 4, Self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      ENDIF
+      ::oParent:AddEvent( 5, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .F., "onLostFocus" )
+   ENDIF
+   IF bChange <> Nil .OR. bSetGet <> Nil
+      ::oParent:AddEvent( 1, Self, { | o, id | ::onChange( o:FindControl( id ) ) },, "onChange" )
+   ENDIF
+   IF bDblclick <> Nil
+      ::oParent:AddEvent( 2, self, {|| ::onDblClick() } )
+   ENDIF
+
+   RETURN Self
+
+UTILITY STATIC function HListBox_Activate() ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateListbox( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HListBox_Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint,  bChange, cTooltip, bKeydown, bOther) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize, bPaint, cTooltip )
+
+   ::value   := IIf( vari == Nil .OR. ValType( vari ) <> "N", 1, vari )
+   ::bSetGet := bSetGet
+   ::bKeydown := bKeydown
+    ::bOther := bOther
+
+   IF aItems == Nil
+      ::aItems := { }
+   ELSE
+      ::aItems  := aItems
+   ENDIF
+
+   IF bSetGet <> Nil
+      ::bChangeSel := bChange
+      ::oParent:AddEvent( 1, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, "onChange" )
+   ENDIF
+   RETURN Self
+
+UTILITY STATIC function HListBox_Init() ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   LOCAL i
+
+   IF ! ::lInit
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      HWG_INITLISTPROC( ::handle )
+      ::HControl:Init()
+      IF ::aItems <> Nil
+         IF ::value == Nil
+            ::value := 1
+         ENDIF
+         IF !EMPTY( ::nItemHeight )
+            SendMessage( ::handle, 0x01A0 , 0, ::nItemHeight )
+         ENDIF
+         SendMessage( ::handle, 0x0184, 0, 0 )
+         FOR i := 1 TO Len( ::aItems )
+            ListboxAddString( ::handle, ::aItems[ i ] )
+         NEXT
+         ListboxSetString( ::handle, ::value )
+      ENDIF
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HListBox_onEvent( msg, wParam, lParam) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+ Local nEval
+
+   IF ::bOther <> Nil
+      IF (nEval := Eval( ::bOther,Self,msg,wParam,lParam )) <> -1 .AND. nEval <> Nil
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF msg == 256
+      IF ProcKeyList( Self, wParam )
+         RETURN - 1
+      ENDIF
+      IF wParam = 0x09
+         GetSkip( ::oParent, ::handle, , iif( IsCtrlShift(.F., .T.), -1, 1) )
+
+      ENDIF
+         IF ::bKeyDown <> Nil .AND. ValType( ::bKeyDown ) == "B"
+         ::oparent:lSuspendMsgsHandling := .T.
+         nEval := Eval( ::bKeyDown, Self, wParam )
+         IF (VALTYPE( nEval ) == "L" .AND. ! nEval ) .OR. ( nEval <> -1 .AND. nEval <> Nil )
+            ::oparent:lSuspendMsgsHandling := .F.
+            RETURN 0
+         ENDIF
+         ::oparent:lSuspendMsgsHandling := .F.
+      ENDIF
+   ELSEIF  msg = 135 .AND. ( wParam = 0x0D .OR.wParam = 0x1B ) .AND. ::bKeyDown <> Nil
+      RETURN 0x0004
+   ENDIF
+   RETURN -1
+
+UTILITY STATIC function HListBox_Requery() ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   Local i
+
+   SendMessage( ::handle, 0x0184, 0, 0)
+   FOR i := 1 TO Len( ::aItems )
+      ListboxAddString( ::handle, ::aItems[i] )
+   NEXT
+   ListboxSetString( ::handle, ::value )
+   ::refresh()
+   Return Nil
+
+
+UTILITY STATIC function HListBox_Refresh() ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   LOCAL vari
+   IF ::bSetGet <> Nil
+      vari := Eval( ::bSetGet )
+   ENDIF
+
+   ::value := IIf( vari == Nil .OR. ValType( vari ) <> "N", 0, vari )
+   ::SetItem( ::value )
+   RETURN Nil
+
+UTILITY STATIC function HListBox_Setitem( nPos) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   ::value := nPos
+   SendMessage( ::handle, 0x0186, nPos - 1, 0 )
+
+   IF ::bSetGet <> Nil
+      Eval( ::bSetGet, ::value )
+   ENDIF
+
+   IF ::bChangeSel <> Nil
+      Eval( ::bChangeSel, ::value, Self )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HListBox_onDblClick() ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+  IF ::bDblClick <> Nil
+       ::oParent:lSuspendMsgsHandling := .T.
+      Eval( ::bDblClick, self, ::value )
+       ::oParent:lSuspendMsgsHandling := .F.
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HListBox_AddItems( p) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+
+   AAdd( ::aItems, p )
+   ListboxAddString( ::handle, p )
+
+
+
+
+   ListboxSetString( ::handle, ::value )
+   RETURN Self
+
+UTILITY STATIC function HListBox_DeleteItem( nPos) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+
+   IF SendMessage( ::handle, 0x0182 , nPos - 1, 0 ) >= 0
+      ADel( ::Aitems, nPos )
+      ASize( ::Aitems, Len( ::aitems ) - 1 )
+      ::value := Min( Len( ::aitems ) , ::value )
+      IF ::bSetGet <> Nil
+         Eval( ::bSetGet, ::value, Self )
+      ENDIF
+      RETURN .T.
+   ENDIF
+   RETURN .F.
+
+UTILITY STATIC function HListBox_Clear() ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   ::aItems := { }
+   ::value := 0
+   SendMessage( ::handle, 0x0184, 0, 0 )
+   ListboxSetString( ::handle, ::value )
+   RETURN .T.
+
+
+UTILITY STATIC function HListBox_onChange( oCtrl) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   LOCAL nPos
+
+   ( (oCtrl) := (oCtrl) )
+
+   nPos := SendMessage( ::handle, 0x0188, 0, 0 ) + 1
+   ::SetItem( nPos )
+
+   RETURN Nil
+
+
+UTILITY STATIC function HListBox_When( oCtrl) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   LOCAL res := .T., nSkip
+
+   ( (oCtrl) := (oCtrl) )
+
+   IF ! CheckFocus( Self, .F. )
+      RETURN .T.
+   ENDIF
+    nSkip := IIf( GetKeyState( 0x26 ) < 0 .OR. ( GetKeyState( 0x09 ) < 0 .AND. GetKeyState( 0x10 ) < 0 ), - 1, 1 )
+   IF ::bSetGet <> Nil
+      Eval( ::bSetGet, ::value, Self )
+   ENDIF
+   IF ::bGetFocus <> Nil
+      ::lnoValid := .T.
+      ::oparent:lSuspendMsgsHandling := .T.
+      res := Eval( ::bGetFocus, ::Value, Self )
+      ::oparent:lSuspendMsgsHandling := .F.
+      ::lnoValid := ! res
+      IF ! res
+         WhenSetFocus( Self, nSkip )
+      ELSE
+         ::SetFocus()
+      ENDIF
+   ENDIF
+   RETURN res
+
+
+UTILITY STATIC function HListBox_Valid( oCtrl) ; local Self AS CLASS HListBox := QSelf() AS CLASS HListBox
+   LOCAL res, oDlg
+
+
+   ( (oCtrl) := (oCtrl) )
+
+   IF ! CheckFocus( Self, .T. ) .OR. ::lNoValid
+      RETURN .T.
+   ENDIF
+
+   IF ( oDlg := ParentGetDialog( Self ) ) == Nil .OR. oDlg:nLastKey <> 27
+      ::value := SendMessage( ::handle, 0x0188, 0, 0 ) + 1
+      IF ::bSetGet <> Nil
+         Eval( ::bSetGet, ::value, Self )
+      ENDIF
+      IF oDlg <> Nil
+         oDlg:nLastKey := 27
+      ENDIF
+      IF ::bLostFocus <> Nil
+         ::oparent:lSuspendMsgsHandling := .T.
+         res := Eval( ::bLostFocus, ::value, Self )
+         ::oparent:lSuspendMsgsHandling := .F.
+         IF ! res
+            ::SetFocus( .T. )
+            IF oDlg <> Nil
+               oDlg:nLastKey := 0
+            ENDIF
+            RETURN .F.
+         ENDIF
+      ENDIF
+      IF oDlg <> Nil
+         oDlg:nLastKey := 0
+      ENDIF
+   ENDIF
+   IF Empty( GetFocus() )
+       GetSkip( ::oParent, ::handle,, ::nGetSkip )
+   ENDIF
+
+
+
+
+
+
+
+
+
+   RETURN .T.

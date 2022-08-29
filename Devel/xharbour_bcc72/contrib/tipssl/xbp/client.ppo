@@ -1,0 +1,738 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 90 "client.prg"
+_HB_CLASS tIPClient ; UTILITY FUNCTION tIPClient(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "tIPClient" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { bInitSocks} ; IIF( !.F., s_oClass:AddMultiClsData(, .F., nScope + IIF( .F., 32, 0 ) + 64, { "bInitSocks" }, .F. ), )
+   _HB_MEMBER { cCRLF} ; IIF( !.F., s_oClass:AddMultiClsData(, InetCRLF(), nScope + IIF( .F., 32, 0 ) + 64, { "cCRLF" }, .F. ), )
+   _HB_MEMBER { oUrl} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oUrl" }, .F., .F. ), )
+   _HB_MEMBER { oCredentials} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oCredentials" }, .F., .F. ), )
+   _HB_MEMBER { nStatus} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nStatus" }, .F., .F. ), )
+   _HB_MEMBER { SocketCon} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "SocketCon" }, .F., .F. ), )
+   _HB_MEMBER { SocketSSLCon} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "SocketSSLCon" }, .F., .F. ), )
+   _HB_MEMBER { SocketConOld} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "SocketConOld" }, .F., .F. ), )
+   _HB_MEMBER { lTrace} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lTrace" }, .F., .F. ), )
+   _HB_MEMBER { nHandle} ; IIF( !.F., s_oClass:AddMultiData(, -1, nScope + IIF( .F., 32, 0 ), { "nHandle" }, .F., .F. ), )
+   _HB_MEMBER { lSSL} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lSSL" }, .F., .F. ), )
+
+   _HB_MEMBER { nDefaultRcvBuffSize} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nDefaultRcvBuffSize" }, .F., .F. ), )
+   _HB_MEMBER { nDefaultSndBuffSize} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nDefaultSndBuffSize" }, .F., .F. ), )
+
+
+   _HB_MEMBER { nLength} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nLength" }, .F., .F. ), )
+
+   _HB_MEMBER { nRead} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nRead" }, .F., .F. ), )
+
+   _HB_MEMBER { nLastRead} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nLastRead" }, .F., .F. ), )
+
+   _HB_MEMBER { nDefaultPort} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nDefaultPort" }, .F., .F. ), )
+   _HB_MEMBER { nConnTimeout} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nConnTimeout" }, .F., .F. ), )
+   _HB_MEMBER { bInitialized} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bInitialized" }, .F., .F. ), )
+
+   _HB_MEMBER { cReply} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cReply" }, .F., .F. ), )
+   _HB_MEMBER { nAccessMode} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nAccessMode" }, .F., .F. ), )
+   _HB_MEMBER { nWrite} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nWrite" }, .F., .F. ), )
+   _HB_MEMBER { nLastWrite} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nLastWrite" }, .F., .F. ), )
+
+   _HB_MEMBER { bEof} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bEof" }, .F., .F. ), )
+   _HB_MEMBER { isOpen} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "isOpen" }, .F., .F. ), )
+
+
+   _HB_MEMBER { exGauge} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "exGauge" }, .F., .F. ), )
+
+   _HB_MEMBER { Cargo} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "Cargo" }, .F., .F. ), )
+
+
+   _HB_MEMBER { cProxyHost} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cProxyHost" }, .F., .F. ), )
+   _HB_MEMBER { nProxyPort} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nProxyPort" }, .F., .F. ), )
+   _HB_MEMBER { cProxyUser} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cProxyUser" }, .F., .F. ), )
+   _HB_MEMBER { cProxyPassword} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cProxyPassword" }, .F., .F. ), )
+   _HB_MEMBER SetProxy(); IIF( .F., s_oClass:ModMethod( "SetProxy", @tIPClient_SetProxy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetProxy", @tIPClient_SetProxy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER { pCTX, pMethod, pSSL, pBio} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "pCTX" , "pMethod" , "pSSL" , "pBio" }, .F., .F. ), )
+   _HB_MEMBER { CAFile,CaPath} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "CAFile" , "CaPath" }, .F., .F. ), )
+
+   _HB_MEMBER Openproxy( cServer, nPort, cProxy, nProxyPort, cResp, cUserName, cPassWord, nTimeOut, cUserAgent); IIF( .F., s_oClass:ModMethod( "Openproxy", @tIPClient_Openproxy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Openproxy", @tIPClient_Openproxy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReadHTTPProxyResponse(); IIF( .F., s_oClass:ModMethod( "ReadHTTPProxyResponse", @tIPClient_ReadHTTPProxyResponse(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReadHTTPProxyResponse", @tIPClient_ReadHTTPProxyResponse(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER New( oUrl, lTrace, oCredentials); IIF( .F., s_oClass:ModMethod( "New", @tIPClient_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @tIPClient_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Open(); IIF( .F., s_oClass:ModMethod( "Open", @tIPClient_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Open", @tIPClient_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Read( iLen); IIF( .F., s_oClass:ModMethod( "Read", @tIPClient_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @tIPClient_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReadToFile( cFile, nMode, nSize); IIF( .F., s_oClass:ModMethod( "ReadToFile", @tIPClient_ReadToFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReadToFile", @tIPClient_ReadToFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Write( cData, iLen, bCommit); IIF( .F., s_oClass:ModMethod( "Write", @tIPClient_Write(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Write", @tIPClient_Write(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Commit(); IIF( .F., s_oClass:ModMethod( "Commit", @tIPClient_Commit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Commit", @tIPClient_Commit(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER WriteFromFile( cFile); IIF( .F., s_oClass:ModMethod( "WriteFromFile", @tIPClient_WriteFromFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "WriteFromFile", @tIPClient_WriteFromFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Reset(); IIF( .F., s_oClass:ModMethod( "Reset", @tIPClient_Reset(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Reset", @tIPClient_Reset(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @tIPClient_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @tIPClient_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER lastErrorCode(); IIF( .F., s_oClass:ModInline( "lastErrorCode", {|Self | Self, ::nLastError }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "lastErrorCode", {|Self | Self, ::nLastError }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER lastErrorMessage(SocketCon); IIF( .F., s_oClass:ModInline( "lastErrorMessage", {|Self,SocketCon | Self, ::INetErrorDesc(SocketCon) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "lastErrorMessage", {|Self,SocketCon | Self, ::INetErrorDesc(SocketCon) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER InetRcvBufSize( SocketCon, nSizeBuff); IIF( .F., s_oClass:ModMethod( "InetRcvBufSize", @tIPClient_InetRcvBufSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetRcvBufSize", @tIPClient_InetRcvBufSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetSndBufSize( SocketCon, nSizeBuff); IIF( .F., s_oClass:ModMethod( "InetSndBufSize", @tIPClient_InetSndBufSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetSndBufSize", @tIPClient_InetSndBufSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   nScope := 4 ; ( nScope )
+   _HB_MEMBER { nLastError} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nLastError" }, .F., .F. ), )
+
+
+   _HB_MEMBER InetRecv( SocketCon, cStr1, len); IIF( .F., s_oClass:ModMethod( "InetRecv", @tIPClient_InetRecv(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetRecv", @tIPClient_InetRecv(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetRecvLine( SocketCon, nLen, size); IIF( .F., s_oClass:ModMethod( "InetRecvLine", @tIPClient_InetRecvLine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetRecvLine", @tIPClient_InetRecvLine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetRecvAll( SocketCon, cStr1, len); IIF( .F., s_oClass:ModMethod( "InetRecvAll", @tIPClient_InetRecvAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetRecvAll", @tIPClient_InetRecvAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetCount( SocketCon); IIF( .F., s_oClass:ModMethod( "InetCount", @tIPClient_InetCount(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetCount", @tIPClient_InetCount(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetSendAll( SocketCon, cData, nLen); IIF( .F., s_oClass:ModMethod( "InetSendAll", @tIPClient_InetSendAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetSendAll", @tIPClient_InetSendAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetErrorCode( SocketCon); IIF( .F., s_oClass:ModMethod( "InetErrorCode", @tIPClient_InetErrorCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetErrorCode", @tIPClient_InetErrorCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetErrorDesc( SocketCon); IIF( .F., s_oClass:ModMethod( "InetErrorDesc", @tIPClient_InetErrorDesc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetErrorDesc", @tIPClient_InetErrorDesc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InetConnect( cServer, nPort, SocketCon); IIF( .F., s_oClass:ModMethod( "InetConnect", @tIPClient_InetConnect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InetConnect", @tIPClient_InetConnect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Log(); IIF( .F., s_oClass:ModMethod( "Log", @tIPClient_Log(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Log", @tIPClient_Log(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS tIPClient ;
+
+
+UTILITY STATIC function tIPClient_New( oUrl, lTrace, oCredentials, lSSL, CAFile,CaPath) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   LOCAL oErr
+
+   IF lTrace == NIL ; lTrace := .F. ; END
+   IF lSSL == NIL ; lSSL := .F. ; END
+   IF ! ::bInitSocks
+      InetInit()
+      ::bInitSocks := .T.
+   ENDIF
+
+   IF HB_IsString( oUrl )
+      oUrl := tUrl():New( oUrl )
+   ENDIF
+
+   IF ! oURL:cProto IN "ftp,http,pop,smtp,https,nntp,news,imap"
+      oErr := ErrorNew()
+      oErr:Args          := { Self, oURL:cProto }
+      oErr:CanDefault    := .F.
+      oErr:CanRetry      := .F.
+      oErr:CanSubstitute := .T.
+      oErr:Description   := "unsupported protocol"
+      oErr:GenCode       := 30
+      oErr:Operation     := ::className()+":new()"
+      oErr:Severity      := 2
+      oErr:SubCode       := 1081
+      oErr:SubSystem     := "BASE"
+      Eval( ErrorBlock(), oErr )
+   ENDIF
+
+   ::oUrl         := oUrl
+   ::oCredentials := oCredentials
+   ::nStatus      := 0
+   ::bInitialized := .F.
+   ::nWrite       := 0
+   ::nLastWrite   := 0
+   ::nLength      := -1
+   ::nRead        := 0
+   ::nLastRead    := 0
+   ::bEof         := .F.
+   ::lTrace       := lTrace
+   if oUrl:nPort == 995 .OR.  oUrl:nPort == 465  .OR. lower(oUrl:cProto) == "https"  .OR. lSSL .OR. lower(oUrl:cProto) == "imap" .OR. lower(oUrl:cProto) == "ftps"
+      ::lSSL := .T.
+      SSL_INIT()
+      INITSSLRANDFILE()
+      ::CAFile := CAFile
+      ::CaPath := CaPath
+   endif
+   if oUrl:nPort == 587
+      SSL_INIT()
+      INITSSLRANDFILE()
+      ::CAFile := CAFile
+      ::CaPath := CaPath
+   endif
+
+
+RETURN self
+
+
+
+UTILITY STATIC function tIPClient_Open( cUrl) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   LOCAL nPort
+   Local cResp:=""
+
+   IF HB_IsString( cUrl )
+      ::oUrl := tUrl():New( cUrl )
+   ENDIF
+
+   IF ::oUrl:nPort == -1
+      nPort := ::nDefaultPort
+   ELSE
+      nPort := ::oUrl:nPort
+   ENDIF
+
+   if ::lSSL
+      ::SocketSSLCon := InetSSLCreate( , ::CAFile, ::CaPath ,.T.)
+      InetSSLSetTimeout( ::SocketSSLCon, ::nConnTimeout )
+   else
+      ::SocketCon := InetCreate(::nConnTimeout)
+
+      InetSetTimeout( ::SocketCon, ::nConnTimeout )
+   endif
+
+   if !empty( ::cProxyHost )
+      if !::openProxy( ::oUrl:cServer, nport, ::cProxyHost, ::nProxyPort, @cResp, ::cProxyUser, ::cProxyPassword, ::nConnTimeout, "" )
+         return .F.
+      endif
+   else
+
+      ::InetConnect( ::oUrl:cServer, nPort, if(!::lSSL,::SocketCon,::SocketSSLCon) )
+
+      IF ::InetErrorCode( ::SocketCon ) <> 0
+         RETURN .F.
+      ENDIF
+   endif
+   ::isOpen := .T.
+RETURN .T.
+
+
+
+UTILITY STATIC function tIPClient_Close() ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   local nRet:= -1
+
+   IF ! Empty( ::SocketCon )
+      if ::lSSL
+         nRet := InetSSLClose( ::SocketSSLCon )
+      else
+         nRet := InetClose( ::SocketCon )
+      endif
+
+      ::SocketCon:=nil
+      ::isOpen := .F.
+   ENDIF
+
+RETURN(nRet)
+
+
+
+UTILITY STATIC function tIPClient_Reset() ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   ::bInitialized := .F.
+   ::bEof := .F.
+RETURN .T.
+
+
+
+UTILITY STATIC function tIPClient_Commit() ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+RETURN .T.
+
+
+
+UTILITY STATIC function tIPClient_Read( nLen) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   LOCAL cStr0, cStr1
+
+   IF ::nLength > 0 .AND. ::nLength == ::nRead
+      RETURN NIL
+   ENDIF
+
+   IF Empty( nLen ) .OR. nLen < 0 .OR.( ::nLength > 0 .AND. nLen > ::nLength - ::nRead )
+      nLen := ::nLength - ::nRead
+   ENDIF
+
+   IF ::nLength > Int( ::InetRcvBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 ) .AND. !::bChunked
+
+      cStr1 := Space( Int( ::InetRcvBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 ) )
+      cStr0 := ""
+      ::nLastRead := ::InetRecv( if(!::lSSL,::SocketCon,::SocketSSLCon), @cStr1, Int( ::InetRcvBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 ) )
+      while ::nLastRead > 0
+         ::nRead += ::nLastRead
+         cStr0 += Substr( cStr1, 1, ::nLastRead )
+         ::nLastRead := ::InetRecv( if(!::lSSL,::SocketCon,::SocketSSLCon), @cStr1, Int( ::InetRcvBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 ) )
+      ENDDO
+      ::bEof := .T.
+   ELSE
+     if Empty( nLen ) .OR. nLen < 0
+        nLen := Int( ::InetRcvBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 )
+     endif
+
+
+      cStr0 := Space( nLen )
+
+
+
+
+      ::InetRecvAll( if(!::lSSL,::SocketCon,::SocketSSLCon), @cStr0, nLen )
+      ::nLastRead := ::InetCount( if(!::lSSL,::SocketCon,::SocketSSLCon) )
+      ::nRead += ::nLastRead
+
+      IF ::nLastRead <> nLen
+         ::bEof := .T.
+         cStr0 := Substr( cStr0, 1, ::nLastRead )
+
+      ENDIF
+
+      IF ::nRead == ::nLength
+         ::bEof := .T.
+      ENDIF
+
+   ENDIF
+RETURN cStr0
+
+
+
+UTILITY STATIC function tIPClient_ReadToFile( cFile, nMode, nSize) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   LOCAL nFout
+   LOCAL cData
+   LOCAL nSent
+
+   IF Empty ( nMode )
+      nMode := 0
+   ENDIF
+
+   nSent := 0
+
+   IF !Empty( ::exGauge )
+      HB_ExecFromArray( ::exGauge, { nSent, nSize, Self } )
+   ENDIF
+
+   ::nRead   := 0
+   ::nStatus := 1
+
+   while ::InetErrorCode( ::SocketCon ) == 0 .AND. ! ::bEof
+      cData := ::Read( Int( ::InetRcvBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 ) )
+      IF cData == NIL
+         IF nFout <> NIL
+            Fclose( nFout )
+         ENDIF
+         IF ::InetErrorCode( ::SocketCon ) > 0
+            RETURN .F.
+         ELSE
+            RETURN .T.
+         ENDIF
+      ENDIF
+      IF nFout == NIL
+         nFout := Fcreate( cFile, nMode )
+         IF nFout < 0
+            ::nStatus := 0
+            RETURN .F.
+         ENDIF
+      ENDIF
+
+      IF Fwrite( nFout, cData ) < 0
+         Fclose( nFout )
+         RETURN .F.
+      ENDIF
+
+      nSent += Len( cData )
+      IF !Empty( ::exGauge )
+         HB_ExecFromArray( ::exGauge, { nSent, nSize, Self } )
+      ENDIF
+
+   ENDDO
+
+   IF nSent > 0
+      ::Commit()
+   Endif
+
+   ::nStatus := 2
+   Fclose( nFout )
+RETURN .T.
+
+
+
+UTILITY STATIC function tIPClient_WriteFromFile( cFile) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   LOCAL nFin
+   LOCAL cData
+   LOCAL nLen
+   LOCAL nSize, nSent, nBufSize
+
+   ::nWrite  := 0
+   ::nStatus := 0
+   nFin := Fopen( cFile, 0 )
+   IF nFin < 0
+      RETURN .F.
+   ENDIF
+   nSize := FSeek( nFin, 0, 2 )
+   FSeek( nFin, 0 )
+
+   nBufSize := Int( ::InetSndBufSize( if(!::lSSL,::SocketCon,::SocketSSLCon) ) / 2 )
+
+
+   nSent := 0
+   IF ! Empty( ::exGauge )
+      HB_ExecFromArray( ::exGauge, {nSent, nSize, Self} )
+   ENDIF
+
+   ::nStatus := 1
+   cData := Space( nBufSize )
+   nLen := Fread( nFin, @cData, nBufSize )
+   while nLen > 0
+      IF ::Write( @cData, nLen ) <> nLen
+         Fclose( nFin )
+         RETURN .F.
+      ENDIF
+      nSent += nLen
+      IF ! Empty( ::exGauge )
+         HB_ExecFromArray( ::exGauge, {nSent, nSize, Self} )
+      ENDIF
+      nLen := Fread( nFin, @cData, nBufSize )
+   ENDDO
+
+
+   IF nSent > 0
+      ::Commit()
+   ENDIF
+
+   ::nStatus := 2
+   Fclose( nFin )
+RETURN .T.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function tIPClient_Write( cData, nLen, bCommit) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   IF Empty( nLen )
+      nLen := Len( cData )
+   ENDIF
+
+   ::nLastWrite := ::InetSendall( if(!::lSSL,::SocketCon,::SocketSSLCon),  cData , nLen )
+
+   IF ! Empty( bCommit )
+
+      ::Commit()
+
+   ENDIF
+
+   ::nWrite += ::nLastWrite
+
+RETURN ::nLastWrite
+
+
+
+UTILITY STATIC function tIPClient_InetSendAll( SocketCon, cData, nLen) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   Local nRet
+
+   IF Empty( nLen )
+      nLen := Len( cData )
+   ENDIF
+
+   if ::lSSL
+      nRet := InetSSLSendAll( ::SocketSSLCon, cData, nLen )
+   else
+      nRet := InetSendAll( SocketCon, cData, nLen )
+   endif
+
+
+   if ::lTrace
+      ::Log( if(!::lSSL,SocketCon,::SocketSSLCon), nlen, cData, nRet )
+   endif
+
+Return nRet
+
+
+
+UTILITY STATIC function tIPClient_InetCount( SocketCon) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   Local nRet
+   if ::lSSL
+      nRet := InetSSLCount( ::SocketSSLCon )
+   else
+      nRet := InetCount( SocketCon )
+   endif
+
+   if ::lTrace
+      ::Log( if(!::lSSL,SocketCon,::SocketSSLCon), nRet )
+   endif
+
+Return nRet
+
+
+
+UTILITY STATIC function tIPClient_InetRecv( SocketCon, cStr1, len) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   Local nRet
+
+   if ::lSSL
+      nRet := InetSSLRecv( ::SocketSSLCon, @cStr1, len )
+   else
+      nRet := InetRecv( SocketCon, @cStr1, len )
+   endif
+
+   if ::lTrace
+
+      ::Log( if(!::lSSL,SocketCon,::SocketSSLCon), "", len, iif( nRet >= 0, cStr1, nRet ) )
+
+   endif
+
+Return nRet
+
+
+
+UTILITY STATIC function tIPClient_InetRecvLine( SocketCon, nLen, size) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   Local cRet
+
+   if ::LSSL
+      cRet := InetSSLRecvLine( ::SocketSSLCon, @nLen, size )
+   else
+      cRet := InetRecvLine( SocketCon, @nLen, size )
+   endif
+
+   if ::lTrace
+
+      ::Log( if(!::lSSL,SocketCon,::SocketSSLCon), "", size, cRet )
+
+   endif
+
+Return cRet
+
+
+
+UTILITY STATIC function tIPClient_InetRecvAll( SocketCon, cStr1, len) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   Local nRet
+
+   if ::lSSL
+      nRet := InetSSLRecvAll( ::SocketSSLCon, @cStr1, len )
+   else
+      nRet := InetRecvAll( SocketCon, @cStr1, len )
+   endif
+
+   if ::lTrace
+
+      ::Log( if(!::lSSL,SocketCon,::SocketSSLCon), "", len, iif( nRet >= 0, cStr1, nRet ) )
+
+   endif
+
+Return nRet
+
+
+
+UTILITY STATIC function tIPClient_InetErrorCode( SocketCon) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   Local nRet
+   if ::lSSL
+      ::nLastError := nRet := InetSSLErrorCode( ::SocketSSLCon )
+   else
+      ::nLastError := nRet := InetErrorCode( SocketCon )
+   endif
+
+   if ::lTrace
+
+      ::Log( if(!::lSSL,SocketCon,::SocketSSLCon), nRet )
+
+   endif
+
+Return nRet
+
+
+UTILITY STATIC function tIPClient_InetErrorDesc( SocketCon) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   LOCAL cMsg := ""
+
+   IF SocketCon == NIL ; SocketCon := if(!::lSSL,::SocketCon,::SocketSSLCon) ; END
+
+   IF ! Empty( SocketCon )
+      if ::lSSL
+         cMsg := InetSSLErrorDesc( ::SocketSSLCon )
+      else
+         cMsg := InetErrorDesc( SocketCon )
+      endif
+
+   ENDIF
+RETURN cMsg
+
+
+
+UTILITY STATIC function tIPClient_InetConnect( cServer, nPort, SocketCon) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+
+   if ::lSSL
+      InetSSLConnect( cServer, nPort, SocketCon )
+   else
+      InetConnect( cServer, nPort, SocketCon )
+   endif
+
+   IF ! Empty( ::nDefaultSndBuffSize )
+      ::InetSndBufSize( SocketCon, ::nDefaultSndBuffSize )
+   ENDIF
+
+   IF ! Empty( ::nDefaultRcvBuffSize )
+      ::InetRcvBufSize( SocketCon, ::nDefaultRcvBuffSize )
+   ENDIF
+
+   if ::lTrace
+
+      ::Log( cServer, nPort, SocketCon )
+
+   endif
+
+Return Nil
+
+
+UTILITY STATIC function tIPClient_InetRcvBufSize( SocketCon, nSizeBuff) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+if ::lSsl
+   IF ! Empty( nSizeBuff )
+      INETSSLSETRCVBUFSIZE( SocketCon, nSizeBuff )
+   ENDIF
+   RETURN INETSSLGETRCVBUFSIZE( SocketCon )
+endif
+   IF ! Empty( nSizeBuff )
+      INETSETRCVBUFSIZE( SocketCon, nSizeBuff )
+   ENDIF
+RETURN INETGETRCVBUFSIZE( SocketCon )
+
+
+UTILITY STATIC function tIPClient_InetSndBufSize( SocketCon, nSizeBuff) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+if ::lssl
+   IF ! Empty( nSizeBuff )
+      INETSSLSETSNDBUFSIZE( SocketCon, nSizeBuff )
+   ENDIF
+RETURN INETSSLGETSNDBUFSIZE( SocketCon )
+ENDIF
+   IF ! Empty( nSizeBuff )
+      INETSETSNDBUFSIZE( SocketCon, nSizeBuff )
+   ENDIF
+RETURN INETGETSNDBUFSIZE( SocketCon )
+
+
+
+
+
+
+
+UTILITY STATIC function tIPClient_Log( ...) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+   LOCAL xVar
+
+
+   LOCAL cMsg := DToS( Date() ) + "-" + Time() + Space( 2 ) +  SubStr( ProcName( 1 ), Rat( ":", ProcName( 1 ) ) ) + "( "
+
+   for each xVar in hb_aParams()
+
+
+      if hb_EnumIndex() < PCount()
+         cMsg += StrTran( StrTran( AllTrim( CStr( xVar ) ), Chr( 13 ) ), Chr( 10 ) )
+      else
+         cMsg += CStr( xVar )
+      endif
+
+      cMsg += iif ( hb_EnumIndex() < PCount() - 1, ", ", "" )
+
+      if hb_EnumIndex() == PCount() - 1
+         cMsg += " )" + hb_OsNewLine() + ">> "
+
+      elseif hb_EnumIndex() == PCount()
+         cMsg += " <<" + hb_OsNewLine() + hb_OsNewLine()
+
+      endif
+
+   next
+
+   fWrite( ::nHandle, cMsg )
+
+RETURN Self
+
+
+UTILITY STATIC function tIPClient_SetProxy( cProxyHost, nProxyPort, cProxyUser, cProxyPassword) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+   ::cProxyHost     := cProxyHost
+   ::nProxyPort     := nProxyPort
+   ::cProxyUser     := cProxyUser
+   ::cProxyPassword := cProxyPassword
+RETURN Self
+
+
+
+UTILITY STATIC function tIPClient_Openproxy( cServer, nPort, cProxy, nProxyPort, cResp, cUserName, cPassWord, nTimeOut, cUserAgent) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+Local cLine
+Local cRequest := ""
+Local cPass
+Local cEncoded
+Local lRet := .T.
+
+Local nResponseCode
+Local sResponseCode,nFirstSpace
+::InetConnect( cProxy, nProxyPort, if(!::lSSL,::SocketCon,::SocketSSLCon) )
+IF ::InetErrorCode( ::SocketCon ) == 0
+   Try
+      cLine := sprintf( "CONNECT %s:%d HTTP/1", cServer, nPort) + CHR( 13 ) + CHR( 10 )
+      cRequest += cLine
+      IF !empty( cUserName )
+         cPass := sprintf( "%s:%s", cUserName, cPassWord )
+         cEncoded := hb_base64( cPass, Len( cPass ) )
+         cLine := sprintf( "Proxy-authorization: Basic %s", cEncoded ) + Chr( 13 ) + Chr( 10 )
+         cRequest += cLine
+      ENDIF
+      IF !empty(cUserAgent )
+         cLine := sprintf( "User-Agent: %s", cUserAgent ) + Chr( 13 ) + Chr( 10 )
+         cRequest += cLine
+      ENDIF
+      cRequest += Chr( 13 ) + Chr( 10 )
+      ::InetSendAll( if(!::lSSL,::SocketCon,::SocketSSLCon), cRequest )
+      cResp := ""
+      ::ReadHTTPProxyResponse(nTimeOut, @cResp,if(!::lSSL,::SocketCon,::SocketSSLCon))
+      nFirstSpace := at(" ",cResp )
+      IF ( nFirstSpace <> 0)
+         sResponseCode := Right( cResp, Len( cResp ) - nFirstSpace )
+         nResponseCode = val( sResponseCode )
+         IF ( nResponseCode <> 200 )
+            Throw( Errornew( "INETCONNECTPROXY", 0, 4000, Procname(), "Connection refused" ) )
+         ENDIF
+      ENDIF
+   catch
+      ::close( )
+      lRet := .F.
+   END
+
+ENDIF
+RETURN  lRet
+
+
+
+UTILITY STATIC function tIPClient_ReadHTTPProxyResponse( dwTimeout, sResponse) ; local Self AS CLASS tIPClient := QSelf() AS CLASS tIPClient
+
+Local  bMoreDataToRead := .T.
+Local nLength,nData
+Local szResponse
+( dwTimeout )
+WHILE bMoreDataToRead
+
+   szResponse := space(1)
+   nData := ::inetRecv( if(!::lSSL,::SocketCon,::SocketSSLCon), @szResponse, 1)
+   IF (nData == 0)
+      throw(Errornew("INETCONNECTPROXY" ,0,4000,Procname(),"Disconnected"))
+   ENDIF
+   sResponse += szResponse
+
+   nLength = len(sResponse)
+   IF nLength >= 4
+
+      bMoreDataToRead := !( ( substr( sResponse, nLength - 3 , 1 )== chr( 13 ) ) .AND. ( substr( sResponse, nLength - 2, 1 ) == chr( 10 ) ) .AND.  ( substr( sResponse, nLength - 1, 1 ) == chr( 13 ) ) .AND. ( substr( sResponse, nLength, 1 ) == chr( 10 ) ) )
+   ENDIF
+ENDDO
+RETURN nil

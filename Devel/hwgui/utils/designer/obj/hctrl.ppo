@@ -1,0 +1,1125 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\hctrl.prg"
+Static aBDown := { Nil,0,0,.F. }
+Static vBDown := { Nil,0,0,.F. }
+Static oPenSel
+
+
+STATIC aSels := {}
+
+
+
+
+_HB_CLASS HControlGen ; UTILITY FUNCTION HControlGen(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HControlGen" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { cClass} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cClass" }, .F., .F. ), )
+   _HB_MEMBER { lContainer} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lContainer" }, .F., .F. ), )
+   _HB_MEMBER { oContainer, nPage} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oContainer" , "nPage" }, .F., .F. ), )
+   _HB_MEMBER { oXMLDesc} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oXMLDesc" }, .F., .F. ), )
+   _HB_MEMBER { aProp} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aProp" }, .F., .F. ), )
+   _HB_MEMBER { aMethods} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aMethods" }, .F., .F. ), )
+   _HB_MEMBER { aPaint, oBitmap} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aPaint" , "oBitmap" }, .F., .F. ), )
+   _HB_MEMBER { cCreate} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cCreate" }, .F., .F. ), )
+   _HB_MEMBER { Adjust} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "Adjust" }, .F., .F. ), )
+   _HB_MEMBER { lEmbed} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lEmbed" }, .F., .F. ), )
+   _HB_MEMBER { LocalOnClickParam} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "LocalOnClickParam" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, xClass, aProp); IIF( .F., s_oClass:ModMethod( "New", @HControlGen_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HControlGen_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HControlGen_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HControlGen_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpdis); IIF( .F., s_oClass:ModMethod( "Paint", @HControlGen_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HControlGen_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetProp( cName,i); IIF( .F., s_oClass:ModMethod( "GetProp", @HControlGen_GetProp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetProp", @HControlGen_GetProp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetPropIndex( cName,i); IIF( .F., s_oClass:ModMethod( "GetPropIndex", @HControlGen_GetPropIndex(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetPropIndex", @HControlGen_GetPropIndex(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetProp( xName,xValue); IIF( .F., s_oClass:ModMethod( "SetProp", @HControlGen_SetProp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetProp", @HControlGen_SetProp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetCoor( xName,nValue); IIF( .F., s_oClass:ModMethod( "SetCoor", @HControlGen_SetCoor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetCoor", @HControlGen_SetCoor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HControlGen ;
+
+UTILITY STATIC function HControlGen_New( oWndParent, xClass, aProp) ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+Local oXMLDesc
+Local oPaint, bmp, cPropertyName
+Local i, j, xProperty, cProperty
+
+Memvar  value, oCtrl, oDesigner
+Private value, oCtrl := Self
+
+   IF oPenSel == Nil
+      oPenSel := HPen():Add( 0,1,255 )
+   ENDIF
+
+   ::oParent := Iif( oWndParent==Nil,HFormGen():oDlgSelected,oWndParent )
+   ::id      := ::NewId()
+   ::style   := 268435456+1073741824+134217728+13
+
+   IF Valtype( xClass ) == "C"
+      oXMLDesc := FindWidget( xClass )
+   ELSE
+      oXMLDesc := xClass
+      xClass := oXMLDesc:GetAttribute( "class" )
+   ENDIF
+   ::cClass := xClass
+
+   IF oXMLDesc <> Nil
+
+      IF ( cProperty := oXMLDesc:GetAttribute( "container" ) ) <> Nil .AND.  Upper(cProperty) == "YES"
+         ::lContainer := .T.
+      ENDIF
+      FOR i := 1 TO Len( oXMLDesc:aItems )
+         IF oXMLDesc:aItems[i]:title == "paint"
+            oPaint := oXMLDesc:aItems[i]
+            IF !Empty( oPaint:aItems ) .AND. oPaint:aItems[1]:type == 3
+               ::aPaint := RdScript( ,oPaint:aItems[1]:aItems[1] )
+            ENDIF
+            IF ( bmp := oPaint:GetAttribute( "bmp" ) ) <> Nil
+               IF Isdigit( Left( bmp,1 ) )
+                  ::oBitmap := HBitmap():AddStandard( Val(bmp) )
+               ELSEIF "." $ bmp
+                  ::oBitmap := HBitmap():AddFile( bmp )
+               ELSE
+                  ::oBitmap := HBitmap():AddResource( bmp)
+               ENDIF
+            ENDIF
+         ELSEIF oXMLDesc:aItems[i]:title == "create"
+            oPaint := oXMLDesc:aItems[i]
+            IF !Empty( oPaint:aItems ) .AND. oPaint:aItems[1]:type == 3
+               ::cCreate := RdStr( ,oPaint:aItems[1]:aItems[1],1 )
+               ::style   := 268435456+1073741824+134217728
+            ENDIF
+         ELSEIF oXMLDesc:aItems[i]:title == "property"
+            IF !Empty( oXMLDesc:aItems[i]:aItems )
+               IF Valtype( oXMLDesc:aItems[i]:aItems[1]:aItems[1] ) == "C"
+                  oXMLDesc:aItems[i]:aItems[1]:aItems[1] := &( "{||" + oXMLDesc:aItems[i]:aItems[1]:aItems[1] + "}" )
+               ENDIF
+               xProperty := Eval( oXMLDesc:aItems[i]:aItems[1]:aItems[1] )
+            ELSE
+               xProperty := oXMLDesc:aItems[i]:GetAttribute( "value" )
+            ENDIF
+
+
+            Aadd( ::aProp, { oXMLDesc:aItems[i]:GetAttribute( "name" ),   xProperty,  oXMLDesc:aItems[i]:GetAttribute( "type" ) } )
+            IF oXMLDesc:aItems[i]:GetAttribute( "hidden" ) <> Nil
+               Aadd( Atail( ::aProp ),.T. )
+            ENDIF
+         ELSEIF oXMLDesc:aItems[i]:title == "method"
+            Aadd( ::aMethods, { oXMLDesc:aItems[i]:GetAttribute( "name" ),"" } )
+         ENDIF
+      NEXT
+   ENDIF
+   IF aProp <> Nil
+      FOR i := 1 TO Len( aProp )
+         cPropertyName := Lower( aProp[ i,1 ] )
+         IF ( j := Ascan( ::aProp, {|a|Lower(a[1])==cPropertyName} ) ) <> 0
+            ::aProp[j,2] := aProp[i,2]
+         ENDIF
+      NEXT
+   ENDIF
+   FOR i := 1 TO Len( ::aProp )
+      value := ::aProp[ i,2 ]
+      cPropertyName := Lower( ::aProp[ i,1 ] )
+      j := Ascan( oDesigner:aDataDef, {|a|a[1]==cPropertyName} )
+      IF value <> Nil
+         IF j <> 0 .AND. oDesigner:aDataDef[ j,3 ] <> Nil
+
+            EvalCode( oDesigner:aDataDef[ j,3 ] )
+         ENDIF
+      ELSEIF j <> 0 .AND. value == Nil .AND. oDesigner:aDataDef[ j,7 ] <> Nil
+         ::aProp[ i,2 ] := EvalCode( oDesigner:aDataDef[ j,7 ] )
+      ENDIF
+   NEXT
+
+   IF xClass == "menu"
+      ::nLeft := ::nTop := -1
+   ELSE
+      ::title   := Iif( ::title==Nil,xClass,::title )
+
+      ::bPaint  := {|o,lp|o:Paint(lp)}
+      ::bSize   := {|o,x,y|ctrlOnSize(o,x,y)}
+      ::SetColor( ::tcolor,::bcolor )
+
+
+        statusbarmsg(,"x: "+ltrim(str(::nLeft))+"  y: "+ltrim(str(::nTop)), "w: "+ltrim(str(::nWidth))+"  h: "+ltrim(str(::nHeight)))
+
+   ENDIF
+
+   ::oParent:AddControl( Self )
+   ::oXMLDesc := oXMLDesc
+
+   ::Activate()
+   ctrlOnSize( Self, ::oParent:nWidth, ::oParent:nHeight )
+
+Return Self
+
+UTILITY STATIC function HControlGen_Activate() ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+
+ Memvar oCtrl
+
+   IF ::oParent <> Nil .AND. !empty(::oParent:handle)
+      IF ::cCreate <> Nil
+         Private oCtrl := Self
+         ::handle := &( ::cCreate )
+      ELSE
+
+         ::handle := CreateStatic( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth,::nHeight )
+      ENDIF
+      ::Init()
+   ENDIF
+Return Nil
+
+UTILITY STATIC function HControlGen_Paint( lpdis) ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+Local drawInfo := GetDrawItemInfo( lpdis )
+local i,octrl2
+Memvar hDC, oCtrl
+Private hDC := drawInfo[3], oCtrl := Self
+
+  IF ::aPaint <> Nil
+     DoScript( ::aPaint )
+  ENDIF
+
+  IF LEN(asels) > 1
+    for i=1 to Len(asels)
+      octrl2 := asels[i]
+      IF oCtrl2 <> Nil .AND. ::handle == oCtrl2:handle
+        SelectObject( hDC, oPenSel:handle )
+        Rectangle( hDC, 0, 0, ::nWidth-1, ::nHeight-1 )
+      ENDIF
+    next
+  ELSE
+    oCtrl := GetCtrlSelected( HFormGen():oDlgSelected )
+    IF oCtrl <> Nil .AND. ::handle == oCtrl:handle
+      SelectObject( hDC, oPenSel:handle )
+      Rectangle( hDC, 0, 0, ::nWidth-1, ::nHeight-1 )
+    ENDIF
+  ENDIF
+
+Return Nil
+
+UTILITY STATIC function HControlGen_GetProp( cName,i) ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+
+  i := ::GetPropIndex( cName )
+Return Iif( i==0, Nil, ::aProp[i,2] )
+
+UTILITY STATIC function HControlGen_GetPropIndex( cName) ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+local i := 0
+   cName := Lower( cName )
+   i := Ascan( ::aProp,{|a|Lower(a[1])==cName} )
+Return (i)
+
+UTILITY STATIC function HControlGen_SetProp( xName,xValue) ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+local iIndex := 0
+   IF Valtype( xName ) == "C"
+      xName := Lower( xName )
+
+     iIndex := ::GetPropIndex( xName )
+    ENDIF
+    IF Valtype( xName ) == "N"
+      iIndex := xName
+    ENDIF
+
+
+
+
+
+
+   IF iIndex <> 0
+      ::aProp[iIndex,2] := xValue
+   ENDIF
+
+Return xValue
+
+UTILITY STATIC function HControlGen_SetCoor( xName,nValue) ; local Self AS CLASS HControlGen := QSelf() AS CLASS HControlGen
+memvar oDesigner
+
+   IF oDesigner:lReport
+      nValue := Round( nValue/::oParent:oParent:oParent:oParent:nKoeff,1 )
+   ENDIF
+   ::SetProp( xName,Ltrim(Str(nValue)) )
+
+Return nValue
+
+
+
+Function ctrlOnSize( oCtrl, x, y )
+Local aControls := oCtrl:oParent:aControls,i,oCtrls
+memvar oDesigner
+
+   IF oCtrl:Adjust == 1
+      oCtrl:Move( 0,0,x )
+      oCtrl:SetProp( "Left","0" )
+
+      oCtrl:SetCoor( "Width",oCtrl:nWidth )
+    ENDIF
+   IF oCtrl:Adjust == 2
+      oCtrl:Move( 0,y-oCtrl:nHeight,x )
+      oCtrl:SetProp( "Left","0" )
+      oCtrl:SetCoor( "Top",oCtrl:nTop )
+      oCtrl:SetCoor( "Width",oCtrl:nWidth )
+      IF oDesigner:lReport
+         oCtrl:SetCoor( "Right",oCtrl:nWidth-1 )
+         oCtrl:SetCoor( "Bottom",oCtrl:nTop+oCtrl:nHeight-1 )
+      ENDIF
+   ENDIF
+   IF oCtrl:Adjust == 6
+         oCtrl:Move(oCtrl:nLeft ,2 )
+         oCtrl:SetProp( "Top","2" )
+
+
+   ENDIF
+
+   IF oCtrl:Adjust == 5
+
+        FOR i=1 to len(acontrols)
+          oCtrls := aControls[i]
+
+              IF oCtrls:cClass="browse" .AND. (oCtrl:nTop > oCtrls:nTop .AND. oCtrl:nTop < oCtrls:nTop+oCtrls:nHeight)
+                 oCtrl:Move(oCtrl:nLeft ,oCtrls:nTop+2 )
+
+              EXIT
+               ENDIF
+            NEXT
+
+
+
+
+
+
+    ENDIF
+
+Return Nil
+
+Function CreateName( cPropertyName, oCtrl )
+Local i, j, aControls := oCtrl:oParent:aControls, arr := {}
+Local cName := IIF(cPropertyName<>"v","o","v") + Upper( Left( oCtrl:cClass,1 ) ) + Substr( oCtrl:cClass,2 )
+Local nLen := Len( cName )
+
+   FOR i := 1 TO Len( aControls )
+      IF( j := Ascan( aControls[i]:aProp, {|a|a[1]==cPropertyName} ) ) > 0
+         IF Left( aControls[i]:aProp[j,2],nLen ) == cName
+            Aadd( arr,Substr( aControls[i]:aProp[j,2],nLen+1 ) )
+         ENDIF
+      ENDIF
+   NEXT
+   i := 1
+   while Ascan( arr,Ltrim(Str(i)) ) > 0
+      i ++
+   ENDDO
+
+Return cName+Ltrim(Str(i))
+
+Function CtrlMove( oCtrl,xPos,yPos,lMouse,lChild )
+Local i, dx, dy , vdx , vdy ,mdx , mdy
+Memvar oDesigner
+
+   IF lChild == Nil .OR. !lChild
+      lChild := .F.
+      dx := xPos - aBDown[2]
+      dy := yPos - aBDown[3]
+      IF oCtrl:lEmbed
+         IF Lower( oCtrl:cClass ) == "hline"
+            dx := 0
+         ELSE
+            dy := 0
+         ENDIF
+      ENDIF
+   ELSE
+      dx := xPos
+      dy := yPos
+   ENDIF
+
+
+
+
+
+   IF dx <> 0 .OR. dy <> 0
+      IF !lChild .AND. lMouse .AND. Abs( xPos - aBDown[2] ) < 3 .AND. Abs( yPos - aBDown[3] ) < 3
+         Return .F.
+      ENDIF
+
+      IF IsCheckedMenuItem( oDesigner:oMainWnd:handle,1051 )
+        IF !lChild .AND. lMouse
+          vdx := xPos - vBDown[2]
+          vdy := yPos - vBDown[3]
+          mdx := vdx % oDesigner:nPixelGrid
+          mdy := vdy % oDesigner:nPixelGrid
+
+          if abs( int( ( ( mdx ) / oDesigner:nPixelGrid) * 10 ) ) <= 4
+            mdx := mdx
+          else
+            mdx := (mdx - oDesigner:nPixelGrid )
+          endif
+
+
+
+          dx = ( vdx - oCtrl:nLeft ) - mdx
+
+
+
+          if abs( int( ( ( mdy ) / oDesigner:nPixelGrid) * 10 ) ) <= 4
+            mdy := mdy
+          else
+            mdy := (mdy - oDesigner:nPixelGrid )
+          endif
+
+          dy = ( vdy - oCtrl:nTop ) - mdy
+        ENDIF
+      ENDIF
+
+
+
+
+      InvalidateRect( oCtrl:oParent:handle, 1,  oCtrl:nLeft-4, oCtrl:nTop-4,  oCtrl:nLeft+oCtrl:nWidth+3,   oCtrl:nTop+oCtrl:nHeight+3 )
+
+      IF oCtrl:nLeft + dx < 0
+         dx := - oCtrl:nLeft
+      ENDIF
+      IF oCtrl:nTop + dy < 0
+         dy := - oCtrl:nTop
+      ENDIF
+
+      oCtrl:nLeft := oCtrl:nLeft + dx
+      oCtrl:nTop := oCtrl:nTop + dy
+      oCtrl:SetCoor( "Left",oCtrl:nLeft)
+      oCtrl:SetCoor( "Top",oCtrl:nTop)
+
+      IF oDesigner:lReport
+         oCtrl:SetCoor( "Right",oCtrl:nLeft+oCtrl:nWidth-1 )
+         oCtrl:SetCoor( "Bottom",oCtrl:nTop+oCtrl:nHeight-1 )
+      ENDIF
+      IF !lChild
+         aBDown[2] := xPos
+         aBDown[3] := yPos
+      ENDIF
+
+
+
+
+      InvalidateRect( oCtrl:oParent:handle, 0,  oCtrl:nLeft-4, oCtrl:nTop-4,  oCtrl:nLeft+oCtrl:nWidth+3,   oCtrl:nTop+oCtrl:nHeight+3 )
+
+      MoveWindow( oCtrl:handle, oCtrl:nLeft, oCtrl:nTop, oCtrl:nWidth, oCtrl:nHeight )
+      IF oDesigner:lReport
+         oCtrl:oParent:oParent:oParent:oParent:lChanged := .T.
+      ELSE
+         oCtrl:oParent:oParent:lChanged := .T.
+      ENDIF
+      FOR i := 1 TO Len( oCtrl:aControls )
+         CtrlMove( oCtrl:aControls[i],dx,dy,.F.,.T. )
+      NEXT
+      IF !lChild
+         InspUpdBrowse()
+      ENDIF
+      Return .T.
+   ENDIF
+Return .F.
+
+Function CtrlResize( oCtrl,xPos,yPos )
+Local dx, dy
+Memvar oDesigner
+
+   IF xPos <> aBDown[2] .OR. yPos <> aBDown[3]
+
+
+
+      InvalidateRect( oCtrl:oParent:handle, 1,  oCtrl:nLeft-4, oCtrl:nTop-4,  oCtrl:nLeft+oCtrl:nWidth+3,   oCtrl:nTop+oCtrl:nHeight+3 )
+      dx := xPos - aBDown[2]
+      dy := yPos - aBDown[3]
+      IF aBDown[4] == 1
+         IF oCtrl:nWidth - dx < 4
+            dx := oCtrl:nWidth - 4
+         ENDIF
+         oCtrl:SetCoor( "Left",oCtrl:nLeft := oCtrl:nLeft + dx )
+         oCtrl:SetCoor( "Width",oCtrl:nWidth := oCtrl:nWidth - dx )
+         IF oDesigner:lReport
+            oCtrl:SetCoor( "Right",oCtrl:nLeft+oCtrl:nWidth-1 )
+         ENDIF
+      ELSEIF aBDown[4] == 2
+         IF oCtrl:nHeight - dy < 4
+            dy := oCtrl:nHeight - 4
+         ENDIF
+         oCtrl:SetCoor( "Top",oCtrl:nTop := oCtrl:nTop + dy )
+         oCtrl:SetCoor( "Height",oCtrl:nHeight := oCtrl:nHeight - dy )
+         IF oDesigner:lReport
+            oCtrl:SetCoor( "Bottom",oCtrl:nTop+oCtrl:nHeight-1 )
+         ENDIF
+      ELSEIF aBDown[4] == 3
+         IF oCtrl:nWidth + dx < 4
+            dx := 4 - oCtrl:nWidth
+         ENDIF
+         oCtrl:SetCoor( "Width",oCtrl:nWidth := oCtrl:nWidth + dx )
+         IF oDesigner:lReport
+            oCtrl:SetCoor( "Right",oCtrl:nLeft+oCtrl:nWidth-1 )
+         ENDIF
+      ELSEIF aBDown[4] == 4
+         IF oCtrl:nHeight + dy < 4
+            dy := 4 - oCtrl:nHeight
+         ENDIF
+         oCtrl:SetCoor( "Height",oCtrl:nHeight := oCtrl:nHeight + dy )
+         IF oDesigner:lReport
+            oCtrl:SetCoor( "Bottom",oCtrl:nTop+oCtrl:nHeight-1 )
+         ENDIF
+      ENDIF
+      aBDown[2] := xPos
+      aBDown[3] := yPos
+
+
+
+      InvalidateRect( oCtrl:oParent:handle, 0,  oCtrl:nLeft-4, oCtrl:nTop-4,  oCtrl:nLeft+oCtrl:nWidth+3,   oCtrl:nTop+oCtrl:nHeight+3 )
+      MoveWindow( oCtrl:handle, oCtrl:nLeft, oCtrl:nTop, oCtrl:nWidth, oCtrl:nHeight )
+      IF oDesigner:lReport
+         oCtrl:oParent:oParent:oParent:oParent:lChanged := .T.
+      ELSE
+         oCtrl:oParent:oParent:lChanged := .T.
+      ENDIF
+      InspUpdBrowse()
+   ENDIF
+Return Nil
+
+Function SetBDown( oCtrl,xPos,yPos,nBorder )
+
+   aBDown[ 1 ] := oCtrl
+   aBDown[ 2 ] := xPos
+   aBDown[ 3 ] := yPos
+   aBDown[ 4 ] := nBorder
+
+   IF oCtrl <> Nil .AND. oCtrl:ClassName() <> "HDIALOG"  .AND. oCtrl:ClassName() <> "HPANEL"
+      SetCtrlSelected( oCtrl:oParent,oCtrl )
+   ELSE
+
+      aBDown[ 1 ] := oCtrl
+   ENDIF
+Return Nil
+
+Function GetBDown
+Return aBDown
+
+Function SetvBDown( oCtrl,xPos,yPos,nBorder )
+
+   ( (oCtrl) := (oCtrl) )
+   ( (nBorder) := (nBorder) )
+
+   vBDown[ 1 ] := nil
+   vBDown[ 2 ]  := xPos
+   vBDown[ 3 ]  := yPos
+   vBDown[ 4 ] := 0
+Return Nil
+
+Function GetvBDown
+Return vBDown
+
+Function SetCtrlSelected( oDlg,oCtrl,n ,nShift)
+Local oFrm := Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oParent,oDlg:oParent ), handle, i, nSh
+Memvar oDesigner
+
+
+
+
+   IF ( oFrm:oCtrlSelected == Nil .AND. oCtrl <> Nil ) .OR.  ( oFrm:oCtrlSelected <> Nil .AND. oCtrl == Nil ) .OR.  ( oFrm:oCtrlSelected <> Nil .AND. oCtrl <> Nil .AND.  oFrm:oCtrlSelected:handle <> oCtrl:handle )
+
+      handle := Iif( oCtrl<>Nil,oCtrl:oParent:handle,  oFrm:oCtrlSelected:oParent:handle )
+      nSh := IIF(nShift <> Nil,nShift,GetKeyState(0x10))
+      IF oFrm:oCtrlSelected <> Nil
+
+            IF nsh >= 0
+
+              FOR i = 1 to IIF(len(asels) > 0,LEN(asels),1)
+               oFrm:oCtrlSelected := asels[i]
+
+
+
+           InvalidateRect( oFrm:oCtrlSelected:oParent:handle, 1,  oFrm:oCtrlSelected:nLeft-4, oFrm:oCtrlSelected:nTop-4,  oFrm:oCtrlSelected:nLeft+oFrm:oCtrlSelected:nWidth+3,   oFrm:oCtrlSelected:nTop+oFrm:oCtrlSelected:nHeight+3 )
+           NEXT
+        ELSEIF oCtrl == Nil
+
+          RETURN Nil
+        ELSE
+
+          i := Ascan( aSels, {|a| a:GetProp( "Name") == oCtrl:GetProp( "Name")} )
+              IF i > 0
+
+
+
+              InvalidateRect( oCtrl:oParent:handle, 1,  oCtrl:nLeft-4, oCtrl:nTop-4,  oCtrl:nLeft+oCtrl:nWidth+3,   oCtrl:nTop+oCtrl:nHeight+3 )
+                  ADEL(aSels,i)
+                 ASIZE(Asels,LEN(aSels)-1)
+            RETURN nil
+          ENDIF
+
+        ENDIF
+      ENDIF
+
+        aSels := iIF( nsh >= 0, {} ,asels)
+        IF oCtrl <> Nil
+           AADD(aSels,oCtrl)
+        ENDIF
+
+
+      oFrm:oCtrlSelected := oCtrl
+      IF oCtrl <> Nil
+
+
+
+         InvalidateRect( oCtrl:oParent:handle, 0,  oCtrl:nLeft-4, oCtrl:nTop-4,  oCtrl:nLeft+oCtrl:nWidth+3,   oCtrl:nTop+oCtrl:nHeight+3 )
+
+             IF nShift <> Nil
+               RETURN Nil
+             ENDIF
+         IF oDesigner:oDlgInsp <> Nil
+            IF n <> Nil
+               i := n
+            ELSE
+               i := Ascan( oDlg:aControls,{|o|o:handle==oCtrl:handle} )
+            ENDIF
+            InspUpdCombo( i )
+         ENDIF
+      ELSE
+         IF oDesigner:oDlgInsp <> Nil
+            InspUpdCombo( 0 )
+         ENDIF
+      ENDIF
+      SendMessage( handle,15,0,0 )
+   ENDIF
+Return Nil
+
+Function GetCtrlSelected( oDlg )
+Return Iif( oDlg<>Nil,Iif( oDlg:oParent:Classname()=="HPANEL",oDlg:oParent:oParent:oParent:oCtrlSelected,oDlg:oParent:oCtrlSelected),Nil )
+
+Function CheckResize( oCtrl,xPos,yPos )
+
+   IF xPos > oCtrl:nLeft-5 .AND. xPos < oCtrl:nLeft+3 .AND.  yPos >= oCtrl:nTop .AND. yPos < oCtrl:nTop + oCtrl:nHeight
+      IF oCtrl:nWidth > 3
+         Return 1
+      ENDIF
+
+   ELSEIF xPos > oCtrl:nLeft+oCtrl:nWidth-5 .AND. xPos < oCtrl:nLeft+oCtrl:nWidth+3 .AND.  yPos >= oCtrl:nTop .AND. yPos < oCtrl:nTop + oCtrl:nHeight
+      IF oCtrl:nWidth > 3
+         Return 3
+      ENDIF
+
+   ELSEIF yPos > oCtrl:nTop-5 .AND. yPos < oCtrl:nTop+3 .AND.  xPos >= oCtrl:nLeft .AND. xPos < oCtrl:nLeft + oCtrl:nWidth
+      IF oCtrl:nHeight > 3
+         Return 2
+      ENDIF
+
+   ELSEIF yPos > oCtrl:nTop+oCtrl:nHeight-5 .AND. yPos < oCtrl:nTop+oCtrl:nHeight+3 .AND.  xPos >= oCtrl:nLeft .AND. xPos < oCtrl:nLeft + oCtrl:nWidth
+      IF oCtrl:nHeight > 3
+         Return 4
+      ENDIF
+   ENDIF
+Return 0
+
+Function MoveCtrl( oCtrl )
+
+
+   IF oCtrl:ClassName() == "HDIALOG"
+      SendMessage( oCtrl:handle, 3, 0, oCtrl:nLeft + oCtrl:nTop*65536 )
+      SendMessage( oCtrl:handle, 5, 0, oCtrl:nWidth + oCtrl:nHeight*65536 )
+   ELSE
+      MoveWindow( oCtrl:handle,oCtrl:nLeft,oCtrl:nTop,oCtrl:nWidth,oCtrl:nHeight )
+      RedrawWindow( oCtrl:oParent:handle,4 + 1 )
+   ENDIF
+Return Nil
+
+Function AdjustCtrl( oCtrl, lLeft, lTop, lRight, lBottom )
+Local i, aControls := Iif( oCtrl:oContainer <> Nil, oCtrl:oContainer:aControls, oCtrl:oParent:aControls )
+Local lRes := .F., xPos, yPos, delta := 15
+
+   IF oCtrl:lEmbed
+      Return Nil
+   ENDIF
+   IF lLeft == Nil .AND. lTop == Nil .AND. lRight == Nil .AND. lBottom == Nil
+      lLeft := lTop := lRight := lBottom := .T.
+   ELSE
+      delta := 30
+   ENDIF
+   FOR i := Len( aControls ) To 1 STEP -1
+      IF !aControls[i]:lHide
+
+
+         IF lLeft .AND. aControls[i]:nLeft+aControls[i]:nWidth < oCtrl:nLeft .AND.  aControls[i]:nLeft+aControls[i]:nWidth + delta > oCtrl:nLeft .AND.  aControls[i]:nTop <= oCtrl:nTop .AND. aControls[i]:nTop + aControls[i]:nHeight > oCtrl:nTop
+            lRes := .T.
+            xPos := aControls[i]:nLeft+aControls[i]:nWidth + 1
+            yPos := aControls[i]:nTop
+            EXIT
+
+
+         ELSEIF lTop .AND. Abs( aControls[i]:nLeft-oCtrl:nLeft ) < delta .AND.  aControls[i]:nTop + aControls[i]:nHeight < oCtrl:nTop .AND.  aControls[i]:nTop + aControls[i]:nHeight + delta > oCtrl:nTop
+            lRes := .T.
+            xPos := aControls[i]:nLeft
+            yPos := aControls[i]:nTop + aControls[i]:nHeight + 1
+            EXIT
+
+
+         ELSEIF lRight .AND. oCtrl:nLeft+oCtrl:nWidth < aControls[i]:nLeft .AND.  oCtrl:nLeft+oCtrl:nWidth >= aControls[i]:nLeft - delta .AND.  oCtrl:nTop >= aControls[i]:nTop .AND. aControls[i]:nTop + aControls[i]:nHeight > oCtrl:nTop
+            lRes := .T.
+            xPos := aControls[i]:nLeft-oCtrl:nWidth - 1
+            yPos := aControls[i]:nTop
+            EXIT
+
+
+         ELSEIF lBottom .AND. Abs( aControls[i]:nLeft-oCtrl:nLeft ) <= delta .AND.  aControls[i]:nTop > oCtrl:nTop + oCtrl:nHeight .AND.  aControls[i]:nTop - delta <= oCtrl:nTop + oCtrl:nHeight
+            lRes := .T.
+            xPos := aControls[i]:nLeft
+            yPos := aControls[i]:nTop - oCtrl:nHeight - 1
+            EXIT
+         ENDIF
+      ENDIF
+   NEXT
+   IF lRes
+      CtrlMove( oCtrl,xPos-oCtrl:nLeft,yPos-oCtrl:nTop,.F.,.T. )
+      Container( oCtrl:oParent,oCtrl,oCtrl:nLeft,oCtrl:nTop )
+      InspUpdBrowse()
+   ENDIF
+Return Nil
+
+Function FitLine( oCtrl )
+
+   IF oCtrl:lEmbed
+      oCtrl:lEmbed := .F.
+   ELSE
+      IF Lower( oCtrl:cClass ) == "hline"
+         oCtrl:Move( oCtrl:oContainer:nLeft+1,,oCtrl:oContainer:nWidth-2 )
+         oCtrl:SetCoor( "Left",oCtrl:nLeft )
+         oCtrl:SetCoor( "Width",oCtrl:nWidth )
+         oCtrl:SetCoor( "Right",oCtrl:nLeft+oCtrl:nWidth-1 )
+      ELSE
+         oCtrl:Move( ,oCtrl:oContainer:nTop+1,,oCtrl:oContainer:nHeight-2 )
+         oCtrl:SetCoor( "Top",oCtrl:nTop )
+         oCtrl:SetCoor( "Height",oCtrl:nHeight )
+         oCtrl:SetCoor( "Bottom",oCtrl:nTop+oCtrl:nHeight-1 )
+      ENDIF
+      oCtrl:lEmbed := .T.
+   ENDIF
+Return Nil
+
+Function Page_New( oTab )
+Local aTabs := oTab:GetProp( "Tabs" )
+
+   IF aTabs == Nil
+      aTabs := {}
+      oTab:SetProp( "Tabs",aTabs )
+   ENDIF
+   AddTab( oTab:handle, Len( aTabs ), "New Page" )
+   Aadd( aTabs,"New Page" )
+   InspUpdProp( "Tabs", aTabs )
+   RedrawWindow( oTab:handle,5 )
+Return Nil
+
+Function Page_Next( oTab )
+   ( (oTab) := (oTab) )
+Return Nil
+
+Function Page_Prev( oTab )
+   ( (oTab) := (oTab) )
+Return Nil
+
+Function Page_Upd( oTab, arr )
+Local i, nTabs := SendMessage( oTab:handle,4868,0,0 )
+
+   FOR i := 1 TO Len( arr )
+      IF i <= nTabs
+         SetTabName( oTab:handle, i-1, arr[i] )
+      ELSE
+         AddTab( oTab:handle, i-1, arr[i] )
+      ENDIF
+   NEXT
+
+Return Nil
+
+Function Page_Select( oTab, nTab, lForce )
+Local i, j, oCtrl
+
+   IF ( lForce <> Nil .AND. lForce ) .OR. GetCurrentTab( oTab:handle ) <> nTab
+
+      SendMessage( oTab:handle, 4876, nTab-1, 0 )
+      FOR i := 1 TO Len( oTab:aControls )
+         oCtrl := oTab:aControls[i]
+         IF oCtrl:nPage <> nTab .AND. !oCtrl:lHide
+            oCtrl:Hide()
+            FOR j := 1 TO Len( oCtrl:aControls )
+               oCtrl:aControls[j]:Hide()
+            NEXT
+         ELSEIF oCtrl:nPage == nTab .AND. oCtrl:lHide
+            oCtrl:Show()
+            FOR j := 1 TO Len( oCtrl:aControls )
+               oCtrl:aControls[j]:Show()
+            NEXT
+         ENDIF
+      NEXT
+
+   ENDIF
+
+Return Nil
+
+Function EditMenu()
+Local oDlg, oTree, i, aMenu
+Memvar nMaxID, oDesigner
+Private nMaxId := 0
+
+   oDlg := HFormGen():oDlgSelected
+   FOR i := 1 TO Len( oDlg:aControls )
+      IF oDlg:aControls[i]:cClass == "menu"
+         aMenu := oDlg:aControls[i]:GetProp( "aTree" )
+         IF aMenu == Nil
+            aMenu := oDlg:aControls[i]:SetProp( "aTree", { { ,"Menu",32000,Nil } } )
+         ENDIF
+         aMenu := aClone( aMenu )
+         EXIT
+      ENDIF
+   NEXT
+
+
+
+
+   oDlg := HDialog():New( Iif(.F.,10,11), 2147483648+268435456+12582912+262144,300,280,400,350,"Edit Menu",oDesigner:oMainWnd:oFont,{||BuildTree( oTree,aMenu )},,,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+
+   oTree := HTree():New( oDlg,,8388608,10,20,210, 240,,,,,,,.F.,.T.,,,,, .F.,, .F.,,,,.F. ); oTree:name := "oTree"
+   oTree:bItemChange := {|o,s|VldItemChange(aMenu,o,s)}
+
+   HButton():New(,,,240,20,140, 28,"Rename",,,,,{||EditTree(aMenu,oTree,0)},,,,,.F. );
+   HButton():New(,,,240,54,140, 28,"Add item after",,,,,{||EditTree(aMenu,oTree,1)},,,,,.F. );
+   HButton():New(,,,240,88,140, 28,"Add item before",,,,,{||EditTree(aMenu,oTree,2)},,,,,.F. );
+   HButton():New(,,,240,122,140, 28,"Add child item",,,,,{||EditTree(aMenu,oTree,3)},,,,,.F. );
+   HButton():New(,,,240,156,140, 28,"Insert Separador",,,,,{||EditTree(aMenu,oTree,9)},,,,,.F. );
+   HButton():New(,,,240,190,140, 28,"Delete",,,,,{||EditTree(aMenu,oTree,4)},,,,,.F. );
+   HButton():New(,,,240,224,140, 28,"Edit code",,,,,{||EditTree(aMenu,oTree,10)},,,,,.F. );
+
+   HButton():New(,,,40,290,100, 30,"Ok",,,,,{||oDlg:lResult:=.T.,EndDialog()},,,,,.F. );
+   HButton():New(,,,260,290,100, 30,"Cancel",,,,,{||EndDialog()},,,,,.F. );
+
+   oDlg:AddEvent( 0,1,{||SetFocus(oDlg:aControls[2]:handle)} )
+   oDlg:AddEvent( 0,2,{||SetFocus(oDlg:aControls[2]:handle)} )
+
+   oDlg:Activate(.F.,,,.F. )
+   IF oDlg:lResult
+      HFormGen():oDlgSelected:aControls[i]:SetProp( "aTree",aMenu )
+   ENDIF
+
+Return Nil
+
+Static Function BuildTree( oParent, aMenu )
+Local i := Len( aMenu ), oNode
+Memvar nMaxId
+
+   FOR i := 1 TO Len( aMenu )
+      oNode := oParent:AddNode( aMenu[i,2],,,,,, .F.,,.F. )
+      oNode:cargo := aMenu[i,3]
+      nMaxId := Max( nMaxId,aMenu[i,3] )
+      IF Valtype( aMenu[i,1] ) == "A"
+         BuildTree( oNode, aMenu[i,1] )
+      ENDIF
+   NEXT
+
+Return Nil
+
+Static Function VldItemChange( aTree,oNode,cText )
+Local nPos, aSubarr
+
+   IF ( aSubarr := FindTreeItem( aTree, oNode:cargo, @nPos ) ) <> Nil
+      aSubarr[nPos,2] := cText
+   ENDIF
+Return .T.
+
+Static Function FindTreeItem( aTree, nId, nPos )
+Local nPos1, aSubarr
+   nPos := 1
+   while nPos <= Len( aTree )
+      IF aTree[npos,3] == nId
+         Return aTree
+      ELSEIF Valtype(aTree[npos,1]) == "A"
+         IF ( aSubarr := FindTreeItem( aTree[nPos,1] , nId, @nPos1 ) ) <> Nil
+            nPos := nPos1
+            Return aSubarr
+         ENDIF
+      ENDIF
+      nPos ++
+   ENDDO
+Return Nil
+
+Static Function EditTree( aTree,oTree,nAction )
+Local oNode, cMethod
+Local nPos, aSubarr
+Memvar nMaxID
+
+   IF nAction == 0
+      oTree:EditLabel( oTree:oSelected )
+   ELSEIF nAction == 1
+      IF oTree:oSelected:oParent == Nil
+         oNode := oTree:AddNode( "New",oTree:oSelected )
+      ELSE
+         oNode := oTree:oSelected:oParent:AddNode( "New",oTree:oSelected )
+      ENDIF
+      oTree:EditLabel( oNode )
+      nMaxId ++
+      oNode:cargo := nMaxId
+      IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) <> Nil
+         Aadd( aSubarr,Nil )
+         Ains( aSubarr,nPos+1 )
+         aSubarr[nPos+1] := { Nil,"New",nMaxId,Nil }
+      ENDIF
+   ELSEIF nAction == 2
+      IF oTree:oSelected:oParent == Nil
+         oNode := oTree:AddNode( "New",,oTree:oSelected )
+      ELSE
+         oNode := oTree:oSelected:oParent:AddNode( "New",,oTree:oSelected )
+      ENDIF
+      oTree:EditLabel( oNode )
+      nMaxId ++
+      oNode:cargo := nMaxId
+      IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) <> Nil
+         Aadd( aSubarr,Nil )
+         Ains( aSubarr,nPos )
+         aSubarr[nPos] := { Nil,"New",nMaxId,Nil }
+      ENDIF
+   ELSEIF nAction == 9
+      IF oTree:oSelected:oParent == Nil
+         oNode := oTree:AddNode( "-",oTree:oSelected )
+      ELSE
+         oNode := oTree:oSelected:oParent:AddNode( "-",oTree:oSelected )
+      ENDIF
+
+      nMaxId ++
+      oNode:cargo := nMaxId
+      IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) <> Nil
+         Aadd( aSubarr,Nil )
+         Ains( aSubarr,nPos+1 )
+         aSubarr[nPos+1] := { Nil,"-",nMaxId,Nil }
+      ENDIF
+   ELSEIF nAction == 3
+      oNode := oTree:oSelected:AddNode( "New" )
+      oTree:Expand( oTree:oSelected )
+      oTree:EditLabel( oNode )
+      nMaxId ++
+      oNode:cargo := nMaxId
+      IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) <> Nil
+         IF Valtype( aSubarr[nPos,1] ) <> "A"
+            aSubarr[nPos,1] := {}
+         ENDIF
+         Aadd( aSubarr[nPos,1], { Nil,"New",nMaxId,Nil } )
+      ENDIF
+   ELSEIF nAction == 4
+      IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) <> Nil
+         Adel( aSubarr,nPos )
+         Asize( aSubarr,Len(aSubarr)-1 )
+      ENDIF
+      oTree:oSelected:Delete()
+   ELSEIF nAction == 10
+      IF ( aSubarr := FindTreeItem( aTree, oTree:oSelected:cargo, @nPos ) ) <> Nil
+         IF ( cMethod := EditMethod( oTree:oSelected:GetText(), aSubarr[nPos,4] ) ) <> Nil
+            aSubarr[nPos,4] := cMethod
+         ENDIF
+      ENDIF
+   ENDIF
+
+Return Nil
+
+Function GetMenu()
+Local oDlg, i, aMenu
+Memvar nMaxID, oDesigner
+Private nMaxId := 0
+
+   oDlg := HFormGen():oDlgSelected
+   FOR i := 1 TO Len( oDlg:aControls )
+      IF oDlg:aControls[i]:cClass == "menu"
+         aMenu := oDlg:aControls[i]:GetProp( "aTree" )
+         IF aMenu == Nil
+            aMenu := oDlg:aControls[i]:SetProp( "aTree", { { ,"Menu",32000,Nil } } )
+         ENDIF
+         aMenu := aClone( aMenu )
+         EXIT
+      ENDIF
+   NEXT
+ RETURN aMenu
+
+
+
+
+ FUNCTION aselCtrls
+ RETURN aSels
+
+
+ FUNCTION asels_ajustar(najuste)
+
+
+
+
+
+
+
+
+ Local oCtrl,nminLeft , nmaxright, nminTop, nmaxbottom, nmaxwidth, nmaxheight,i
+ Local nCenterTop, nCenterLeft
+ Local asels := aselCtrls()
+
+ IF LEN(aSels) <= 1 .AND. nAjuste <7
+   RETURN Nil
+ ENDIF
+ oCtrl := asels[1]
+ nminLeft   := octrl:nLeft
+ nmaxright  := octrl:nLeft + octrl:nWidth
+ nminTop    := octrl:nTop
+ nmaxbottom := octrl:nTop + octrl:nHeight
+ nmaxwidth  := octrl:nWidth
+ nmaxheight := octrl:nHeight
+
+ ncenterTop := INT(octrl:oparent:nHeight / 2)
+ nCenterLeft := INT(octrl:oparent:nWidth / 2)
+ IF LEN(aSels) = 1
+   IF nAjuste = 8
+
+       SetBDown( ,0,0,0 )
+      CtrlMove(oCtrl,0,(nCenterTop-INT(oCtrl:nHeight/2))-oCtrl:nTop,.F.,.F.)
+     ELSEIF nAjuste = 7
+
+      SetBDown( ,0,0,0 )
+    CtrlMove(oCtrl,(nCenterLeft-INT(oCtrl:nWidth/2))-oCtrl:nLeft,0,.F.,.F.)
+   ENDIF
+   RETURN Nil
+ ENDIF
+
+ FOR i = 2 to len(asels)
+    oCtrl := asels[i]
+    IF oCtrl <> Nil
+       nminLeft   := IIF(octrl:nLeft < nminLeft,octrl:nLeft,nminLeft)
+       nmaxright  := IIF(octrl:nLeft + octrl:nWidth > nmaxRight,octrl:nLeft + octrl:nWidth,nmaxright)
+       nminTop    := IIF(octrl:nTop < nMinTop,octrl:nTop,nMinTop)
+      nmaxbottom := IIF(octrl:nTop + octrl:nHeight > nmaxBottom,octrl:nTop + oCtrl:nHeight,nmaxBottom)
+       nmaxwidth  := IIF(octrl:nWidth > nmaxWidth,octrl:nWidth,nmaxWidth)
+       nmaxheight := IIF(octrl:nHeight > nmaxHeight,octrl:nHeight,nmaxHeight)
+    ENDIF
+ NEXT
+ FOR i = 1 to len(asels)
+   oCtrl := asels[i]
+    IF nAjuste = 1
+
+       SetBDown( ,0,0,0 )
+      CtrlMove(oCtrl,nMinLeft-oCtrl:nLeft,0,.F.,.F.)
+     ELSEIF nAjuste = 2
+
+    SetBDown( ,0,0,0 )
+    CtrlMove(oCtrl,nMaxRight-oCtrl:nWidth-oCtrl:nLeft,0,.F.,.F.)
+     ELSEIF nAjuste = 3
+
+       SetBDown( ,0,0,0 )
+      CtrlMove(oCtrl,0,nMinTop-oCtrl:nTop,.F.,.F.)
+     ELSEIF nAjuste = 4
+
+     ELSEIF nAjuste = 5
+
+       SetBDown( , oCtrl:nLeft,oCtrl:nTop,3 )
+      CtrlResize( OCTRL,oCtrl:nLeft+(nMaxWidth-oCtrl:nWidth),oCtrl:nTop)
+     ELSEIF nAjuste = 6
+
+           SetBDown( , oCtrl:nLeft,oCtrl:nTop,4 )
+           CtrlResize( OCTRL,oCtrl:nLeft,oCtrl:nTop+(nMaxHeight-oCtrl:nHeight))
+     ELSEIF nAjuste = 8
+
+      SetBDown( ,0,0,0 )
+    CtrlMove(oCtrl,0,(nCenterTop-INT((nMaxBottom-nMinTop)/2))-nMinTop,.F.,.F.)
+     ELSEIF nAjuste = 7
+
+      SetBDown( ,0,0,0 )
+    CtrlMove(oCtrl,(nCenterLeft-INT((nMaxRight-nMinLeft)/2))-nMinLeft,0,.F.,.F.)
+
+     ENDIF
+ NEXT
+
+ RETURN Nil
+
+Function RegionSelect(odlg,xi,yi,xPos,yPos)
+  Local pps, hDC, xf,yf
+
+   pps := DefinePaintStru()
+   hDC := GetDC( GetActiveWindow() )
+   IF oPenSel == Nil
+      oPenSel := HPen():Add( 0,1,255 )
+   ENDIF
+  SelectObject( hDC, oPenSel:handle )
+  IF xpos < xi
+    xf := xi
+    xi := xpos
+    xpos := xf
+  ENDIF
+  IF ypos < yi
+    yf := yi
+    yi := ypos
+    ypos := yf
+  ENDIF
+  InvalidateRect( odlg:handle, 1, xPos+1, yPos+1,  xPos+2,yPos+2 )
+  Rectangle( hDC, xi, yi, xPos+1,yPos+1 )
+  InvalidateRect( odlg:handle, 1,  xi+1, yi+1,  xPos,yPos )
+
+ RETURN Nil
+
+
+FUNCTION selsobjetos(odlg,xi,yi,xpos,ypos)
+Local Octrl, i, xf,yf
+
+ IF xpos < xi
+   xf:=xi
+   xi := xpos
+   xpos := xf
+ ENDIF
+ IF ypos < yi
+   yf:=yi
+   yi := ypos
+   ypos := yf
+ ENDIF
+
+ FOR i = 1 to Len( oDlg:aControls )
+    oCtrl := oDlg:aControls[i]
+
+
+
+    IF ((yi <= oCtrl:nTop +  oCtrl:nHeight .AND. yPos >= oCtrl:nTop) .OR.  (yPos <= oCtrl:nTop + oCtrl:nHeight .AND. yi >= oCtrl:nTop)) .AND.  ((xi <= oCtrl:nLeft + oCtrl:nWidth .AND. xPos >= oCtrl:nLeft) .OR. (xPos <= oCtrl:nLeft + oCtrl:nWidth .AND. xi >= oCtrl:nLeft))
+         SetCtrlSelected( oCtrl:oParent,oCtrl,,-128)
+    ENDIF
+ NEXT
+Return Nil
+
+FUNCTION AUTOSIZE(oCtrl)
+LOCAL aSize :={}
+
+   IF oCtrl:oFont <> NIL
+        asize :=  GETTEXTWIDTH(oCtrl:title+" ",oCtrl:oFont,GetDC(oCtrl:handle))
+     ELSE
+        asize :=  GETTEXTWIDTH(oCtrl:title+" ",oCtrl:oparent:oFont,GetDC(oCtrl:handle))
+    ENDIF
+    IF octrl:nLeft = Nil
+      return nil
+    ENDIF
+     SetBDown( , oCtrl:nWidth,oCtrl:nHeight,3 )
+    CtrlResize( OCTRL,asize[1],oCtrl:nTop)
+     SetBDown( , oCtrl:nLeft,oCtrl:nHeight,4 )
+     CtrlResize( OCTRL,oCtrl:nLeft,asize[2])
+
+   RETURN Nil
+
+FUNCTION GetTextWidth( cString, oFont ,hdc)
+Local arr, hFont
+
+   IF oFont <> Nil
+      hFont := SelectObject( hDC,oFont:handle )
+   ENDIF
+   arr := GetTextSize( hDC,cString )
+   IF oFont <> Nil
+      SelectObject( hDC,hFont )
+   ENDIF
+
+Return arr

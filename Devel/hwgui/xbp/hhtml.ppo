@@ -1,0 +1,79 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 21 "source\activex\hhtml.prg"
+_HB_CLASS HHtml ; UTILITY FUNCTION HHtml(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HHtml" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { nWidth} ; IIF( !.F., s_oClass:AddMultiData(, 640, nScope + IIF( .F., 32, 0 ), { "nWidth" }, .F., .F. ), )
+   _HB_MEMBER { nHeight} ; IIF( !.F., s_oClass:AddMultiData(, 480, nScope + IIF( .F., 32, 0 ), { "nHeight" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oParent); IIF( .F., s_oClass:ModMethod( "New", @HHtml_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HHtml_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DisplayPage(cUrl); IIF( .F., s_oClass:ModInline( "DisplayPage", {|Self,cUrl | Self, hwgax_DisplayHtmlPage( ::oParent:handle,cUrl ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "DisplayPage", {|Self,cUrl | Self, hwgax_DisplayHtmlPage( ::oParent:handle,cUrl ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER DisplayText(cText); IIF( .F., s_oClass:ModInline( "DisplayText", {|Self,cText | Self, hwgax_DisplayHtmlStr( ::oParent:handle,cText ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "DisplayText", {|Self,cText | Self, hwgax_DisplayHtmlStr( ::oParent:handle,cText ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HHtml_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HHtml_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Resize( width, height); IIF( .F., s_oClass:ModMethod( "Resize", @HHtml_Resize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Resize", @HHtml_Resize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GoBack(); IIF( .F., s_oClass:ModInline( "GoBack", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 0 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GoBack", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 0 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER GoForward(); IIF( .F., s_oClass:ModInline( "GoForward", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 1 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GoForward", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 1 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER GoHome(); IIF( .F., s_oClass:ModInline( "GoHome", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 2 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GoHome", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 2 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Search(); IIF( .F., s_oClass:ModInline( "Search", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 3 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Search", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 3 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModInline( "Refresh", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 4 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Refresh", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 4 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Stop(); IIF( .F., s_oClass:ModInline( "Stop", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 5 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Stop", {|Self | Self, hwgax_DoPageAction( ::oParent:handle, 5 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER End(); IIF( .F., s_oClass:ModMethod( "End", @HHtml_End(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "End", @HHtml_End(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HHtml ;
+
+UTILITY STATIC function HHtml_New( oParent) ; local Self AS CLASS HHtml := QSelf() AS CLASS HHtml
+
+   IF !hwgax_OleInitialize()
+      hwg_Msgstop( "Can't open OLE!","HHtml():New()" )
+      Return Nil
+   ENDIF
+
+   ::oParent := oParent
+
+   ::Activate()
+
+Return Self
+
+UTILITY STATIC function HHtml_Activate() ; local Self AS CLASS HHtml := QSelf() AS CLASS HHtml
+
+   IF !Empty( ::oParent:handle )
+     ::oParent:oEmbedded := Self
+      IF !hwgax_EmbedBrowserObject( ::oParent:handle )
+         hwg_Msgstop( "Can't embed IE object!","HHtml():New()" )
+      ENDIF
+   ENDIF
+Return Nil
+
+UTILITY STATIC function HHtml_Resize( width, height) ; local Self AS CLASS HHtml := QSelf() AS CLASS HHtml
+
+
+   hwgax_ResizeBrowser(::oParent:handle, width, height )
+Return Nil
+
+UTILITY STATIC function HHtml_End() ; local Self AS CLASS HHtml := QSelf() AS CLASS HHtml
+
+   hwgax_UnEmbedBrowserObject( ::oParent:handle )
+Return Nil
+
+EXIT PROCEDURE EXITOLE
+   hwgax_OleUninitialize()
+Return

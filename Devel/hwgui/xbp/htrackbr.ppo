@@ -1,0 +1,180 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 23 "source\htrackbr.prg"
+_HB_CLASS HTrackBar ; UTILITY FUNCTION HTrackBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HTrackBar" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "msctls_trackbar32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { value} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "value" }, .F., .F. ), )
+   _HB_MEMBER { bChange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChange" }, .F., .F. ), )
+   _HB_MEMBER { bThumbDrag} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bThumbDrag" }, .F., .F. ), )
+   _HB_MEMBER { nLow} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nLow" }, .F., .F. ), )
+   _HB_MEMBER { nHigh} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nHigh" }, .F., .F. ), )
+   _HB_MEMBER { hCursor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hCursor" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh,  lVertical, TickStyle, TickMarks); IIF( .F., s_oClass:ModMethod( "New", @HTrackBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HTrackBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HTrackBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HTrackBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HTrackBar_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HTrackBar_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HTrackBar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HTrackBar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetValue( nValue); IIF( .F., s_oClass:ModMethod( "SetValue", @HTrackBar_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HTrackBar_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetValue(); IIF( .F., s_oClass:ModMethod( "GetValue", @HTrackBar_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetValue", @HTrackBar_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetNumTics(); IIF( .F., s_oClass:ModInline( "GetNumTics", {|Self | Self, SendMessage( ::handle, (1024+16), 0, 0 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetNumTics", {|Self | Self, SendMessage( ::handle, (1024+16), 0, 0 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HTrackBar ;
+
+
+
+UTILITY STATIC function HTrackBar_New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, cTooltip, bChange, bDrag, nLow, nHigh,  lVertical, TickStyle, TickMarks) ; local Self AS CLASS HTrackBar := QSelf() AS CLASS HTrackBar
+
+   IF TickStyle == NIL ; TickStyle := 1 ; ENDIF
+   IF TickMarks == NIL ; TickMarks := 0 ; ENDIF
+   IF bPaint <> NIL
+      TickStyle := Hwg_BitOr( TickStyle, 1 )
+   ENDIF
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ),  1073741824 + 268435456 + 65536 )
+   nStyle   += IIf( lVertical <> NIL .AND. lVertical, 2, 0 )
+   nStyle   += TickStyle + TickMarks
+
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,,  bInit, bSize, bPaint, cTooltip )
+
+   ::value      := IIf( ValType( vari ) == "N", vari, 0 )
+   ::bChange    := bChange
+   ::bThumbDrag := bDrag
+   ::nLow       := IIf( nLow == NIL, 0, nLow )
+   ::nHigh      := IIf( nHigh == NIL, 100, nHigh )
+
+   HWG_InitCommonControlsEx()
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HTrackBar_Activate() ; local Self AS CLASS HTrackBar := QSelf() AS CLASS HTrackBar
+   IF ! Empty( ::oParent:handle )
+
+
+      ::handle := InitTrackBar ( ::oParent:handle, ::id, ::style,  ::nLeft, ::nTop, ::nWidth, ::nHeight,  ::nLow, ::nHigh )
+      ::Init()
+   ENDIF
+   RETURN NIL
+
+UTILITY STATIC function HTrackBar_onEvent( msg, wParam, lParam) ; local Self AS CLASS HTrackBar := QSelf() AS CLASS HTrackBar
+   LOCAL aCoors
+
+   IF msg == 15
+      IF ::bPaint <> NIL
+         Eval( ::bPaint, Self )
+         RETURN 0
+      ENDIF
+
+   ELSEIF msg == 512
+      IF ::hCursor <> NIL
+         Hwg_SetCursor( ::hCursor )
+      ENDIF
+
+   ELSEIF msg == 20
+      IF ::brush <> NIL
+         aCoors := GetClientRect( ::handle )
+
+         FillRect( wParam, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ] + 1,  aCoors[ 4 ] + 1, ::brush:handle )
+         RETURN 1
+      ENDIF
+
+   ELSEIF msg == 2
+      ::END()
+
+   ELSEIF msg == 258
+      IF wParam = 0x09
+
+         GetSkip( ::oParent, ::handle, ,  iif( IsCtrlShift(.F., .T.), -1, 1) )
+          RETURN 0
+      ENDIF
+
+     ELSEIF msg = 256
+        IF  ProcKeyList( Self, wParam )
+           RETURN 0
+      ENDIF
+
+   ELSEIF ::bOther <> NIL
+      RETURN Eval( ::bOther, Self, msg, wParam, lParam )
+
+   ENDIF
+
+   RETURN - 1
+
+UTILITY STATIC function HTrackBar_Init() ; local Self AS CLASS HTrackBar := QSelf() AS CLASS HTrackBar
+   IF ! ::lInit
+      ::HControl:Init()
+      TrackBarSetRange( ::handle, ::nLow, ::nHigh )
+      SendMessage( ::handle, (1024+5), 1, ::value )
+
+      IF ::bPaint <> NIL
+         ::nHolder := 1
+         SetWindowObject( ::handle, Self )
+         Hwg_InitTrackProc( ::handle )
+      ENDIF
+   ENDIF
+   RETURN NIL
+
+UTILITY STATIC function HTrackBar_SetValue( nValue) ; local Self AS CLASS HTrackBar := QSelf() AS CLASS HTrackBar
+   IF ValType( nValue ) == "N"
+      SendMessage( ::handle, (1024+5), 1, nValue )
+      ::value := nValue
+   ENDIF
+   RETURN NIL
+
+UTILITY STATIC function HTrackBar_GetValue() ; local Self AS CLASS HTrackBar := QSelf() AS CLASS HTrackBar
+   ::value := SendMessage( ::handle, (1024), 0, 0 )
+   RETURN ( ::value )
+
+#pragma BEGINDUMP
+
+#include "hwingui.h"
+#include <commctrl.h>
+
+HB_FUNC ( INITTRACKBAR )
+{
+    HWND hTrackBar;
+
+    hTrackBar = CreateWindow( TRACKBAR_CLASS,
+                             0,
+                             ( LONG )  hb_parnl( 3 ),
+                                       hb_parni( 4 ),
+                                       hb_parni( 5 ),
+                                       hb_parni( 6 ),
+                                       hb_parni( 7 ),
+                             ( HWND )  HB_PARHANDLE( 1 ),
+                             ( HMENU ) hb_parni( 2 ),
+                             GetModuleHandle( NULL ),
+                             NULL ) ;
+
+    HB_RETHANDLE(  hTrackBar );
+}
+
+HB_FUNC ( TRACKBARSETRANGE )
+{
+    SendMessage( (HWND) HB_PARHANDLE( 1 ), TBM_SETRANGE, TRUE,
+                  MAKELONG( hb_parni( 2 ), hb_parni( 3 ) ) );
+}
+
+#pragma ENDDUMP

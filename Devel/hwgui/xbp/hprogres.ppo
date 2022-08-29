@@ -1,0 +1,183 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 16 "source\hprogres.prg"
+_HB_CLASS HProgressBar ; UTILITY FUNCTION HProgressBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HProgressBar" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "msctls_progress32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { maxPos} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "maxPos" }, .F., .F. ), )
+   _HB_MEMBER { nRange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nRange" }, .F., .F. ), )
+   _HB_MEMBER { lNewBox} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lNewBox" }, .F., .F. ), )
+   _HB_MEMBER { nCount} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCount" }, .F., .F. ), )
+   _HB_MEMBER { nLimit} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nLimit" }, .F., .F. ), )
+     _HB_MEMBER { nAnimation} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nAnimation" }, .F., .F. ), )
+     _HB_MEMBER { LabelBox} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "LabelBox" }, .F., .F. ), )
+     _HB_MEMBER { nPercent} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nPercent" }, .F., .F. ), )
+     _HB_MEMBER { lPercent} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lPercent" }, .F., .F. ), )
+
+   _HB_MEMBER New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical); IIF( .F., s_oClass:ModMethod( "New", @HProgressBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HProgressBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent); IIF( .F., s_oClass:ModMethod( "NewBox", @HProgressBar_NewBox(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NewBox", @HProgressBar_NewBox(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HProgressBar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HProgressBar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HProgressBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HProgressBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Increment(); IIF( .F., s_oClass:ModInline( "Increment", {|Self | Self, UpdateProgressBar( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Increment", {|Self | Self, UpdateProgressBar( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER STEP( cTitle); IIF( .F., s_oClass:ModMethod( "STEP", @HProgressBar_STEP(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "STEP", @HProgressBar_STEP(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SET( cTitle, nPos); IIF( .F., s_oClass:ModMethod( "SET", @HProgressBar_SET(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SET", @HProgressBar_SET(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetLabel( cCaption); IIF( .F., s_oClass:ModMethod( "SetLabel", @HProgressBar_SetLabel(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetLabel", @HProgressBar_SetLabel(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetAnimation(nAnimation); _HB_MEMBER _SetAnimation(nAnimation); IIF( .F., s_oClass:ModMethod( "SetAnimation", @HProgressBar_SetAnimation(), 1 + 32, .F. ), s_oClass:AddMethod( "SetAnimation", @HProgressBar_SetAnimation(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_SetAnimation", @HProgressBar_SetAnimation() ), s_oClass:AddMethod( "_SetAnimation", @HProgressBar_SetAnimation() ) ) ;
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @HProgressBar_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @HProgressBar_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER End(); IIF( .F., s_oClass:ModInline( "End", {|Self | Self, DestroyWindow( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "End", {|Self | Self, DestroyWindow( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HProgressBar ;
+
+UTILITY STATIC function HProgressBar_New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bInit, bSize, bPaint, ctooltip, nAnimation, lVertical) ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   ::Style := IIF( lvertical <> Nil .AND. lVertical, 4, 0 )
+     ::Style += IIF( nAnimation <> Nil .AND. nAnimation > 0, 8, 0 )
+     ::nAnimation := nAnimation
+
+   ::HControl:New( oWndParent, nId, ::Style, nLeft, nTop, nWidth, nHeight,, bInit, bSize, bPaint, ctooltip )
+
+   ::maxPos  := Iif( maxPos <> Nil .AND. maxPos <> 0, maxPos, 20 )
+   ::lNewBox := .F.
+   ::nRange := Iif( nRange <> Nil .AND. nRange <> 0, nRange, 100 )
+   ::nLimit := Int( ::nRange/::maxPos )
+
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HProgressBar_NewBox( cTitle, nLeft, nTop, nWidth, nHeight, maxPos, nRange, bExit, lPercent) ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+
+   ::style   := 1073741824 + 268435456
+   nWidth := IIf( nWidth == Nil, 220, nWidth )
+   nHeight := IIf( nHeight == Nil, 55, nHeight )
+   nLeft   := IIf( nLeft == Nil, 0, nLeft )
+   nTop    := IIf( nTop == Nil, 0, nTop )
+
+
+   ::nLeft := 20
+   ::nTop  := 25
+   ::nWidth  := nWidth - 40
+   ::maxPos  := IIf( maxPos == Nil, 20, maxPos )
+   ::lNewBox := .T.
+   ::nRange := Iif( nRange <> Nil .AND. nRange <> 0, nRange, 100 )
+   ::nLimit := IIf( nRange <> Nil, Int( ::nRange / ::maxPos ), 1 )
+     ::lPercent := lPercent
+
+
+
+   ::oParent := HDialog():New( Iif(.F.,10,11), 2147483648 + 268435456 + 12582912 + 524288 + 262144 + IIf( nTop == 0, 2048, 0 ) + 2 + 128,nLeft,nTop,nWidth,nHeight,cTitle,,,,,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+
+
+   ::LabelBox := HStatic():New(,,1,::nLeft,nTop + 5,::nWidth, 19,IIF( EMPTY( lPercent ), "", "%" ),,,,,,,,.F.,,,,.F. ); ::LabelBox:name := "::LabelBox"
+
+   IF bExit <> Nil
+      ::oParent:bDestroy := bExit
+   ENDIF
+
+   ::oParent:Activate(.T.,,,.F. )
+
+   ::id := ::NewId()
+   ::nHeight := 0
+   ::Activate()
+   ::oParent:AddControl( Self )
+
+   RETURN Self
+
+UTILITY STATIC function HProgressBar_Activate() ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateProgressBar( ::oParent:handle, ::maxPos, ::style,  ::nLeft, ::nTop, ::nWidth, IIF( ::nHeight = 0, Nil, ::nHeight ) )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HProgressBar_Init() ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   IF ! ::lInit
+      ::HControl:Init()
+        IF ::nAnimation <> Nil .AND. ::nAnimation > 0
+           SendMessage( ::handle, 1024+10, 1, ::nAnimation )
+        ENDIF
+   ENDIF
+
+  RETURN Nil
+
+UTILITY STATIC function HProgressBar_STEP( cTitle) ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   ::nCount ++
+   IF ::nCount == ::nLimit
+      ::nCount := 0
+      UpdateProgressBar( ::handle )
+      ::SET( cTitle )
+      IF ! EMPTY( ::lPercent )
+         ::nPercent += ::maxPos
+         ::setLabel( LTRIM( STR( ::nPercent, 3 ) ) + " %" )
+      ENDIF
+      RETURN .T.
+   ENDIF
+
+   RETURN .F.
+
+UTILITY STATIC function HProgressBar_SET( cTitle, nPos) ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   IF cTitle <> Nil
+      SetWindowText( ::oParent:handle, cTitle )
+   ENDIF
+   IF nPos <> Nil
+      SetProgressBar( ::handle, nPos )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HProgressBar_SetLabel( cCaption) ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   IF cCaption <> Nil .AND. ::lNewBox
+      ::LabelBox:SetValue( cCaption )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HProgressBar_SetAnimation(nAnimation) ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   IF nAnimation <> Nil
+        IF  nAnimation <= 0
+           SendMessage( ::handle, 1024+10, 0, Nil )
+           MODIFYSTYLE( ::Handle, 8, 0 )
+           SendMessage( ::handle, 1024+2, 0, 0)
+        ELSE
+           IF Hwg_BitAND( ::Style, 8 ) = 0
+              MODIFYSTYLE( ::Handle, 8, 8 )
+         ENDIF
+         SendMessage( ::handle, 1024+10, 1, nAnimation)
+        ENDIF
+        ::nAnimation := nAnimation
+   ENDIF
+   RETURN IIF( ::nAnimation <> Nil, ::nAnimation, 0 )
+
+UTILITY STATIC function HProgressBar_Close() ; local Self AS CLASS HProgressBar := QSelf() AS CLASS HProgressBar
+
+   DestroyWindow( ::handle )
+   IF ::lNewBox
+      EndDialog( ::oParent:handle )
+   ENDIF
+
+   RETURN Nil

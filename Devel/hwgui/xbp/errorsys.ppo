@@ -1,0 +1,135 @@
+#line 16 "source\errorsys.prg"
+PROCEDURE HWGUI_ErrorSys
+
+   ErrorBlock( { | oError | DefError( oError ) } )
+
+   RETURN
+
+STATIC FUNCTION DefError( oError )
+   LOCAL cMessage
+   LOCAL cDOSError
+
+   LOCAL n
+
+
+   IF oError:genCode == 5
+      RETURN 0
+   ENDIF
+
+
+
+
+   IF oError:genCode == 21 .AND.  oError:osCode == 32 .AND.  oError:canDefault
+      NetErr( .T. )
+      RETURN .F.
+   ENDIF
+
+
+
+   IF oError:genCode == 40 .AND.  oError:canDefault
+      NetErr( .T. )
+      RETURN .F.
+   ENDIF
+
+   cMessage := ErrorMessage( oError )
+   IF ! Empty( oError:osCode )
+      cDOSError := "(DOS Error " + LTrim( Str( oError:osCode ) ) + ")"
+   ENDIF
+
+   IF ! Empty( oError:osCode )
+      cMessage += " " + cDOSError
+   ENDIF
+
+   n := 2
+   WHILE ! Empty( ProcName( n ) )
+      cMessage += Chr( 13 ) + Chr( 10 ) + "Called from " + ProcFile( n ) + "->" + ProcName( n ) + "(" + AllTrim( Str( ProcLine( n ++ ) ) ) + ")"
+   ENDDO
+
+
+
+   cMessage += Chr( 13 ) + Chr( 10 )
+
+   cMessage += Chr( 13 ) + Chr( 10 ) + hwg_version( 1 )
+   cMessage += Chr( 13 ) + Chr( 10 ) + "Date:" + DToC( Date() )
+   cMessage += Chr( 13 ) + Chr( 10 ) + "Time:" + Time()
+
+
+   MemoWrit( "Error.log", cMessage )
+
+   ErrorPreview( cMessage )
+   EndWindow()
+   PostQuitMessage( 0 )
+
+   RETURN .F.
+
+
+FUNCTION ErrorMessage( oError )
+   LOCAL cMessage
+
+
+   cMessage := IIf( oError:severity > 1, "Error", "Warning" ) + " "
+
+
+   IF HB_ISSTRING( oError:subsystem )
+      cMessage += oError:subsystem()
+   ELSE
+      cMessage += "???"
+   ENDIF
+
+
+   IF ( Valtype(oError:subCode) == "N" )
+      cMessage += "/" + LTrim( Str( oError:subCode ) )
+   ELSE
+      cMessage += "/???"
+   ENDIF
+
+
+   IF HB_ISSTRING( oError:description )
+      cMessage += "  " + oError:description
+   ENDIF
+
+
+   DO CASE
+   CASE ! Empty( oError:filename )
+      cMessage += ": " + oError:filename
+   CASE ! Empty( oError:operation )
+      cMessage += ": " + oError:operation
+   ENDCASE
+
+
+
+
+
+
+
+   RETURN cMessage
+
+FUNCTION hwg_WriteLog( cText, fname )
+   LOCAL nHand
+
+   fname := IIf( fname == Nil, "a.log", fname )
+   IF ! File( fname )
+      nHand := FCreate( fname )
+   ELSE
+      nHand := FOpen( fname, 1 )
+   ENDIF
+   FSeek( nHand, 0, 2 )
+   FWrite( nHand, cText + Chr( 10 ) )
+   FClose( nHand )
+
+   RETURN nil
+
+STATIC FUNCTION ErrorPreview( cMess )
+   LOCAL oDlg, oEdit
+
+
+   oDlg := HDialog():New( Iif(.F.,10,11),,92,61,500,500,"Error.log",,,,,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+
+
+
+   oEdit := HEdit():New(,,cMess,,2097152 + 1048576 + 4 + 2048,10,10,480, 440,,,,,{ || SendMessage( oEdit:handle, 177, 0, 0 ) },,,16777088,0,,.F.,,.F.,,,,.F. ); oEdit:name := "oEdit"
+
+   HButton():New(,,,200,460,100, 32,"Close",,,,,{ || EndDialog() },,,,,.F. );
+
+   oDlg:Activate()
+   RETURN Nil

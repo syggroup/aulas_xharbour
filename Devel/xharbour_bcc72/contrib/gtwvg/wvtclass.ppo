@@ -1,0 +1,3484 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 109 "wvtclass.prg"
+_HB_CLASS wvtDialog ; UTILITY FUNCTION wvtDialog(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "wvtDialog" , { HBObject():Classh } ) ) ;
+
+
+
+   _HB_MEMBER { nOldRows} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nOldRows" }, .F., .F. ), )
+   _HB_MEMBER { nOldCols} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nOldCols" }, .F., .F. ), )
+   _HB_MEMBER { aOldFont} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aOldFont" }, .F., .F. ), )
+   _HB_MEMBER { cOldTitle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cOldTitle" }, .F., .F. ), )
+   _HB_MEMBER { cOldColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cOldColor" }, .F., .F. ), )
+   _HB_MEMBER { nOldCursor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nOldCursor" }, .F., .F. ), )
+   _HB_MEMBER { aPalette} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aPalette" }, .F., .F. ), )
+   _HB_MEMBER { cScreen} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cScreen" }, .F., .F. ), )
+   _HB_MEMBER { aWvtScreen} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aWvtScreen" }, .F., .F. ), )
+   _HB_MEMBER { aOldPnt} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aOldPnt" }, .F., .F. ), )
+   _HB_MEMBER { oldTooltipActive} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oldTooltipActive" }, .F., .F. ), )
+   _HB_MEMBER { oldTooltipWidth} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oldTooltipWidth" }, .F., .F. ), )
+   _HB_MEMBER { oldTooltipBkColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oldTooltipBkColor" }, .F., .F. ), )
+   _HB_MEMBER { oldTooltipTextColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oldTooltipTextColor" }, .F., .F. ), )
+   _HB_MEMBER { oldMenuHandle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oldMenuHandle" }, .F., .F. ), )
+   _HB_MEMBER { oldMenuBlock} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oldMenuBlock" }, .F., .F. ), )
+   _HB_MEMBER { lGui} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lGui" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER { nRows} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nRows" }, .F., .F. ), )
+   _HB_MEMBER { nCols} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nCols" }, .F., .F. ), )
+   _HB_MEMBER { cFont} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cFont" }, .F., .F. ), )
+   _HB_MEMBER { nFontHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontHeight" }, .F., .F. ), )
+   _HB_MEMBER { nFontWidth} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontWidth" }, .F., .F. ), )
+   _HB_MEMBER { nFontBold} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontBold" }, .F., .F. ), )
+   _HB_MEMBER { nFontQuality} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontQuality" }, .F., .F. ), )
+   _HB_MEMBER { cTitle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cTitle" }, .F., .F. ), )
+   _HB_MEMBER { cColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cColor" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER { aObjects} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aObjects" }, .F., .F. ), )
+   _HB_MEMBER { oCurObj} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oCurObj" }, .F., .F. ), )
+   _HB_MEMBER { oLastObj} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLastObj" }, .F., .F. ), )
+   _HB_MEMBER { oObjOver} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oObjOver" }, .F., .F. ), )
+   _HB_MEMBER { oLastOver} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLastOver" }, .F., .F. ), )
+   _HB_MEMBER { nCurObj} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCurObj" }, .F., .F. ), )
+   _HB_MEMBER { nLastObj} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nLastObj" }, .F., .F. ), )
+   _HB_MEMBER { nObjOver} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nObjOver" }, .F., .F. ), )
+   _HB_MEMBER { nLastOver} ; IIF( !.F., s_oClass:AddMultiData(, -1, nScope + IIF( .F., 32, 0 ), { "nLastOver" }, .F., .F. ), )
+   _HB_MEMBER { nUseObj} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nUseObj" }, .F., .F. ), )
+   _HB_MEMBER { oMenu} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oMenu" }, .F., .F. ), )
+   _HB_MEMBER { aDialogKeys} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aDialogKeys" }, .F., .F. ), )
+   _HB_MEMBER { cDialogID} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cDialogID" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER { nTooltipWidth} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTooltipWidth" }, .F., .F. ), )
+   _HB_MEMBER { nTooltipBkColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTooltipBkColor" }, .F., .F. ), )
+   _HB_MEMBER { nTooltipTextColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTooltipTextColor" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER { ClassName} ; IIF( !.F., s_oClass:AddMultiData(, "WVTDIALOG", nScope + IIF( .F., 32, 0 ), { "ClassName" }, .F., .F. ), )
+   _HB_MEMBER { cPaintBlockID} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cPaintBlockID" }, .F., .F. ), )
+   _HB_MEMBER { nPaintID} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nPaintID" }, .F., .F. ), )
+   _HB_MEMBER { nObjID} ; IIF( !.F., s_oClass:AddMultiData(, 5000, nScope + IIF( .F., 32, 0 ), { "nObjID" }, .F., .F. ), )
+   _HB_MEMBER { nKey} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nKey" }, .F., .F. ), )
+   _HB_MEMBER { hFonts} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "hFonts" }, .F., .F. ), )
+   _HB_MEMBER { lEventHandled} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lEventHandled" }, .F., .F. ), )
+   _HB_MEMBER { lTabStops} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lTabStops" }, .F., .F. ), )
+
+   _HB_MEMBER nObjects(); IIF( .F., s_oClass:ModInline( "nObjects", {|Self | Self, len( ::aObjects ) }, 1, .F. ), s_oClass:AddInline( "nObjects", {|Self | Self, len( ::aObjects ) }, 1, .F. ) )
+
+   _HB_MEMBER { bOnCreate} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnCreate" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @wvtDialog_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @wvtDialog_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @wvtDialog_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @wvtDialog_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Destroy(); IIF( .F., s_oClass:ModMethod( "Destroy", @wvtDialog_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Destroy", @wvtDialog_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddObject(oObject); IIF( .F., s_oClass:ModInline( "AddObject", {|Self,oObject | Self, aadd( ::aObjects, oObject ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "AddObject", {|Self,oObject | Self, aadd( ::aObjects, oObject ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Execute(); IIF( .F., s_oClass:ModMethod( "Execute", @wvtDialog_Execute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Execute", @wvtDialog_Execute(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MouseOver(); IIF( .F., s_oClass:ModMethod( "MouseOver", @wvtDialog_MouseOver(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MouseOver", @wvtDialog_MouseOver(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CreateObjects(); IIF( .F., s_oClass:ModMethod( "CreateObjects", @wvtDialog_CreateObjects(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CreateObjects", @wvtDialog_CreateObjects(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MaxRow(); IIF( .F., s_oClass:ModInline( "MaxRow", {|Self | Self, ::nRows - 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "MaxRow", {|Self | Self, ::nRows - 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER MaxCol(); IIF( .F., s_oClass:ModInline( "MaxCol", {|Self | Self, ::nCols - 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "MaxCol", {|Self | Self, ::nCols - 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Eval(); IIF( .F., s_oClass:ModMethod( "Eval", @wvtDialog_Eval(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Eval", @wvtDialog_Eval(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Update(); IIF( .F., s_oClass:ModMethod( "Update", @wvtDialog_Update(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Update", @wvtDialog_Update(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OnTimer(); IIF( .F., s_oClass:ModInline( "OnTimer", {|Self | Self, aEval( ::aObjects, {|o| o:OnTimer() } ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "OnTimer", {|Self | Self, aEval( ::aObjects, {|o| o:OnTimer() } ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Event(); IIF( .F., s_oClass:ModMethod( "Event", @wvtDialog_Event(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Event", @wvtDialog_Event(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Inkey(); IIF( .F., s_oClass:ModMethod( "Inkey", @wvtDialog_Inkey(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Inkey", @wvtDialog_Inkey(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ActivateMenu(); IIF( .F., s_oClass:ModMethod( "ActivateMenu", @wvtDialog_ActivateMenu(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ActivateMenu", @wvtDialog_ActivateMenu(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS wvtDialog ;
+
+
+
+UTILITY STATIC function wvtDialog_New( nRows, nCols, cTitle, cFont, nFontHeight, nFontWidth, nFontBold, nFontQuality) ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL fnt_:= Wvt_GetFontInfo()
+
+   IF nRows == NIL ; nRows := 25 ; END
+   IF nCols == NIL ; nCols := 80 ; END
+   IF cTitle == NIL ; cTitle := Wvt_GetTitle() ; END
+   IF cFont == NIL ; cFont := fnt_[ 1 ] ; END
+   IF nFontHeight == NIL ; nFontHeight := fnt_[ 2 ] ; END
+   IF nFontWidth == NIL ; nFontWidth := fnt_[ 3 ] ; END
+   IF nFontBold == NIL ; nFontBold := fnt_[ 4 ] ; END
+   IF nFontQuality == NIL ; nFontQuality := fnt_[ 5 ] ; END
+
+   if empty( cFont )
+      cFont := fnt_[ 1 ]
+   endif
+   if empty( nFontHeight )
+      nFontHeight := fnt_[ 2 ]
+   endif
+   if empty( nFontWidth )
+      nFontWidth := fnt_[ 3 ]
+   endif
+
+   ::nOldRows            := MaxRow()+1
+   ::nOldCols            := MaxCol()+1
+   ::aOldFont            := Wvt_GetFontInfo()
+   ::cOldTitle           := Wvt_GetTitle()
+   ::cOldColor           := SetColor()
+   ::nOldCursor          := SetCursor()
+   ::aPalette            := Wvt_GetPalette()
+
+   ::oldMenuHandle       := Wvt_GetMenu()
+   ::oldMenuBlock        := SetKey( Wvt_SetMenuKeyEvent() )
+
+   ::oldTooltipWidth     := Wvt_GetTooltipWidth()
+   ::oldTooltipBkColor   := Wvt_GetTooltipBkColor()
+   ::oldTooltipTextColor := Wvt_GetTooltipTextColor()
+
+   ::nRows               := nRows
+   ::nCols               := nCols
+   ::cTitle              := cTitle
+   ::cFont               := cFont
+   ::nFontHeight         := nFontHeight
+   ::nFontWidth          := nFontWidth
+   ::nFontBold           := nFontBold
+   ::nFontQuality        := nFontQuality
+
+   ::cPaintBlockID       := strzero( Hb_Random( 99999998 ), 8 )
+   ::nObjOver            := 0
+   ::nKey                := 0
+   ::cColor              := "N/W"
+   ::nUseObj             := 0
+   ::lGui                := Wvt_SetGui( .F. )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function wvtDialog_Create() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL aPalette, i, j
+
+   ::oldToolTipActive := Wvt_SetToolTipActive( .T. )
+   if ::nTooltipWidth <> nil
+      Wvt_setTooltipWidth( ::nTooltipWidth )
+   endif
+   if ::nTooltipBkColor <> nil
+      Wvt_SetTooltipBkColor( ::nTooltipBkColor )
+   endif
+   if ::nTooltipTextColor <> nil
+      Wvt_SetTooltipTextColor( ::nTooltipTextColor )
+   endif
+
+   aPalette      := Wvt_GetPalette()
+   aPalette[ 9 ] := ( 175 + ( 175 * 256 ) + ( 175 * 256 * 256 ) )
+   Wvt_SetPalette( aPalette )
+
+   ::cScreen     := SaveScreen( 0, 0, maxrow(), maxcol() )
+   ::aWvtScreen  := Wvt_SaveScreen( 0, 0, maxrow(), maxcol() )
+   ::aOldPnt     := WvtSetPaint( {} )
+
+   SetMode( ::nRows, ::nCols )
+   while .T.
+      if Wvt_SetFont( ::cFont, ::nFontHeight, ::nFontWidth, ::nFontBold, ::nFontQuality )
+         exit
+      endif
+      ::nFontHeight--
+   enddo
+
+   SetMode( ::nRows, ::nCols )
+
+   Wvt_SetTitle( ::cTitle )
+
+   SetColor( ::cColor )
+   Scroll() ; SetPos(0,0)
+   ::Eval( ::bOnCreate )
+
+
+   ::CreateObjects()
+
+   if len( ::aObjects ) > 0
+      ::oCurObj := ::aObjects[ 1 ]
+   endif
+
+   for i := 1 to len( ::aObjects )
+      if !empty( ::aObjects[ i ]:aPaint )
+         for j := 1 to len( ::aObjects[ i ]:aPaint )
+
+            SetPaint( ::cPaintBlockID, ::nPaintID++,  ::aObjects[ i ]:aPaint[ j,1 ], ::aObjects[ i ]:aPaint[ j,2 ] )
+         next
+      endif
+   next
+   WvtSetPaint( GetPaint( ::cPaintBlockID ) )
+
+   if ( ascan( ::aObjects, {|o| o:lTabStop } ) ) > 0
+      ::lTabStops := .T.
+   endif
+
+   ::Update()
+
+   if HB_ISOBJECT( ::oMenu )
+      Wvt_SetMenu( ::oMenu:hMenu )
+      Wvt_DrawMenuBar()
+      SetKey( Wvt_SetMenuKeyEvent(), {|| ::ActivateMenu( ::oMenu ) } )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function wvtDialog_Destroy() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+
+   if HB_ISOBJECT( ::oMenu )
+      ::oMenu:Destroy()
+   endif
+
+   aEval( ::aObjects, {|o| o:destroy() } )
+
+   Wvt_SetTooltip( 0,0,0,0,"" )
+   Wvt_SetTooltipActive( ::oldToolTipActive )
+   Wvt_setTooltipWidth( ::oldTooltipWidth )
+   Wvt_SetTooltipBkColor( ::oldTooltipBkColor )
+   Wvt_SetTooltipTextColor( ::oldTooltipTextColor )
+
+
+
+   SetMode( ::nOldRows, ::nOldCols )
+   Wvt_SetFont( ::aOldFont[ 1 ], ::aOldFont[ 2 ], ::aOldFont[ 3 ], ::aOldFont[ 4 ], ::aOldFont[ 5 ] )
+   Wvt_SetTitle( ::cOldTitle )
+   Wvt_SetPalette( ::aPalette )
+   Wvt_SetPointer( 1 )
+   Wvt_SetMousePos( MRow(), MCol() )
+
+   SetColor( ::cOldColor )
+   SetCursor( ::nOldCursor )
+
+   if ::oldMenuHandle <> nil .AND. ::oldMenuHandle <> 0
+      Wvt_SetMenu( ::oldMenuHandle )
+   endif
+   SetKey( Wvt_SetMenuKeyEvent(), ::oldMenuBlock )
+   RestScreen( 0, 0, maxrow(), maxcol(), ::cScreen )
+   Wvt_RestScreen( 0, 0, maxrow(), maxcol(), ::aWvtScreen )
+   PurgePaint( ::cPaintBlockID )
+   WvtSetPaint( ::aOldPnt )
+   Wvt_SetGui( ::lGui )
+
+
+   RETURN nil
+
+
+
+UTILITY STATIC function wvtDialog_Event() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL nKey
+
+   if ( nKey := inkey( 0.1, 255 ) ) == 0
+      if Wvt_IsLButtonPressed()
+
+         nKey := 1021
+
+      endif
+   endif
+
+   RETURN ( nKey )
+
+
+
+UTILITY STATIC function wvtDialog_Execute() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+
+   if ::nObjects == 0
+      while .T.
+         if inkey( 0.1 ) == 27
+            exit
+         endif
+      enddo
+   else
+      while ( ::Inkey() <> 27 )
+      enddo
+   endif
+
+   RETURN ::nKey
+
+
+
+UTILITY STATIC function wvtDialog_Inkey() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL  n, oObj, nID, i
+
+   ::lEventHandled := .F.
+   ::nUseObj       := 0
+
+   ::nKey := ::Event()
+   ::OnTimer()
+
+   if ::nKey <> 0
+      if ::nKey == 27 .OR. ::nKey == 10
+         return 27
+      endif
+
+      do case
+
+      case ::nKey == 9
+         if ::lTabStops
+            while .T.
+               ::nCurObj++
+               if ::nCurObj > ::nObjects
+                  ::nCurObj := 1
+               endif
+               if ::aObjects[ ::nCurObj ]:lTabStop
+                  exit
+               endif
+            enddo
+         endif
+
+         ::lEventHandled := .T.
+
+      case ::nKey == 271
+         if ::lTabStops
+            while .T.
+               ::nCurObj--
+               if ::nCurObj < 1
+                  ::nCurObj := ::nObjects
+               endif
+               if ::aObjects[ ::nCurObj ]:lTabStop
+                  exit
+               endif
+            enddo
+         endif
+
+         ::lEventHandled := .T.
+
+      case ::nKey == 1001 .OR. ::nKey == 1011
+         ::MouseOver()
+         if ::nObjOver == 0
+            Wvt_SetPointer( 1 )
+         elseif ::oObjOver:nPointer <> nil .AND. ::oObjOver:lActive
+            Wvt_SetPointer( ::oObjOver:nPointer )
+         else
+            Wvt_SetPointer( 1 )
+         endif
+         ::lEventHandled := .T.
+
+      endcase
+
+
+
+
+
+
+      if    ::nKey == 1002     .OR.  ::nKey == 1003       .OR.  ::nKey == 1006         .OR.  ::nKey == 1011      .OR.  ::nKey == 1021  .OR.  ::nKey == 1004
+
+         ::MouseOver()
+
+         if ::nObjOver > 0
+
+
+
+            if    ::aObjects[ ::nObjOver ]:nType == 6     .OR.  ::aObjects[ ::nObjOver ]:nType == 11    .OR.  ::aObjects[ ::nObjOver ]:nType == 13 .OR.  ::aObjects[ ::nObjOver ]:nType == 15
+
+               oObj := ::aObjects[ ::nObjOver ]
+               if oObj:oParent:ClassName == "WVTBROWSE"
+                  nID := oObj:oParent:nID
+                  if ( n := ascan( ::aObjects, {|o| o:nID == nID } ) ) > 0
+                     ::nCurObj := n
+                  endif
+               endif
+            else
+               ::nCurObj := ::nObjOver
+            endif
+            ::nUseObj := ::nObjOver
+
+         else
+            ::lEventHandled := .T.
+
+         endif
+      endif
+
+      if ::nLastOver <> ::nObjOver
+         if ::nLastOver > 0
+            ::aObjects[ ::nLastOver ]:HoverOff()
+         endif
+
+         ::nLastOver := ::nObjOver
+
+         if ::nObjOver > 0
+            ::oObjOver:HoverOn()
+         endif
+
+         if ::nObjOver == 0
+            Wvt_SetTooltip( 0,0,0,0,"" )
+
+         elseif ::oObjOver:lActive
+            ::oObjOver:SetTooltip()
+
+         else
+            Wvt_SetTooltip( 0,0,0,0,"" )
+
+         endif
+      endif
+
+      if ::nCurObj <> ::nLastObj
+         if ::nLastObj == 0
+            ::aObjects[ ::nCurObj  ]:Hilite()
+
+         else
+            ::aObjects[ ::nLastObj ]:DeHilite()
+            ::aObjects[ ::nCurObj  ]:Hilite()
+
+         endif
+
+         ::nLastObj := ::nCurObj
+         ::oCurObj  := ::aObjects[ ::nCurObj ]
+         ::oLastObj := ::aObjects[ ::nCurObj ]
+
+         if ::oCurObj:nType == 1
+            dbSelectArea( ( ::oCurObj:cAlias ) )
+
+         endif
+
+         ::Eval( ::oCurObj:bOnFocus, ::oCurObj )
+      endif
+
+      if ::nKey == 1002
+         if ::nUseObj > 0
+            if !( ::lEventHandled := ::aObjects[ ::nUseObj ]:LeftDown() )
+               ::lEventHandled := ::Eval( ::aObjects[ ::nUseObj ]:bOnLeftDown )
+
+            endif
+         endif
+      endif
+
+      if ::nKey == 1003
+         if ::nUseObj > 0
+            if !( ::lEventHandled := ::aObjects[ ::nUseObj ]:LeftUp() )
+               ::lEventHandled := ::Eval( ::aObjects[ ::nUseObj ]:bOnLeftUp )
+
+            endif
+         endif
+      endif
+
+      if ::nKey == 1011
+         if ::nUseObj > 0
+            if !( ::lEventHandled := ::aObjects[ ::nUseObj ]:MMLeftDown() )
+               ::lEventHandled := ::Eval( ::aObjects[ ::nUseObj ]:bOnMMLeftDown )
+
+            endif
+         endif
+      endif
+
+      if ::nKey == 1021
+         if ::nUseObj > 0
+            if !( ::lEventHandled := ::aObjects[ ::nUseObj ]:LeftPressed() )
+               ::lEventHandled := ::Eval( ::aObjects[ ::nUseObj ]:bOnLeftPressed )
+
+            endif
+         endif
+      endif
+
+      if ::nKey == 1006
+         if ::nUseObj > 0
+            ::lEventHandled := ::Eval( ::aObjects[ ::nUseObj ]:bOnSelect )
+
+         endif
+      endif
+
+      if ::nKey == 1004 .AND. ::nUseObj > 0
+         ::lEventHandled := ::aObjects[ ::nUseObj ]:ShowPopup()
+      endif
+
+      if ! ::lEventHandled
+         if ::nCurObj > 0
+            if !empty( ::aDialogKeys )
+               if ( n := ascan( ::aDialogKeys, {|e_| e_[ 1 ] == ::nKey } ) ) > 0
+                  Eval( ::aDialogKeys[ n, 2 ], self, ::oCurObj )
+               endif
+            endif
+
+            ::lEventHandled := ::oCurObj:HandleEvent( ::nKey )
+
+            if ( ::lEventHandled )
+               if ::oCurObj:nChildren > 0
+                  for i := 1 to ::oCurObj:nChildren
+
+                     if ascan( ::oCurObj:aChildren[ i, 2 ],::nKey ) > 0
+                        ::oCurObj:NotifyChild( i, ::nKey, ::oCurObj )
+                     endif
+                  next
+               endif
+            endif
+         endif
+      endif
+
+      if ! ::lEventHandled
+         if valtype( SetKey( ::nKey ) ) == "B"
+            Eval( SetKey( ::nKey ) )
+         endif
+      endif
+   endif
+
+   RETURN ( ::nKey )
+
+
+
+UTILITY STATIC function wvtDialog_MouseOver() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL mRow := MRow()
+   LOCAL mCol := MCol()
+   LOCAL nObj
+
+
+
+
+
+   nObj := ascan( ::aObjects,  {|o| o:nType <> 10               .AND.  o:nType <> 11              .AND.  mRow >= o:nTop  .AND. mRow <= o:nBottom .AND.  mCol >= o:nLeft .AND. mCol <= o:nRight      } )
+
+   ::nObjOver := nObj
+   ::oObjOver := if( nObj > 0, ::aObjects[ nObj ], nil )
+   if nObj > 0
+      ::aObjects[ nObj ]:nmRow := mRow
+      ::aObjects[ nObj ]:nmCol := mCol
+
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function wvtDialog_Update() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+
+   Wvt_InvalidateRect( 0, 0, ::maxrow(), ::maxcol() )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function wvtDialog_CreateObjects() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL i, nObjs
+
+   nObjs := len( ::aObjects )
+
+   for i := 1 to nObjs
+      switch ::aObjects[ i ]:nType
+
+      case 1
+         ::aObjects[ i ]:Create()
+         exit
+      case 7
+         ::aObjects[ i ]:Create()
+         exit
+      case 9
+         ::aObjects[ i ]:Create()
+         exit
+      case 11
+         ::aObjects[ i ]:Create()
+         exit
+      case 6
+         ::aObjects[ i ]:Create()
+         exit
+      case 13
+         ::aObjects[ i ]:Create()
+         exit
+      case 12
+         ::aObjects[ i ]:Create()
+         exit
+      case 10
+         ::aObjects[ i ]:Create()
+         exit
+
+
+
+
+
+      case 5
+         ::aObjects[ i ]:Create()
+         exit
+      case 16
+         ::aObjects[ i ]:Create()
+         exit
+      case 17
+         ::aObjects[ i ]:Create()
+         exit
+      case 18
+         ::aObjects[ i ]:Create()
+         exit
+      end
+   next
+
+   RETURN self
+
+
+
+UTILITY STATIC function wvtDialog_Eval( bBlock, p1,p2,p3,p4,p5) ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL lRet
+
+   if ( lRet := valtype( bBlock ) == "B" )
+      Eval( bBlock, p1,p2,p3,p4,p5 )
+   endif
+
+   RETURN lRet
+
+
+
+UTILITY STATIC function wvtDialog_ActivateMenu() ; local Self AS CLASS wvtDialog := QSelf() AS CLASS wvtDialog
+   LOCAL nMenu:= Wvt_GetLastMenuEvent()
+   LOCAL aMenuItem
+
+   IF !EMPTY( nMenu )
+      IF HB_ISOBJECT( ::oMenu )
+         IF !EMPTY( aMenuItem := ::oMenu:FindMenuItemById( nMenu ) )
+            IF HB_ISBLOCK( aMenuItem[ 4 ] )
+               EVAL( aMenuItem[ 4 ] )
+            ENDIF
+         ENDIF
+      ENDIF
+   ENDIF
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtObject ; UTILITY FUNCTION WvtObject(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtObject" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+   _HB_MEMBER { nType} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nType" }, .F., .F. ), )
+   _HB_MEMBER { nId} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nId" }, .F., .F. ), )
+
+   _HB_MEMBER { nTop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTop" }, .F., .F. ), )
+   _HB_MEMBER { nLeft} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nLeft" }, .F., .F. ), )
+   _HB_MEMBER { nBottom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBottom" }, .F., .F. ), )
+   _HB_MEMBER { nRight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nRight" }, .F., .F. ), )
+   _HB_MEMBER { aPxlTLBR} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aPxlTLBR" }, .F., .F. ), )
+
+   _HB_MEMBER { aObjects} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aObjects" }, .F., .F. ), )
+   _HB_MEMBER { aParent} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aParent" }, .F., .F. ), )
+   _HB_MEMBER { aChildren} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aChildren" }, .F., .F. ), )
+   _HB_MEMBER { aPaint} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aPaint" }, .F., .F. ), )
+   _HB_MEMBER { bPaint} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bPaint" }, .F., .F. ), )
+   _HB_MEMBER { ClassName} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "ClassName" }, .F., .F. ), )
+
+   _HB_MEMBER { nObjID} ; IIF( !.F., s_oClass:AddMultiData(, 900000, nScope + IIF( .F., 32, 0 ), { "nObjID" }, .F., .F. ), )
+   _HB_MEMBER { nPointer} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nPointer" }, .F., .F. ), )
+   _HB_MEMBER { cargo} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cargo" }, .F., .F. ), )
+   _HB_MEMBER { xSettings} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "xSettings" }, .F., .F. ), )
+   _HB_MEMBER { cText} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cText" }, .F., .F. ), )
+   _HB_MEMBER { cToolTip} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cToolTip" }, .F., .F. ), )
+   _HB_MEMBER { lActive} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lActive" }, .F., .F. ), )
+   _HB_MEMBER { lAnimate} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lAnimate" }, .F., .F. ), )
+   _HB_MEMBER { lTabStop} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lTabStop" }, .F., .F. ), )
+   _HB_MEMBER { hFont} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hFont" }, .F., .F. ), )
+
+   _HB_MEMBER { aPopup} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aPopup" }, .F., .F. ), )
+   _HB_MEMBER { hPopup} ; IIF( !.F., s_oClass:AddMultiData(, nil, nScope + IIF( .F., 32, 0 ), { "hPopup" }, .F., .F. ), )
+   _HB_MEMBER { nPopupItemID} ; IIF( !.F., s_oClass:AddMultiData(, 700000, nScope + IIF( .F., 32, 0 ), { "nPopupItemID" }, .F., .F. ), )
+
+   _HB_MEMBER { nMRow} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nMRow" }, .F., .F. ), )
+   _HB_MEMBER { nMCol} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nMCol" }, .F., .F. ), )
+   _HB_MEMBER { cColorHilite} ; IIF( !.F., s_oClass:AddMultiData(, "W+/B*", nScope + IIF( .F., 32, 0 ), { "cColorHilite" }, .F., .F. ), )
+   _HB_MEMBER { cColorDehilite} ; IIF( !.F., s_oClass:AddMultiData(, "W/N*", nScope + IIF( .F., 32, 0 ), { "cColorDehilite" }, .F., .F. ), )
+
+   _HB_MEMBER { nTextColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTextColor" }, .F., .F. ), )
+   _HB_MEMBER { nBackColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBackColor" }, .F., .F. ), )
+   _HB_MEMBER { nBackMode} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nBackMode" }, .F., .F. ), )
+   _HB_MEMBER { nTextColorHoverOn} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTextColorHoverOn" }, .F., .F. ), )
+   _HB_MEMBER { nTextColorHoverOff} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTextColorHoverOff" }, .F., .F. ), )
+   _HB_MEMBER { nBackColorHoverOn} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBackColorHoverOn" }, .F., .F. ), )
+   _HB_MEMBER { nBackColorHoverOff} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBackColorHoverOff" }, .F., .F. ), )
+   _HB_MEMBER { cFont} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cFont" }, .F., .F. ), )
+   _HB_MEMBER { nFontHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontHeight" }, .F., .F. ), )
+   _HB_MEMBER { nFontWidth} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontWidth" }, .F., .F. ), )
+   _HB_MEMBER { nFontWeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontWeight" }, .F., .F. ), )
+   _HB_MEMBER { nFontQuality} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontQuality" }, .F., .F. ), )
+   _HB_MEMBER { nCharSet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nCharSet" }, .F., .F. ), )
+   _HB_MEMBER { lItalic} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lItalic" }, .F., .F. ), )
+   _HB_MEMBER { lUnderline} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lUnderline" }, .F., .F. ), )
+   _HB_MEMBER { lStrikeOut} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lStrikeOut" }, .F., .F. ), )
+   _HB_MEMBER { nAlignHorz} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nAlignHorz" }, .F., .F. ), )
+   _HB_MEMBER { nAlignVert} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nAlignVert" }, .F., .F. ), )
+   _HB_MEMBER { nAngle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nAngle" }, .F., .F. ), )
+
+   _HB_MEMBER ToolTip(); IIF( .F., s_oClass:ModInline( "ToolTip", {|Self | Self, if( ::cTooltip == nil, "", ::cTooltip ) }, 1, .F. ), s_oClass:AddInline( "ToolTip", {|Self | Self, if( ::cTooltip == nil, "", ::cTooltip ) }, 1, .F. ) )
+   _HB_MEMBER _ToolTip(cTip); IIF( .F., s_oClass:ModInline( "_ToolTip", {|Self,cTip | Self, ::cToolTip := cTip }, 1 ), s_oClass:AddInline( "_ToolTip", {|Self,cTip | Self, ::cToolTip := cTip }, 1 ) )
+
+   _HB_MEMBER { bHandleEvent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bHandleEvent" }, .F., .F. ), )
+   _HB_MEMBER { bOnCreate} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnCreate" }, .F., .F. ), )
+   _HB_MEMBER { bOnSelect} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnSelect" }, .F., .F. ), )
+   _HB_MEMBER { bOnFocus} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnFocus" }, .F., .F. ), )
+   _HB_MEMBER { bOnRefresh} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnRefresh" }, .F., .F. ), )
+   _HB_MEMBER { bOnLeftUp} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnLeftUp" }, .F., .F. ), )
+   _HB_MEMBER { bOnLeftDown} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnLeftDown" }, .F., .F. ), )
+   _HB_MEMBER { bOnMMLeftDown} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnMMLeftDown" }, .F., .F. ), )
+   _HB_MEMBER { bOnLeftPressed} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnLeftPressed" }, .F., .F. ), )
+   _HB_MEMBER { bTooltip} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bTooltip" }, .F., .F. ), )
+   _HB_MEMBER { bSaveSettings} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSaveSettings" }, .F., .F. ), )
+   _HB_MEMBER { bRestSettings} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bRestSettings" }, .F., .F. ), )
+   _HB_MEMBER { bOnHilite} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnHilite" }, .F., .F. ), )
+   _HB_MEMBER { bOnDeHilite} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bOnDeHilite" }, .F., .F. ), )
+
+   _HB_MEMBER nChildren(); IIF( .F., s_oClass:ModInline( "nChildren", {|Self | Self, len( ::aChildren ) }, 1, .F. ), s_oClass:AddInline( "nChildren", {|Self | Self, len( ::aChildren ) }, 1, .F. ) )
+   _HB_MEMBER { nIndexOrder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nIndexOrder" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtObject_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtObject_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtObject_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtObject_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Destroy(); IIF( .F., s_oClass:ModMethod( "Destroy", @WvtObject_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Destroy", @WvtObject_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+   _HB_MEMBER PaintBlock(); IIF( .F., s_oClass:ModInline( "PaintBlock", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "PaintBlock", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Hilite(); IIF( .F., s_oClass:ModInline( "Hilite", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Hilite", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER DeHilite(); IIF( .F., s_oClass:ModInline( "DeHilite", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "DeHilite", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER HandleEvent(); IIF( .F., s_oClass:ModInline( "HandleEvent", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "HandleEvent", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER LeftDown(); IIF( .F., s_oClass:ModInline( "LeftDown", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "LeftDown", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER LeftUp(); IIF( .F., s_oClass:ModInline( "LeftUp", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "LeftUp", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER MMLeftDown(); IIF( .F., s_oClass:ModInline( "MMLeftDown", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "MMLeftDown", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER LeftPressed(); IIF( .F., s_oClass:ModInline( "LeftPressed", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "LeftPressed", {|Self | Self, .F. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModInline( "HoverOn", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "HoverOn", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModInline( "HoverOff", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "HoverOff", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER OnTimer(); IIF( .F., s_oClass:ModInline( "OnTimer", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "OnTimer", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER SaveSettings(); IIF( .F., s_oClass:ModInline( "SaveSettings", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SaveSettings", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER RestSettings(); IIF( .F., s_oClass:ModInline( "RestSettings", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "RestSettings", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+   _HB_MEMBER SetToolTip(); IIF( .F., s_oClass:ModInline( "SetToolTip", {|Self | Self, Wvt_SetToolTip( ::nTop, ::nLeft, ::nBottom, ::nRight, ::Tooltip ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetToolTip", {|Self | Self, Wvt_SetToolTip( ::nTop, ::nLeft, ::nBottom, ::nRight, ::Tooltip ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModInline( "Refresh", {|Self | Self, Wvt_InvalidateRect( ::nTop, ::nLeft, ::nTop, ::nLeft ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Refresh", {|Self | Self, Wvt_InvalidateRect( ::nTop, ::nLeft, ::nTop, ::nLeft ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+   _HB_MEMBER Eval(bBlock); IIF( .F., s_oClass:ModInline( "Eval", {|Self,bBlock | Self, if( valtype( bBlock ) == "B", Eval( bBlock, self ), nil ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Eval", {|Self,bBlock | Self, if( valtype( bBlock ) == "B", Eval( bBlock, self ), nil ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER CreatePopup(); IIF( .F., s_oClass:ModMethod( "CreatePopup", @WvtObject_CreatePopup(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CreatePopup", @WvtObject_CreatePopup(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ShowPopup(); IIF( .F., s_oClass:ModMethod( "ShowPopup", @WvtObject_ShowPopup(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ShowPopup", @WvtObject_ShowPopup(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModInline( "Activate", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Activate", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER DeActivate(); IIF( .F., s_oClass:ModInline( "DeActivate", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "DeActivate", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER AddChild(aChild); IIF( .F., s_oClass:ModInline( "AddChild", {|Self,aChild | Self, aadd( ::aChildren, aChild ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "AddChild", {|Self,aChild | Self, aadd( ::aChildren, aChild ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER AddParent(aParent); IIF( .F., s_oClass:ModInline( "AddParent", {|Self,aParent | Self, aadd( ::aParent, aParent ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "AddParent", {|Self,aParent | Self, aadd( ::aParent, aParent ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER NotifyChild(); IIF( .F., s_oClass:ModInline( "NotifyChild", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "NotifyChild", {|Self | Self, nil }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   ; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtObject ;
+
+
+
+UTILITY STATIC function WvtObject_New( oParent, nType, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtObject := QSelf() AS CLASS WvtObject
+
+   IF nID == NIL ; nID := ++::nObjID ; END
+
+   ::oParent   :=  oParent
+   ::nType     :=  nType
+   ::nId       :=  nID
+   ::nTop      :=  nTop
+   ::nLeft     :=  nLeft
+   ::nBottom   :=  nBottom
+   ::nRight    :=  nRight
+
+   switch nType
+
+   case 1
+      ::ClassName := "WVTBROWSE"
+      exit
+
+   case 10
+      ::ClassName := "WVTSTATIC"
+      ::lTabStop  := .F.
+      exit
+
+   case 5
+      ::ClassName := "WVTGETS"
+      exit
+
+   case 12
+      ::ClassName := "WVTIMAGE"
+      ::lTabStop  := .F.
+      exit
+
+   case 13
+      ::ClassName := "WVTPUSHBUTTON"
+      exit
+
+   case 6
+      ::ClassName := "WVTBUTTON"
+      ::lTabStop  := .F.
+      exit
+
+   case 11
+      ::ClassName := "WVTTOOLBAR"
+      ::lTabStop  := .F.
+      exit
+
+   case 9
+      ::ClassName := "WVTLABEL"
+      ::lTabStop  := .F.
+      exit
+
+   case 15
+      ::ClassName := "WVTSCROLLBAR"
+      ::lTabStop  := .F.
+      exit
+
+   case 7
+      ::ClassName := "WVTSTATUSBAR"
+      ::lTabStop  := .F.
+      exit
+
+   case 16
+      ::ClassName := "WVTBANNER"
+      ::lTabStop  := .F.
+      exit
+
+   case 17
+      ::ClassName := "WVTTEXTBOX"
+      ::lTabStop  := .F.
+      exit
+
+   case 18
+      ::ClassName := "WVTPROGRESSBAR"
+      ::lTabStop  := .F.
+      exit
+
+   end
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtObject_Create() ; local Self AS CLASS WvtObject := QSelf() AS CLASS WvtObject
+
+   ::Eval( ::bOnCreate )
+   ::CreatePopup()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtObject_Destroy() ; local Self AS CLASS WvtObject := QSelf() AS CLASS WvtObject
+
+   if ::hFont <> nil
+      Win_DeleteObject( ::hFont )
+      ::hFont := nil
+   endif
+
+   if ::hPopup <> nil
+      Wvt_DestroyMenu( ::hPopup )
+      ::hPopup := nil
+   endif
+
+   RETURN Nil
+
+
+
+UTILITY STATIC function WvtObject_CreatePopup() ; local Self AS CLASS WvtObject := QSelf() AS CLASS WvtObject
+   LOCAL i, nID
+
+   if !empty( ::aPopup ) .AND. ::hPopup == nil
+      ::hPopup := Wvt_CreatePopupMenu()
+
+      for i := 1 to len( ::aPopup )
+
+         aSize( ::aPopup[ i ],3 )
+         nID := ::nPopupItemID++
+         ::aPopup[ i,3 ] := nID
+
+         Wvt_AppendMenu( ::hPopup, 0 + 0, nID, ::aPopup[ i,1 ] )
+      next
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtObject_ShowPopup() ; local Self AS CLASS WvtObject := QSelf() AS CLASS WvtObject
+   LOCAL lRet := .F., nRet, n, aPos
+
+   if ::hPopup <> nil
+      aPos := Wvt_GetCursorPos()
+
+
+      nRet := Wvt_TrackPopupMenu( ::hPopup, 0x0004 +0x0100,  aPos[ 1 ], aPos[ 2 ], 0, Wvt_GetWindowHandle() )
+      if nRet > 0
+         if ( n := ascan( ::aPopup, {|e_| e_[ 3 ] == nRet } ) ) > 0
+            lRet := .T.
+
+            if valtype( ::aPopup[ n,2 ] ) == "B"
+               Eval( ::aPopup[ n,2 ] )
+            endif
+         endif
+      endif
+   endif
+
+   RETURN lRet
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtBrowse ; UTILITY FUNCTION WvtBrowse(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtBrowse" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cAlias} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cAlias" }, .F., .F. ), )
+   _HB_MEMBER { oBrw} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oBrw" }, .F., .F. ), )
+   _HB_MEMBER { lHSBar} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lHSBar" }, .F., .F. ), )
+   _HB_MEMBER { lVSBar} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lVSBar" }, .F., .F. ), )
+   _HB_MEMBER { oHBar} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oHBar" }, .F., .F. ), )
+   _HB_MEMBER { oVBar} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oVBar" }, .F., .F. ), )
+   _HB_MEMBER { bTotalRecords} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bTotalRecords" }, .F., .F. ), )
+   _HB_MEMBER { bCurrentRecord} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bCurrentRecord" }, .F., .F. ), )
+   _HB_MEMBER { bTotalColumns} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bTotalColumns" }, .F., .F. ), )
+   _HB_MEMBER { bCurrentColumn} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bCurrentColumn" }, .F., .F. ), )
+
+   _HB_MEMBER cDesc(); IIF( .F., s_oClass:ModInline( "cDesc", {|Self | Self, if( ::cText == nil, "", ::cText ) }, 1, .F. ), s_oClass:AddInline( "cDesc", {|Self | Self, if( ::cText == nil, "", ::cText ) }, 1, .F. ) )
+   _HB_MEMBER _cDesc(cText); IIF( .F., s_oClass:ModInline( "_cDesc", {|Self,cText | Self, ::cText := cText }, 1 ), s_oClass:AddInline( "_cDesc", {|Self,cText | Self, ::cText := cText }, 1 ) )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtBrowse_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtBrowse_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtBrowse_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtBrowse_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PaintBlock(); IIF( .F., s_oClass:ModMethod( "PaintBlock", @WvtBrowse_PaintBlock(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PaintBlock", @WvtBrowse_PaintBlock(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Hilite(); IIF( .F., s_oClass:ModMethod( "Hilite", @WvtBrowse_Hilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Hilite", @WvtBrowse_Hilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeHilite(); IIF( .F., s_oClass:ModMethod( "DeHilite", @WvtBrowse_DeHilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DeHilite", @WvtBrowse_DeHilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HandleEvent(); IIF( .F., s_oClass:ModMethod( "HandleEvent", @WvtBrowse_HandleEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HandleEvent", @WvtBrowse_HandleEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtBrowse_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtBrowse_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetVBar(); IIF( .F., s_oClass:ModMethod( "SetVBar", @WvtBrowse_SetVBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetVBar", @WvtBrowse_SetVBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetHBar(); IIF( .F., s_oClass:ModMethod( "SetHBar", @WvtBrowse_SetHBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetHBar", @WvtBrowse_SetHBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetTooltip(); IIF( .F., s_oClass:ModMethod( "SetTooltip", @WvtBrowse_SetTooltip(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetTooltip", @WvtBrowse_SetTooltip(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SaveSettings(); IIF( .F., s_oClass:ModMethod( "SaveSettings", @WvtBrowse_SaveSettings(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SaveSettings", @WvtBrowse_SaveSettings(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER RestSettings(); IIF( .F., s_oClass:ModMethod( "RestSettings", @WvtBrowse_RestSettings(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "RestSettings", @WvtBrowse_RestSettings(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NotifyChild(); IIF( .F., s_oClass:ModMethod( "NotifyChild", @WvtBrowse_NotifyChild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NotifyChild", @WvtBrowse_NotifyChild(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtBrowse ;
+
+
+
+UTILITY STATIC function WvtBrowse_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+
+   ::WvtObject:New( oParent, 1, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_Create() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+
+   dbSelectArea( ( ::cAlias ) )
+
+   ::nTop    := ::oBrw:nTop  - 2
+   ::nLeft   := ::oBrw:nLeft - 2
+   ::nBottom := if( ::lHSBar, ::oBrw:nBottom, ::oBrw:nBottom + 1 )
+   ::nRight  := if( ::lVSBar, ::oBrw:nRight,  ::oBrw:nRight  + 2 )
+
+   ::PaintBlock( 1 )
+   ::PaintBlock( 2 )
+   ::PaintBlock( 3 )
+   ::PaintBlock( 4 )
+
+   ::WvtObject:Create()
+
+   IF ::bTotalRecords == NIL ; ::bTotalRecords := {|| ( ::cAlias )->( OrdKeyCount() ) } ; END
+   IF ::bCurrentRecord == NIL ; ::bCurrentRecord := {|| ( ::cAlias )->( OrdKeyNo()    ) } ; END
+   ::SetVBar()
+
+   IF ::bTotalColumns == NIL ; ::bTotalColumns := {|| ::oBrw:ColCount } ; END
+   IF ::bCurrentColumn == NIL ; ::bCurrentColumn := {|| ::oBrw:ColPos   } ; END
+   ::SetHBar()
+
+   ::oBrw:ForceStable()
+   ::DeHilite()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_SetVBar() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+
+   if ::lVSBar
+
+      ::oVBar := WvtScrollBar():New( self, 999991,  ::oBrw:nTop, ::oBrw:nRight+1, ::oBrw:nBottom, ::oBrw:nRight+2 )
+      ::oVBar:nBarType   := 1
+      ::oVBar:bTotal     := ::bTotalRecords
+      ::oVBar:bCurrent   := ::bCurrentRecord
+      ::oVBar:aPxlBtnTop := { -2,2,0,0 }
+      ::oVBar:aPxlBtnBtm := {  0,2,2,0 }
+      ::oVBar:aPxlScroll := {  0,2,0,0 }
+      ::oVBar:Create()
+
+
+
+      aadd( ::aPaint, { ::oVBar:bBtnLeftTop,  { 6, ::oVBar:nBtn1Top, ::oVBar:nBtn1Left,  ::oVBar:nBtn1Bottom, ::oVBar:nBtn1Right } } )
+
+
+
+      aadd( ::aPaint, { ::oVBar:bBtnRightBottom,  { 6, ::oVBar:nBtn2Top, ::oVBar:nBtn2Left,  ::oVBar:nBtn2Bottom, ::oVBar:nBtn2Right } } )
+
+
+
+      aadd( ::aPaint, { ::oVBar:bBtnScroll,  { 6, ::oVBar:nSTop, ::oVBar:nSLeft,  ::oVBar:nSBottom, ::oVBar:nSRight } } )
+
+      ::oParent:AddObject( ::oVBar )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_SetHBar() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+
+   if ::lHSBar
+
+      ::oHBar := WvtScrollBar():New( self, 999990,  ::oBrw:nBottom+1, ::oBrw:nLeft, ::oBrw:nBottom+1, ::oBrw:nRight )
+      ::oHBar:nBarType   := 2
+      ::oHBar:bTotal     := ::bTotalColumns
+      ::oHBar:bCurrent   := ::bCurrentColumn
+      ::oHBar:aPxlBtnLft := { 2,-2,0,0 }
+      ::oHBar:aPxlBtnRgt := { 2, 0,0,2 }
+      ::oHBar:aPxlScroll := { 2, 0,0,0 }
+      ::oHBar:Create()
+
+
+
+      aadd( ::aPaint, { ::oHBar:bBtnLeftTop,  { 6, ::oHBar:nBtn1Top, ::oHBar:nBtn1Left,  ::oHBar:nBtn1Bottom, ::oHBar:nBtn1Right } } )
+
+
+      aadd( ::aPaint, { ::oHBar:bBtnRightBottom,  { 6, ::oHBar:nBtn2Top, ::oHBar:nBtn2Left,  ::oHBar:nBtn2Bottom, ::oHBar:nBtn2Right } } )
+
+
+      aadd( ::aPaint, { ::oHBar:bBtnScroll,  { 6, ::oHBar:nSTop, ::oHBar:nSLeft,  ::oHBar:nSBottom, ::oHBar:nSRight } } )
+
+      ::oParent:AddObject( ::oHBar )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_Refresh() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   LOCAL nWorkArea := Select()
+
+   if valtype( ::bOnRefresh ) == "B"
+      Eval( ::bOnRefresh, self )
+   else
+      dbSelectArea( ( ::cAlias ) )
+
+      ::oBrw:RefreshAll()
+      ::oBrw:ForceStable()
+
+      dbSelectArea( ( nWorkArea ) )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_HandleEvent( nKey) ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   Local lRet := .F.
+
+   if HB_ISBLOCK( ::bHandleEvent )
+      lRet := Eval( ::bHandleEvent, self, ::oParent:cPaintBlockID, ::oBrw, nKey )
+   endif
+
+   RETURN lRet
+
+
+
+UTILITY STATIC function WvtBrowse_NotifyChild( nIndex, nKey, oCurObj) ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   Local xData, i
+
+   if nIndex > 0 .AND. nIndex <= len( ::aChildren )
+      if HB_ISBLOCK( ::aChildren[ nIndex, 3 ] )
+         xData := Eval( ::aChildren[ nIndex, 3 ] )
+      endif
+
+
+
+
+
+
+      Eval( ::aChildren[ nIndex, 4 ],  ::aChildren[ nIndex, 1 ],  ::aChildren[ nIndex, 1 ]:oParent:cPaintBlockID,  ::aChildren[ nIndex, 1 ]:oBrw,  nKey,  xData )
+
+      if ::aChildren[ nIndex, 1 ]:nChildren > 0
+
+
+         Eval( ::aChildren[ nIndex, 1 ]:bOnFocus, ::aChildren[ nIndex, 1 ] )
+
+         for i := 1 to ::aChildren[ nIndex, 1 ]:nChildren
+            ::aChildren[ nIndex, 1 ]:NotifyChild( i, nKey, ::aChildren[ nIndex, 1 ] )
+         next
+
+
+         Eval( oCurObj:bOnFocus, oCurObj )
+      endif
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_Hilite() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   LOCAL b := ::oBrw
+
+   DispOutAt( b:nTop-2, b:nLeft-2, pad( " "+::cDesc, b:nRight-b:nLeft+5 ), ::cColorHilite )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_DeHilite() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   LOCAL b := ::oBrw
+
+   DispOutAt( b:nTop-2, b:nLeft-2, pad( " "+::cDesc, b:nRight-b:nLeft+5 ), ::cColorDeHilite )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_SetTooltip() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   LOCAL cTip, nArea
+
+   if valtype( ::bTooltip ) == "B"
+      ::SaveSettings()
+      nArea := Select( ::cAlias )
+
+      dbSelectArea( ( ::cAlias ) )
+
+      cTip := Eval( ::bTooltip )
+
+      dbSelectArea( ( nArea ) )
+
+      ::RestSettings()
+   endif
+
+   if cTip <> nil
+      ::Tooltip := cTip
+   endif
+
+   Wvt_SetTooltip( ::nTop, ::nLeft, ::nBottom, ::nRight, ::Tooltip )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_SaveSettings() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+
+   if valtype( ::bSaveSettings ) == "B"
+      ::xSettings := Eval( ::bSaveSettings, self )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_RestSettings() ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+
+   if ::xSettings <> nil .AND. valtype( ::bRestSettings ) == "B"
+      Eval( ::bRestSettings, self )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBrowse_PaintBlock( nPaintObj) ; local Self AS CLASS WvtBrowse := QSelf() AS CLASS WvtBrowse
+   LOCAL bBlock, b := ::oBrw
+
+   switch nPaintObj
+
+   case 1
+      bBlock := {|| Wvt_DrawBoxRaised( b:nTop-2,b:nLeft-2,b:nBottom+1,b:nRight+2 ) }
+      aadd( ::aPaint, { bBlock, { 2, b:nTop-3,b:nLeft-3,b:nBottom+2,b:nRight+3 } } )
+      exit
+
+   case 2
+      bBlock := {|| Wvt_DrawBoxRecessed( b:nTop,b:nLeft,b:nBottom,b:nRight ) }
+      aadd( ::aPaint, { bBlock, { 2, b:nTop-1,b:nLeft-1,b:nBottom+1,b:nRight+1 } } )
+      exit
+
+   case 3
+      bBlock := {|| Wvt_DrawGridHorz( b:nTop+3, b:nLeft, b:nRight, b:nBottom - b:nTop - 2 ) }
+      aadd( ::aPaint, { bBlock, { 5, b:nTop+4, b:nLeft+1, b:nBottom-1, b:nRight-1 } } )
+      exit
+
+   case 4
+      bBlock := {|| Wvt_DrawGridVert( b:nTop, b:nBottom, b:aColumnsSep, len( b:aColumnsSep ) ) }
+      aadd( ::aPaint, { bBlock, { 4, b:nTop+1, b:nLeft+1, b:nBottom-1, b:nRight-1, b } } )
+      exit
+
+   end
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtStatusBar ; UTILITY FUNCTION WvtStatusBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtStatusBar" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { aPanels} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aPanels" }, .F., .F. ), )
+   _HB_MEMBER { cColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cColor" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtStatusBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtStatusBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtStatusBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtStatusBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetPanels(); IIF( .F., s_oClass:ModMethod( "SetPanels", @WvtStatusBar_SetPanels(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetPanels", @WvtStatusBar_SetPanels(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetText(); IIF( .F., s_oClass:ModMethod( "SetText", @WvtStatusBar_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetText", @WvtStatusBar_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetIcon(); IIF( .F., s_oClass:ModMethod( "SetIcon", @WvtStatusBar_SetIcon(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetIcon", @WvtStatusBar_SetIcon(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtStatusBar_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtStatusBar_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Update( nPanel, cText); IIF( .F., s_oClass:ModMethod( "Update", @WvtStatusBar_Update(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Update", @WvtStatusBar_Update(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PaintBlock(); IIF( .F., s_oClass:ModMethod( "PaintBlock", @WvtStatusBar_PaintBlock(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PaintBlock", @WvtStatusBar_PaintBlock(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtStatusBar ;
+
+
+
+UTILITY STATIC function WvtStatusBar_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+
+   IF nTop == NIL ; nTop := oParent:MaxRow() ; END
+   IF nLeft == NIL ; nLeft := 0 ; END
+   IF nBottom == NIL ; nBottom := oParent:MaxRow() ; END
+   IF nRight == NIL ; nRight := oParent:MaxCol() ; END
+
+   ::WvtObject:New( oParent, 7, nID, nTop, nLeft, nBottom, nRight )
+
+   ::cColor  := "N/W"
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatusBar_Create() ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+
+   ::Refresh()
+   ::PaintBlock( 7, self )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatusBar_PaintBlock() ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+   LOCAL a_:= {}, nPanels
+
+
+   aEval( ::aPanels, {|o| aadd( a_,o:nTop )   , aadd( a_, o:nLeft ),  aadd( a_,o:nBottom ), aadd( a_, o:nRight ) } )
+
+   a_[ len( a_ ) ]++
+   nPanels := len( ::aPanels )
+
+   ::bPaint  := {|| Wvt_DrawStatusBar( nPanels, a_ ) }
+
+   aadd( ::aPaint, { ::bPaint,  { 9, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatusBar_SetPanels( aPanels) ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+   LOCAL i, oPanel, nID
+   LOCAL nLastCol := ::oParent:MaxCol()
+
+   nID := 200000
+
+   ::aPanels := {}
+
+   oPanel := WvtPanel():New( ::oParent, ++nID, ::nTop, 0 )
+
+   aadd( ::aPanels, oPanel )
+
+   if aPanels <> nil
+      for i := 1 to len( aPanels )
+         if ::oParent:MaxCol() > aPanels[ i ]
+            oPanel := WvtPanel():New( ::oParent, ++nID, ::nTop, aPanels[ i ] )
+            aadd( ::aPanels, oPanel )
+         endif
+      next
+   endif
+
+   atail( ::aPanels ):nRight := nLastCol
+
+   for i := len( ::aPanels ) - 1 TO 1 STEP -1
+      oPanel        := ::aPanels[ i ]
+      oPanel:nRight := ::aPanels[ i+1 ]:nLeft
+      oPanel:cColor := ::cColor
+   next
+
+   RETURN self
+
+
+
+UTILITY STATIC function WvtStatusBar_Update( nPanel, cText, cColor) ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+   LOCAL oPanel
+
+   if nPanel > 0 .AND. nPanel <= len( ::aPanels )
+      oPanel        := ::aPanels[ nPanel ]
+      oPanel:Text   := cText
+      oPanel:cColor := if( cColor == nil, "N/W", cColor )
+      oPanel:Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatusBar_SetText( nPanel, cText, cColor) ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+   LOCAL oPanel
+
+   IF cColor == NIL ; cColor := ::cColor ; END
+
+   if nPanel > 0 .AND. nPanel <= len( ::aPanels )
+      oPanel        := ::aPanels[ nPanel ]
+      oPanel:Text   := cText
+      oPanel:cColor := cColor
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatusBar_SetIcon( nPanel, cIconFile) ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+
+   if nPanel > 0 .AND. nPanel <= len( ::aPanels )
+      ::aPanels[ nPanel ]:cIconFile := cIconFile
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatusBar_Refresh() ; local Self AS CLASS WvtStatusBar := QSelf() AS CLASS WvtStatusBar
+   LOCAL i
+
+   for i := 1 to len( ::aPanels )
+      ::aPanels[ i ]:Refresh()
+   next
+
+   RETURN nil
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtPanel ; UTILITY FUNCTION WvtPanel(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtPanel" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cColor" }, .F., .F. ), )
+   _HB_MEMBER { cTxt} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cTxt" }, .F., .F. ), )
+   _HB_MEMBER { cIconFile} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cIconFile" }, .F., .F. ), )
+
+   _HB_MEMBER Text(); IIF( .F., s_oClass:ModInline( "Text", {|Self | Self, ::cTxt }, 1, .F. ), s_oClass:AddInline( "Text", {|Self | Self, ::cTxt }, 1, .F. ) )
+   _HB_MEMBER _Text(cText); IIF( .F., s_oClass:ModInline( "_Text", {|Self,cText | Self, ::cTxt := pad( cText, ::nRight - ::nLeft-2 ) }, 1 ), s_oClass:AddInline( "_Text", {|Self,cText | Self, ::cTxt := pad( cText, ::nRight - ::nLeft-2 ) }, 1 ) )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtPanel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtPanel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtPanel_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtPanel_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtPanel ;
+
+
+
+UTILITY STATIC function WvtPanel_New( oParent, nId, nTop, nLeft) ; local Self AS CLASS WvtPanel := QSelf() AS CLASS WvtPanel
+
+   ::WvtObject:New( oParent, 8, nId, nTop, nLeft, nTop )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtPanel_Refresh() ; local Self AS CLASS WvtPanel := QSelf() AS CLASS WvtPanel
+
+   if ::Text <> nil
+      DispOutAt( ::nTop, ::nLeft+1, ::Text, ::cColor )
+   endif
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtLabel ; UTILITY FUNCTION WvtLabel(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtLabel" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER Text(); IIF( .F., s_oClass:ModInline( "Text", {|Self | Self, if( ::cText == nil, "", ::cText ) }, 1, .F. ), s_oClass:AddInline( "Text", {|Self | Self, if( ::cText == nil, "", ::cText ) }, 1, .F. ) )
+   _HB_MEMBER _Text(cTxt); IIF( .F., s_oClass:ModInline( "_Text", {|Self,cTxt | Self, ::cText := if( cTxt == nil, "", cTxt ) }, 1 ), s_oClass:AddInline( "_Text", {|Self,cTxt | Self, ::cText := if( cTxt == nil, "", cTxt ) }, 1 ) )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtLabel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtLabel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtLabel_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtLabel_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Configure(); IIF( .F., s_oClass:ModMethod( "Configure", @WvtLabel_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Configure", @WvtLabel_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtLabel_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtLabel_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModMethod( "HoverOn", @WvtLabel_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOn", @WvtLabel_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModMethod( "HoverOff", @WvtLabel_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOff", @WvtLabel_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetText(); IIF( .F., s_oClass:ModMethod( "SetText", @WvtLabel_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetText", @WvtLabel_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetTextColor(); IIF( .F., s_oClass:ModMethod( "SetTextColor", @WvtLabel_SetTextColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetTextColor", @WvtLabel_SetTextColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetBackColor(); IIF( .F., s_oClass:ModMethod( "SetBackColor", @WvtLabel_SetBackColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetBackColor", @WvtLabel_SetBackColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtLabel ;
+
+
+
+UTILITY STATIC function WvtLabel_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+   ::WvtObject:New( oParent, 9, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_Create( lConfg) ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+   IF lConfg == NIL ; lConfg := .F. ; END
+
+   IF ::nBottom == NIL ; ::nBottom := ::nTop ; END
+   IF ::nRight == NIL ; ::nRight := ::nLeft + len( ::Text ) ; END
+   IF ::nTextColor == NIL ; ::nTextColor := ( 0 + ( 0 * 256 ) + ( 0 * 256 * 256 ) ) ; END
+
+   ::nTextColorHoverOff := ::nTextColor
+   ::nBackColorHoverOff := ::nBackColor
+
+
+   ::hFont := Wvt_CreateFont( ::cFont, ::nFontHeight, ::nFontWidth, ::nFontWeight, ::lItalic, ::lUnderline, ::lStrikeout, ::nCharSet, ::nFontQuality, ::nAngle )
+   if ::hFont <> 0
+      if ! lConfg
+
+         ::bPaint := {|| Wvt_DrawLabelObj( ::nTop, ::nLeft, ::nBottom, ::nRight, ::Text, ::nAlignHorz, ::nAlignVert, ::nTextColor, ::nBackColor, ::hFont ) }
+         aadd( ::aPaint, { ::bPaint, { 3, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+      endif
+   endif
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_Refresh() ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+Eval( ::bPaint )
+
+RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_SetText( cTxt) ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+   if HB_ISSTRING( cTxt )
+      ::Text := cTxt
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_SetTextColor( nRGB) ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+   if HB_ISNUMERIC( nRGB )
+      ::nTextColor := nRGB
+      ::nTextColorHoverOff := nRGB
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_SetBackColor( nRGB) ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+   if HB_ISNUMERIC( nRGB )
+      ::nBackColor := nRGB
+      ::nBackColorHoverOff := nRGB
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_Configure() ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+
+   ::nTextColorHoverOff := ::nTextColor
+   ::nBackColorHoverOff := ::nBackColor
+
+   if ::hFont <> 0
+      Win_DeleteObject( ::hFont )
+   endif
+
+
+   ::hFont := Wvt_CreateFont( ::cFont, ::nFontHeight, ::nFontWidth, ::nFontWeight, ::lItalic, ::lUnderline, ::lStrikeout, ::nCharSet, ::nFontQuality, ::nAngle )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_HoverOn() ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+   LOCAL lOn := .F.
+
+   if ::nTextColorHoverOn <> nil
+      lOn := .T.
+      ::nTextColor := ::nTextColorHoverOn
+   endif
+   if ::nBackColorHoverOn <> nil
+      lOn := .T.
+      ::nBackColor := ::nBackColorHoverOn
+   endif
+
+   if lOn
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtLabel_HoverOff() ; local Self AS CLASS WvtLabel := QSelf() AS CLASS WvtLabel
+   LOCAL lOn := .F.
+
+   if ::nTextColorHoverOn <> nil
+      lOn := .T.
+      ::nTextColor := ::nTextColorHoverOff
+   endif
+   if ::nBackColorHoverOn <> nil
+      lOn := .T.
+      ::nBackColor := ::nBackColorHoverOff
+   endif
+
+   if lOn
+      ::Refresh()
+   endif
+
+   Return Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtToolBar ; UTILITY FUNCTION WvtToolBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtToolBar" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { nPaintID} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nPaintID" }, .F., .F. ), )
+   _HB_MEMBER { aObjects} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aObjects" }, .F., .F. ), )
+   _HB_MEMBER { lHidden} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lHidden" }, .F., .F. ), )
+   _HB_MEMBER { nCurButton} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCurButton" }, .F., .F. ), )
+   _HB_MEMBER { lActive} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lActive" }, .F., .F. ), )
+   _HB_MEMBER { lFloating} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lFloating" }, .F., .F. ), )
+   _HB_MEMBER { wScreen} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "wScreen" }, .F., .F. ), )
+   _HB_MEMBER { cScreen} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cScreen" }, .F., .F. ), )
+   _HB_MEMBER { nBtnLeft} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nBtnLeft" }, .F., .F. ), )
+   _HB_MEMBER { nRGBSep} ; IIF( !.F., s_oClass:AddMultiData(, ( 150 + ( 150 * 256 ) + ( 150 * 256 * 256 ) ), nScope + IIF( .F., 32, 0 ), { "nRGBSep" }, .F., .F. ), )
+
+   _HB_MEMBER nButtons(); IIF( .F., s_oClass:ModInline( "nButtons", {|Self | Self, len( ::aButtons ) }, 1, .F. ), s_oClass:AddInline( "nButtons", {|Self | Self, len( ::aButtons ) }, 1, .F. ) )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtToolBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtToolBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtToolBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtToolBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtToolBar_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtToolBar_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddButton(); IIF( .F., s_oClass:ModMethod( "AddButton", @WvtToolBar_AddButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddButton", @WvtToolBar_AddButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PaintToolBar(); IIF( .F., s_oClass:ModMethod( "PaintToolBar", @WvtToolBar_PaintToolBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PaintToolBar", @WvtToolBar_PaintToolBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModMethod( "HoverOn", @WvtToolBar_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOn", @WvtToolBar_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModMethod( "HoverOff", @WvtToolBar_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOff", @WvtToolBar_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtToolBar ;
+
+
+
+UTILITY STATIC function WvtToolBar_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+
+   nTop    := 0
+   nLeft   := 0
+   IF nBottom == NIL ; nBottom := 1 ; END
+   nRight  := oParent:MaxCol()
+
+   ::WvtObject:New( oParent, 11, nID, nTop, nLeft, nBottom, nRight )
+
+   ::lActive   := .T.
+   ::lFloating := .F.
+   ::nPaintID  := ::oParent:nPaintID++
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolBar_Create() ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+
+   if ::lFloating
+      ::lActive := .F.
+      ::lHidden := .T.
+   endif
+
+   aEval( ::aObjects, {|o| o:lActive := ::lActive } )
+
+   ::bPaint := {|| ::PaintToolBar() }
+
+   aadd( ::aPaint, { ::bPaint,  { 10, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolBar_Refresh() ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+
+   if ::lFloating
+      DispBox( ::nTop, ::nLeft, ::nBottom, ::nRight, "         ", "n/w" )
+   else
+      Wvt_InvalidateRect( ::nTop, ::nLeft, ::nTop, ::nLeft )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolBar_PaintToolBar() ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+
+   if ( ::lActive )
+      Wvt_DrawLine( ::nTop, ::nLeft, ::nBottom, ::nRight, 0, 1, 2, , , ::nRGBSep )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolBar_AddButton( cFileImage, bBlock, cTooltip) ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+   LOCAL oObj, nCol
+
+   nCol := ( ::nBottom-::nTop+1 ) * 2
+
+   oObj := WvtToolButton():New( self )
+
+   oObj:lActive    := ::lActive
+   oObj:nTop       := ::nTop
+   oObj:nLeft      := ::nBtnLeft + 1
+   oObj:nBottom    := ::nBottom
+
+   if HB_ISSTRING( cFileImage )
+      oObj:nBtnType   := 0
+      oObj:nRight     := oObj:nLeft + nCol - 1
+      oObj:cFileImage := cFileImage
+      oObj:bOnLeftUp  := bBlock
+      oObj:Tooltip    := cTooltip
+   else
+      oObj:nBtnType   := 1
+      oObj:nRight     := oObj:nLeft
+   endif
+
+   aadd( ::aObjects, oObj )
+
+   ::nBtnLeft         := oObj:nRight + 1
+   ::nCurButton++
+
+   ::oParent:AddObject( oObj )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolBar_HoverOn() ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+
+   if ::lFloating .AND. ::lHidden
+      ::lHidden   := .F.
+      ::lActive   := .T.
+
+
+
+      aEval( ::aObjects, {|o| o:lActive := ::lActive } )
+
+      ::Refresh()
+   endif
+
+   RETURN self
+
+
+
+UTILITY STATIC function WvtToolBar_HoverOff() ; local Self AS CLASS WvtToolBar := QSelf() AS CLASS WvtToolBar
+
+   if ::lFloating .AND. !( ::lHidden )
+      ::lHidden := .T.
+      ::lActive := .F.
+      aEval( ::aObjects, {|o| o:lActive := ::lActive } )
+
+
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtToolButton ; UTILITY FUNCTION WvtToolButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtToolButton" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cFileImage} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cFileImage" }, .F., .F. ), )
+   _HB_MEMBER { nCurState} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCurState" }, .F., .F. ), )
+   _HB_MEMBER { nBtnType} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nBtnType" }, .F., .F. ), )
+   _HB_MEMBER { aPxlOffSet} ; IIF( !.F., s_oClass:AddMultiData(, { 0, -1, -3, 1 }, nScope + IIF( .F., 32, 0 ), { "aPxlOffSet" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtToolButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtToolButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtToolButton_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtToolButton_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtToolButton_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtToolButton_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LeftDown(); IIF( .F., s_oClass:ModMethod( "LeftDown", @WvtToolButton_LeftDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LeftDown", @WvtToolButton_LeftDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LeftUp(); IIF( .F., s_oClass:ModMethod( "LeftUp", @WvtToolButton_LeftUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LeftUp", @WvtToolButton_LeftUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModMethod( "HoverOn", @WvtToolButton_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOn", @WvtToolButton_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModMethod( "HoverOff", @WvtToolButton_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOff", @WvtToolButton_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PaintButton(); IIF( .F., s_oClass:ModMethod( "PaintButton", @WvtToolButton_PaintButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PaintButton", @WvtToolButton_PaintButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   ; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtToolButton ;
+
+
+
+UTILITY STATIC function WvtToolButton_New( oParent) ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+
+   ::WvtObject:New( oParent, 6 )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolButton_Create() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+
+   ::bPaint := {|| ::PaintButton() }
+
+   aadd( ::aPaint, { ::bPaint, { 6, ::nTop, ::nLeft, ::nBottom, ::nRight }} )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolButton_Refresh() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+
+   if ::lActive
+      Eval( ::bPaint )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolButton_PaintButton() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+
+   if ::lActive
+      if ::nBtnType == 0
+         Wvt_DrawImage( ::nTop, ::nLeft, ::nBottom, ::nRight, ::cFileImage, {4,4,-6,-4} )
+      else
+         Wvt_DrawLine( ::nTop, ::nLeft, ::nBottom, ::nRight, 1, 1, , , , ::oParent:nRGBSep )
+      endif
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolButton_LeftDown() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+   LOCAL lRet := .F.
+
+   if ::lActive .AND. ::nBtnType == 0
+      Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet, 2 )
+      lRet := .T.
+   endif
+
+   RETURN lRet
+
+
+
+UTILITY STATIC function WvtToolButton_LeftUp() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+   LOCAL lRet := .F.
+
+   if ::lActive .AND. ::nBtnType == 0
+      Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet, 1 )
+      Eval( ::bOnLeftUp )
+      lRet := .T.
+   endif
+
+   RETURN lRet
+
+
+
+UTILITY STATIC function WvtToolButton_HoverOn() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+
+   ::oParent:HoverOn()
+
+   if ::lActive .AND. ::nBtnType == 0
+      Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet, 1 )
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtToolButton_HoverOff() ; local Self AS CLASS WvtToolButton := QSelf() AS CLASS WvtToolButton
+
+   ::oParent:HoverOff()
+
+   if ::lActive .AND. ::nBtnType == 0
+      Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight,::aPxlOffSet, 0 )
+   endif
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtImage ; UTILITY FUNCTION WvtImage(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtImage" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cImageFile} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cImageFile" }, .F., .F. ), )
+
+   _HB_MEMBER cImage(); IIF( .F., s_oClass:ModInline( "cImage", {|Self | Self, ::cImageFile }, 1, .F. ), s_oClass:AddInline( "cImage", {|Self | Self, ::cImageFile }, 1, .F. ) )
+   _HB_MEMBER _cImage(cImg); IIF( .F., s_oClass:ModInline( "_cImage", {|Self,cImg | Self, ::cImageFile := cImg }, 1 ), s_oClass:AddInline( "_cImage", {|Self,cImg | Self, ::cImageFile := cImg }, 1 ) )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtImage_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtImage_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtImage_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtImage_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetImage(); IIF( .F., s_oClass:ModMethod( "SetImage", @WvtImage_SetImage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetImage", @WvtImage_SetImage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   ; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtImage ;
+
+
+
+UTILITY STATIC function WvtImage_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtImage := QSelf() AS CLASS WvtImage
+
+   ::WvtObject:New( oParent, 12, nId, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtImage_Create() ; local Self AS CLASS WvtImage := QSelf() AS CLASS WvtImage
+
+
+   ::bPaint := {|| if( file( ::cImage ),  Wvt_DrawImage( ::nTop, ::nLeft, ::nBottom, ::nRight, ::cImage ),"" ) }
+
+
+   aadd( ::aPaint, { ::bPaint, { 1, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtImage_SetImage( cImage) ; local Self AS CLASS WvtImage := QSelf() AS CLASS WvtImage
+
+   if cImage <> nil .AND. file( cImage )
+      ::cImageFile := cImage
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtStatic ; UTILITY FUNCTION WvtStatic(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtStatic" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { nStatic} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nStatic" }, .F., .F. ), )
+   _HB_MEMBER { nOrient} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nOrient" }, .F., .F. ), )
+   _HB_MEMBER { nFormat} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFormat" }, .F., .F. ), )
+   _HB_MEMBER { nAlign} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nAlign" }, .F., .F. ), )
+   _HB_MEMBER { nStyle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nStyle" }, .F., .F. ), )
+   _HB_MEMBER { nThick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nThick" }, .F., .F. ), )
+   _HB_MEMBER { nColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nColor" }, .F., .F. ), )
+
+   _HB_MEMBER { nfTop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nfTop" }, .F., .F. ), )
+   _HB_MEMBER { nfLeft} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nfLeft" }, .F., .F. ), )
+   _HB_MEMBER { nfBottom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nfBottom" }, .F., .F. ), )
+   _HB_MEMBER { nfRight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nfRight" }, .F., .F. ), )
+
+   _HB_MEMBER { nHorzVert} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nHorzVert" }, .F., .F. ), )
+   _HB_MEMBER { aRGBb} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aRGBb" }, .F., .F. ), )
+   _HB_MEMBER { aRGBe} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aRGBe" }, .F., .F. ), )
+
+   _HB_MEMBER { aPxlOffSet} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aPxlOffSet" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtStatic_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtStatic_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtStatic_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtStatic_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtStatic_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtStatic_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModMethod( "HoverOn", @WvtStatic_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOn", @WvtStatic_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModMethod( "HoverOff", @WvtStatic_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOff", @WvtStatic_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   ; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtStatic ;
+
+
+
+UTILITY STATIC function WvtStatic_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtStatic := QSelf() AS CLASS WvtStatic
+
+   ::WvtObject:New( oParent, 10, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatic_Create() ; local Self AS CLASS WvtStatic := QSelf() AS CLASS WvtStatic
+   LOCAL lInside := .F.
+
+   switch ::nStatic
+
+   case 1
+      lInside := .T.
+
+      ::bPaint  := {|| Wvt_DrawLine( ::nTop, ::nLeft, ::nBottom, ::nRight,  ::nOrient, ::nFormat, ::nAlign, ::nStyle, ::nThick, ::nColor ) }
+      exit
+
+   case 2
+      ::bPaint := {|| Wvt_DrawBoxRaised( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 3
+      ::bPaint := {|| Wvt_DrawBoxRecessed( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 4
+      ::bPaint := {|| Wvt_DrawBoxGroup( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 5
+      ::bPaint := {|| Wvt_DrawBoxGroupRaised( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 9
+      ::bPaint := {|| Wvt_DrawOutline( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 6
+      lInside := .T.
+      ::bPaint := {|| Wvt_DrawRectangle( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 7
+      lInside := .T.
+      ::bPaint := {|| Wvt_DrawRoundRect( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 8
+      lInside := .T.
+      ::bPaint := {|| Wvt_DrawFocusRect( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 10
+      lInside := .T.
+      ::bPaint := {|| Wvt_DrawEllipse( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlOffSet ) }
+      exit
+
+   case 11
+      lInside := .T.
+
+      ::bPaint := {|| Wvt_DrawShadedRect( ::nTop, ::nLeft, ::nBottom, ::nRight,  ::aPxlOffSet, ::nHorzVert, ::aRGBb, ::aRGBe ) }
+      exit
+
+   end
+
+   if lInside
+      ::nfTop    := ::nTop
+      ::nfLeft   := ::nLeft
+      ::nfBottom := ::nBottom
+      ::nfRight  := ::nRight
+   else
+      ::nfTop    := ::nTop    - 1
+      ::nfLeft   := ::nLeft   - 1
+      ::nfBottom := ::nBottom + 1
+      ::nfRight  := ::nRight  + 1
+   endif
+
+
+   aadd( ::aPaint, { ::bPaint, { 11, ::nfTop, ::nfLeft, ::nfBottom, ::nfRight }} )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatic_HoverOn() ; local Self AS CLASS WvtStatic := QSelf() AS CLASS WvtStatic
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatic_HoverOff() ; local Self AS CLASS WvtStatic := QSelf() AS CLASS WvtStatic
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtStatic_Refresh() ; local Self AS CLASS WvtStatic := QSelf() AS CLASS WvtStatic
+
+   Eval( ::bPaint )
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtPushButton ; UTILITY FUNCTION WvtPushButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtPushButton" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cCaption} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cCaption" }, .F., .F. ), )
+   _HB_MEMBER { cFileImage} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cFileImage" }, .F., .F. ), )
+
+   _HB_MEMBER block(); IIF( .F., s_oClass:ModInline( "block", {|Self | Self, ::bOnLeftUp }, 1, .F. ), s_oClass:AddInline( "block", {|Self | Self, ::bOnLeftUp }, 1, .F. ) )
+   _HB_MEMBER _block(bBlock); IIF( .F., s_oClass:ModInline( "_block", {|Self,bBlock | Self, ::bOnLeftUp := bBlock }, 1 ), s_oClass:AddInline( "_block", {|Self,bBlock | Self, ::bOnLeftUp := bBlock }, 1 ) )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtPushButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtPushButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtPushButton_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtPushButton_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LeftDown(); IIF( .F., s_oClass:ModMethod( "LeftDown", @WvtPushButton_LeftDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LeftDown", @WvtPushButton_LeftDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LeftUp(); IIF( .F., s_oClass:ModMethod( "LeftUp", @WvtPushButton_LeftUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LeftUp", @WvtPushButton_LeftUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PaintButton(); IIF( .F., s_oClass:ModMethod( "PaintButton", @WvtPushButton_PaintButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PaintButton", @WvtPushButton_PaintButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtPushButton ;
+
+
+
+UTILITY STATIC function WvtPushButton_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtPushButton := QSelf() AS CLASS WvtPushButton
+
+   ::WvtObject:New( oParent, 13, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtPushButton_Create() ; local Self AS CLASS WvtPushButton := QSelf() AS CLASS WvtPushButton
+
+   ::bPaint := {|| ::PaintButton() }
+
+
+   aadd( ::aPaint, { ::bPaint, { 6, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtPushButton_PaintButton() ; local Self AS CLASS WvtPushButton := QSelf() AS CLASS WvtPushButton
+
+   if ::cCaption == nil
+      Wvt_DrawImage( ::nTop, ::nLeft, ::nBottom, ::nRight, ::cFileImage, { 4, 4,-4, -4 } )
+   else
+      Wvt_DrawButton( ::nTop, ::nLeft, ::nBottom, ::nRight, ::cCaption, , 4 )
+   endif
+   Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight, {0,0,0,0}, 1 )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtPushButton_LeftDown() ; local Self AS CLASS WvtPushButton := QSelf() AS CLASS WvtPushButton
+
+   Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight,{0,0,0,0}, 2 )
+
+   RETURN .T.
+
+
+
+UTILITY STATIC function WvtPushButton_LeftUp() ; local Self AS CLASS WvtPushButton := QSelf() AS CLASS WvtPushButton
+
+   Wvt_DrawToolButtonState( ::nTop, ::nLeft, ::nBottom, ::nRight, {0,0,0,0}, 1 )
+   ::Eval( ::bOnLeftUp )
+
+   RETURN .T.
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtGets ; UTILITY FUNCTION WvtGets(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtGets" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { aGetList} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aGetList" }, .F., .F. ), )
+   _HB_MEMBER { nLastGet} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nLastGet" }, .F., .F. ), )
+   _HB_MEMBER { nCurGet} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCurGet" }, .F., .F. ), )
+   _HB_MEMBER { GetList} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "GetList" }, .F., .F. ), )
+   _HB_MEMBER { cDesc} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cDesc" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtGets_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtGets_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtGets_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtGets_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER KillFocus(); IIF( .F., s_oClass:ModMethod( "KillFocus", @WvtGets_KillFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "KillFocus", @WvtGets_KillFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFocus(); IIF( .F., s_oClass:ModMethod( "SetFocus", @WvtGets_SetFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFocus", @WvtGets_SetFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HandleEvent(); IIF( .F., s_oClass:ModMethod( "HandleEvent", @WvtGets_HandleEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HandleEvent", @WvtGets_HandleEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddGets(); IIF( .F., s_oClass:ModMethod( "AddGets", @WvtGets_AddGets(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddGets", @WvtGets_AddGets(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PaintBlock(); IIF( .F., s_oClass:ModMethod( "PaintBlock", @WvtGets_PaintBlock(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PaintBlock", @WvtGets_PaintBlock(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Read(); IIF( .F., s_oClass:ModMethod( "Read", @WvtGets_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @WvtGets_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Hilite(); IIF( .F., s_oClass:ModMethod( "Hilite", @WvtGets_Hilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Hilite", @WvtGets_Hilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeHilite(); IIF( .F., s_oClass:ModMethod( "DeHilite", @WvtGets_DeHilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DeHilite", @WvtGets_DeHilite(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetData(); IIF( .F., s_oClass:ModMethod( "GetData", @WvtGets_GetData(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetData", @WvtGets_GetData(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetData(); IIF( .F., s_oClass:ModMethod( "SetData", @WvtGets_SetData(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetData", @WvtGets_SetData(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtGets ;
+
+
+
+UTILITY STATIC function WvtGets_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   ::WvtObject:New( oParent, 5, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_Create() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+   LOCAL i, GetList
+   LOCAL nCurRow := row()
+   LOCAL nCurCol := Col()
+
+   for i := 1 to len( ::aGetList )
+      GetList := {}
+
+      IF ::aGetList[ i,7 ] == NIL ; ::aGetList[ i,7 ] := "N/W*,N/W*,,,N/GR*" ; END
+      IF ::aGetList[ i,5 ] == NIL ; ::aGetList[ i,5 ] := {|| .T. } ; END
+      IF ::aGetList[ i,6 ] == NIL ; ::aGetList[ i,6 ] := {|| .T. } ; END
+
+      SetPos( ::aGetList[ i,1 ], ::aGetList[ i,2 ] ) ; AAdd( GetList, _GET_( ::aGetList[ i,3 ], "::aGetList[ i,3 ]", ::aGetList[ i,4 ],, ) ) ; ATail(GetList):colorDisp(::aGetList[ i,7 ]) ; ATail(GetList):Display()
+
+      aadd( ::GetList, GetList[ 1 ] )
+
+      ::GetList[ i ]:Display()
+      ::PaintBlock( i )
+   next
+   SetPos( nCurRow, nCurCol )
+
+   ::WvtObject:Create()
+   ::Dehilite()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_PaintBlock( nIndex) ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+   LOCAL nLen, bPaint
+
+   nLen   := len( Transform( ::aGetList[ nIndex,3 ], ::aGetList[ nIndex,4 ] ) )
+
+   bPaint := {|| Wvt_DrawBoxGet( ::aGetList[ nIndex,1 ], ::aGetList[ nIndex,2 ], nLen ) }
+
+
+
+   aadd( ::aPaint, { bPaint, { 7, ::aGetList[ nIndex,1 ]-1, ::aGetList[ nIndex,2 ]-1,  ::aGetList[ nIndex,1 ]-1,  ::aGetList[ nIndex,2 ]+nLen } } )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_SetFocus() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_KillFocus() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_AddGets( nRow, nCol, xVar, cPic, cColor, bValid, bWhen) ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   aadd( ::aGetList, { nRow, nCol, xVar, cPic, bValid, bWhen, cColor } )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_HandleEvent( nKey) ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+   Local lRet := .F.
+
+   do case
+   case nKey == 1006
+      ::Read()
+      lRet := .T.
+   endcase
+
+   RETURN lRet
+
+
+
+UTILITY STATIC function WvtGets_Read() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   ReadModal( ::GetList, ::nCurGet )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_GetData() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+   LOCAL aData := NIL
+
+   RETURN aData
+
+
+
+UTILITY STATIC function WvtGets_SetData() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_Hilite() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   DispOutAt( ::nTop, ::nLeft, pad( " "+::cDesc, ::nRight-::nLeft+1 ), ::cColorHilite )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtGets_DeHilite() ; local Self AS CLASS WvtGets := QSelf() AS CLASS WvtGets
+
+   DispOutAt( ::nTop, ::nLeft, pad( " "+::cDesc, ::nRight-::nLeft+1 ), ::cColorDeHilite )
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtScrollBar ; UTILITY FUNCTION WvtScrollBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtScrollBar" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { nBarType} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nBarType" }, .F., .F. ), )
+
+   _HB_MEMBER { nTotal} ; IIF( !.F., s_oClass:AddMultiData(, 100, nScope + IIF( .F., 32, 0 ), { "nTotal" }, .F., .F. ), )
+   _HB_MEMBER { nCurrent} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCurrent" }, .F., .F. ), )
+   _HB_MEMBER { nThumbPos} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nThumbPos" }, .F., .F. ), )
+   _HB_MEMBER { nBlockNo} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nBlockNo" }, .F., .F. ), )
+
+   _HB_MEMBER { nSTop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nSTop" }, .F., .F. ), )
+   _HB_MEMBER { nSLeft} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nSLeft" }, .F., .F. ), )
+   _HB_MEMBER { nSBottom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nSBottom" }, .F., .F. ), )
+   _HB_MEMBER { nSRight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nSRight" }, .F., .F. ), )
+
+   _HB_MEMBER { nBtn1Top} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn1Top" }, .F., .F. ), )
+   _HB_MEMBER { nBtn1Left} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn1Left" }, .F., .F. ), )
+   _HB_MEMBER { nBtn1Bottom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn1Bottom" }, .F., .F. ), )
+   _HB_MEMBER { nBtn1Right} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn1Right" }, .F., .F. ), )
+
+   _HB_MEMBER { nBtn2Top} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn2Top" }, .F., .F. ), )
+   _HB_MEMBER { nBtn2Left} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn2Left" }, .F., .F. ), )
+   _HB_MEMBER { nBtn2Bottom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn2Bottom" }, .F., .F. ), )
+   _HB_MEMBER { nBtn2Right} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBtn2Right" }, .F., .F. ), )
+
+   _HB_MEMBER { bBtnLeftTop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bBtnLeftTop" }, .F., .F. ), )
+   _HB_MEMBER { bBtnLeftTopDep} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bBtnLeftTopDep" }, .F., .F. ), )
+   _HB_MEMBER { bBtnRightBottom} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bBtnRightBottom" }, .F., .F. ), )
+   _HB_MEMBER { bBtnRightBottomDep} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bBtnRightBottomDep" }, .F., .F. ), )
+
+   _HB_MEMBER { bBtnScroll} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bBtnScroll" }, .F., .F. ), )
+
+   _HB_MEMBER { bTotal} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bTotal" }, .F., .F. ), )
+   _HB_MEMBER { bCurrent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bCurrent" }, .F., .F. ), )
+
+   _HB_MEMBER { lHidden} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lHidden" }, .F., .F. ), )
+
+   _HB_MEMBER { aPxlBtnTop} ; IIF( !.F., s_oClass:AddMultiData(, {0,0,0,0}, nScope + IIF( .F., 32, 0 ), { "aPxlBtnTop" }, .F., .F. ), )
+   _HB_MEMBER { aPxlBtnLft} ; IIF( !.F., s_oClass:AddMultiData(, {0,0,0,0}, nScope + IIF( .F., 32, 0 ), { "aPxlBtnLft" }, .F., .F. ), )
+   _HB_MEMBER { aPxlBtnBtm} ; IIF( !.F., s_oClass:AddMultiData(, {0,0,0,0}, nScope + IIF( .F., 32, 0 ), { "aPxlBtnBtm" }, .F., .F. ), )
+   _HB_MEMBER { aPxlBtnRgt} ; IIF( !.F., s_oClass:AddMultiData(, {0,0,0,0}, nScope + IIF( .F., 32, 0 ), { "aPxlBtnRgt" }, .F., .F. ), )
+   _HB_MEMBER { aPxlScroll} ; IIF( !.F., s_oClass:AddMultiData(, {0,0,0,0}, nScope + IIF( .F., 32, 0 ), { "aPxlScroll" }, .F., .F. ), )
+
+   _HB_MEMBER { lLeftDown} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lLeftDown" }, .F., .F. ), )
+   _HB_MEMBER { lOnThumb} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lOnThumb" }, .F., .F. ), )
+   _HB_MEMBER { lAnchored} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lAnchored" }, .F., .F. ), )
+   _HB_MEMBER { lOnLeftDown} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lOnLeftDown" }, .F., .F. ), )
+
+   _HB_MEMBER { nScrollUnits} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nScrollUnits" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtScrollBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtScrollBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtScrollBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtScrollBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Configure(); IIF( .F., s_oClass:ModMethod( "Configure", @WvtScrollBar_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Configure", @WvtScrollBar_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtScrollBar_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtScrollBar_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HandleEvent(); IIF( .F., s_oClass:ModMethod( "HandleEvent", @WvtScrollBar_HandleEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HandleEvent", @WvtScrollBar_HandleEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetPos(); IIF( .F., s_oClass:ModMethod( "SetPos", @WvtScrollBar_SetPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetPos", @WvtScrollBar_SetPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetPos(); IIF( .F., s_oClass:ModMethod( "GetPos", @WvtScrollBar_GetPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetPos", @WvtScrollBar_GetPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ThumbPos(); IIF( .F., s_oClass:ModMethod( "ThumbPos", @WvtScrollBar_ThumbPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ThumbPos", @WvtScrollBar_ThumbPos(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetTooltip(); IIF( .F., s_oClass:ModMethod( "SetTooltip", @WvtScrollBar_SetTooltip(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetTooltip", @WvtScrollBar_SetTooltip(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtScrollBar ;
+
+
+
+UTILITY STATIC function WvtScrollBar_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+   ::WvtObject:New( oParent, 15, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_Create() ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+   if ::nTop == nil .OR. ::nLeft == nil
+      return nil
+   endif
+
+   if ::nBarType == 1
+      IF ::nBottom == NIL ; ::nBottom := ::nTop + 5 ; END
+      IF ::nRight == NIL ; ::nRight := ::nLeft + 1 ; END
+
+      ::nRight       := ::nLeft + 1
+      ::nBottom      := max( 7, ::nBottom )
+
+      ::nBtn1Top     := ::nTop
+      ::nBtn1Left    := ::nLeft
+      ::nBtn1Bottom  := ::nTop
+      ::nBtn1Right   := ::nRight
+
+      ::nBtn2Top     := ::nBottom
+      ::nBtn2Left    := ::nLeft
+      ::nBtn2Bottom  := ::nBottom
+      ::nBtn2Right   := ::nRight
+
+      ::nSTop        := ::nTop + 1
+      ::nSLeft       := ::nLeft
+      ::nSBottom     := ::nBottom - 1
+      ::nSRight      := ::nRight
+
+      ::nScrollUnits := ::nSBottom - ::nSTop + 1
+
+      ::nTotal       := Eval( ::bTotal   )
+      ::nCurrent     := Eval( ::bCurrent )
+      ::ThumbPos()
+
+
+      ::bBtnLeftTop :=  {|| Wvt_DrawScrollButton( ::nBtn1Top, ::nBtn1Left, ::nBtn1Bottom, ::nBtn1Right, ::aPxlBtnTop, 1 ) }
+
+      ::bBtnRightBottom :=  {|| Wvt_DrawScrollButton( ::nBtn2Top, ::nBtn2Left, ::nBtn2Bottom, ::nBtn2Right, ::aPxlBtnBtm, 3 ) }
+
+      ::bBtnScroll :=  {|| Wvt_DrawScrollThumbVert( ::nSTop, ::nSLeft  ,  ::nSBottom,    ::nSRight,    ::aPxlScroll, ::nThumbPos ) }
+
+      ::bBtnLeftTopDep :=  {|| Wvt_DrawScrollButton( ::nBtn1Top, ::nBtn1Left, ::nBtn1Bottom, ::nBtn1Right, ::aPxlBtnTop, 1, .T. ) }
+
+      ::bBtnRightBottomDep :=  {|| Wvt_DrawScrollButton( ::nBtn2Top, ::nBtn2Left, ::nBtn2Bottom, ::nBtn2Right, ::aPxlBtnBtm, 3, .T. ) }
+
+   else
+      IF ::nBottom == NIL ; ::nBottom := ::nTop ; END
+      IF ::nRight == NIL ; ::nRight := ::nLeft + 11 ; END
+
+      ::nBottom      := ::nTop
+      ::nRight       := max( 11, ::nRight )
+
+      ::nBtn1Top     := ::nTop
+      ::nBtn1Left    := ::nLeft
+      ::nBtn1Bottom  := ::nBottom
+      ::nBtn1Right   := ::nLeft + 1
+
+      ::nBtn2Top     := ::nTop
+      ::nBtn2Left    := ::nRight - 1
+      ::nBtn2Bottom  := ::nBottom
+      ::nBtn2Right   := ::nRight
+
+      ::nSTop        := ::nTop
+      ::nSLeft       := ::nLeft + 2
+      ::nSBottom     := ::nBottom
+      ::nSRight      := ::nRight - 2
+
+      ::nScrollUnits := ::nSRight - ::nSLeft + 1
+
+      ::nTotal       := Eval( ::bTotal   )
+      ::nCurrent     := Eval( ::bCurrent )
+
+      ::ThumbPos()
+
+
+      ::bBtnLeftTop :=  {|| Wvt_DrawScrollButton( ::nBtn1Top,::nBtn1Left,::nBtn1Bottom,::nBtn1Right,::aPxlBtnLft,2 ) }
+
+      ::bBtnRightBottom :=  {|| Wvt_DrawScrollButton( ::nBtn2Top,::nBtn2Left,::nBtn2Bottom,::nBtn2Right,::aPxlBtnRgt,4 ) }
+
+
+      ::bBtnScroll :=  {|| Wvt_DrawScrollThumbHorz( ::nSTop,::nSLeft,::nSBottom,::nSRight, ::aPxlScroll,::nThumbPos ) }
+
+      ::bBtnLeftTopDep :=  {|| Wvt_DrawScrollButton( ::nBtn1Top,::nBtn1Left,::nBtn1Bottom,::nBtn1Right,::aPxlBtnLft,2,.T. ) }
+
+      ::bBtnRightBottomDep :=  {|| Wvt_DrawScrollButton( ::nBtn2Top,::nBtn2Left,::nBtn2Bottom,::nBtn2Right,::aPxlBtnRgt,4,.T. ) }
+
+   endif
+
+   ::bOnLeftUp      := {|| ::HandleEvent( 1003      ) }
+   ::bOnLeftDown    := {|| ::HandleEvent( 1002    ) }
+   ::bOnMMLeftDown  := {|| ::HandleEvent( 1011     ) }
+   ::bOnLeftPressed := {|| ::HandleEvent( 1021 ) }
+
+   Eval( ::bBtnLeftTop     )
+   Eval( ::bBtnRightBottom )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_Configure( nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+   ::nTop     := nTop
+   ::nLeft    := nLeft
+   ::nBottom  := nBottom
+   ::nRight   := nRight
+
+   ::Create()
+   ::Refresh()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_Refresh() ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+   Eval( ::bBtnScroll )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_SetPos( nTotal, nCurrent) ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+   IF nTotal == NIL ; nTotal := Eval( ::bTotal   ) ; END
+   IF nCurrent == NIL ; nCurrent := Eval( ::bCurrent ) ; END
+
+   ::nTotal   := nTotal
+   ::nCurrent := nCurrent
+
+   ::ThumbPos()
+   ::Refresh()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_ThumbPos() ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+   LOCAL  nNewPos
+   LOCAL  nRecPerUnit, nCurUnit
+
+   if ::nBarType == 1
+      nRecPerUnit := ::nTotal / ::nScrollUnits
+      nCurUnit    := int( ::nCurrent / nRecPerUnit )
+
+      if ::nCurrent == 1
+         nCurUnit := 0
+      elseif ::nCurrent == ::nTotal
+         nCurUnit := ::nScrollUnits
+      endif
+      nNewPos     := ::nSTop + nCurUnit
+
+      if nNewPos < ::nSTop
+         nNewPos := ::nSTop
+      elseif nNewPos > ::nSBottom
+         nNewPos := ::nSBottom
+      endif
+
+   else
+      if ::nTotal < ::nScrollUnits
+         nCurUnit := ::nCurrent * int( ::nScrollUnits / ::nTotal )
+      else
+         nRecPerUnit := ::nTotal / ::nScrollUnits
+         nCurUnit    := int( ::nCurrent / nRecPerUnit )
+      endif
+
+      if ::nCurrent == 1
+         nCurUnit := 0
+      elseif ::nCurrent == ::nTotal
+         nCurUnit := ::nScrollUnits
+      endif
+
+        nNewPos := ::nSLeft + nCurUnit
+
+        if nNewPos < ::nSLeft
+           nNewPos := ::nSLeft
+      elseif nNewPos > ::nSRight - 1
+           nNewPos := ::nSRight-1
+      endif
+
+   endif
+
+   ::nThumbPos := nNewPos
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_GetPos() ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+   RETURN ::nCurrent
+
+
+
+UTILITY STATIC function WvtScrollBar_SetTooltip() ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+
+
+   ::Tooltip := ltrim( str( ::nCurrent, 12, 0 ) ) + " / " +  ltrim( str( ::nTotal  , 12, 0 ) )
+
+   Wvt_SetToolTip( ::nTop, ::nLeft, ::nBottom, ::nRight, ::Tooltip )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtScrollBar_HandleEvent( nKey) ; local Self AS CLASS WvtScrollBar := QSelf() AS CLASS WvtScrollBar
+   LOCAL nmRow, nmCol, nOff
+   LOCAL lHit  := .F.
+   LOCAL mKeys_:={ 1002, 1003, 1011, 1021 }
+
+   if ascan( mKeys_, nKey ) == 0
+      return .F.
+   endif
+
+   nmRow := MRow()
+   nmCol := MCol()
+
+   do case
+   case ::nBarType == 1
+      lHit := .T.
+
+      do case
+      case ::lAnchored .AND. nKey == 1011
+         if nmRow <> ::nThumbPos
+            nOff := ::nThumbPos - nmRow
+            if nOff > 0
+               ::nThumbPos := max( ::nTop+1, nmRow )
+            else
+               ::nThumbPos := min( ::nBottom-1, nmRow )
+            endif
+            ::nCurrent := ( ::nTotal * ( ::nThumbPos - ::nTop ) / ::nScrollUnits )
+
+            if ::nCurrent > ::nTotal
+               ::nCurrent := ::nTotal
+            endif
+            if ::nCurrent < 1
+               ::nCurrent := 1
+            endif
+
+            ::SetPos( ::nTotal, ::nCurrent )
+
+            ::SetTooltip()
+            Wvt_Keyboard( 1059 )
+         else
+            lHit := .F.
+         endif
+
+      case ::lAnchored .AND. nKey == 1003
+         ::lAnchored := .F.
+
+      otherwise
+         lHit := .F.
+
+         if nmCol >= ::nLeft .AND. nmCol <= ::nRight
+            lHit := .T.
+
+            do case
+            case nmRow == ::nThumbPos .AND. nKey == 1002
+               ::lAnchored := .T.
+
+            case nKey == 1003
+               if ( lHit := ::lOnLeftDown )
+                  do case
+                  case nmRow == ::nTop
+                     Eval( ::bBtnLeftTop )
+                  case nmRow == ::nBottom
+                     Eval( ::bBtnRightBottom )
+                  case nmRow < ::nThumbPos .AND. nmRow > ::nTop
+                  case nmRow > ::nThumbPos .AND. nmRow < ::nBottom
+                  otherwise
+                     lHit := .F.
+                  endcase
+                  if lHit
+                     ::lOnLeftDown := .F.
+                  endif
+               endif
+
+            case nKey == 1021
+               if ( lHit := ::lOnLeftDown )
+                  do case
+                  case nmRow == ::nTop
+                     Wvt_Keyboard( 1051   )
+                  case nmRow == ::nBottom
+                     Wvt_Keyboard( 1052 )
+                  case nmRow < ::nThumbPos .AND. nmRow > ::nTop
+                     Wvt_Keyboard( 1053 )
+                  case nmRow > ::nThumbPos .AND. nmRow < ::nBottom
+                     Wvt_Keyboard( 1054 )
+                  otherwise
+                     lHit := .F.
+                  endcase
+               endif
+
+            case nKey == 1002
+               do case
+               case nmRow == ::nTop
+                  Eval( ::bBtnLeftTopDep )
+                  Wvt_Keyboard( 1051 )
+               case nmRow == ::nBottom
+                  Eval( ::bBtnRightBottomDep )
+                  Wvt_Keyboard( 1052 )
+               case nmRow < ::nThumbPos .AND. nmRow > ::nTop
+                  Wvt_Keyboard( 1053   )
+               case nmRow > ::nThumbPos .AND. nmRow < ::nBottom
+                  Wvt_Keyboard( 1054 )
+               otherwise
+                  lHit := .F.
+               endcase
+               if lHit
+                  ::lOnLeftDown := .T.
+               endif
+            endcase
+         endif
+
+      endcase
+
+   case ::nBarType == 2
+      do case
+      case ::lAnchored .AND. nKey == 1011
+         if ( lHit := ( nmCol < ::nThumbPos .OR. nmCol > ::nThumbPos+1 ) )
+
+            nOff := ::nThumbPos - nmCol
+            if nOff > 0
+               ::nThumbPos := max( ::nLeft+2, nmCol )
+            else
+               ::nThumbPos := min( ::nRight-2, nmCol )
+            endif
+
+            ::nCurrent := ( ::nTotal * ( ::nThumbPos - ::nLeft+1 ) / ::nScrollUnits )
+
+            if ::nCurrent > ::nTotal
+               ::nCurrent := ::nTotal
+            endif
+            if ::nCurrent < 1
+               ::nCurrent := 1
+            endif
+
+            ::SetPos( ::nTotal, ::nCurrent )
+
+            Wvt_Keyboard( 1060 )
+         endif
+
+      case ::lAnchored .AND. nKey == 1003
+         ::lAnchored := .F.
+         lHit := .T.
+
+      otherwise
+
+         if ( lHit := nmRow == ::nTop .AND. nmCol >= ::nLeft .AND. nmCol <= ::nRight )
+
+            do case
+            case nKey == 1002 .AND. nmCol >= ::nThumbPos .AND. nmCol <= ::nThumbPos+1
+               ::lAnchored := .T.
+
+            case nKey == 1003
+
+               if ( lHit := ::lOnLeftDown )
+                  do case
+                  case nmCol >= ::nLeft    .AND. nmCol <= ::nLeft+1
+                     Eval( ::bBtnLeftTop )
+                  case nmCol >= ::nRight-1 .AND. nmCol <= ::nRight
+                     Eval( ::bBtnRightBottom )
+                  case nmCol <  ::nThumbPos
+                  case nmCol >  ::nThumbPos+1
+                  otherwise
+                     lHit := .F.
+                  endcase
+                  if lHit
+                     ::lOnLeftDown := .F.
+                  endif
+               endif
+
+            case nKey == 1021
+               if ( lHit := ::lOnLeftDown )
+                  do case
+                  case nmCol == ::nLeft  .OR. nmCol == ::nLeft+1
+                     Wvt_Keyboard( 1055 )
+                  case nmCol == ::nRight .OR. nmCol == ::nRight-1
+                     Wvt_Keyboard( 1056 )
+                  case nmCol < ::nThumbPos
+                     Wvt_Keyboard( 1057 )
+                  case nmCol > ::nThumbPos+1
+                     Wvt_Keyboard( 1058 )
+                  otherwise
+                     lHit := .F.
+                  endcase
+               endif
+
+            case nKey == 1002
+               do case
+               case nmCol == ::nLeft  .OR. nmCol == ::nLeft+1
+                  Eval( ::bBtnLeftTopDep )
+                  Wvt_Keyboard( 1055 )
+               case nmCol == ::nRight .OR. nmCol == ::nRight-1
+                  Eval( ::bBtnRightBottomDep )
+                  Wvt_Keyboard( 1056 )
+               case nmCol < ::nThumbPos
+                  Wvt_Keyboard( 1057 )
+               case nmCol > ::nThumbPos+1
+                  Wvt_Keyboard( 1058 )
+               otherwise
+                  lHit := .F.
+               endcase
+               if lHit
+                  ::lOnLeftDown := .T.
+               endif
+            endcase
+         endif
+      endcase
+   endcase
+
+   RETURN lHit
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtBanner ; UTILITY FUNCTION WvtBanner(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtBanner" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { nTimeDelay} ; IIF( !.F., s_oClass:AddMultiData(, 0.5, nScope + IIF( .F., 32, 0 ), { "nTimeDelay" }, .F., .F. ), )
+   _HB_MEMBER { nDirection} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nDirection" }, .F., .F. ), )
+   _HB_MEMBER { nCharToSkip} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCharToSkip" }, .F., .F. ), )
+   _HB_MEMBER { cText} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cText" }, .F., .F. ), )
+   _HB_MEMBER { cDispText} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cDispText" }, .F., .F. ), )
+   _HB_MEMBER { nTextLen} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nTextLen" }, .F., .F. ), )
+   _HB_MEMBER { nTextIndex} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nTextIndex" }, .F., .F. ), )
+
+   _HB_MEMBER { oLabel} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLabel" }, .F., .F. ), )
+
+   _HB_MEMBER { nAlignVert} ; IIF( !.F., s_oClass:AddMultiData(, 2, nScope + IIF( .F., 32, 0 ), { "nAlignVert" }, .F., .F. ), )
+
+   _HB_MEMBER { nCurSeconds} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCurSeconds" }, .F., .F. ), )
+   _HB_MEMBER { nCurAlign} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nCurAlign" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtBanner_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtBanner_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtBanner_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtBanner_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Configure(); IIF( .F., s_oClass:ModMethod( "Configure", @WvtBanner_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Configure", @WvtBanner_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtBanner_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtBanner_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModMethod( "HoverOn", @WvtBanner_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOn", @WvtBanner_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModMethod( "HoverOff", @WvtBanner_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOff", @WvtBanner_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OnTimer(); IIF( .F., s_oClass:ModMethod( "OnTimer", @WvtBanner_OnTimer(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OnTimer", @WvtBanner_OnTimer(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetText(); IIF( .F., s_oClass:ModMethod( "SetText", @WvtBanner_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetText", @WvtBanner_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Destroy(); IIF( .F., s_oClass:ModMethod( "Destroy", @WvtBanner_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Destroy", @WvtBanner_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtBanner ;
+
+
+
+UTILITY STATIC function WvtBanner_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   ::WvtObject:New( oParent, 16, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_Create() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   ::cDispText := ::cText
+
+   ::oLabel := WvtLabel():New( ::oParent, , ::nTop, ::nLeft, ::nBottom, ::nRight )
+   ::oLabel:Text              := ::cDispText
+   ::oLabel:cFont             := ::cFont
+   ::oLabel:nFontHeight       := ::nFontHeight
+   ::oLabel:nFontWidth        := ::nFontWidth
+   ::oLabel:nFontWeight       := ::nFontWeight
+   ::oLabel:nFontQuality      := ::nFontQuality
+   ::oLabel:lItalic           := ::lItalic
+   ::oLabel:lStrikeout        := ::lStrikeout
+   ::oLabel:lUnderline        := ::lUnderline
+   ::oLabel:nAlignVert        := ::nAlignVert
+   ::oLabel:nAlignHorz        := if( ::nDirection == 0, 0, 1 )
+   ::oLabel:nTextColor        := ::nTextColor
+   ::oLabel:nBackColor        := ::nBackColor
+   ::oLabel:nTextColorHoverOn := ::nTextColorHoverOn
+   ::oLabel:nBackColorHoverOn := ::nBackColorHoverOn
+
+   ::oLabel:Create()
+
+   ::nCurSeconds := Seconds()
+   ::nTextLen    := len( ::cText )
+   ::nTextIndex  := if( ::nDirection == 0, 1, ::nTextLen )
+   ::nCurAlign   := ::nDirection
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_Destroy() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   Win_DeleteObject( ::oLabel:hFont )
+
+   RETURN nil
+
+
+
+UTILITY STATIC function WvtBanner_Configure() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_OnTimer() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   ::Refresh()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_SetText( cText) ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   if cText <> nil
+      ::cText := cText
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_Refresh() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+   LOCAL nNewTime
+
+   if abs( ( nNewTime := Seconds() ) - ::nCurSeconds ) >= ::nTimeDelay
+      ::nCurSeconds := nNewTime
+
+      if ::nDirection == 0
+         ::nTextIndex++
+         if ::nTextIndex > ::nTextLen
+            ::nTextIndex := 1
+            ::nCurAlign  := if( ::nCurAlign == 0, 1, 0 )
+         endif
+
+         if ::nCurAlign == 0
+            ::cDispText := substr( ::cText,::nTextIndex )
+         else
+            ::cDispText := substr( ::cText, 1, ::nTextIndex )
+         endif
+      else
+         ::nTextIndex--
+         if ::nTextIndex < 0
+            ::nTextIndex := ::nTextLen
+            ::nCurAlign := if( ::nCurAlign == 0, 1, 0 )
+         endif
+
+         if ::nCurAlign == 0
+            ::cDispText := substr( ::cText,::nTextIndex )
+         else
+            ::cDispText := substr( ::cText, 1, ::nTextIndex )
+         endif
+      endif
+
+      ::oLabel:nAlignHorz := ::nCurAlign
+      ::oLabel:SetText( ::cDispText )
+      ::oLabel:Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_HoverOn() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   ::oLabel:HoverOn()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtBanner_HoverOff() ; local Self AS CLASS WvtBanner := QSelf() AS CLASS WvtBanner
+
+   ::oLabel:HoverOff()
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtTextBox ; UTILITY FUNCTION WvtTextBox(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtTextBox" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cText} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cText" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtTextBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtTextBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtTextBox_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtTextBox_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Configure(); IIF( .F., s_oClass:ModMethod( "Configure", @WvtTextBox_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Configure", @WvtTextBox_Configure(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @WvtTextBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @WvtTextBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetText(); IIF( .F., s_oClass:ModMethod( "SetText", @WvtTextBox_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetText", @WvtTextBox_SetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOn(); IIF( .F., s_oClass:ModMethod( "HoverOn", @WvtTextBox_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOn", @WvtTextBox_HoverOn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HoverOff(); IIF( .F., s_oClass:ModMethod( "HoverOff", @WvtTextBox_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HoverOff", @WvtTextBox_HoverOff(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtTextBox ;
+
+
+
+UTILITY STATIC function WvtTextBox_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   ::WvtObject:New( oParent, 17, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtTextBox_Create() ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   ::nTextColorHoverOff := ::nTextColor
+
+
+
+   ::hFont := Wvt_CreateFont( ::cFont, ::nFontHeight, ::nFontWidth,  ::nFontWeight, ::lItalic, ::lUnderline, ::lStrikeout,  ::nCharSet, ::nFontQuality, 0 )
+
+   if ::hFont <> 0
+
+
+      ::bPaint := {|| Wvt_DrawTextBox( ::nTop, ::nLeft, ::nBottom, ::nRight,  ::aPxlTLBR, ::cText, ::nAlignHorz, ::nAlignVert,  ::nTextColor, ::nBackColor, ::nBackMode, ::hFont ) }
+
+      aadd( ::aPaint, { ::bPaint, { 3, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+   endif
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtTextBox_Refresh() ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   Eval( ::bPaint )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtTextBox_Configure() ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtTextBox_SetText( cText) ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   if cText <> nil
+      ::cText := cText
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtTextBox_HoverOn() ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   if ::nTextColorHoverOn <> nil
+      ::nTextColor := ::nTextColorHoverOn
+      ::Refresh()
+   endif
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtTextBox_HoverOff() ; local Self AS CLASS WvtTextBox := QSelf() AS CLASS WvtTextBox
+
+   if ::nTextColorHoverOn <> nil
+      ::nTextColor := ::nTextColorHoverOff
+      ::Refresh()
+   endif
+
+RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtProgressBar ; UTILITY FUNCTION WvtProgressBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtProgressBar" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER { cImage} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cImage" }, .F., .F. ), )
+   _HB_MEMBER { nDirection} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nDirection" }, .F., .F. ), )
+   _HB_MEMBER { nStyle} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nStyle" }, .F., .F. ), )
+   _HB_MEMBER { lVertical} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lVertical" }, .F., .F. ), )
+   _HB_MEMBER { lActive} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lActive" }, .F., .F. ), )
+
+   _HB_MEMBER { nBarColor} ; IIF( !.F., s_oClass:AddMultiData(, ( 0 + ( 0 * 256 ) + ( 128 * 256 * 256 ) ), nScope + IIF( .F., 32, 0 ), { "nBarColor" }, .F., .F. ), )
+   _HB_MEMBER { nCurrent} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCurrent" }, .F., .F. ), )
+   _HB_MEMBER { nTotal} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nTotal" }, .F., .F. ), )
+   _HB_MEMBER { nPercent} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nPercent" }, .F., .F. ), )
+   _HB_MEMBER { cBackColor} ; IIF( !.F., s_oClass:AddMultiData(, "W/W", nScope + IIF( .F., 32, 0 ), { "cBackColor" }, .F., .F. ), )
+
+   _HB_MEMBER { cScreen} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cScreen" }, .F., .F. ), )
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtProgressBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtProgressBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @WvtProgressBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @WvtProgressBar_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Display(); IIF( .F., s_oClass:ModMethod( "Display", @WvtProgressBar_Display(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Display", @WvtProgressBar_Display(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @WvtProgressBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @WvtProgressBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeActivate(); IIF( .F., s_oClass:ModMethod( "DeActivate", @WvtProgressBar_DeActivate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DeActivate", @WvtProgressBar_DeActivate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtProgressBar ;
+
+
+
+UTILITY STATIC function WvtProgressBar_New( oParent, nID, nTop, nLeft, nBottom, nRight) ; local Self AS CLASS WvtProgressBar := QSelf() AS CLASS WvtProgressBar
+
+   ::WvtObject:New( oParent, 18, nID, nTop, nLeft, nBottom, nRight )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtProgressBar_Create() ; local Self AS CLASS WvtProgressBar := QSelf() AS CLASS WvtProgressBar
+
+   IF ::nTop == NIL ; ::nTop := 0 ; END
+   IF ::nLeft == NIL ; ::nLeft := 0 ; END
+   IF ::nBottom == NIL ; ::nBottom := if( ::lVertical, ::nTop + 9, ::nTop ) ; END
+   IF ::nRight == NIL ; ::nRight := if( ::lVertical, ::nLeft + 1, ::nLeft + 19 ) ; END
+   IF ::nTextColor == NIL ; ::nTextColor := ( 255 + ( 255 * 256 ) + ( 255 * 256 * 256 ) ) ; END
+   IF ::nBackColor == NIL ; ::nBackColor := ( 198 + ( 198 * 256 ) + ( 198 * 256 * 256 ) ) ; END
+
+   ::bPaint := {|| ::Display() }
+   aadd( ::aPaint, { ::bPaint, { 3, ::nTop, ::nLeft, ::nBottom, ::nRight } } )
+
+   ::WvtObject:Create()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtProgressBar_Display( nCurrent, nTotal) ; local Self AS CLASS WvtProgressBar := QSelf() AS CLASS WvtProgressBar
+
+   if ! ::lActive
+      return Self
+   endif
+
+   IF nCurrent == NIL ; nCurrent := ::nCurrent ; END
+   IF nTotal == NIL ; nTotal := ::nTotal ; END
+
+   ::nCurrent := nCurrent
+   ::nTotal   := nTotal
+
+   if ::nCurrent > ::nTotal
+      ::nCurrent := ::nTotal
+   endif
+
+   ::nPercent := int( ::nCurrent / ::nTotal * 100 )
+
+
+   Wvt_DrawProgressBar( ::nTop, ::nLeft, ::nBottom, ::nRight, ::aPxlTLBR, ::nPercent,  ::nBackColor, ::nBarColor, ::cImage, ::lVertical, ::nDirection )
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtProgressBar_Activate() ; local Self AS CLASS WvtProgressBar := QSelf() AS CLASS WvtProgressBar
+
+   ::cScreen := SaveScreen( ::nTop, ::nLeft, ::nBottom, ::nRight )
+   DispBox( ::nTop, ::nLeft, ::nBottom, ::nRight, "         ", ::cBackColor )
+   ::lActive := .T.
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtProgressBar_DeActivate() ; local Self AS CLASS WvtProgressBar := QSelf() AS CLASS WvtProgressBar
+
+   ::lActive  := .F.
+   ::nCurrent := 0
+   ::nTotal   := 1
+   RestScreen( ::nTop, ::nLeft, ::nBottom, ::nRight, ::cScreen )
+   ::cScreen := nil
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS wvtMenu ; UTILITY FUNCTION wvtMenu(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "wvtMenu" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER Create( cCaption); IIF( .F., s_oClass:ModMethod( "Create", @wvtMenu_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @wvtMenu_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddItem( cCaption, bAction); IIF( .F., s_oClass:ModMethod( "AddItem", @wvtMenu_AddItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddItem", @wvtMenu_AddItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DelAllItems(); IIF( .F., s_oClass:ModMethod( "DelAllItems", @wvtMenu_DelAllItems(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DelAllItems", @wvtMenu_DelAllItems(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DelItem( nItem); IIF( .F., s_oClass:ModMethod( "DelItem", @wvtMenu_DelItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DelItem", @wvtMenu_DelItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER EnableItem( nItemNum); IIF( .F., s_oClass:ModMethod( "EnableItem", @wvtMenu_EnableItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "EnableItem", @wvtMenu_EnableItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DisableItem( nItemNum); IIF( .F., s_oClass:ModMethod( "DisableItem", @wvtMenu_DisableItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DisableItem", @wvtMenu_DisableItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NumItems(); IIF( .F., s_oClass:ModMethod( "NumItems", @wvtMenu_NumItems(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NumItems", @wvtMenu_NumItems(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Destroy(); IIF( .F., s_oClass:ModMethod( "Destroy", @wvtMenu_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Destroy", @wvtMenu_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetItem( nItemNum); IIF( .F., s_oClass:ModMethod( "GetItem", @wvtMenu_GetItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetItem", @wvtMenu_GetItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER FindMenuItemById( nId); IIF( .F., s_oClass:ModMethod( "FindMenuItemById", @wvtMenu_FindMenuItemById(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FindMenuItemById", @wvtMenu_FindMenuItemById(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DrawMenuBar(); IIF( .F., s_oClass:ModMethod( "DrawMenuBar", @wvtMenu_DrawMenuBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DrawMenuBar", @wvtMenu_DrawMenuBar(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER { MenuItemId} ; IIF( !.F., s_oClass:AddMultiClsData(, 1, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "MenuItemId" }, .F. ), )
+
+   _HB_MEMBER { aItems} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aItems" }, .F., .F. ) , )
+   _HB_MEMBER { hMenu} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hMenu" }, .F., .F. ) , )
+   _HB_MEMBER { Caption} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "Caption" }, .F., .F. ) , )
+   _HB_MEMBER { IdNumber} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "IdNumber" }, .F., .F. ) , )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS wvtMenu ;
+
+
+
+UTILITY STATIC function wvtMenu_Create( cCaption) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   ::aItems := {}
+
+   IF EMPTY( ::hMenu:= Wvt_CreateMenu() )
+
+   ENDIF
+   ::Caption:= IIF( cCaption == NIL, "", cCaption )
+
+   RETURN(Self)
+
+
+
+UTILITY STATIC function wvtMenu_Destroy() ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+
+   IF !EMPTY( ::hMenu )
+      ::DelAllItems()
+
+      IF !Wvt_DestroyMenu( ::hMenu )
+
+      ENDIF
+      ::hMenu:= 0
+   ENDIF
+
+   RETURN( .T. )
+
+
+
+UTILITY STATIC function wvtMenu_AddItem( cCaption, bAction) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL lResult:= .F., aItem
+
+   IF !EMPTY( ::hMenu ) .AND. ( !EMPTY( cCaption ) .OR. !EMPTY( bAction ) )
+      IF HB_ISOBJECT( bAction )
+         cCaption:= IIF(!EMPTY(cCaption),cCaption,bAction:Caption)
+         aItem:= {16,bAction:hMenu,cCaption,bAction}
+      ELSEIF HB_ISBLOCK(bAction)
+         aItem:= {0,::MenuItemId++,cCaption,bAction}
+      ELSEIF left( cCaption, 1 )=="-"
+         aItem:= {2048,0,0,NIL}
+      ELSE
+
+      ENDIF
+
+      IF !Wvt_AppendMenu(::hMenu, aItem[1],aItem[2],aItem[3])
+
+      ENDIF
+
+      AADD(::aItems, aItem)
+      lResult:= .T.
+   ENDIF
+
+   RETURN( lResult )
+
+
+
+UTILITY STATIC function wvtMenu_DelAllItems() ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL lResult:= .T.,  nItems
+
+   nItems := ::NumItems()
+   while nItems>0 .AND. lResult
+      lResult := ::DelItem( nItems )
+      nItems--
+   ENDDO
+
+   RETURN ( lResult )
+
+
+
+UTILITY STATIC function wvtMenu_DelItem( nItemNum) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL lResult:= .F.
+
+   IF nItemNum > 0 .AND. nItemNum <= ::NumItems()
+      IF ::aItems[ nItemNum,1 ]== 16
+         ::aItems[ nItemNum,4 ]:Destroy()
+      ENDIF
+
+      IF ( lResult:= Wvt_DeleteMenu(::hMenu, nItemNum-1,1024))
+         ADEL( ::aItems, nItemNum )
+         ASIZE( ::aItems, LEN( ::aItems ) - 1 )
+      ELSE
+
+      ENDIF
+   ENDIF
+
+   RETURN(lResult)
+
+
+
+UTILITY STATIC function wvtMenu_EnableItem( nItemNum) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL nPrevious:= -1
+
+   IF !EMPTY( ::hMenu )
+      nPrevious:= Wvt_EnableMenuItem( ::hMenu, nItemNum-1, 1024 + 0 )
+   ENDIF
+
+   RETURN ( nPrevious )
+
+
+
+UTILITY STATIC function wvtMenu_DisableItem( nItemNum) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL nPrevious:= -1
+
+   IF !EMPTY( ::hMenu )
+      nPrevious:= Wvt_EnableMenuItem( ::hMenu, nItemNum-1, 1024 + 1 )
+   ENDIF
+
+   RETURN ( nPrevious )
+
+
+
+UTILITY STATIC function wvtMenu_NumItems() ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+
+   RETURN ( LEN( ::aItems ) )
+
+
+
+UTILITY STATIC function wvtMenu_GetItem( nItemNum) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL nItems := ::NumItems(), aResult:= NIL
+
+   IF nItemNum > 0 .AND. nItemNum <= nItems
+      aResult:= ::aItems[ nItemNum ]
+   ENDIF
+
+   RETURN ( aResult )
+
+
+
+UTILITY STATIC function wvtMenu_FindMenuItemById( nId) ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+   LOCAL x, aResult:= {}
+
+   IF !EMPTY( nId )
+      x:= ::NumItems()
+      while x > 0 .AND. EMPTY( aResult )
+         IF ::aItems[ x,1 ] == 16
+            aResult:= ::aItems[ x,4 ]:FindMenuItemById( nId )
+         ELSEIF ::aItems[ x,2 ] == nId
+            aResult := ::aItems[ x ]
+         ENDIF
+         x--
+      ENDDO
+   ENDIF
+
+   RETURN ( aResult )
+
+
+
+UTILITY STATIC function wvtMenu_DrawMenuBar() ; local Self AS CLASS wvtMenu := QSelf() AS CLASS wvtMenu
+
+   Wvt_DrawMenuBar()
+
+   RETURN ( NIL )
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS WvtConsole ; UTILITY FUNCTION WvtConsole(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "WvtConsole" , {WvtObject():classh} ) ) ; ;
+
+   _HB_MEMBER New(); IIF( .F., s_oClass:ModMethod( "New", @WvtConsole_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @WvtConsole_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Say(); IIF( .F., s_oClass:ModMethod( "Say", @WvtConsole_Say(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Say", @WvtConsole_Say(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Box(); IIF( .F., s_oClass:ModMethod( "Box", @WvtConsole_Box(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Box", @WvtConsole_Box(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS WvtConsole ;
+
+
+
+UTILITY STATIC function WvtConsole_New( oParent) ; local Self AS CLASS WvtConsole := QSelf() AS CLASS WvtConsole
+
+   ::WvtObject:New( oParent, 14, , -1, -1, -1, -1 )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function WvtConsole_Say( nRow, nCol, xExp, cColor) ; local Self AS CLASS WvtConsole := QSelf() AS CLASS WvtConsole
+   LOCAL nCRow, nCCol, nCursor
+
+   if nRow >=0 .AND. nCol >= 0 .AND. xExp <> nil
+      nCursor := SetCursor( 0 )
+      nCRow   := Row()
+      nCCol   := Col()
+      DispOutAt( nRow, nCol, xExp, cColor )
+      SetPos( nCRow, nCCol )
+      SetCursor( nCursor )
+   endif
+
+RETURN Self
+
+
+
+UTILITY STATIC function WvtConsole_Box( nRow, nCol, n2Row, n2Col, cBoxChars, cColor) ; local Self AS CLASS WvtConsole := QSelf() AS CLASS WvtConsole
+
+   LOCAL nCRow, nCCol, nCursor
+
+   if nRow >=0 .AND. nCol >= 0
+      nCursor := SetCursor( 0 )
+      nCRow   := Row()
+      nCCol   := Col()
+      DispBox( nRow, nCol, n2Row, n2Col, cBoxChars, cColor )
+      SetPos( nCRow, nCCol )
+      SetCursor( nCursor )
+   endif
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS TBrowseWVG ; UTILITY FUNCTION TBrowseWVG(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "TBrowseWVG" , {TBrowse():classh} ) ) ; ;
+
+   _HB_MEMBER { aColumnsSep} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aColumnsSep" }, .F., .F. ), )
+
+   _HB_MEMBER SetVisible(); IIF( .F., s_oClass:ModMethod( "SetVisible", @TBrowseWVG_SetVisible(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetVisible", @TBrowseWVG_SetVisible(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   ; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS TBrowseWVG ;
+
+
+
+UTILITY STATIC function TBrowseWVG_SetVisible() ; local Self AS CLASS TBrowseWVG := QSelf() AS CLASS TBrowseWVG
+   Local lFirst, aCol, nColPos
+
+   ::TBrowse:SetVisible()
+   ::aColumnsSep := {}
+
+   lFirst := .T.
+   FOR EACH aCol IN ::aColData
+      IF aCol[ 3 ] <> NIL
+         IF lFirst
+            lFirst := .F.
+
+         ELSE
+            nColPos := aCol[ 3 ]
+
+            IF aCol[ 7 ] > 0
+               nColPos += Int( aCol[ 7 ]/2 )
+            ENDIF
+
+            aadd( ::aColumnsSep, nColPos )
+         ENDIF
+      ENDIF
+   NEXT
+
+   Return Self

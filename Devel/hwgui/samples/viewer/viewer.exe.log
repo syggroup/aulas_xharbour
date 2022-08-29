@@ -1,0 +1,39 @@
+
+Type: C >>>harbour.exe -o"obj\viewer.c" -m -n -q -gc0  -I"d:\devel\xHarbour\contrib\hwgui\include"  -I"d:\devel\xHarbour\include" "viewer.prg"<<<
+
+xHarbour Compiler build 1.2.1 (SimpLex) (Rev. 6633)
+Copyright 1999-2009, http://www.xharbour.org http://www.harbour-project.org/
+
+Type: C >>>bcc32.exe -o"obj\viewer.obj" -c   -I"d:\devel\xHarbour\contrib\hwgui\include" -I"d:\devel\xHarbour\include" "obj\viewer.c"<<<
+
+Borland C++ 5.5.1 for Win32 Copyright (c) 1993, 2000 Borland
+obj\viewer.c:
+Warning W8065 viewer.prg 362: Call to function 'hb_itemArrayNew' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8069 viewer.prg 362: Nonportable pointer conversion in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 373: Call to function 'hb_itemPutNI' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8069 viewer.prg 373: Nonportable pointer conversion in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 374: Call to function 'hb_itemArrayPut' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 375: Call to function 'hb_itemRelease' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 377: Call to function 'hb_itemPutNI' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8069 viewer.prg 377: Nonportable pointer conversion in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 378: Call to function 'hb_itemArrayPut' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 379: Call to function 'hb_itemRelease' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 381: Call to function 'hb_itemPutNI' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8069 viewer.prg 381: Nonportable pointer conversion in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 382: Call to function 'hb_itemArrayPut' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 383: Call to function 'hb_itemRelease' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 385: Call to function 'hb_itemPutNI' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8069 viewer.prg 385: Nonportable pointer conversion in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 386: Call to function 'hb_itemArrayPut' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 387: Call to function 'hb_itemRelease' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 389: Call to function 'hb_itemReturn' with no prototype in function HB_FUN_GETWORKAREARECT
+Warning W8065 viewer.prg 390: Call to function 'hb_itemRelease' with no prototype in function HB_FUN_GETWORKAREARECT
+
+Type: C >>>brc32.exe -fo"obj\viewer.res" -32 -r   -i"d:\devel\xHarbour\contrib\hwgui\include"  -i"D:\Devel\bcc55\include" -i"D:\Devel\bcc55\PlatformSDK\Include" "viewer.rc"<<<
+
+Borland Resource Compiler  Version 5.40
+Copyright (c) 1990, 1999 Inprise Corporation.  All rights reserved.
+
+Type: C >>>ilink32.exe -Gn -s  -aa -L"d:\devel\xHarbour\lib" -L"D:\Devel\bcc55\lib" -L"D:\Devel\bcc55\lib\psdk" c0w32.obj "obj\viewer.obj" , "viewer.exe", , "d:\devel\xHarbour\contrib\hwgui\lib\hwgui.lib" "D:\devel\xharbour\lib\gdlib.lib" "D:\devel\xharbour\lib\libbgd.lib" "D:\devel\xharbour\contrib\sygecom.lib" "D:\devel\xharbour\lib\hbmzip.lib" "D:\devel\xharbour\lib\hbzip.lib" "D:\devel\xharbour\lib\tip.lib" "gtgui.lib" "vm.lib" "rtl.lib" "macro.lib" "pp.lib" "common.lib" "lang.lib" "rdd.lib" "dbfntx.lib" "dbfnsx.lib" "dbfcdx.lib" "dbffpt.lib" "debug.lib" "pcrepos.lib" "hsx.lib" "hbsix.lib" "ct.lib" "zlib.lib" "codepage.lib" cw32.lib import32.lib odbc32.lib , , "obj\viewer.res" <<<
+
+Turbo Incremental Link 5.00 Copyright (c) 1997, 2000 Borland

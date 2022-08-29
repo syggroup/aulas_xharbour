@@ -1,0 +1,12 @@
+06/10/2011 12:19:38: TEST_TABLE2	Warning: DROP COLUMN:	INDFOR_001	(-1) PGRES_FATAL_ERROR - ERRO:  coluna "indfor_001" da relação "test_table2" não existe
+	
+06/10/2011 12:19:38: TEST_TABLE2	Warning: DROP COLUMN:	INDFOR_002	(-1) PGRES_FATAL_ERROR - ERRO:  coluna "indfor_002" da relação "test_table2" não existe
+	
+06/10/2011 12:19:38: TEST_TABLE2	Warning: DROP COLUMN:	INDFOR_003	(-1) PGRES_FATAL_ERROR - ERRO:  coluna "indfor_003" da relação "test_table2" não existe
+	
+06/10/2011 12:20:10: TEST_TABLE2	Warning: DROP COLUMN:	INDFOR_001	(-1) PGRES_FATAL_ERROR - ERRO:  coluna "indfor_001" da relação "test_table2" não existe
+	
+06/10/2011 12:20:10: TEST_TABLE2	Warning: DROP COLUMN:	INDFOR_002	(-1) PGRES_FATAL_ERROR - ERRO:  coluna "indfor_002" da relação "test_table2" não existe
+	
+06/10/2011 12:20:10: TEST_TABLE2	Warning: DROP COLUMN:	INDFOR_003	(-1) PGRES_FATAL_ERROR - ERRO:  coluna "indfor_003" da relação "test_table2" não existe
+	

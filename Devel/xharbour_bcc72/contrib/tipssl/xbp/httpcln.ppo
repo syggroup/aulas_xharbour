@@ -1,0 +1,664 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 61 "httpcln.prg"
+_HB_CLASS tIPClientHTTP ; UTILITY FUNCTION tIPClientHTTP(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "tIPClientHTTP" , {tIPClient():classh} ) ) ; ;
+   _HB_MEMBER { cMethod} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cMethod" }, .F., .F. ), )
+   _HB_MEMBER { nReplyCode} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nReplyCode" }, .F., .F. ), )
+   _HB_MEMBER { cReplyDescr} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cReplyDescr" }, .F., .F. ), )
+   _HB_MEMBER { nVersion} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nVersion" }, .F., .F. ), )
+   _HB_MEMBER { nSubversion} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nSubversion" }, .F., .F. ), )
+   _HB_MEMBER { bChunked} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChunked" }, .F., .F. ), )
+   _HB_MEMBER { hHeaders} ; IIF( !.F., s_oClass:AddMultiData(, {=>}, nScope + IIF( .F., 32, 0 ), { "hHeaders" }, .F., .F. ), )
+   _HB_MEMBER { hCookies} ; IIF( !.F., s_oClass:AddMultiData(, {=>}, nScope + IIF( .F., 32, 0 ), { "hCookies" }, .F., .F. ), )
+   _HB_MEMBER { hFields} ; IIF( !.F., s_oClass:AddMultiData(, {=>}, nScope + IIF( .F., 32, 0 ), { "hFields" }, .F., .F. ), )
+   _HB_MEMBER { cUserAgent} ; IIF( !.F., s_oClass:AddMultiData(, "Mozilla/3.0 compatible", nScope + IIF( .F., 32, 0 ), { "cUserAgent" }, .F., .F. ), )
+   _HB_MEMBER { cAuthMode} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cAuthMode" }, .F., .F. ), )
+   _HB_MEMBER { cConnetion} ; IIF( !.F., s_oClass:AddMultiData(, "close", nScope + IIF( .F., 32, 0 ), { "cConnetion" }, .F., .F. ), )
+   _HB_MEMBER { cBoundary} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cBoundary" }, .F., .F. ), )
+   _HB_MEMBER { aAttachments} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aAttachments" }, .F., .F. ), )
+   _HB_MEMBER { cLogFile} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cLogFile" }, .F., .F. ), )
+
+   _HB_MEMBER New( oUrl,lTrace, oCredentials); IIF( .F., s_oClass:ModMethod( "New", @tIPClientHTTP_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @tIPClientHTTP_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Get( cQuery); IIF( .F., s_oClass:ModMethod( "Get", @tIPClientHTTP_Get(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Get", @tIPClientHTTP_Get(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Post( cPostData, cQuery); IIF( .F., s_oClass:ModMethod( "Post", @tIPClientHTTP_Post(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Post", @tIPClientHTTP_Post(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReadHeaders(); IIF( .F., s_oClass:ModMethod( "ReadHeaders", @tIPClientHTTP_ReadHeaders(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReadHeaders", @tIPClientHTTP_ReadHeaders(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Read( nLen); IIF( .F., s_oClass:ModMethod( "Read", @tIPClientHTTP_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @tIPClientHTTP_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER UseBasicAuth(); IIF( .F., s_oClass:ModInline( "UseBasicAuth", {|Self | Self, ::cAuthMode := "Basic" }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "UseBasicAuth", {|Self | Self, ::cAuthMode := "Basic" }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER ReadAll(); IIF( .F., s_oClass:ModMethod( "ReadAll", @tIPClientHTTP_ReadAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReadAll", @tIPClientHTTP_ReadAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetCookie(); IIF( .F., s_oClass:ModMethod( "SetCookie", @tIPClientHTTP_SetCookie(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetCookie", @tIPClientHTTP_SetCookie(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetCookies(); IIF( .F., s_oClass:ModMethod( "GetCookies", @tIPClientHTTP_GetCookies(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetCookies", @tIPClientHTTP_GetCookies(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Boundary(); IIF( .F., s_oClass:ModMethod( "Boundary", @tIPClientHTTP_Boundary(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Boundary", @tIPClientHTTP_Boundary(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Attach( cName,cFileName,cType); IIF( .F., s_oClass:ModMethod( "Attach", @tIPClientHTTP_Attach(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Attach", @tIPClientHTTP_Attach(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PostMultiPart(); IIF( .F., s_oClass:ModMethod( "PostMultiPart", @tIPClientHTTP_PostMultiPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PostMultiPart", @tIPClientHTTP_PostMultiPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER WriteAll( cFile); IIF( .F., s_oClass:ModMethod( "WriteAll", @tIPClientHTTP_WriteAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "WriteAll", @tIPClientHTTP_WriteAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Put( xPostData, cQuery); IIF( .F., s_oClass:ModMethod( "Put", @tIPClientHTTP_Put(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Put", @tIPClientHTTP_Put(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Delete( xPostData, cQuery); IIF( .F., s_oClass:ModMethod( "Delete", @tIPClientHTTP_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Delete", @tIPClientHTTP_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Head( xPostData, cQuery); IIF( .F., s_oClass:ModMethod( "Head", @tIPClientHTTP_Head(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Head", @tIPClientHTTP_Head(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @tIPClientHTTP_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @tIPClientHTTP_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER httpClnDestructor(); s_oClass:SetDestructor( @tIPClientHTTP_httpClnDestructor() ) ;
+nScope := 8 ; ( nScope )
+   _HB_MEMBER StandardFields(); IIF( .F., s_oClass:ModMethod( "StandardFields", @tIPClientHTTP_StandardFields(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "StandardFields", @tIPClientHTTP_StandardFields(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PostData( xPostData, cQuery, cOp); IIF( .F., s_oClass:ModMethod( "PostData", @tIPClientHTTP_PostData(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PostData", @tIPClientHTTP_PostData(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS tIPClientHTTP ;
+
+UTILITY STATIC PROCEDURE tIPClientHTTP_httpClnDestructor ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+
+   IF ::lTrace .AND. ::nHandle > 0
+      FClose( ::nHandle )
+      ::nHandle := - 1
+   ENDIF
+
+   RETURN
+
+UTILITY STATIC function tIPClientHTTP_New( oUrl,lTrace, oCredentials, CAFile,CaPath) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   local cFile := "httpcln"
+   local n := 0
+
+   ::tIPClient:new( oUrl, lTrace, oCredentials,, CAFile,CaPath  )
+   if ::oUrl:cProto  == "https"
+      ::nDefaultPort := 443
+   else
+      ::nDefaultPort := 80
+   endif
+   ::nConnTimeout := 5000
+   ::bChunked     := .F.
+   if ::ltrace
+      if !file( "httpcln.log" )
+         ::nHandle := fcreate( "httpcln.log" )
+      else
+         while file( cFile + alltrim( str( n, 4 ) ) + ".log")
+           n++
+         enddo
+         ::cLogFile := cFile + LTrim( Str( Int(n ) ) ) + ".log"
+         ::nHandle  := FCreate( ::cLogFile )
+      endif
+   endif
+
+
+   HSetCaseMatch( ::hHeaders, .F. )
+RETURN Self
+
+
+UTILITY STATIC function tIPClientHTTP_Get( cQuery) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   IF ! HB_IsString( cQuery )
+      cQuery := ::oUrl:BuildQuery()
+   ENDIF
+
+   ::InetSendall( ::SocketCon, "GET " + cQuery + " HTTP/1.1" + ::cCRLF )
+   ::StandardFields()
+   ::InetSendall( ::SocketCon, ::cCRLF )
+   IF ::InetErrorCode( ::SocketCon ) ==  0
+      RETURN ::ReadHeaders()
+   ENDIF
+RETURN .F.
+
+UTILITY STATIC function tIPClientHTTP_Post( cPostData, cQuery) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+return ::PostData(cPostData, cQuery, "POST" )
+
+UTILITY STATIC function tIPClientHTTP_Put( cPostData, cQuery) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+return ::PostData(cPostData, cQuery, "PUT" )
+
+UTILITY STATIC function tIPClientHTTP_Delete( cPostData, cQuery) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+return ::PostData(cPostData, cQuery, "DELETE" )
+UTILITY STATIC function tIPClientHTTP_Head( cPostData, cQuery) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+return ::PostData(cPostData, cQuery, "HEAD" )
+
+
+UTILITY STATIC function tIPClientHTTP_PostData( cPostData, cQuery, cOp) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   LOCAL cData, nI, cTmp,y
+   IF cOp == NIL ; cOp := "POST" ; END
+
+   IF HB_IsHash( cPostData )
+      cData := ""
+      y := Len( cPostData )
+      FOR nI := 1 TO Len( cPostData )
+
+
+
+         cTmp  := TipEncoderUrl_Encode( Alltrim( cStr( HGetKeyAt( cPostData, nI ) ) ) )
+         cData += cTmp +"="
+
+
+         cTmp  := TipEncoderUrl_Encode( cStr( HGetValueAt( cPostData, nI )) )
+          cData += cTmp
+         IF nI <> y
+            cData += "&"
+         ENDIF
+      NEXT
+
+   elseIF HB_IsArray( cPostData )
+      cData := ""
+      y:=Len(cPostData)
+      FOR nI := 1 TO y
+
+
+
+         cTmp  := TipEncoderUrl_Encode( Alltrim( cStr(cPostData[ nI ,1] ) ) )
+         cData += cTmp +"="
+
+
+         cTmp  := TipEncoderUrl_Encode( cStr( cPostData[ nI,2] ) )
+         cData += cTmp
+         IF nI<>y
+            cData+="&"
+         ENDIF
+      NEXT
+
+   ELSEIF HB_IsString( cPostData )
+      cData := cPostData
+   ELSE
+
+      RETURN .F.
+   ENDIF
+
+   IF ! HB_IsString( cQuery )
+      cQuery := ::oUrl:BuildQuery()
+   ENDIF
+
+   ::InetSendAll( ::SocketCon, cOp + " " + cQuery + " HTTP/1.1" + ::cCRLF )
+   ::StandardFields()
+
+   IF ! "Content-Type" IN ::hFields
+      ::InetSendall( ::SocketCon, e"Content-Type: application/x-www-form-urlencoded\r\n" )
+   ENDIF
+
+
+   ::InetSendall( ::SocketCon, "Content-Length: " +  LTrim(Str( Len( cData ) ) ) + ::cCRLF )
+
+
+   ::InetSendall( ::SocketCon, ::cCRLF )
+
+   IF ::InetErrorCode( ::SocketCon  ) ==  0
+      ::InetSendall( ::SocketCon, cData )
+      ::bInitialized := .T.
+      RETURN ::ReadHeaders()
+
+
+   ENDIF
+RETURN .F.
+
+UTILITY STATIC function tIPClientHTTP_StandardFields() ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   LOCAL iCount
+   LOCAL oEncoder,cCookies
+
+   ::InetSendall( ::SocketCon, "Host: " + ::oUrl:cServer + ::cCRLF )
+   ::InetSendall( ::SocketCon, "User-agent: " + ::cUserAgent + ::cCRLF )
+   ::InetSendAll( ::SocketCon, "Connection: " + ::cConnetion + ::cCRLF )
+
+
+   IF ::cAuthMode == "Basic" .AND. ! ("Authorization" in ::hFields)
+      oEncoder := TIPEncoderBase64():New()
+      oEncoder:bHttpExcept := .T.
+
+      ::InetSendall( ::SocketCon, "Authorization: Basic " + oEncoder:Encode(  ::oUrl:cUserID + ":" + ::oUrl:cPassword ) + ::cCRLF )
+   ENDIF
+
+
+
+   cCookies:=::getCookies()
+   IF ! Empty( cCookies )
+      ::InetSendall( ::SocketCon, "Cookie: " + cCookies+::cCRLF)
+   ENDIF
+
+
+   FOR iCount := 1 TO Len( ::hFields )
+
+      ::InetSendall( ::SocketCon, HGetKeyAt( ::hFields, iCount ) + ": " + HGetValueAt( ::hFields, iCount ) + ::cCRLF )
+   NEXT
+
+RETURN .T.
+
+
+
+UTILITY STATIC function tIPClientHTTP_ReadHeaders( lClear) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   LOCAL cLine, nPos, aVersion
+   LOCAL aHead
+
+
+   cLine := ::InetRecvLine( ::SocketCon, @nPos, 500 )
+   IF Empty( cLine )
+
+      RETURN .F.
+   ENDIF
+
+
+   aVersion := HB_Regex( "^HTTP/(.)\.(.) ([0-9][0-9][0-9]) +(.*)$", cLine )
+   ::cReply := cLine
+
+   IF aVersion == NIL
+      ::nVersion := 0
+      ::nSubversion := 9
+      ::nReplyCode := 0
+      ::cReplyDescr := ""
+   ELSE
+      ::nVersion := Val(aVersion[2])
+      ::nSubversion := Val( aVersion[3] )
+      ::nReplyCode := val( aVersion[4] )
+      ::cReplyDescr := aVersion[5]
+   ENDIF
+
+   ::nLength := -1
+   ::bChunked := .F.
+   cLine := ::InetRecvLine( ::SocketCon, @nPos, 500 )
+   IF !lClear=.F. .AND. !empty(::hHeaders)
+      ::hHeaders:={=>}
+   ENDIF
+   while ::InetErrorCode( ::SocketCon ) == 0 .AND. ! Empty( cLine )
+      aHead := HB_RegexSplit( ":", cLine,,, 1 )
+      IF aHead == NIL .OR. Len( aHead ) <> 2
+         cLine := ::InetRecvLine( ::SocketCon, @nPos, 500 )
+         LOOP
+      ENDIF
+
+      ::hHeaders[ aHead[1] ] := LTrim(aHead[2])
+      DO CASE
+
+
+         CASE lower( aHead[1] ) == "content-length" .AND. ! ::bChunked
+            cLine := Substr( cLine, 16 )
+            ::nLength := Val( cLine )
+
+
+         CASE lower( aHead[1] ) == "transfer-encoding"
+            IF At( "chunked", lower( cLine ) ) > 0
+               ::bChunked := .T.
+               ::nLength := -1
+            ENDIF
+         CASE lower( aHead[1] ) == "set-cookie"
+            ::setCookie(aHead[2])
+
+      ENDCASE
+      cLine := ::InetRecvLine( ::SocketCon, @nPos, 500 )
+   ENDDO
+   IF ::InetErrorCode( ::SocketCon ) <> 0
+      RETURN .F.
+   ENDIF
+RETURN .T.
+
+
+UTILITY STATIC function tIPClientHTTP_Read( nLen) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   LOCAL cData, nPos, cLine, aHead
+
+   IF ! ::bInitialized
+      ::bInitialized := .T.
+      IF ! ::Get()
+         RETURN NIL
+      ENDIF
+   ENDIF
+
+
+
+
+
+
+   IF ::nLength == -1 .AND. ::bChunked
+      cLine := ::InetRecvLine( ::SocketCon, @nPos, 1024 )
+
+      IF Empty( cLine )
+         RETURN NIL
+      ENDIF
+
+
+      IF cLine == "0"
+
+
+         cLine := ::InetRecvLine( ::SocketCon, @nPos, 1024 )
+         while ! Empty( cLine )
+
+            aHead := HB_RegexSplit( ":", cLine,,, 1 )
+            IF aHead <> NIL
+               ::hHeaders[ aHead[1] ] := LTrim(aHead[2])
+            ENDIF
+
+            cLine := ::InetRecvLine( ::SocketCon, @nPos, 1024 )
+         ENDDO
+
+
+         ::bEof := .T.
+         RETURN NIL
+      ENDIF
+
+
+
+
+      nPos := at( ";", cLine )
+      IF nPos > 0
+         cLine := Substr( cLine, 1, nPos - 1 )
+      ENDIF
+
+
+
+      ::nLength := HexToNum( cLine ) + ::nRead
+
+   ENDIF
+
+
+   cData := ::tIPClient:Read( nLen )
+
+
+   IF ::bEof .AND. ::bChunked
+      ::bEof := .F.
+      ::nLength := -1
+
+      ::InetRecvLine( ::SocketCon, @nPos, 1024 )
+
+   ENDIF
+
+RETURN cData
+
+UTILITY STATIC function tIPClientHTTP_ReadAll() ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+
+   local cOut:="", cChunk
+   IF ! ::bInitialized
+      ::bInitialized := .T.
+      IF ! ::Get()
+         RETURN NIL
+      ENDIF
+   ENDIF
+   IF ::bChunked
+      cChunk:=::read()
+      while cChunk<>nil
+         cOut+=cChunk
+
+         cChunk:=::read()
+      end
+   else
+      return(::read())
+   endif
+   return(cOut)
+
+UTILITY STATIC function tIPClientHTTP_SetCookie( cLine) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+
+   local aParam
+   local cHost, cPath, cName, cValue, aElements, cElement
+   local cDefaultHost:=::oUrl:cServer, cDefaultPath:=::oUrl:cPath
+   local x,y
+   IF empty(cDefaultPath)
+      cDefaultPath:="/"
+   ENDIF
+
+
+   aParam := HB_RegexSplit( ";", cLine )
+   cName:=cValue:=""
+   cHost:=cDefaultHost
+   cPath:=cDefaultPath
+   y:=len(aParam)
+   FOR x:=1 to y
+      aElements := HB_RegexSplit( "=", aParam[x], 1)
+      IF len(aElements)==2
+         IF x=1
+            cName:=alltrim(aElements[1])
+            cValue:=alltrim(aElements[2])
+         else
+            cElement:=upper(alltrim(aElements[1]))
+            do case
+
+            case cElement=="PATH"
+               cPath:=alltrim(aElements[2])
+            case cElement=="DOMAIN"
+               cHost:=alltrim(aElements[2])
+            endcase
+         ENDIF
+      ENDIF
+   next
+   IF !empty(cName)
+
+
+      if !HHASKEY(::hCookies,cHost)
+         ::hCookies[cHost]:={=>}
+      endif
+      if !HHASKEY(::hCookies[cHost],cPath)
+         ::hCookies[cHost][cPath]:={=>}
+      endif
+      ::hCookies[cHost][cPath][cName]:=cValue
+   ENDIF
+return NIL
+
+UTILITY STATIC function tIPClientHTTP_GetCookies( cHost,cPath) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   local x,y,aDomKeys:={},aKeys,z,cKey,aPathKeys,nPath
+   local a, b, cOut := "", c, d
+
+   IF cHost=nil
+      cHost:=::oUrl:cServer
+   ENDIF
+   IF cPath=nil
+      cPath:=::oUrl:cPath
+      IF empty(cPath)
+         cPath:="/"
+      ENDIF
+   ENDIF
+   IF empty(cHost)
+      return(cOut)
+   ENDIF
+
+
+   aKeys:=hgetkeys(::hCookies)
+   y:=len(aKeys)
+   z:=len(cHost)
+   cHost:=upper(cHost)
+   FOR x := 1 TO y
+      cKey:=upper(aKeys[x])
+      IF upper(right(cKey,z))==cHost.AND.(len(cKey)=z .OR. substr(aKeys[x],0-z,1)==".")
+         aadd(aDomKeys,aKeys[x])
+      ENDIF
+   NEXT
+
+   asort(aDomKeys,,, {|cX,cY| len(cX) > len(cY)} )
+   y:=len(aDomKeys)
+
+   nPath:=len(cPath)
+   FOR x := 1 TO y
+      aKeys:=hgetkeys(::hCookies[aDomKeys[x]])
+      aPathKeys:={}
+      b:=len(aKeys)
+      FOR  a:= 1 TO b
+         cKey:=aKeys[a]
+         z:=len(cKey)
+         IF cKey=="/".OR.(z<=nPath.AND.substr(cKey,1,nPath)==cKey)
+            aadd(aPathKeys,aKeys[a])
+         ENDIF
+      NEXT
+      asort(aPathKeys,,, {|cX,cY| len(cX) > len(cY)} )
+      b:=len(aPathKeys)
+      FOR a := 1 TO b
+         aKeys:=hgetkeys(::hCookies[aDomKeys[x]][aPathKeys[a]])
+         d:=len(aKeys)
+         FOR c := 1 TO d
+            IF !empty(cOut)
+               cOut+="; "
+            ENDIF
+            cOut+=aKeys[c]+"="+::hCookies[aDomKeys[x]][aPathKeys[a]][aKeys[c]]
+         NEXT
+      NEXT
+   NEXT
+return(cOut)
+
+UTILITY STATIC function tIPClientHTTP_Boundary( nType) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+
+
+
+
+
+
+
+
+
+
+   local cBound:=::cBoundary
+   LOCAL i
+   IF nType=nil
+      nType=0
+   ENDIF
+   IF empty(cBound)
+      cBound:=replicate("-",27)+space(11)
+      FOR i := 28 TO 38
+         cBound[i] := str(int(HB_Random(0, 9 )),1,0)
+      NEXT
+      ::cBoundary:=cBound
+   endif
+   cBound:=if(nType<2,"--","")+cBound+if(nType=1,"--","")
+   RETURN(cBound)
+
+UTILITY STATIC function tIPClientHTTP_Attach( cName,cFileName,cType) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   aadd(::aAttachments,{cName,cFileName,cType})
+return(nil)
+
+UTILITY STATIC function tIPClientHTTP_PostMultiPart( cPostData, cQuery) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+   LOCAL cData:="", nI, cTmp,y,cBound:=::boundary()
+   local cCrlf:=::cCRlf,oSub
+   local nPos
+   local cFilePath,cName,cFile,cType
+   local nFile,cBuf,nBuf,nRead
+
+   IF empty(cPostData)
+   elseif HB_IsHash( cPostData )
+      FOR nI := 1 TO Len( cPostData )
+         cTmp := HGetKeyAt( cPostData, nI )
+         cTmp := CStr( cTmp )
+         cTmp := AllTrim( cTmp )
+         cTmp := TipEncoderUrl_Encode( cTmp )
+         cData += cBound+cCrlf+'Content-Disposition: form-data; name="'+cTmp +'"'+cCrlf+cCrLf
+         cTmp := HGetValueAt( cPostData, nI )
+         cTmp := CStr( cTmp )
+         cTmp := AllTrim( cTmp )
+         cTmp := TipEncoderUrl_Encode( cTmp )
+         cData += cTmp+cCrLf
+      NEXT
+   elseIF HB_IsArray( cPostData )
+      y:=Len(cPostData)
+      FOR nI := 1 TO y
+         cTmp := cPostData[ nI ,1]
+         cTmp := CStr( cTmp )
+         cTmp := AllTrim( cTmp )
+         cTmp := TipEncoderUrl_Encode( cTmp )
+         cData += cBound+cCrlf+'Content-Disposition: form-data; name="'+cTmp +'"'+cCrlf+cCrLf
+         cTmp := cPostData[ nI,2]
+         cTmp := CStr( cTmp )
+         cTmp := AllTrim( cTmp )
+         cTmp := TipEncoderUrl_Encode( cTmp )
+         cData += cTmp+cCrLf
+      NEXT
+
+   ELSEIF HB_IsString( cPostData )
+      cData := cPostData
+   ENDIF
+   FOR each oSub in ::aAttachments
+      cName:=oSub[1]
+      cFile:=oSub[2]
+      cType:=oSub[3]
+      cTmp:=strtran(cFile,"/","\")
+      if ( nPos := rat( "\", cTmp ) ) <> 0
+          cFilePath := substr( cTmp, 1, nPos )
+      elseif ( nPos := rat( ":", cTmp ) ) <> 0
+          cFilePath := substr( cTmp, 1, nPos )
+      else
+          cFilePath := ""
+      endif
+      cTmp:=substr(cFile,Len(cFilePath)+1)
+      IF empty(cType)
+         cType:="text/html"
+      ENDIF
+      cData += cBound+cCrlf+'Content-Disposition: form-data; name="'+cName +'"; filename="'+cTmp+'"'+cCrlf+"Content-Type: "+cType+cCrLf+cCrLf
+
+      nFile:=fopen(cFile)
+      nbuf:=8192
+      nRead:=nBuf
+
+      while nRead=nBuf
+
+         cBuf:=FReadstr( nFile,nBuf)
+         nRead:=len(cBuf)
+
+
+
+
+         cData+=cBuf
+      end
+      fClose(nFile)
+      cData+=cCrlf
+   NEXT
+   cData+=cBound+"--"+cCrlf
+   IF ! HB_IsString( cQuery )
+      cQuery := ::oUrl:BuildQuery()
+   ENDIF
+
+   ::InetSendall( ::SocketCon, "POST " + cQuery + " HTTP/1.1" + ::cCRLF )
+   ::StandardFields()
+
+   IF ! "Content-Type" IN ::hFields
+      ::InetSendall( ::SocketCon, "Content-Type: multipart/form-data; boundary="+::boundary(2)+::cCrlf )
+   ENDIF
+
+
+   ::InetSendall( ::SocketCon, "Content-Length: " +  LTrim(Str( Len( cData ) ) ) + ::cCRLF )
+
+   ::InetSendall( ::SocketCon, ::cCRLF )
+
+   IF ::InetErrorCode( ::SocketCon  ) ==  0
+      ::InetSendall( ::SocketCon, cData )
+      ::bInitialized := .T.
+      RETURN ::ReadHeaders()
+
+
+   ENDIF
+RETURN .F.
+
+UTILITY STATIC function tIPClientHTTP_WriteAll( cFile) ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+
+   local nFile
+   local lSuccess
+   local nLen
+   local cStream
+
+   cStream := ::ReadAll()
+
+   nLen := len( cStream )
+
+   nFile := fcreate( cFile )
+
+   if nFile <> 0
+      lSuccess := ( fwrite( nFile, cStream, nLen ) == nLen )
+      fclose( nFile )
+   else
+      lSuccess := .F.
+   endif
+
+   RETURN lSuccess
+
+
+UTILITY STATIC function tIPClientHTTP_Close() ; local Self AS CLASS tIPClientHTTP := QSelf() AS CLASS tIPClientHTTP
+
+   IF ::lSSL
+      InetSSLSetTimeOut( ::SocketSSLCon, ::nConnTimeout )
+   ELSE
+      InetSetTimeOut( ::SocketCon, ::nConnTimeout )
+   ENDIF
+   IF ::lTrace .AND. ::nHandle > 0
+      fClose( ::nHandle )
+      ::nhandle := -1
+   endif
+
+RETURN ::tIPClient:CLOSE()

@@ -1,0 +1,14 @@
+
+Type: C >>>harbour.exe -o"wvtclass.c" -m -n -p -q -gc0   -I"d:\devel\xharbour_bcc7\include" "wvtclass.prg"<<<
+
+xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
+Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
+
+Type: C >>>bcc32.exe -o"wvtclass.obj" -c   -I"d:\devel\xharbour_bcc7\include" "wvtclass.c"<<<
+
+Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
+wvtclass.c:
+
+Type: C >>>ilink32.exe -Gn -s  -aa -L"d:\devel\xharbour_bcc7\lib" -L"D:\Devel\bcc72\lib" -L"D:\Devel\bcc72\lib\psdk" c0w32.obj "wvtclass.obj" , "wvtclass.exe", , "gtwvg.lib" "gtgui.lib" "vm.lib" "rtl.lib" "macro.lib" "pp.lib" "common.lib" "lang.lib" "rdd.lib" "dbfntx.lib" "dbfnsx.lib" "dbfcdx.lib" "dbffpt.lib" "debug.lib" "pcrepos.lib" "hsx.lib" "hbsix.lib" "ct.lib" "zlib.lib" "codepage.lib" cw32.lib import32.lib odbc32.lib , , <<<
+
+Turbo Incremental Link 6.75 Copyright (c) 1997-2016 Embarcadero Technologies, Inc.

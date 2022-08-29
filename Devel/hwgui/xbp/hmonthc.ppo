@@ -1,0 +1,217 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 25 "source\hmonthc.prg"
+_HB_CLASS HMonthCalendar ; UTILITY FUNCTION HMonthCalendar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HMonthCalendar" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "SysMonthCal32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { value} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "value" }, .F., .F. ), )
+   _HB_MEMBER { bChange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChange" }, .F., .F. ), )
+   _HB_MEMBER { bSelect} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSelect" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle,  lWeekNumbers, bSelect); IIF( .F., s_oClass:ModMethod( "New", @HMonthCalendar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HMonthCalendar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HMonthCalendar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HMonthCalendar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HMonthCalendar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HMonthCalendar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetValue( dValue); IIF( .F., s_oClass:ModMethod( "SetValue", @HMonthCalendar_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HMonthCalendar_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetValue(); IIF( .F., s_oClass:ModMethod( "GetValue", @HMonthCalendar_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetValue", @HMonthCalendar_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onChange(); IIF( .F., s_oClass:ModMethod( "onChange", @HMonthCalendar_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onChange", @HMonthCalendar_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onSelect(); IIF( .F., s_oClass:ModMethod( "onSelect", @HMonthCalendar_onSelect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onSelect", @HMonthCalendar_onSelect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HMonthCalendar ;
+
+
+
+
+
+UTILITY STATIC function HMonthCalendar_New( oWndParent, nId, vari, nStyle, nLeft, nTop, nWidth, nHeight,  oFont, bInit, bChange, cTooltip, lNoToday, lNoTodayCircle,  lWeekNumbers, bSelect) ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 0 )
+   nStyle   += IIf( lNoToday == Nil.OR. ! lNoToday, 0, 16 )
+   nStyle   += IIf( lNoTodayCircle == Nil.OR. ! lNoTodayCircle, 0, 8 )
+   nStyle   += IIf( lWeekNumbers == Nil.OR. ! lWeekNumbers, 0, 4 )
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  ,, cTooltip )
+
+   ::value   := IIf( ValType( vari ) == "D" .AND. ! Empty( vari ), vari, Date() )
+
+   ::bChange := bChange
+   ::bSelect := bSelect
+
+   HWG_InitCommonControlsEx()
+
+
+
+
+
+
+
+
+   ::Activate()
+   RETURN Self
+
+
+
+UTILITY STATIC function HMonthCalendar_Activate() ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := InitMonthCalendar ( ::oParent:handle, ::id, ::style,  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+
+   RETURN Nil
+
+
+
+UTILITY STATIC function HMonthCalendar_Init() ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   IF ! ::lInit
+      ::HControl:Init()
+      IF ! Empty( ::value )
+         SetMonthCalendarDate( ::handle , ::value )
+      ENDIF
+      ::oParent:AddEvent( ((-750) + 4), Self, { || ::onSelect() }, .T., "onSelect" )
+      ::oParent:AddEvent( ((-750) + 1), Self, { || ::onChange() },.T. , "onChange" )
+
+   ENDIF
+
+   RETURN Nil
+
+
+
+UTILITY STATIC function HMonthCalendar_SetValue( dValue) ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   IF ValType( dValue ) == "D" .AND. ! Empty( dValue )
+      SetMonthCalendarDate( ::handle, dValue )
+      ::value := dValue
+   ENDIF
+
+   RETURN Nil
+
+
+
+UTILITY STATIC function HMonthCalendar_GetValue() ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   ::value := GetMonthCalendarDate( ::handle )
+
+   RETURN ( ::value )
+
+UTILITY STATIC function HMonthCalendar_onChange() ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   IF ::bChange <> Nil .AND. ! ::oparent:lSuspendMsgsHandling
+      SendMessage( ::handle, 513, 0, MAKELPARAM( 1, 1 ) )
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval( ::bChange, ::value, Self )
+      ::oparent:lSuspendMsgsHandling := .F.
+    ENDIF
+
+   RETURN 0
+
+UTILITY STATIC function HMonthCalendar_onSelect() ; local Self AS CLASS HMonthCalendar := QSelf() AS CLASS HMonthCalendar
+
+   IF ::bSelect <> Nil .AND. ! ::oparent:lSuspendMsgsHandling
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval( ::bSelect, ::value, Self )
+      ::oparent:lSuspendMsgsHandling := .F.
+    ENDIF
+
+   RETURN Nil
+
+
+
+#pragma BEGINDUMP
+
+#include "hwingui.h"
+#include <commctrl.h>
+#include "hbapiitm.h"
+#include "hbdate.h"
+#if defined(__DMC__)
+#include "missing.h"
+#endif
+
+HB_FUNC ( INITMONTHCALENDAR )
+{
+   HWND hMC;
+   RECT rc;
+
+   hMC = CreateWindowEx( 0,
+                         MONTHCAL_CLASS,
+                         TEXT( "" ),
+                         (LONG) hb_parnl(3), /* 0,0,0,0, */
+                         hb_parni(4), hb_parni(5),      /* x, y       */
+                         hb_parni(6), hb_parni(7),      /* nWidth, nHeight */
+                         (HWND) HB_PARHANDLE(1),
+                         (HMENU) hb_parni(2),
+                         GetModuleHandle(NULL),
+                         NULL );
+
+   MonthCal_GetMinReqRect( hMC, &rc );
+
+   //SetWindowPos( hMC, NULL, hb_parni(4), hb_parni(5), rc.right, rc.bottom, SWP_NOZORDER );
+   SetWindowPos( hMC, NULL, hb_parni(4), hb_parni(5), hb_parni(6),hb_parni(7), SWP_NOZORDER );
+
+    HB_RETHANDLE(  hMC );
+}
+
+HB_FUNC ( SETMONTHCALENDARDATE ) // adaptation of function SetDatePicker of file Control.c
+{
+   PHB_ITEM pDate = hb_param( 2, HB_IT_DATE );
+
+   if( pDate )
+   {
+      SYSTEMTIME sysTime;
+      #ifndef HARBOUR_OLD_VERSION
+      int lYear, lMonth, lDay;
+      #else
+      long lYear, lMonth, lDay;
+      #endif
+
+      hb_dateDecode( hb_itemGetDL( pDate ), &lYear, &lMonth, &lDay );
+
+      sysTime.wYear = (unsigned short) lYear;
+      sysTime.wMonth = (unsigned short) lMonth;
+      sysTime.wDay = (unsigned short) lDay;
+      sysTime.wDayOfWeek = 0;
+      sysTime.wHour = 0;
+      sysTime.wMinute = 0;
+      sysTime.wSecond = 0;
+      sysTime.wMilliseconds = 0;
+
+      MonthCal_SetCurSel( (HWND) HB_PARHANDLE (1), &sysTime);
+
+   }
+}
+
+HB_FUNC ( GETMONTHCALENDARDATE ) // adaptation of function GetDatePicker of file Control.c
+{
+   SYSTEMTIME st;
+   char szDate[9];
+
+   SendMessage( (HWND) HB_PARHANDLE (1), MCM_GETCURSEL, 0, (LPARAM) &st);
+
+   hb_dateStrPut( szDate, st.wYear, st.wMonth, st.wDay );
+   szDate[8] = 0;
+   hb_retds( szDate );
+}
+
+#pragma ENDDUMP

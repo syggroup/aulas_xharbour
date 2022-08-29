@@ -1,0 +1,1667 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 23 "source\hfrmtmpl.prg"
+STATIC coName
+
+
+
+
+
+
+
+
+
+STATIC aClass := { "label", "button", "buttonex", "toolbutton", "checkbox",                    "radiobutton", "editbox", "group", "radiogroup",   "bitmap", "icon", "richedit", "datepicker", "updown",  "combobox", "line", "toolbar", "panel", "ownerbutton",      "browse", "column", "monthcalendar", "trackbar", "page",       "tree", "status", "menu", "animation" ,              "progressbar", "shadebutton", "listbox", "gridex",   "timer", "link"                                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STATIC aCtrls := {  "HStatic():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,ctooltip,TextColor,BackColor,lTransp)",  "HButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor)",   "HButtonex():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor,hbmp,nBStyle,hIco )",   "AddButton(nBitIp,nId,nState,nStyle,cCaption,onClick,ctooltip,amenu)",   "HCheckButton():New(oPrnt,nId,lInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor,bwhen)",  "HRadioButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,onClick,ctooltip,TextColor,BackColor)",  "HEdit():New(oPrnt,nId,cInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onGetFocus,onLostFocus,ctooltip,TextColor,BackColor,cPicture,lNoBorder,nMaxLength,lPassword)",  "HGroup():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,TextColor,BackColor)",  "RadioNew(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,TextColor,BackColor,nInitValue,bSetGet)",  "HSayBmp():New(oPrnt,nId,nLeft,nTop,nWidth,nHeight,Bitmap,lResource,onInit,onSize,ctooltip)",  "HSayIcon():New(oPrnt,nId,nLeft,nTop,nWidth,nHeight,Icon,lResource,onInit,onSize,ctooltip)",  "HRichEdit():New(oPrnt,nId,cInitValue,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onGetFocus,onLostFocus,ctooltip,TextColor,BackColor)",  "HDatePicker():New(oPrnt,nId,dInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onGetFocus,onLostFocus,onChange,ctooltip,TextColor,BackColor)",  "HUpDown():New(oPrnt,nId,nInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onGetFocus,onLostFocus,ctooltip,TextColor,BackColor,nUpDWidth,nLower,nUpper)",  "HComboBox():New(oPrnt,nId,nInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,Items,oFont,onInit,onSize,onPaint,onChange,cTooltip,lEdit,lText,bWhen,TextColor,BackColor)",  "HLine():New(oPrnt,nId,lVertical,nLeft,nTop,nLength,onSize)",  "HToolBar():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,,,,,,,Items)",  "HPanel():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,lDocked)",  "HOwnButton():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,onClick,flat,caption,TextColor,oFont,TextLeft,TextTop,widtht,heightt,BtnBitmap,lResource,BmpLeft,BmpTop,widthb,heightb,lTr,trColor,cTooltip)",  "Hbrowse():New(BrwType,oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onEnter,onGetfocus,onLostfocus,lNoVScroll,lNoBorder,lAppend,lAutoedit,onUpdate,onKeyDown,onPosChange,lMultiSelect)",  "AddColumn(HColumn():New(cHeader,Fblock,cValType,nLength,nDec,lEdit,nJusHead, nJusLine, cPicture,bValid, bWhen, Items, ClrBlck, HeadClick ))",  "HMonthCalendar():New(oPrnt,nId,dInitValue,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onChange,cTooltip,lNoToday,lNoTodayCircle,lWeekNumbers)",  "HTrackBar():New(oPrnt,nId,nInitValue,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,bPaint,cTooltip,onChange,onDrag,nLow,nHigh,lVertical,TickStyle,TickMarks)",  "HTab():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,Tabs,onChange,aImages,lResource)",  "HTree():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,TextColor,BackColor,aImages,lResource,lEditLabels,onTreeClick)",  "HStatus():New(oPrnt,nId,nStyle,oFont,aParts,onInit,onSize)",  ".F.",  "HAnimation():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,Filename,AutoPlay,Center,Transparent)",  "HProgressBar():New( oPrnt,nId,nLeft,nTop,nWidth,nHeight,maxPos,nRange,bInit,bSize,bPaint,ctooltip )",  "HshadeButton():New( oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,onInit,onSize,onPaint,onClick,lFlat,caption,color,font,xt,yt,bmp,lResour,xb,yb,widthb,heightb,lTr,trColor,cTooltip,lEnabled,shadeID,palette,granularity,highlight,coloring,shcolor)",  "HListBox():New(oPrnt,nId,nInitValue,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,Items,oFont,onInit,onSize,onPaint,onChange,cTooltip)",  "HGridEx():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,onInit,onSize,onPaint,onEnter,onGetfocus,onLostfocus,lNoVScroll,lNoBorder,onKeyDown,onPosChg,onDispInfo,nItemCout,lNoLines,TextColor,BackColor,lNoHeader,aBit,Items)" ,  "HTimer():New(oPrnt,nId,nInterval, onAction)" ,  "HStaticLink():New(oPrnt,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,oFont,onInit,onSize,onPaint,cTooltip,TextColor,BackColor,lTransp,Link,VisitedColor,LinkColor,HoverColor)"  }
+
+STATIC aPenType  := { "SOLID", "DASH", "DOT", "DASHDOT", "DASHDOTDOT" }
+STATIC aJustify  := { "Left", "Center", "Right" }
+STATIC aShadeID := { "SHS_METAL", "SHS_SOFTBUMP", "SHS_NOISE", "SHS_HARDBUMP", "SHS_HSHADE", "SHS_VSHADE", "SHS_DIAGSHADE", "SHS_HBUMP" }
+STATIC aPalette := { "PAL_DEFAULT", "PAL_METAL" }
+
+EXTERNAL HSTATIC
+EXTERNAL HBUTTON
+EXTERNAL HBUTTONEX
+EXTERNAL HCHECKBUTTON
+EXTERNAL HRADIOBUTTON
+EXTERNAL HEDIT
+EXTERNAL HGROUP
+EXTERNAL HSAYBMP
+EXTERNAL HSAYICON
+EXTERNAL HRICHEDIT
+EXTERNAL HDATEPICKER
+EXTERNAL HUPDOWN
+EXTERNAL HCOMBOBOX
+EXTERNAL HLINE
+EXTERNAL HTOOLBAR
+EXTERNAL HPANEL
+EXTERNAL HOWNBUTTON
+EXTERNAL HBROWSE
+EXTERNAL HCOLUMN
+EXTERNAL HMONTHCALENDAR
+EXTERNAL HTRACKBAR
+EXTERNAL HTAB
+EXTERNAL HANIMATION
+EXTERNAL HTREE
+EXTERNAL HPROGRESSBAR
+EXTERNAL HSHADEBUTTON
+EXTERNAL HLISTBOX
+EXTERNAL HGRIDEX
+EXTERNAL HTIMER
+EXTERNAL HSTATICLINK
+
+EXTERNAL Directory
+
+EXTERNAL DBUseArea
+EXTERNAL RecNo
+EXTERNAL DBSkip
+EXTERNAL DBGoTop
+EXTERNAL DBCloseArea
+
+_HB_CLASS HCtrlTmpl ; UTILITY FUNCTION HCtrlTmpl(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HCtrlTmpl" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { cClass} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cClass" }, .F., .F. ), )
+   _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+   _HB_MEMBER { nId} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nId" }, .F., .F. ), )
+   _HB_MEMBER { aControls} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aControls" }, .F., .F. ), )
+   _HB_MEMBER { aProp, aMethods} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aProp" , "aMethods" }, .F., .F. ), )
+
+   _HB_MEMBER New(oParent); IIF( .F., s_oClass:ModInline( "New", {|Self,oParent | Self, ( ::oParent := oParent, AAdd( oParent:aControls, Self ), Self ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "New", {|Self,oParent | Self, ( ::oParent := oParent, AAdd( oParent:aControls, Self ), Self ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER F( nId); IIF( .F., s_oClass:ModMethod( "F", @HCtrlTmpl_F(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "F", @HCtrlTmpl_F(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HCtrlTmpl ;
+
+UTILITY STATIC function HCtrlTmpl_F( nId) ; local Self AS CLASS HCtrlTmpl := QSelf() AS CLASS HCtrlTmpl
+   LOCAL i, aControls := ::aControls, nLen := Len( aControls ), o
+
+   FOR i := 1 TO nLen
+      IF aControls[ i ]:nId == nId
+         RETURN aControls[ i ]
+      ELSEIF ! Empty( aControls[ i ]:aControls ) .AND. ( o := aControls[ i ]:F( nId ) ) <> Nil
+         RETURN o
+      ENDIF
+   NEXT
+
+   RETURN Nil
+
+
+_HB_CLASS HFormTmpl ; UTILITY FUNCTION HFormTmpl(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HFormTmpl" , { HBObject():Classh } ) ) ;
+
+_HB_MEMBER { aForms} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aForms" }, .F. ), )
+_HB_MEMBER { maxId} ; IIF( !.F., s_oClass:AddMultiClsData(, 0, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "maxId" }, .F. ), )
+   _HB_MEMBER { oDlg} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oDlg" }, .F., .F. ), )
+   _HB_MEMBER { aControls} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aControls" }, .F., .F. ), )
+   _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+   _HB_MEMBER { aProp} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aProp" }, .F., .F. ), )
+   _HB_MEMBER { aMethods} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aMethods" }, .F., .F. ), )
+   _HB_MEMBER { aVars} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aVars" }, .F., .F. ), )
+   _HB_MEMBER { aNames} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aNames" }, .F., .F. ), )
+   _HB_MEMBER { aFuncs} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aFuncs" }, .F., .F. ), )
+   _HB_MEMBER { id} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "id" }, .F., .F. ), )
+   _HB_MEMBER { cId} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cId" }, .F., .F. ), )
+   _HB_MEMBER { nContainer} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nContainer" }, .F., .F. ), )
+   _HB_MEMBER { nCtrlId} ; IIF( !.F., s_oClass:AddMultiData(, 34000, nScope + IIF( .F., 32, 0 ), { "nCtrlId" }, .F., .F. ), )
+   _HB_MEMBER { lDebug} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lDebug" }, .F., .F. ), )
+   _HB_MEMBER { cargo} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cargo" }, .F., .F. ), )
+
+   _HB_MEMBER Read( fname, cId); IIF( .F., s_oClass:ModMethod( "Read", @HFormTmpl_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @HFormTmpl_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Show( nMode, p1, p2, p3); IIF( .F., s_oClass:ModMethod( "Show", @HFormTmpl_Show(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Show", @HFormTmpl_Show(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ShowMain(params); IIF( .F., s_oClass:ModInline( "ShowMain", {|Self,params | Self, ::Show( 1, params ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ShowMain", {|Self,params | Self, ::Show( 1, params ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER ShowModal(params); IIF( .F., s_oClass:ModInline( "ShowModal", {|Self,params | Self, ::Show( 2, params ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ShowModal", {|Self,params | Self, ::Show( 2, params ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @HFormTmpl_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @HFormTmpl_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER F( id, n); IIF( .F., s_oClass:ModMethod( "F", @HFormTmpl_F(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "F", @HFormTmpl_F(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Find( cId); IIF( .F., s_oClass:ModMethod( "Find", @HFormTmpl_Find(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Find", @HFormTmpl_Find(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HFormTmpl ;
+
+UTILITY STATIC function HFormTmpl_Read( fname, cId) ; local Self AS CLASS HFormTmpl := QSelf() AS CLASS HFormTmpl
+   LOCAL oDoc
+   LOCAL i, j, nCtrl := 0, aItems, o, aProp := { }, aMethods := { }
+   LOCAL cPre, cName, pp
+
+   IF cId <> Nil .AND. ( o := HFormTmpl():Find( cId ) ) <> Nil
+      RETURN o
+   ENDIF
+   IF Left( fname, 5 ) == "<?xml"
+      oDoc := HXMLDoc():ReadString( fname )
+   ELSE
+      oDoc := HXMLDoc():Read( fname )
+   ENDIF
+
+   IF Empty( oDoc:aItems )
+      MsgStop( "Can't open " + fname )
+      RETURN Nil
+   ELSEIF oDoc:aItems[ 1 ]:title <> "part" .OR. oDoc:aItems[ 1 ]:GetAttribute( "class" ) <> "form"
+      MsgStop( "Form description isn't found" )
+      RETURN Nil
+   ENDIF
+
+   ::maxId ++
+   ::id := ::maxId
+   ::cId := cId
+   ::aProp := aProp
+   ::aMethods := aMethods
+
+   pp := __pp_init()
+   AAdd( ::aForms, Self )
+   aItems := oDoc:aItems[ 1 ]:aItems
+   FOR i := 1 TO Len( aItems )
+      IF aItems[ i ]:title == "style"
+         FOR j := 1 TO Len( aItems[ i ]:aItems )
+            o := aItems[ i ]:aItems[ j ]
+            IF o:title == "property"
+               IF ! Empty( o:aItems )
+                  AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), o:aItems[ 1 ] } )
+                  IF Atail(aProp)[1] == "ldebug" .AND. hfrm_GetProperty( Atail(aProp)[2] )
+                     ::lDebug := .T.
+                     SetDebugInfo( .T. )
+                  ENDIF
+               ENDIF
+            ENDIF
+         NEXT
+      ELSEIF aItems[ i ]:title == "method"
+         Aadd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),CompileMethod(pp,aItems[i]:aItems[1]:aItems[1],Self,,cName) } )
+         IF aMethods[ ( j := Len( aMethods ) ), 1 ] == "common"
+            ::aFuncs := ::aMethods[ j, 2, 2 ]
+            FOR j := 1 TO Len( ::aFuncs[ 2 ] )
+
+
+               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] +  "( <params,...> ) => callfunc('"  +  Upper( ::aFuncs[ 2, j, 1 ] ) + "',\{ <params> \}, oDlg:oParent:aFuncs )"
+               __pp_process( pp, cPre )
+
+
+               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] +  "() => callfunc('"  +  Upper( ::aFuncs[ 2, j, 1 ] ) + "',, oDlg:oParent:aFuncs )"
+               __pp_process( pp, cPre )
+            NEXT
+         ENDIF
+      ELSEIF aItems[ i ]:title == "part"
+         nCtrl ++
+         ::nContainer := nCtrl
+         ReadCtrl( pp, aItems[ i ], Self, Self )
+      ENDIF
+   NEXT
+   pp := NIL
+   SetDebugInfo( .F. )
+   RETURN Self
+
+UTILITY STATIC function HFormTmpl_Show( nMode, p1, p2, p3) ; local Self AS CLASS HFormTmpl := QSelf() AS CLASS HFormTmpl
+   LOCAL i, j, cType
+   LOCAL nLeft, nTop, nWidth, nHeight, cTitle, oFont, lClipper := .F., lExitOnEnter := .F.
+   LOCAL xProperty, block, bFormExit, nstyle
+   LOCAL lModal := .F.
+   LOCAL lMdi := .F.
+   LOCAL lMdiChild := .F.
+   LOCAL cBitmap := nil
+   LOCAL oBmp := NIL
+   MEMVAR oDlg
+   PRIVATE oDlg
+
+   SetDebugInfo( ::lDebug )
+   SetDebugger( ::lDebug )
+   nstyle := 1 + 268435456 + 524288 + 262144
+
+   FOR i := 1 TO Len( ::aProp )
+      xProperty := hfrm_GetProperty( ::aProp[ i, 2 ] )
+
+      IF ::aProp[ i, 1 ] == "geometry"
+         nLeft   := Val( xProperty[ 1 ] )
+         nTop    := Val( xProperty[ 2 ] )
+         nWidth  := Val( xProperty[ 3 ] )
+         nHeight := Val( xProperty[ 4 ] )
+      ELSEIF ::aProp[ i, 1 ] == "caption"
+         cTitle := xProperty
+      ELSEIF ::aProp[ i, 1 ] == "font"
+         oFont := hfrm_FontFromxml( xProperty )
+      ELSEIF ::aProp[ i, 1 ] == "lclipper"
+         lClipper := xProperty
+      ELSEIF ::aProp[ i, 1 ] == "lexitonenter"
+         lExitOnEnter := xProperty
+      ELSEIF ::aProp[ i, 1 ] == "exstyle"
+         nstyle := xProperty
+      ELSEIF ::aProp[ i, 1 ] == "modal"
+         lModal := xProperty
+      ELSEIF ::aProp[ i, 1 ] == "formtype"
+         IF nMode == Nil
+            lMdi := At( "mdimain", Lower( xProperty ) ) > 0
+            lMdiChild := At( "mdichild", Lower( xProperty ) ) > 0
+            nMode := IF( Left( xProperty, 3 ) == "dlg", 2, 1 )
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "variables"
+         FOR j := 1 TO Len( xProperty )
+            __mvPrivate( xProperty[ j ] )
+         NEXT
+
+      ELSEIF ::aProp[ i, 1 ] == "systemmenu"
+         IF ! xProperty
+            nstyle := hwg_bitandinverse( nstyle, 524288 )
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "minimizebox"
+         IF xProperty
+            nstyle += 131072
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "maximizebox"
+         IF xProperty
+            nstyle += 65536
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "absalignent"
+         IF ! xProperty
+            nstyle := hwg_bitandinverse( nstyle, 1 )
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "sizeBox"
+         IF ! xProperty
+            nstyle := hwg_bitandinverse( nstyle, 262144 )
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "visible"
+         IF ! xProperty
+            nstyle := hwg_bitandinverse( nstyle, 268435456 )
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "3dLook"
+         IF xProperty
+            IF ::aControls[ j ]:cClass == "button" .OR. ::aControls[ j ]:cClass == "ownerbutton"
+               nstyle += 4
+            ELSE
+               nstyle += IIf( ::aControls[ j ]:cClass = "checkbox", 0x00001000, 0 )
+            ENDIF
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "clipsiblings"
+         IF xProperty
+            nstyle += 67108864
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "clipchildren"
+         IF xProperty
+            nstyle += 33554432
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "fromstyle"
+         IF Lower( xProperty ) == "popup"
+            nstyle += 2147483648 + 12582912
+         ELSEIF Lower( xProperty ) == "child"
+            nstyle += 1073741824
+         ENDIF
+
+      ELSEIF ::aProp[ i, 1 ] == "bitmap"
+         cBitmap := xProperty
+      ENDIF
+   NEXT
+
+   FOR i := 1 TO Len( ::aNames )
+      __mvPrivate( ::aNames[ i ] )
+   NEXT
+   FOR i := 1 TO Len( ::aVars )
+      __mvPrivate( ::aVars[ i ] )
+   NEXT
+
+
+   oBmp := IF( ! Empty( cBitmap ), HBitmap():addfile( cBitmap, NIL ), NIL )
+
+   IF nMode == Nil .OR. nMode == 2
+
+
+
+
+      ::oDlg := HDialog():New( Iif(.F.,10,11), nstyle,nLeft,nTop,nWidth,nHeight,cTitle,oFont,,,,,,,,.F.,oBmp,,.F.,,,.F.,,, .F.,.F.)
+      ::oDlg:lClipper := lClipper
+      ::oDlg:lExitOnEnter := lExitOnEnter
+      ::oDlg:oParent  := Self
+
+   ELSEIF nMode == 1
+
+      IF lMdi
+
+
+
+
+         ::oDlg := HMainWindow():New( Iif(.T.,2,1),,,IF( nstyle > 0 , nstyle, NIL ),nLeft,nTop,nWidth,nHeight,cTitle,,,oFont,,,,,,,,,oBmp,,,,,,.F.)
+      ELSEIF lMdiChild
+
+
+
+
+         ::oDlg := HMdiChildWindow():New(,,IF( nstyle > 0 , nstyle, NIL ),nLeft,nTop,nWidth,nHeight,cTitle,,oFont,,,,,,,,,oBmp,,,,,.F.,.F.,.F.,,.F. ) ; ::oDlg:SetParent( )
+      ELSE
+
+
+
+
+         ::oDlg := HMainWindow():New( Iif(.F.,2,1),,,IF( nstyle > 0 , nstyle, NIL ),nLeft,nTop,nWidth,nHeight,cTitle,,,oFont,,,,,,,,,oBmp,,,,,,.F.)
+
+      ENDIF
+   ENDIF
+
+   oDlg := ::oDlg
+
+   FOR i := 1 TO Len( ::aMethods )
+      IF ( cType := ValType( ::aMethods[ i, 2 ] ) ) == "B"
+         block := ::aMethods[ i, 2 ]
+      ELSEIF cType == "A"
+         block := ::aMethods[ i, 2, 1 ]
+      ENDIF
+      IF ::aMethods[ i, 1 ] == "ondlginit"
+         ::oDlg:bInit := block
+      ELSEIF ::aMethods[ i, 1 ] == "onforminit"
+         Eval( block, Self, p1, p2, p3 )
+      ELSEIF ::aMethods[ i, 1 ] == "onpaint"
+         ::oDlg:bPaint := block
+      ELSEIF ::aMethods[ i, 1 ] == "ondlgexit"
+         ::oDlg:bDestroy := block
+      ELSEIF ::aMethods[ i, 1 ] == "onformexit"
+         bFormExit := block
+      ENDIF
+   NEXT
+
+   j := Len( ::aControls )
+   IF j > 0 .AND. ::aControls[ j ]:cClass == "status"
+      CreateCtrl( ::oDlg, ::aControls[ j ], Self )
+      j --
+   ENDIF
+
+   IF j > 0 .AND. ::aControls[ j ]:cClass == "timer"
+      CreateCtrl( ::oDlg, ::aControls[ j ], Self )
+      j --
+   ENDIF
+
+
+   FOR i := 1 TO j
+      CreateCtrl( ::oDlg, ::aControls[ i ], Self )
+   NEXT
+
+   IF ::lDebug .AND. ( i := HWindow():GetMain() ) <> Nil
+      SetFocus( i:handle )
+   ENDIF
+   ::oDlg:Activate( lModal )
+
+   IF bFormExit <> Nil
+      RETURN Eval( bFormExit )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HFormTmpl_F( id, n) ; local Self AS CLASS HFormTmpl := QSelf() AS CLASS HFormTmpl
+   LOCAL i := AScan( ::aForms, { | o | o:id == id } )
+
+   IF i <> 0 .AND. n <> Nil
+      RETURN ::aForms[ i ]:aControls[ n ]
+   ENDIF
+   RETURN IIf( i == 0, Nil, ::aForms[ i ] )
+
+UTILITY STATIC function HFormTmpl_Find( cId) ; local Self AS CLASS HFormTmpl := QSelf() AS CLASS HFormTmpl
+   LOCAL i := AScan( ::aForms, { | o | o:cId <> Nil.AND.o:cId == cId } )
+   RETURN IIf( i == 0, Nil, ::aForms[ i ] )
+
+UTILITY STATIC function HFormTmpl_Close() ; local Self AS CLASS HFormTmpl := QSelf() AS CLASS HFormTmpl
+   LOCAL i := AScan( ::aForms, { | o | o:id == ::id } )
+
+   IF i <> 0
+      ADel( ::aForms, i )
+      ASize( ::aForms, Len( ::aForms ) - 1 )
+   ENDIF
+   RETURN Nil
+
+
+
+STATIC FUNCTION ReadTree( pp, oForm, aParent, oDesc )
+   LOCAL i, aTree := { }, oNode, subarr
+
+   FOR i := 1 TO Len( oDesc:aItems )
+      oNode := oDesc:aItems[ i ]
+      IF oNode:Type == 3
+         aParent[ 1 ] := CompileMethod( pp, oNode:aItems[ 1 ], oForm )
+      ELSE
+
+         AAdd( aTree, { Nil, oNode:GetAttribute( "name" ),  Val( oNode:GetAttribute( "id" ) ), .T. } )
+         IF ! Empty( oNode:aItems )
+            IF ( subarr := ReadTree( pp, oForm, ATail( aTree ), oNode ) ) <> Nil
+               aTree[ Len( aTree ), 1 ] := subarr
+            ENDIF
+         ENDIF
+      ENDIF
+   NEXT
+
+   RETURN IIf( Empty( aTree ), Nil, aTree )
+
+FUNCTION ParseMethod( cMethod )
+   LOCAL arr := { }, nPos1, nPos2, cLine
+
+   IF ( nPos1 := At( Chr(10),cMethod ) ) == 0
+      Aadd( arr, RTrim( cMethod ) )
+   ELSE
+      Aadd( arr, RTrim( Left( cMethod,nPos1-1 ) ) )
+      while .T.
+         IF ( nPos2 := At( Chr( 10 ), cMethod, nPos1 + 1 ) ) == 0
+            cLine := AllTrim( SubStr( cMethod, nPos1 + 1 ) )
+         ELSE
+            cLine := AllTrim( SubStr( cMethod, nPos1 + 1, nPos2 - nPos1 - 1 ) )
+         ENDIF
+         IF ! Empty( cLine )
+            AAdd( arr, cLine )
+         ENDIF
+         IF nPos2 == 0 .OR. Len( arr ) > 2
+            EXIT
+         ELSE
+            nPos1 := nPos2
+         ENDIF
+      ENDDO
+   ENDIF
+   IF Right( arr[ 1 ], 1 ) < " "
+      arr[ 1 ] := Left( arr[ 1 ], Len( arr[ 1 ] ) - 1 )
+   ENDIF
+   IF Len( arr ) > 1 .AND. Right( arr[ 2 ], 1 ) < " "
+      arr[ 2 ] := Left( arr[ 2 ], Len( arr[ 2 ] ) - 1 )
+   ENDIF
+
+   RETURN arr
+
+STATIC FUNCTION CompileMethod( pp, cMethod, oForm, oCtrl, cName )
+   LOCAL arr, arrExe, nContainer := 0, cCode1, cCode, bOldError, bRes, cParam, nPos
+
+   IF cMethod = Nil .OR. Empty( cMethod )
+      Return Nil
+   ENDIF
+   IF oCtrl <> Nil .AND. Left( oCtrl:oParent:Classname(),2 ) == "HC"
+
+      nContainer := oForm:nContainer
+   ENDIF
+   IF Asc( cMethod ) <= 32
+      cMethod := Ltrim( cMethod )
+   ENDIF
+
+   IF Lower( Left( cMethod ,11 ) ) == "parameters " .AND.  ( nPos := At( Chr(10),cMethod ) ) <> 0
+      while Substr( cMethod, --nPos, 1 ) <= " "; ENDDO
+      cParam := Alltrim( Substr( Left( cMethod,nPos ), 12 ) )
+   ENDIF
+   IF oForm:lDebug
+      arr := {}
+   ELSE
+      arr := ParseMethod( cMethod )
+   ENDIF
+   IF Len( arr ) == 1
+      cCode := Iif( Lower( Left(arr[1],6) ) == "return", Ltrim( Substr( arr[1],8 ) ), arr[1] )
+      bOldError := ERRORBLOCK( {|e|CompileErr(e,cCode)} )
+      BEGIN SEQUENCE
+         bRes := &( "{||" + __pp_process( pp, cCode ) + "}" )
+      end
+      ERRORBLOCK( bOldError )
+      Return bRes
+   ELSEIF !Empty(arr) .AND. !Empty( cParam )
+      IF Len( arr ) == 2
+         cCode := Iif( Lower( Left(arr[2],6) ) == "return", Ltrim( Substr( arr[2],8 ) ), arr[2] )
+         cCode := "{|" + cParam + "|" + __pp_process( pp, cCode ) + "}"
+         bOldError := ERRORBLOCK( {|e|CompileErr(e,cCode)} )
+         BEGIN SEQUENCE
+            bRes := &cCode
+         end
+         ERRORBLOCK( bOldError )
+         Return bRes
+      ELSE
+
+
+         cCode1 := Iif( nContainer==0,  "aControls["+Ltrim(Str(Len(oForm:aControls)))+"]",  "F("+Ltrim(Str(oCtrl:nId))+")" )
+         arrExe := Array(2)
+         arrExe[2] := RdScript( ,cMethod,1,.T.,cName )
+
+
+
+
+
+         cCode :=  "{|" + cParam +  "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer<>0,","+Ltrim(Str(nContainer)),"")+"):" +  Iif( oCtrl==Nil,"aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2],{",  cCode1+":aMethods["+  Ltrim(Str(Len(oCtrl:aMethods)+1))+",2,2],{" ) +  cParam + "})" + "}"
+         arrExe[1] := &cCode
+         Return arrExe
+      ENDIF
+   ENDIF
+
+
+
+   cCode1 := Iif( nContainer==0,  "aControls["+Ltrim(Str(Len(oForm:aControls)))+"]",  "F("+Ltrim(Str(oCtrl:nId))+")" )
+   arrExe := Array(2)
+   arrExe[2] := RdScript( ,cMethod,,.T.,cName )
+
+
+
+
+
+
+   cCode := "{|" + Iif( Empty(cParam),"",cParam ) +  "|DoScript(HFormTmpl():F("+Ltrim(Str(oForm:id))+Iif(nContainer<>0,","+Ltrim(Str(nContainer)),"")+"):" +  Iif( oCtrl==Nil,"aMethods["+Ltrim(Str(Len(oForm:aMethods)+1))+",2,2]" +  Iif( Empty(cParam),"",",{"+cParam+"}" ) + ")",  cCode1+":aMethods["+    Ltrim(Str(Len(oCtrl:aMethods)+1))+",2,2]" +  Iif( Empty(cParam),"",",{"+cParam+"}" ) + ")" ) + "}"
+   arrExe[1] := &cCode
+
+   RETURN arrExe
+
+STATIC PROCEDURE CompileErr( e, stroka )
+
+
+   MsgStop( ErrorMessage( e ) + Chr( 10 ) + Chr( 13 ) + "in" + Chr( 10 ) + Chr( 13 ) +  AllTrim( stroka ), "Script compiling error" )
+   BREAK( nil )
+
+STATIC FUNCTION ReadCtrl( pp, oCtrlDesc, oContainer, oForm )
+   LOCAL oCtrl := HCtrlTmpl():New( oContainer )
+   LOCAL i, j, o, cName, aProp := { }, aMethods := { }, aItems := oCtrlDesc:aItems
+
+   oCtrl:nId      := oForm:nCtrlId
+   oForm:nCtrlId ++
+   oCtrl:cClass   := oCtrlDesc:GetAttribute( "class" )
+   oCtrl:aProp    := aProp
+   oCtrl:aMethods := aMethods
+
+   FOR i := 1 TO Len( aItems )
+      IF aItems[ i ]:title == "style"
+         FOR j := 1 TO Len( aItems[ i ]:aItems )
+            o := aItems[ i ]:aItems[ j ]
+            IF o:title == "property"
+               IF ( cName := Lower( o:GetAttribute( "name" ) ) ) == "varname"
+                  AAdd( oForm:aVars, hfrm_GetProperty( o:aItems[ 1 ] ) )
+               ELSEIF cName == "name"
+                  AAdd( oForm:aNames, hfrm_GetProperty( o:aItems[ 1 ] ) )
+               ENDIF
+               IF cName == "atree"
+                  AAdd( aProp, { cName, ReadTree( pp, oForm,, o ) } )
+               ELSE
+                  AAdd( aProp, { cName, IIf( Empty( o:aItems ), "", o:aItems[ 1 ] ) } )
+               ENDIF
+            ENDIF
+         NEXT
+      ELSEIF aItems[ i ]:title == "method"
+         Aadd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),CompileMethod(pp,aItems[i]:aItems[1]:aItems[1],oForm,oCtrl,cName) } )
+      ELSEIF aItems[ i ]:title == "part"
+         ReadCtrl( pp, aItems[ i ], oCtrl, oForm )
+      ENDIF
+   NEXT
+
+   RETURN Nil
+
+
+
+
+
+
+STATIC FUNCTION CreateCtrl( oParent, oCtrlTmpl, oForm )
+   LOCAL i, j, temp, oCtrl, stroka, varname, xProperty, cType, cPName
+   LOCAL nCtrl := AScan( aClass, oCtrlTmpl:cClass ), xInitValue, cInitName, cVarName
+
+   LOCAL cAliasdbf, caArray, nHeadRows := 1, nFootRows := 0, lDispHead := .T., lDispSep := .T., lSep3d := .F., ladjright := .T.
+   LOCAL nheadColor := 0, nsepColor := 12632256, nLeftCol := 0, nfreeze := 0, nColumns := 0
+
+      LOCAL cKey := "" , cRelexpr := "", cLink := ""
+
+
+
+
+   MEMVAR oPrnt, nId, nStyle, nLeft, nTop
+   MEMVAR onInit, lNoVScroll, lAppend, lAutoedit
+   MEMVAR nWidth, nHeight, oFont, lNoBorder, bSetGet, ctoolTip
+   MEMVAR name, nLength, lVertical, brwType, TickStyle, TickMarks, Tabs, tmp_nSheet
+   MEMVAR aParts
+   MEMVAR lEnabled, shadeID, palette, granularity, highlight, coloring, shcolor
+
+   MEMVAR fBlock, cHeader, nJusHead, lEdit, nJusLine, bWhen, bValid, ClrBlck, HeadClick
+   MEMVAR cValType, nDec, cPicture, lNoLines, lNoHeader, lMultiSelect, Items, nInterval, onAction
+   MEMVAR nBitIp, nState, onClick, amenu, ccaption, hbmp, nBStyle, hIco
+
+
+
+
+
+
+
+
+   PUBLIC coName
+   IF nCtrl == 0
+      IF Lower( oCtrlTmpl:cClass ) == "pagesheet"
+         tmp_nSheet ++
+         oParent:StartPage( Tabs[ tmp_nSheet ] )
+         FOR i := 1 TO Len( oCtrlTmpl:aControls )
+            CreateCtrl( oParent, oCtrlTmpl:aControls[ i ], oForm )
+         NEXT
+         oParent:EndPage()
+      ENDIF
+      RETURN Nil
+   ENDIF
+
+
+   stroka := aCtrls[ nCtrl ]
+   IF ( i := At( "New(", stroka ) ) <> 0
+      i += 4
+      while .T.
+         IF ( j := At( ",", stroka, i ) ) <> 0 .OR. ( j := At( ")", stroka, i ) ) <> 0
+            IF j - i > 0
+               varname := SubStr( stroka, i, j - i )
+               __mvPrivate( varname )
+               IF SubStr( varname, 2 ) == "InitValue"
+                  cInitName  := varname
+                  xInitValue := IIf( Left( varname, 1 ) == "n", 1, IIf( Left( varname, 1 ) == "c", "", .F. ) )
+               ENDIF
+               stroka := Left( stroka, i - 1 ) + "m->" + SubStr( stroka, i )
+               i := j + 4
+            ELSE
+               i := j + 1
+            ENDIF
+         ELSE
+            EXIT
+         ENDIF
+      ENDDO
+   ENDIF
+   oPrnt  := oParent
+   nId    := oCtrlTmpl:nId
+   nStyle := 0
+   shadeID := 0
+   lEnabled := .T.
+
+   lAppend   := .F.
+   lAutoedit := .F.
+   lMultiSelect := .F.
+   lNoLines  := .F.
+   lNoHeader := .F.
+   lNoBorder := .F.
+   lNoVScroll := .F.
+
+
+   caArray := { }
+   nLength := Nil
+   nDec := 0
+   nJusHead := 0
+   nJusLine := 0
+   lEdit    := .F.
+   cPicture := Nil
+   Items := { }
+   nInterval := 0
+   onAction := Nil
+   bWhen := Nil
+   bValid := Nil
+   ClrBlck := Nil
+   HeadClick := Nil
+
+   ccaption := ""
+   nBitIp := 0
+   nState := 4
+   onClick := Nil
+   ctoolTip := ""
+   amenu := ""
+
+   palette :=  1
+   granularity := 0
+   highlight := 0
+   coloring := 0
+   shcolor := 0
+
+   FOR i := 1 TO Len( oCtrlTmpl:aProp )
+      xProperty := hfrm_GetProperty( oCtrlTmpl:aProp[ i, 2 ] )
+      cPName := oCtrlTmpl:aProp[ i, 1 ]
+
+      IF cPName == "geometry"
+         nLeft   := Val( xProperty[ 1 ] )
+         nTop    := Val( xProperty[ 2 ] )
+         nWidth  := Val( xProperty[ 3 ] )
+         nHeight := Val( xProperty[ 4 ] )
+         IF __ObjHasMsg( oParent, "ID" )
+            nLeft -= oParent:nLeft
+            nTop -= oParent:nTop
+            IF __ObjHasMsg( oParent:oParent, "ID" )
+               nLeft -= oParent:oParent:nLeft
+               nTop -= oParent:oParent:nTop
+            ENDIF
+         ENDIF
+      ELSEIF cPName == "font"
+         oFont := hfrm_FontFromxml( xProperty )
+      ELSEIF cPName == "border"
+         IF xProperty
+            nStyle += 8388608
+         ELSE
+            lNoBorder := .T.
+         ENDIF
+      ELSEIF cPName == "justify"
+         nStyle += IIf( xProperty == "Center", 1, IIf( xProperty == "Right", 2, 0 ) )
+      ELSEIF cPName == "multiline" .OR. cPName == "wordwrap"
+         IF xProperty
+            nStyle += 4
+         ENDIF
+      ELSEIF cPName == "password"
+         IF xProperty
+            nStyle += 32
+         ENDIF
+      ELSEIF cPName == "autohscroll"
+         IF xProperty
+            nStyle += 128 + IIf( oCtrlTmpl:cClass == "browse", 1048576, 0 )
+         ENDIF
+      ELSEIF cPName == "autovscroll"
+         IF xProperty
+            nStyle += 64
+         ENDIF
+      ELSEIF cPName == "3dlook"
+         IF xProperty
+            IF oCtrlTmpl:cClass == "button" .OR. oCtrlTmpl:cClass == "ownerbutton"
+               nStyle += 4
+            ELSE
+               nStyle += IIf( oCtrlTmpl:cClass = "checkbox", 0x00001000, 0 )
+            ENDIF
+         ENDIF
+      ELSEIF cPName == "effect"
+         shadeID := AScan( aShadeID, xProperty ) - 1
+      ELSEIF cPName == "palette"
+         palette := AScan( aPalette, xProperty ) - 1
+      ELSEIF cPName == "vscroll"
+         IF xProperty
+            nStyle += 2097152
+         ENDIF
+
+      ELSEIF cPName == "alignment"
+         nStyle += IIf( xProperty == "top", 0x00000400, IIf( xProperty == "bottom", 0x00000800, 0 ) )
+         nStyle += IIf( "right" $ xProperty, 32, 0 )
+      ELSEIF cPName == "layout"
+         nStyle += Val( xProperty )
+      ELSEIF cPName == "checked"
+         IF xProperty
+            nStyle += 1
+         ENDIF
+      ELSEIF cPName == "taborientation"
+         nStyle += Val( xProperty )
+      ELSEIF cPName == "tabstretch"
+         nStyle += Val( xProperty )
+
+      ELSEIF cPName == "bitmap" .AND. oCtrlTmpl:cClass == "buttonex"
+         hbmp := HBitmap():addfile( Trim( xProperty ) )
+         hbmp := hbmp:handle
+      ELSEIF cPName == "icon" .AND. oCtrlTmpl:cClass == "buttonex"
+         hIco := HIcon():addfile( xProperty, NIL )
+      ELSEIF cPName == "pictureposition"
+         nBStyle := Val( xProperty )
+      ELSEIF cPName == "style"
+         nStyle += xProperty
+      ELSEIF cPName == "state"
+         nState := xProperty
+      ELSEIF cPName == "header"
+         IF xProperty
+            lNoHeader := .T.
+         ENDIF
+      ELSEIF cPName == "gridlines"
+         IF xProperty
+            lNoLines  := .T.
+         ENDIF
+      ELSEIF cPName == "append"
+         IF xProperty
+            lAppend   := .F.
+         ENDIF
+      ELSEIF cPName == "autoedit"
+         IF xProperty
+            lAutoedit := .F.
+         ENDIF
+      ELSEIF cPName == "multiselect"
+         IF xProperty
+            lMultiSelect := .T.
+         ENDIF
+      ELSEIF cPName == "interval"
+         nInterval := xProperty
+
+
+
+
+      ELSEIF cPName == "aarray"
+         caArray := IIf( xProperty <> Nil .AND. ! Empty( xProperty ), &( xProperty ) , { } )
+      ELSEIF cPName == "childorder"
+         cKey := IIf( xProperty <> Nil .AND. ! Empty( xProperty ), Trim( xProperty ), "" )
+      ELSEIF cPName == "relationalexpr"
+         cRelexpr := IIf( xProperty <> Nil .AND. ! Empty( xProperty ), Trim( xProperty ), "" )
+      ELSEIF cPName == "linkmaster"
+         cLink := IIf( xProperty <> Nil .AND. ! Empty( xProperty ), Trim( xProperty ), "" )
+
+
+
+
+
+
+
+
+
+
+      ELSEIF cPName == "columnscount"
+         nColumns :=  xProperty
+      ELSEIF cPName == "columnsfreeze"
+         nfreeze := xProperty
+      ELSEIF cPName == "headrows"
+         nHeadRows := xProperty
+      ELSEIF cPName == "footerrows"
+         nFootRows := xProperty
+      ELSEIF cPName == "showheader"
+         lDispHead := xProperty
+      ELSEIF cPName == "showgridlinessep"
+         lDispSep := xProperty
+      ELSEIF cPName == "gridlinessep3d"
+         lSep3d := xProperty
+      ELSEIF cPName == "headtextcolor"
+         nheadColor := xProperty
+      ELSEIF cPName == "gridlinessepcolor"
+         nsepColor := xProperty
+      ELSEIF cPName == "leftcol"
+         nLeftCol := xProperty
+      ELSEIF cPName == "adjright"
+         ladjright := xProperty
+
+      ELSEIF cPName == "heading"
+         cHeader := IIf( xProperty <> Nil , xProperty , "" )
+      ELSEIF cPName == "fieldname"
+         fBlock  := Lower( IIf( xProperty <> Nil .AND. ! Empty( xProperty ), xProperty , FieldName( i ) ) )
+      ELSEIF cPName == "fieldexpr"
+         fBlock  := Lower( IIf( xProperty <> Nil .AND. ! Empty( xProperty ), xProperty , fBlock ) )
+
+
+
+      ELSEIF cPName == "length"
+         nLength :=   xProperty
+      ELSEIF cPName == "picture"
+         cPicture := IIf( Empty( xProperty ), Nil, xProperty )
+      ELSEIF cPName == "editable"
+         lEdit := xProperty
+      ELSEIF cPName == "justifyheader"
+         nJusHead := Val( xProperty )
+      ELSEIF cPName == "justifyline"
+         nJusLine := Val( xProperty )
+
+
+      ELSEIF cPName == "caption" .AND.oCtrlTmpl:cClass = "toolbutton"
+         ccaption := xProperty
+
+      ELSEIF cPName == "atree"
+         BuildMenu( xProperty, oForm:oDlg:handle, oForm:oDlg )
+      ELSE
+         IF cPName == "tooltip"
+            cPName := "c" + cPName
+         ELSEIF cPName == "name"
+            __mvPrivate( cPName )
+            cOName := IIf( oCtrlTmpl:cClass = "browse" .OR. oCtrlTmpl:cClass = "toolbar", xProperty , cOName )
+         ENDIF
+
+
+         __mvPut( cPName, xProperty )
+
+         IF cPName == "varname" .AND. ! Empty( xProperty )
+            cVarName := xProperty
+            bSetGet := &( "{|v|Iif(v==Nil," + xProperty + "," + xProperty + ":=v)}" )
+            IF __mvGet( xProperty ) == Nil
+
+
+                  __mvPut( xProperty, xInitValue )
+               ELSEIF cInitName <> Nil
+
+
+                  __mvPut( cInitName, __mvGet( xProperty ) )
+               ENDIF
+            ELSEIF SubStr( cPName, 2 ) == "initvalue"
+               xInitValue := xProperty
+            ENDIF
+         ENDIF
+      NEXT
+      FOR i := 1 TO Len( oCtrlTmpl:aMethods )
+         IF ( cType := ValType( oCtrlTmpl:aMethods[ i, 2 ] ) ) == "B"
+            __mvPut( oCtrlTmpl:aMethods[ i, 1 ], oCtrlTmpl:aMethods[ i, 2 ] )
+         ELSEIF cType == "A"
+            __mvPut( oCtrlTmpl:aMethods[ i, 1 ], oCtrlTmpl:aMethods[ i, 2, 1 ] )
+         ENDIF
+      NEXT
+
+
+      IF oCtrlTmpl:cClass == "updown"
+         bSetGet := IIf( bSetGet == Nil, "1", bSetGet )
+      ENDIF
+
+      IF oCtrlTmpl:cClass == "combobox"
+         IF ( AScan( oCtrlTmpl:aProp, { | a | Lower( a[ 1 ] ) == "nmaxlines" } ) ) > 0
+
+         ELSE
+
+         ENDIF
+      ELSEIF oCtrlTmpl:cClass == "line"
+         nLength := IIf( lVertical == Nil.OR. ! lVertical, nWidth, nHeight )
+      ELSEIF oCtrlTmpl:cClass == "browse"
+         brwType := IIf( brwType == Nil .OR. brwType == "dbf", 2, 1 )
+      ELSEIF oCtrlTmpl:cClass == "trackbar"
+         IF TickStyle == Nil .OR. TickStyle == "auto"
+            TickStyle := 1
+         ELSEIF TickStyle == "none"
+            TickStyle := 16
+         ELSE
+            TickStyle := 0
+         ENDIF
+         IF TickMarks == Nil .OR. TickMarks == "bottom"
+            TickMarks := 0
+         ELSEIF TickMarks == "both"
+            TickMarks := 8
+         ELSE
+            TickMarks := 4
+         ENDIF
+      ELSEIF oCtrlTmpl:cClass == "status"
+         IF aParts <> Nil
+            FOR i := 1 TO Len( aParts )
+               aParts[ i ] := Val( aParts[ i ] )
+            NEXT
+         ENDIF
+         onInit := { | o | o:Move(,, o:nWidth - 1 ) }
+      ENDIF
+
+      IF oCtrlTmpl:cClass == "column"
+         cValType := Type( "&fblock" )
+         IF &( cOName ):Type = 2 .AND. ! Empty( Alias() )
+            cAliasdbf := Alias()
+            temp = StrTran( Upper( fBlock ), Alias() + "->", "" )
+
+            temp = SubStr( temp, 1, IIf( At( "+", temp ) > 0, At( "+", temp ) - 1, Len( temp ) ) )
+            j := { }
+            AEval( &cAliasdbf->( ( DBStruct() ) ), { | aField | AAdd( j, aField[ 1 ] ) } )
+            IF m->nLength = Nil
+
+
+               m->nLength := &cAliasdbf->( fieldlen( AScan( j, temp ) ) )
+               m->nLength := IIf( m->nLength = 0 , IIf( Type( "&fblock" ) = "C", Len( &fBlock ), 10 ), m->nLength )
+            ENDIF
+            m->nDec := &cAliasdbf->( FIELDDEC( AScan( j, temp ) ) )
+            cHeader  := IIf( cHeader == Nil .OR. Empty( cHeader ) , temp, cHeader )
+            fBlock   := { || &fBlock }
+         ELSE
+            m->nLength := IIf( m->nLength = Nil , 10, m->nLength )
+            fBlock := IIf( fBlock = Nil, ".T.", fBlock )
+            fBlock := IIf( cValType = "B", &fBlock, { || &fBlock } )
+         ENDIF
+         IF ! Empty( cPicture ) .AND. At( ".9", cPicture ) > 0 .AND. nDec = 0
+            m->nDec := Len( SubStr( cPicture, At( ".9", cPicture ) + 1 ) )
+         ENDIF
+         stroka   := cOName + ":" + stroka
+      ENDIF
+      IF oCtrlTmpl:cClass == "toolbutton"
+         stroka   := cOName + ":" + stroka
+      ENDIF
+      oCtrl := &stroka
+      IF oCtrlTmpl:cClass == "browse"
+         oCtrl:aColumns := { }
+         oCtrl:freeze := nfreeze
+         oCtrl:nHeadRows := nHeadRows
+         oCtrl:nFootRows := nFootRows
+         oCtrl:lDispHead := lDispHead
+         oCtrl:lDispSep := lDispSep
+         oCtrl:lSep3d := lSep3d
+         oCtrl:headColor := nheadColor
+         oCtrl:sepColor := nsepColor
+         oCtrl:nLeftCol := nLeftCol
+         oCtrl:ladjright := ladjright
+
+         oCtrl:nColumns := nColumns
+         oCtrl:Type := brwType
+         IF brwType = 2
+
+            oCtrl:Alias := cAliasdbf
+            IF ! Empty( cKey )
+               &( oCtrl:Alias ) ->( DBSetOrder( cKey ) )
+               cKey := ( oCtrl:Alias ) ->( ordkey( cKey ) )
+               cKey := IIf( At( "+", cKey ) > 0, Left( cKey, At( "+", cKey ) - 1 ), cKey )
+            ENDIF
+            cRelexpr := IIf( ! Empty( cRelexpr ), cRelexpr, cKey )
+            IF ! Empty( cRelexpr + cLink )
+               &cLink->( DBSetRelation( oCtrl:Alias, { || &cRelexpr }, cRelexpr ) )
+               &( oCtrl:Alias ) ->( DBSetFilter( &( "{|| " + cRelexpr + " = " + cLink + "->(" + cRelexpr + ")}" ), "&crelexpr = &clink->(&crelexpr) " ) )
+            ENDIF
+
+            IF Empty( oCtrlTmpl:aControls )
+               dbSelectArea( ( oCtrl:Alias ) )
+               j := ( DBStruct() )
+
+               FOR i := 1 TO IIf( oCtrl:nColumns = 0, FCount(), oCtrl:nColumns )
+
+                  m->cHeader := FieldName( i )
+                  m->fBlock := FieldBlock( FieldName( i ) )
+                  m->cValType := j[ i, 2 ]
+                  m->nLength := j[ i, 3 ]
+                  m->nDec := j[ i, 4 ]
+                  m->cPicture := Nil
+                  lEdit := .T.
+                  oCtrl:AddColumn( HColumn():New( cHeader, fBlock, cValType, nLength, nDec, lEdit ) )
+               NEXT
+            ENDIF
+         ELSE
+            oCtrl:aArray := caArray
+            oCtrl:AddColumn( HColumn():New( , { | v, o | IIf( v <> Nil, o:aArray[ o:nCurrent ] := v, o:aArray[ o:nCurrent ] ) }, "C", 100, 0 ) )
+         ENDIF
+      ENDIF
+      IF cVarName <> Nil
+         oCtrl:cargo := cVarName
+      ENDIF
+      IF Type( "m->name" ) == "C"
+
+         __mvPut( name, oCtrl )
+         name := Nil
+      ENDIF
+      IF ! Empty( oCtrlTmpl:aControls )
+         IF oCtrlTmpl:cClass == "page"
+            __mvPrivate( "tmp_nSheet" )
+            __mvPut( "tmp_nSheet", 0 )
+         ENDIF
+         FOR i := 1 TO Len( oCtrlTmpl:aControls )
+            CreateCtrl( IIf( oCtrlTmpl:cClass == "group".OR.oCtrlTmpl:cClass == "radiogroup", oParent, oCtrl ), oCtrlTmpl:aControls[ i ], oForm )
+         NEXT
+         IF oCtrlTmpl:cClass == "radiogroup"
+            HRadioGroup():EndGroup()
+         ENDIF
+      ENDIF
+
+      RETURN Nil
+
+   FUNCTION RadioNew( oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFont, onInit, onSize, onPaint, TextColor, BackColor, nInitValue, bSetGet )
+      LOCAL oCtrl := HGroup():New( oPrnt, nId, nStyle, nLeft, nTop, nWidth, nHeight, caption, oFont, onInit, onSize, onPaint, TextColor, BackColor )
+      HRadioGroup():New( nInitValue, bSetGet )
+      RETURN oCtrl
+
+
+   FUNCTION Font2XML( oFont )
+      LOCAL aAttr := { }
+
+      AAdd( aAttr, { "name", oFont:name } )
+      AAdd( aAttr, { "width", LTrim( Str( oFont:width, 5 ) ) } )
+      AAdd( aAttr, { "height", LTrim( Str( oFont:height, 5 ) ) } )
+      IF oFont:weight <> 0
+         AAdd( aAttr, { "weight", LTrim( Str( oFont:weight, 5 ) ) } )
+      ENDIF
+      IF oFont:charset <> 0
+         AAdd( aAttr, { "charset", LTrim( Str( oFont:charset, 5 ) ) } )
+      ENDIF
+      IF oFont:Italic <> 0
+         AAdd( aAttr, { "italic", LTrim( Str( oFont:Italic, 5 ) ) } )
+      ENDIF
+      IF oFont:Underline <> 0
+         AAdd( aAttr, { "underline", LTrim( Str( oFont:Underline, 5 ) ) } )
+      ENDIF
+
+      RETURN HXMLNode():New( "font", 1, aAttr )
+
+   FUNCTION hfrm_FontFromXML( oXmlNode )
+      LOCAL width  := oXmlNode:GetAttribute( "width" )
+      LOCAL height := oXmlNode:GetAttribute( "height" )
+      LOCAL weight := oXmlNode:GetAttribute( "weight" )
+      LOCAL charset := oXmlNode:GetAttribute( "charset" )
+      LOCAL ita   := oXmlNode:GetAttribute( "italic" )
+      LOCAL under := oXmlNode:GetAttribute( "underline" )
+
+      IF width <> Nil
+         width := Val( width )
+      ENDIF
+      IF height <> Nil
+         height := Val( height )
+      ENDIF
+      IF weight <> Nil
+         weight := Val( weight )
+      ENDIF
+      IF charset <> Nil
+         charset := Val( charset )
+      ENDIF
+      IF ita <> Nil
+         ita := Val( ita )
+      ENDIF
+      IF under <> Nil
+         under := Val( under )
+      ENDIF
+
+
+
+      RETURN HFont():Add( oXmlNode:GetAttribute( "name" ),   width, height, weight, charset,    ita, under )
+
+   FUNCTION hfrm_Str2Arr( stroka )
+      LOCAL arr := { }, pos1 := 2, pos2 := 1
+
+      IF Len( stroka ) > 2
+         while pos2 > 0
+            while SubStr( stroka, pos1, 1 ) <= " " ; pos1 ++ ; ENDDO
+            pos2 := At( ",", stroka, pos1 )
+            AAdd( arr, Trim( SubStr( stroka, pos1, IIf( pos2 > 0, pos2 - pos1, At( "}", stroka, pos1 ) - pos1 ) ) ) )
+            pos1 := pos2 + 1
+         ENDDO
+      ENDIF
+
+      RETURN arr
+
+   FUNCTION hfrm_Arr2Str( arr )
+      LOCAL stroka := "{", i, cType
+
+      FOR i := 1 TO Len( arr )
+         IF i > 1
+            stroka += ","
+         ENDIF
+         cType := ValType( arr[ i ] )
+         IF cType == "C"
+            stroka += arr[ i ]
+         ELSEIF cType == "N"
+            stroka += LTrim( Str( arr[ i ] ) )
+         ENDIF
+      NEXT
+
+      RETURN stroka + "}"
+
+   FUNCTION hfrm_GetProperty( xProp )
+      LOCAL c
+
+      IF ValType( xProp ) == "C"
+         c := Left( xProp, 1 )
+         IF c == "["
+            xProp := SubStr( xProp, 2, Len( xProp ) - 2 )
+         ELSEIF c == "."
+            xProp := ( SubStr( xProp, 2, 1 ) == "T" )
+         ELSEIF c == "{"
+            xProp := hfrm_Str2Arr( xProp )
+         ELSE
+            xProp := Val( xProp )
+         ENDIF
+      ENDIF
+
+      RETURN xProp
+
+
+
+   _HB_CLASS HRepItem ; UTILITY FUNCTION HRepItem(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HRepItem" , { HBObject():Classh } ) ) ;
+
+      _HB_MEMBER { cClass} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cClass" }, .F., .F. ), )
+      _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+      _HB_MEMBER { aControls} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aControls" }, .F., .F. ), )
+      _HB_MEMBER { aProp, aMethods} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aProp" , "aMethods" }, .F., .F. ), )
+      _HB_MEMBER { oPen, obj} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPen" , "obj" }, .F., .F. ), )
+      _HB_MEMBER { lPen} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lPen" }, .F., .F. ), )
+      _HB_MEMBER { y2} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "y2" }, .F., .F. ), )
+      _HB_MEMBER { lMark} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lMark" }, .F., .F. ), )
+
+      _HB_MEMBER New(oParent); IIF( .F., s_oClass:ModInline( "New", {|Self,oParent | Self, ( ::oParent := oParent, AAdd( oParent:aControls, Self ), Self ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "New", {|Self,oParent | Self, ( ::oParent := oParent, AAdd( oParent:aControls, Self ), Self ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   ; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HRepItem ;
+
+_HB_CLASS HRepTmpl ; UTILITY FUNCTION HRepTmpl(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HRepTmpl" , { HBObject():Classh } ) ) ;
+
+_HB_MEMBER { aReports} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aReports" }, .F. ), )
+_HB_MEMBER { maxId} ; IIF( !.F., s_oClass:AddMultiClsData(, 0, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "maxId" }, .F. ), )
+   _HB_MEMBER { aControls} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aControls" }, .F., .F. ), )
+   _HB_MEMBER { aProp} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aProp" }, .F., .F. ), )
+   _HB_MEMBER { aMethods} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aMethods" }, .F., .F. ), )
+   _HB_MEMBER { aVars} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aVars" }, .F., .F. ), )
+   _HB_MEMBER { aFuncs} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aFuncs" }, .F., .F. ), )
+   _HB_MEMBER { lDebug} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lDebug" }, .F., .F. ), )
+   _HB_MEMBER { id} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "id" }, .F., .F. ), )
+   _HB_MEMBER { cId} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cId" }, .F., .F. ), )
+
+   _HB_MEMBER { nKoefX, nKoefY, nKoefPix} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nKoefX" , "nKoefY" , "nKoefPix" }, .F., .F. ), )
+   _HB_MEMBER { nTOffset, nAOffSet, ny} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTOffset" , "nAOffSet" , "ny" }, .F., .F. ), )
+   _HB_MEMBER { lNextPage, lFinish} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lNextPage" , "lFinish" }, .F., .F. ), )
+   _HB_MEMBER { oPrinter} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPrinter" }, .F., .F. ), )
+
+   _HB_MEMBER Read( fname, cId); IIF( .F., s_oClass:ModMethod( "Read", @HRepTmpl_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Read", @HRepTmpl_Read(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Print( printer, lPreview, p1, p2, p3); IIF( .F., s_oClass:ModMethod( "Print", @HRepTmpl_Print(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Print", @HRepTmpl_Print(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PrintItem( oItem); IIF( .F., s_oClass:ModMethod( "PrintItem", @HRepTmpl_PrintItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PrintItem", @HRepTmpl_PrintItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReleaseObj( aControls); IIF( .F., s_oClass:ModMethod( "ReleaseObj", @HRepTmpl_ReleaseObj(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReleaseObj", @HRepTmpl_ReleaseObj(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Find( cId); IIF( .F., s_oClass:ModMethod( "Find", @HRepTmpl_Find(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Find", @HRepTmpl_Find(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @HRepTmpl_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @HRepTmpl_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HRepTmpl ;
+
+UTILITY STATIC function HRepTmpl_Read( fname, cId) ; local Self AS CLASS HRepTmpl := QSelf() AS CLASS HRepTmpl
+   LOCAL oDoc
+   LOCAL i, j, aItems, o, aProp := { }, aMethods := { }
+   LOCAL cPre, cName, pp
+
+   IF cId <> Nil .AND. ( o := HFormTmpl():Find( cId ) ) <> Nil
+      RETURN o
+   ENDIF
+
+   IF Left( fname, 5 ) == "<?xml"
+      oDoc := HXMLDoc():ReadString( fname )
+   ELSE
+      oDoc := HXMLDoc():Read( fname )
+   ENDIF
+
+   IF Empty( oDoc:aItems )
+      MsgStop( "Can't open " + fname )
+      RETURN Nil
+   ELSEIF oDoc:aItems[ 1 ]:title <> "part" .OR. oDoc:aItems[ 1 ]:GetAttribute( "class" ) <> "report"
+      MsgStop( "Report description isn't found" )
+      RETURN Nil
+   ENDIF
+
+   ::maxId ++
+   ::id := ::maxId
+   ::cId := cId
+   ::aProp := aProp
+   ::aMethods := aMethods
+
+   pp := __pp_init()
+   AAdd( ::aReports, Self )
+   aItems := oDoc:aItems[ 1 ]:aItems
+   FOR i := 1 TO Len( aItems )
+      IF aItems[ i ]:title == "style"
+         FOR j := 1 TO Len( aItems[ i ]:aItems )
+            o := aItems[ i ]:aItems[ j ]
+            IF o:title == "property"
+               IF ! Empty( o:aItems )
+                  AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), hfrm_GetProperty( o:aItems[ 1 ] ) } )
+                  IF Atail(aProp)[1] == "ldebug" .AND. hfrm_GetProperty( Atail(aProp)[2] )
+                     ::lDebug := .T.
+                     SetDebugInfo( .T. )
+                  ENDIF
+               ENDIF
+            ENDIF
+         NEXT
+      ELSEIF aItems[ i ]:title == "method"
+         Aadd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),RdScript(,aItems[i]:aItems[1]:aItems[1],,.T.,cName) } )
+         IF aMethods[ ( j := Len( aMethods ) ), 1 ] == "common"
+            ::aFuncs := ::aMethods[ j, 2 ]
+            FOR j := 1 TO Len( ::aFuncs[ 2 ] )
+
+
+               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] +  "( <params,...> ) => callfunc('"  +  Upper( ::aFuncs[ 2, j, 1 ] ) + "',\{ <params> \}, oReport:aFuncs )"
+               __pp_process( pp, cPre )
+
+
+               cPre := "#xtranslate " + ::aFuncs[ 2, j, 1 ] +  "() => callfunc('"  +  Upper( ::aFuncs[ 2, j, 1 ] ) + "',, oReport:aFuncs )"
+               __pp_process( pp, cPre )
+            NEXT
+         ENDIF
+      ELSEIF aItems[ i ]:title == "part"
+         ReadRepItem( aItems[ i ], Self )
+      ENDIF
+   NEXT
+   pp := NIL
+   SetDebugInfo( .F. )
+   RETURN Self
+
+UTILITY STATIC function HRepTmpl_Print( printer, lPreview, p1, p2, p3) ; local Self AS CLASS HRepTmpl := QSelf() AS CLASS HRepTmpl
+   LOCAL oPrinter := IIf( printer <> Nil, IIf( ValType( printer ) == "O", printer, HPrinter():New( printer, .T. ) ), HPrinter():New(, .T. ) )
+   LOCAL i, j, aMethod, xProperty, oFont, xTemp, nPWidth, nPHeight, nOrientation := 1
+
+   MEMVAR oReport
+   PRIVATE oReport := Self
+
+   IF oPrinter == Nil
+      RETURN Nil
+   ENDIF
+   SetDebugInfo( ::lDebug )
+   SetDebugger( ::lDebug )
+
+   FOR i := 1 TO Len( ::aProp )
+      IF ::aProp[ i, 1 ] == "paper size"
+         IF Lower( ::aProp[ i, 2 ] ) == "a4"
+            nPWidth  := 210
+            nPHeight := 297
+         ELSEIF Lower( ::aProp[ i, 2 ] ) == "a3"
+            nPWidth  := 297
+            nPHeight := 420
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "orientation"
+         IF Lower( ::aProp[ i, 2 ] ) <> "portrait"
+            xTemp    := nPWidth
+            nPWidth  := nPHeight
+            nPHeight := xTemp
+            nOrientation := 2
+         ENDIF
+      ELSEIF ::aProp[ i, 1 ] == "font"
+         xProperty := ::aProp[ i, 2 ]
+      ELSEIF ::aProp[ i, 1 ] == "variables"
+         FOR j := 1 TO Len( ::aProp[ i, 2 ] )
+            __mvPrivate( ::aProp[ i, 2 ][ j ] )
+         NEXT
+      ENDIF
+   NEXT
+   xTemp := GetDeviceArea( oPrinter:hDCPrn )
+   ::nKoefPix := ( ( xTemp[ 1 ] / xTemp[ 3 ] + xTemp[ 2 ] / xTemp[ 4 ] ) / 2 ) / 3.8
+   oPrinter:SetMode( nOrientation )
+   ::nKoefX := oPrinter:nWidth / nPWidth
+   ::nKoefY := oPrinter:nHeight / nPHeight
+   IF ( aMethod := aGetSecond( ::aMethods, "onrepinit" ) ) <> Nil
+      DoScript( aMethod, { p1, p2, p3 } )
+   ENDIF
+   IF xProperty <> Nil
+      oFont := hrep_FontFromxml( oPrinter, xProperty, aGetSecond( ::aProp, "fonth" ) * ::nKoefY )
+   ENDIF
+
+   oPrinter:StartDoc( lPreview )
+   ::lNextPage := .F.
+
+   ::lFinish := .T.
+   ::oPrinter := oPrinter
+   while .T.
+
+      oPrinter:StartPage()
+      IF oFont <> Nil
+         oPrinter:SetFont( oFont )
+      ENDIF
+      ::nTOffset := ::nAOffSet := ::ny := 0
+
+      FOR i := 1 TO Len( ::aControls )
+         ::PrintItem( ::aControls[ i ] )
+      NEXT
+      oPrinter:EndPage()
+      IF ::lFinish
+         EXIT
+      ENDIF
+   ENDDO
+
+   oPrinter:EndDoc()
+   ::ReleaseObj( ::aControls )
+   IF ( aMethod := aGetSecond( ::aMethods, "onrepexit" ) ) <> Nil
+      DoScript( aMethod )
+   ENDIF
+   IF lPreview <> Nil .AND. lPreview
+      oPrinter:Preview()
+   ENDIF
+   oPrinter:END()
+
+   RETURN Nil
+
+UTILITY STATIC function HRepTmpl_PrintItem( oItem) ; local Self AS CLASS HRepTmpl := QSelf() AS CLASS HRepTmpl
+   LOCAL aMethod, lRes := .T., i, nPenType, nPenWidth
+   LOCAL x, y, x2, y2, cText, nJustify, xProperty, nLines, dy, nFirst, ny
+
+   MEMVAR lLastCycle, lSkipItem
+
+   IF oItem:cClass == "area"
+      cText := aGetSecond( oItem:aProp, "areatype" )
+      IF cText == "DocHeader"
+         IF ::oPrinter:nPage > 1
+            ::nAOffSet := Val( aGetSecond( oItem:aProp, "geometry" )[ 4 ] ) * ::nKoefY
+            RETURN Nil
+         ENDIF
+      ELSEIF cText == "DocFooter"
+         IF ::lNextPage
+            RETURN Nil
+         ENDIF
+      ELSEIF cText == "Table" .AND. ::lNextPage
+         PRIVATE lSkipItem := .T.
+      ENDIF
+   ENDIF
+   IF ! __mvExist( "LSKIPITEM" ) .OR. ! lSkipItem
+      IF ( aMethod := aGetSecond( oItem:aMethods, "onbegin" ) ) <> Nil
+         DoScript( aMethod )
+      ENDIF
+      IF ( aMethod := aGetSecond( oItem:aMethods, "condition" ) ) <> Nil
+         lRes := DoScript( aMethod )
+         IF ! lRes .AND. oItem:cClass == "area"
+            ::nAOffSet += Val( aGetSecond( oItem:aProp, "geometry" )[ 4 ] ) * ::nKoefY
+         ENDIF
+      ENDIF
+   ENDIF
+   IF lRes
+      xProperty := aGetSecond( oItem:aProp, "geometry" )
+      x   := Val( xProperty[ 1 ] ) * ::nKoefX
+      y   := Val( xProperty[ 2 ] ) * ::nKoefY
+      x2  := Val( xProperty[ 5 ] ) * ::nKoefX
+      y2  := Val( xProperty[ 6 ] ) * ::nKoefY
+
+
+      IF oItem:cClass == "area"
+         oItem:y2 := y2
+
+
+         IF ( xProperty := aGetSecond( oItem:aProp, "varoffset" ) ) == Nil  .OR. ! xProperty
+            ::nTOffset := ::nAOffSet := 0
+         ENDIF
+         IF cText == "Table"
+            PRIVATE lLastCycle := .F.
+            ::lFinish := .F.
+            while ! lLastCycle
+               ::ny := 0
+               FOR i := 1 TO Len( oItem:aControls )
+                  IF ! ::lNextPage .OR. oItem:aControls[ i ]:lMark
+                     oItem:aControls[ i ]:lMark := ::lNextPage := .F.
+                     IF __mvExist( "LSKIPITEM" )
+                        lSkipItem := .F.
+                     ENDIF
+                     ::PrintItem( oItem:aControls[ i ] )
+                     IF ::lNextPage
+                        RETURN Nil
+                     ENDIF
+                  ENDIF
+               NEXT
+               IF ::lNextPage
+                  EXIT
+               ELSE
+                  ::nTOffset := ::ny - y
+                  IF ( aMethod := aGetSecond( oItem:aMethods, "onnextline" ) ) <> Nil
+                     DoScript( aMethod )
+                  ENDIF
+               ENDIF
+            ENDDO
+            IF lLastCycle
+
+               ::nAOffSet += y2 - y + 1 - ( ::ny - y )
+               ::nTOffset := 0
+               ::lFinish := .T.
+            ENDIF
+         ELSE
+            FOR i := 1 TO Len( oItem:aControls )
+               ::PrintItem( oItem:aControls[ i ] )
+            NEXT
+         ENDIF
+         lRes := .F.
+      ENDIF
+   ENDIF
+
+   IF lRes
+
+      y  -= ::nAOffSet
+      y2 -= ::nAOffSet
+      IF ::nTOffset > 0
+         y  += ::nTOffset
+         y2 += ::nTOffset
+         IF y2 > oItem:oParent:y2
+            oItem:lMark := .T.
+            ::lNextPage := .T.
+            ::nTOffset := ::nAOffSet := 0
+
+            RETURN Nil
+         ENDIF
+      ENDIF
+
+      IF oItem:lPen .AND. oItem:oPen == Nil
+         IF ( xProperty := aGetSecond( oItem:aProp, "pentype" ) ) <> Nil
+            nPenType := AScan( aPenType, xProperty ) - 1
+         ELSE
+            nPenType := 0
+         ENDIF
+         IF ( xProperty := aGetSecond( oItem:aProp, "penwidth" ) ) <> Nil
+            nPenWidth := Round( xProperty * ::nKoefPix, 0 )
+         ELSE
+            nPenWidth := Round( ::nKoefPix, 0 )
+         ENDIF
+         oItem:oPen := HPen():Add( nPenType, nPenWidth )
+
+      ENDIF
+      IF oItem:cClass == "label"
+         IF ( aMethod := aGetSecond( oItem:aMethods, "expression" ) ) <> Nil
+            cText := DoScript( aMethod )
+         ELSE
+            cText := aGetSecond( oItem:aProp, "caption" )
+         ENDIF
+         IF ValType( cText ) == "C"
+
+            IF ( xProperty := aGetSecond( oItem:aProp, "border" ) ) <> Nil  .AND. xProperty
+               ::oPrinter:Box( x, y, x2, y2 )
+               x += 0.5
+               y += 0.5
+            ENDIF
+            IF ( xProperty := aGetSecond( oItem:aProp, "justify" ) ) == Nil
+               nJustify := 0
+            ELSE
+               nJustify := AScan( aJustify, xProperty ) - 1
+            ENDIF
+            IF oItem:obj == Nil
+               IF ( xProperty := aGetSecond( oItem:aProp, "font" ) ) <> Nil
+                  oItem:obj := hrep_FontFromxml( ::oPrinter, xProperty, aGetSecond( oItem:aProp, "fonth" ) * ::nKoefY )
+               ENDIF
+            ENDIF
+            SetTransparentMode( ::oPrinter:hDC, .T. )
+
+            IF ( xProperty := aGetSecond( oItem:aProp, "multiline" ) ) <> Nil  .AND. xProperty
+               nLines := i := 1
+               while ( i := At( ";", cText, i ) ) > 0
+                  i ++
+                  nLines ++
+               ENDDO
+               dy := ( y2 - y ) / nLines
+               nFirst := i := 1
+               ny := y
+               while ( i := At( ";", cText, i ) ) > 0
+                  ::oPrinter:Say( SubStr( cText, nFirst, i - nFirst ), x, ny, x2, ny + dy, nJustify, oItem:obj )
+                  i ++
+                  nFirst := i
+                  ny += dy
+               ENDDO
+               ::oPrinter:Say( SubStr( cText, nFirst, Len( cText ) - nFirst + 1 ), x, ny, x2, ny + dy, nJustify, oItem:obj )
+            ELSE
+               ::oPrinter:Say( cText, x, y, x2, y2, nJustify, oItem:obj )
+            ENDIF
+            SetTransparentMode( ::oPrinter:hDC, .F. )
+
+         ENDIF
+      ELSEIF oItem:cClass == "box"
+         ::oPrinter:Box( x, y, x2, y2, oItem:oPen )
+
+      ELSEIF oItem:cClass == "vline"
+         ::oPrinter:Line( x, y, x, y2, oItem:oPen )
+      ELSEIF oItem:cClass == "hline"
+         ::oPrinter:Line( x, y, x2, y, oItem:oPen )
+      ELSEIF oItem:cClass == "bitmap"
+         IF oItem:obj == Nil
+            oItem:obj := OpenBitmap( aGetSecond( oItem:aProp, "bitmap" ), ::oPrinter:hDC )
+         ENDIF
+         ::oPrinter:Bitmap( x, y, x2, y2,, oItem:obj )
+      ENDIF
+      ::ny := Max( ::ny, y2 + ::nAOffSet )
+   ENDIF
+
+   IF ( aMethod := aGetSecond( oItem:aMethods, "onend" ) ) <> Nil
+      DoScript( aMethod )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HRepTmpl_ReleaseObj( aControls) ; local Self AS CLASS HRepTmpl := QSelf() AS CLASS HRepTmpl
+   LOCAL i
+
+   FOR i := 1 TO Len( aControls )
+      IF ! Empty( aControls[ i ]:aControls )
+         ::ReleaseObj( aControls[ i ]:aControls )
+      ELSE
+         IF aControls[ i ]:obj <> Nil
+            IF aControls[ i ]:cClass == "bitmap"
+               DeleteObject( aControls[ i ]:obj )
+               aControls[ i ]:obj := Nil
+            ELSEIF aControls[ i ]:cClass == "label"
+               aControls[ i ]:obj:Release()
+               aControls[ i ]:obj := Nil
+            ENDIF
+         ENDIF
+         IF aControls[ i ]:oPen <> Nil
+            aControls[ i ]:oPen:Release()
+            aControls[ i ]:oPen := Nil
+         ENDIF
+      ENDIF
+   NEXT
+
+   RETURN Nil
+
+UTILITY STATIC function HRepTmpl_Find( cId) ; local Self AS CLASS HRepTmpl := QSelf() AS CLASS HRepTmpl
+   LOCAL i := AScan( ::aReports, { | o | o:cId <> Nil.AND.o:cId == cId } )
+   RETURN IIf( i == 0, Nil, ::aReports[ i ] )
+
+UTILITY STATIC function HRepTmpl_Close() ; local Self AS CLASS HRepTmpl := QSelf() AS CLASS HRepTmpl
+   LOCAL i := AScan( ::aReports, { | o | o:id == ::id } )
+
+   IF i <> 0
+      ADel( ::aReports, i )
+      ASize( ::aReports, Len( ::aReports ) - 1 )
+   ENDIF
+   RETURN Nil
+
+STATIC FUNCTION ReadRepItem( oCtrlDesc, oContainer )
+   LOCAL oCtrl := HRepItem():New( oContainer )
+   LOCAL i, j, o, aProp := { }, aMethods := { }, aItems := oCtrlDesc:aItems, xProperty, cName
+
+   oCtrl:cClass   := oCtrlDesc:GetAttribute( "class" )
+   oCtrl:aProp    := aProp
+   oCtrl:aMethods := aMethods
+
+   FOR i := 1 TO Len( aItems )
+      IF aItems[ i ]:title == "style"
+         FOR j := 1 TO Len( aItems[ i ]:aItems )
+            o := aItems[ i ]:aItems[ j ]
+            IF o:title == "property"
+               AAdd( aProp, { Lower( o:GetAttribute( "name" ) ), IIf( Empty( o:aItems ), "", hfrm_GetProperty( o:aItems[ 1 ] ) ) } )
+            ENDIF
+         NEXT
+      ELSEIF aItems[ i ]:title == "method"
+         Aadd( aMethods, { cName := Lower(aItems[i]:GetAttribute("name")),RdScript(,aItems[i]:aItems[1]:aItems[1],,.T.,cName) } )
+      ELSEIF aItems[ i ]:title == "part"
+         ReadRepItem( aItems[ i ], IIf( oCtrl:cClass == "area", oCtrl, oContainer ) )
+      ENDIF
+   NEXT
+
+   IF oCtrl:cClass $ "box.vline.hline" .OR. ( oCtrl:cClass == "label" .AND.  ( xProperty := aGetSecond( oCtrl:aProp, "border" ) ) <> Nil .AND. xProperty )
+      oCtrl:lPen := .T.
+   ENDIF
+
+   RETURN Nil
+
+STATIC FUNCTION aGetSecond( arr, xFirst )
+   LOCAL i := AScan( arr, { | a | a[ 1 ] == xFirst } )
+
+   RETURN IIf( i == 0, Nil, arr[ i, 2 ] )
+
+STATIC FUNCTION hrep_FontFromXML( oPrinter, oXmlNode, height )
+   LOCAL weight := oXmlNode:GetAttribute( "weight" )
+   LOCAL charset := oXmlNode:GetAttribute( "charset" )
+   LOCAL ita   := oXmlNode:GetAttribute( "italic" )
+   LOCAL under := oXmlNode:GetAttribute( "underline" )
+
+   weight := IIf( weight <> Nil, Val( weight ), 400 )
+   IF charset <> Nil
+      charset := Val( charset )
+   ENDIF
+   ita    := IIf( ita <> Nil, Val( ita ), 0 )
+   under  := IIf( under <> Nil, Val( under ), 0 )
+
+
+   RETURN oPrinter:AddFont( oXmlNode:GetAttribute( "name" ),   height, ( weight > 400 ), ( ita > 0 ), ( under > 0 ), charset )

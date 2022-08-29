@@ -1,0 +1,2561 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 47 "source\richtext.prg"
+_HB_CLASS RichText ; UTILITY FUNCTION RichText(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "RichText" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { cFileName, hFile} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cFileName" , "hFile" }, .F., .F. ), )
+   _HB_MEMBER { nFontSize} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontSize" }, .F., .F. ), )
+   _HB_MEMBER { nFontColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontColor" }, .F., .F. ), )
+   _HB_MEMBER { aTranslate} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aTranslate" }, .F., .F. ), )
+   _HB_MEMBER { nFontNum} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontNum" }, .F., .F. ), )
+   _HB_MEMBER { nScale} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nScale" }, .F., .F. ), )
+   _HB_MEMBER { lTrimSpaces} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lTrimSpaces" }, .F., .F. ), )
+   _HB_MEMBER { nFontAct} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nFontAct" }, .F., .F. ), )
+   _HB_MEMBER { cLastApar} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cLastApar" }, .F., .F. ), )
+   _HB_MEMBER { cLastBook} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cLastBook" }, .F., .F. ), )
+
+   _HB_MEMBER { cTblHAlign, nTblFntNum, nTblFntSize, nTblRows, nTblColumns} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cTblHAlign" , "nTblFntNum" , "nTblFntSize" , "nTblRows" , "nTblColumns" }, .F., .F. ), )
+   _HB_MEMBER { nTblRHgt, aTableCWid, cRowBorder, cCellBorder, aColPct, nCellPct} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTblRHgt" , "aTableCWid" , "cRowBorder" , "cCellBorder" , "aColPct" , "nCellPct" }, .F., .F. ), )
+   _HB_MEMBER { lTblNoSplit, nTblHdRows, nTblHdHgt, nTblHdPct, nTblHdFont} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lTblNoSplit" , "nTblHdRows" , "nTblHdHgt" , "nTblHdPct" , "nTblHdFont" }, .F., .F. ), )
+   _HB_MEMBER { nTblHdFSize, nTblHdColor, nTblHdFColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nTblHdFSize" , "nTblHdColor" , "nTblHdFColor" }, .F., .F. ), )
+   _HB_MEMBER { cCellAppear, cHeadAppear} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cCellAppear" , "cHeadAppear" }, .F., .F. ), )
+   _HB_MEMBER { cCellHAlign, cHeadHAlign} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cCellHAlign" , "cHeadHAlign" }, .F., .F. ), )
+   _HB_MEMBER { nCurrRow, nCurrColumn} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nCurrRow" , "nCurrColumn" }, .F., .F. ), )
+   _HB_MEMBER { TblCJoin} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "TblCJoin" }, .F., .F. ), )
+
+
+   _HB_MEMBER { txtbox, aSztBox, aCltBox, cTpltBox, nWltBox, nFPtbox} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "txtbox" , "aSztBox" , "aCltBox" , "cTpltBox" , "nWltBox" , "nFPtbox" }, .F., .F. ), )
+   _HB_MEMBER { aOfftbox} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aOfftbox" }, .F., .F. ), )
+
+
+   _HB_MEMBER {AS LOGICAL lFacing} ; IIF( !.F., s_oClass:AddMultiData( "LOGICAL", .F., nScope + IIF( .F., 32, 0 ), { "lFacing" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER { NStlDef} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "NStlDef" }, .F., .F. ), )
+   _HB_MEMBER { nStlAct} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nStlAct" }, .F., .F. ), )
+   _HB_MEMBER { nCharStl} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCharStl" }, .F., .F. ), )
+   _HB_MEMBER { nCharAct} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCharAct" }, .F., .F. ), )
+   _HB_MEMBER { nStlSec} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nStlSec" }, .F., .F. ), )
+   _HB_MEMBER { nSectAct} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nSectAct" }, .F., .F. ), )
+
+   _HB_MEMBER {AS Array ParStyles} ; IIF( !.F., s_oClass:AddMultiData( "Array", { }, nScope + IIF( .F., 32, 0 ), { "ParStyles" }, .F., .F. ), )
+   _HB_MEMBER {AS Array CharStyles} ; IIF( !.F., s_oClass:AddMultiData( "Array", { }, nScope + IIF( .F., 32, 0 ), { "CharStyles" }, .F., .F. ), )
+   _HB_MEMBER {AS Array SectStyles} ; IIF( !.F., s_oClass:AddMultiData( "Array", { }, nScope + IIF( .F., 32, 0 ), { "SectStyles" }, .F., .F. ), )
+
+   _HB_MEMBER { oPrinter} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPrinter" }, .F., .F. ), )
+
+   _HB_MEMBER New( cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nScale, aHigh) AS CLASS RichText; IIF( .F., s_oClass:ModMethod( "New", @RichText_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @RichText_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModInline( "END", {|Self | Self, ::TextCode( "par\pard" ), ::CloseGroup(), FClose( ::hFile ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "END", {|Self | Self, ::TextCode( "par\pard" ), ::CloseGroup(), FClose( ::hFile ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+
+   _HB_MEMBER TextCode( cCode); IIF( .F., s_oClass:ModMethod( "TextCode", @RichText_TextCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "TextCode", @RichText_TextCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NumCode( cCode, nValue, lScale); IIF( .F., s_oClass:ModMethod( "NumCode", @RichText_NumCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NumCode", @RichText_NumCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LogicCode( cCode, lTest); IIF( .F., s_oClass:ModMethod( "LogicCode", @RichText_LogicCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LogicCode", @RichText_LogicCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Write( xData, lCodesOK); IIF( .F., s_oClass:ModMethod( "Write", @RichText_Write(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Write", @RichText_Write(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER OpenGroup(); IIF( .F., s_oClass:ModInline( "OpenGroup", {|Self | Self, FWrite( ::hFile, "{" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "OpenGroup", {|Self | Self, FWrite( ::hFile, "{" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER CloseGroup(); IIF( .F., s_oClass:ModInline( "CloseGroup", {|Self | Self, FWrite( ::hFile, "}" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "CloseGroup", {|Self | Self, FWrite( ::hFile, "}" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+   _HB_MEMBER NewSection( lLandscape, nColumns, nLeft, nRight, nTop, nBottom,  nWidth, nHeight, cVertAlign, lDefault); IIF( .F., s_oClass:ModMethod( "NewSection", @RichText_NewSection(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NewSection", @RichText_NewSection(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+
+   _HB_MEMBER PageSetup( nLeft, nRight, nTop, nBottom, nWidth, nHeight,  nTabWidth, lLandscape, lNoWidow, cVertAlign,  cPgNumPos, lPgNumTop); IIF( .F., s_oClass:ModMethod( "PageSetup", @RichText_PageSetup(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PageSetup", @RichText_PageSetup(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER BeginHeader(); IIF( .F., s_oClass:ModInline( "BeginHeader", {|Self | Self, ::OpenGroup(),  IIf( ! ::lFacing, ::TextCode( "header \pard" ), ::TextCode( "headerr \pard" ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "BeginHeader", {|Self | Self, ::OpenGroup(),  IIf( ! ::lFacing, ::TextCode( "header \pard" ), ::TextCode( "headerr \pard" ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER EndHeader(); IIF( .F., s_oClass:ModInline( "EndHeader", {|Self | Self, ::TextCode( "par" ), ::CloseGroup() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "EndHeader", {|Self | Self, ::TextCode( "par" ), ::CloseGroup() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER BeginFooter(); IIF( .F., s_oClass:ModInline( "BeginFooter", {|Self | Self, ::OpenGroup(),  IIf( ! ::lFacing, ::TextCode( "footer \pard" ), ::TextCode( "footerr \pard" ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "BeginFooter", {|Self | Self, ::OpenGroup(),  IIf( ! ::lFacing, ::TextCode( "footer \pard" ), ::TextCode( "footerr \pard" ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER EndFooter(); IIF( .F., s_oClass:ModInline( "EndFooter", {|Self | Self, ::TextCode( "par" ), ::CloseGroup() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "EndFooter", {|Self | Self, ::TextCode( "par" ), ::CloseGroup() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+
+
+
+
+   _HB_MEMBER Paragraph( cText, nFontNumber, nFontSize, cAppear,  cHorzAlign, aTabPos, nIndent, nFIndent, nRIndent, nSpace,  lSpExact, nBefore, nAfter, lNoWidow, lBreak,  lBullet, cBulletChar, lHang, lDefault, lNoPar,  nFontColor, cTypeBorder, cBordStyle, nBordCol, nShdPct, cShadPat,  nStyle, lChar); IIF( .F., s_oClass:ModMethod( "Paragraph", @RichText_Paragraph(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paragraph", @RichText_Paragraph(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+
+
+
+   _HB_MEMBER DefineTable( cTblHAlign, nTblFntNum, nTblFntSize,  cCellAppear, cCellHAlign, nTblRows,  nTblColumns, nTblRHgt, aTableCWid, cRowBorder, cCellBorder, aColPct, nCellPct,  lTblNoSplit, nTblHdRows, nTblHdHgt, nTblHdPct, nTblHdFont,  nTblHdFSize, cHeadAppear, cHeadHAlign, nTblHdColor , nTblHdFColor); IIF( .F., s_oClass:ModMethod( "DefineTable", @RichText_DefineTable(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DefineTable", @RichText_DefineTable(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER BeginRow(); IIF( .F., s_oClass:ModInline( "BeginRow", {|Self | Self, ::TextCode( "trowd" ), ::nCurrRow += 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "BeginRow", {|Self | Self, ::TextCode( "trowd" ), ::nCurrRow += 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER EndRow(); IIF( .F., s_oClass:ModInline( "EndRow", {|Self | Self, ::TextCode( "row" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "EndRow", {|Self | Self, ::TextCode( "row" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+
+   _HB_MEMBER WriteCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign,  nSpace, lSpExact, cCellBorder, nCellPct, nFontColor, lDefault); IIF( .F., s_oClass:ModMethod( "WriteCell", @RichText_WriteCell(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "WriteCell", @RichText_WriteCell(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+   _HB_MEMBER Appearance( cAppear); IIF( .F., s_oClass:ModMethod( "Appearance", @RichText_Appearance(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Appearance", @RichText_Appearance(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER HAlignment( cAlign); IIF( .F., s_oClass:ModMethod( "HAlignment", @RichText_HAlignment(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "HAlignment", @RichText_HAlignment(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LineSpacing( nSpace, lSpExact); IIF( .F., s_oClass:ModMethod( "LineSpacing", @RichText_LineSpacing(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LineSpacing", @RichText_LineSpacing(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Borders( cEntity, cBorder); IIF( .F., s_oClass:ModMethod( "Borders", @RichText_Borders(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Borders", @RichText_Borders(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NewFont( nFontNumber); IIF( .F., s_oClass:ModMethod( "NewFont", @RichText_NewFont(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NewFont", @RichText_NewFont(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFontSize( nFontSize); IIF( .F., s_oClass:ModMethod( "SetFontSize", @RichText_SetFontSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFontSize", @RichText_SetFontSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFontColor( nFontColor); IIF( .F., s_oClass:ModMethod( "SetFontColor", @RichText_SetFontColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFontColor", @RichText_SetFontColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NewLine(); IIF( .F., s_oClass:ModInline( "NewLine", {|Self | Self, FWrite( ::hFile, hb_osnewline() ), ::TextCode( "par" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "NewLine", {|Self | Self, FWrite( ::hFile, hb_osnewline() ), ::TextCode( "par" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER NewPage(); IIF( .F., s_oClass:ModInline( "NewPage", {|Self | Self, ::TextCode( "page" + hb_osnewline() ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "NewPage", {|Self | Self, ::TextCode( "page" + hb_osnewline() ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER NumPage(); IIF( .F., s_oClass:ModInline( "NumPage", {|Self | Self, ::TextCode( "chpgn" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "NumPage", {|Self | Self, ::TextCode( "chpgn" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER CurrDate( cFormat); IIF( .F., s_oClass:ModMethod( "CurrDate", @RichText_CurrDate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CurrDate", @RichText_CurrDate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+   _HB_MEMBER BorderCode( cBorderID); IIF( .F., s_oClass:ModMethod( "BorderCode", @RichText_BorderCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "BorderCode", @RichText_BorderCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ShadeCode( cShadeID); IIF( .F., s_oClass:ModMethod( "ShadeCode", @RichText_ShadeCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ShadeCode", @RichText_ShadeCode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ParaBorder( cBorder, cType); IIF( .F., s_oClass:ModMethod( "ParaBorder", @RichText_ParaBorder(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ParaBorder", @RichText_ParaBorder(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER BegBookMark( texto); IIF( .F., s_oClass:ModMethod( "BegBookMark", @RichText_BegBookMark(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "BegBookMark", @RichText_BegBookMark(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER EndBookMark(); IIF( .F., s_oClass:ModMethod( "EndBookMark", @RichText_EndBookMark(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "EndBookMark", @RichText_EndBookMark(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER SetStlDef(); IIF( .F., s_oClass:ModMethod( "SetStlDef", @RichText_SetStlDef(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetStlDef", @RichText_SetStlDef(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER IncStyle( cName, styletype, nFontNumber, nFontSize,  nFontColor, cAppear, cHorzAlign, nIndent, cKeys,  cTypeBorder, cBordStyle, nBordColor, nShdPct, cShadPat, lAdd, LUpdate); IIF( .F., s_oClass:ModMethod( "IncStyle", @RichText_IncStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "IncStyle", @RichText_IncStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER BeginStly(); IIF( .F., s_oClass:ModMethod( "BeginStly", @RichText_BeginStly(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "BeginStly", @RichText_BeginStly(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER WriteStly(); IIF( .F., s_oClass:ModMethod( "WriteStly", @RichText_WriteStly(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "WriteStly", @RichText_WriteStly(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ParaStyle( nStyle); IIF( .F., s_oClass:ModMethod( "ParaStyle", @RichText_ParaStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ParaStyle", @RichText_ParaStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CharStyle( nStyle); IIF( .F., s_oClass:ModMethod( "CharStyle", @RichText_CharStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CharStyle", @RichText_CharStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER FootNote( cTexto, cChar, nFontNumber, nFontSize, cAppear, nFontColor, lEnd, lAuto, lUpper); IIF( .F., s_oClass:ModMethod( "FootNote", @RichText_FootNote(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FootNote", @RichText_FootNote(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+   _HB_MEMBER BegTextBox( cTexto, aOffset, ASize, cTipo, aColores, nWidth, nPatron,  lSombra, aSombra, nFontNumber, nFontSize, cAppear, nFontColor, nIndent, lRounded, lEnd); IIF( .F., s_oClass:ModMethod( "BegTextBox", @RichText_BegTextBox(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "BegTextBox", @RichText_BegTextBox(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER EndTextBox(); IIF( .F., s_oClass:ModMethod( "EndTextBox", @RichText_EndTextBox(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "EndTextBox", @RichText_EndTextBox(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFrame( ASize, cHorzAlign, cVertAlign, lNoWrap, cXAlign, xpos, cYAlign, ypos); IIF( .F., s_oClass:ModMethod( "SetFrame", @RichText_SetFrame(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFrame", @RichText_SetFrame(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER SetClrTab(); IIF( .F., s_oClass:ModMethod( "SetClrTab", @RichText_SetClrTab(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetClrTab", @RichText_SetClrTab(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER Linea( aInicio, aFinal, nxoffset, nyoffset, ASize, cTipo,  aColores, nWidth, nPatron, lSombra, aSombra); IIF( .F., s_oClass:ModMethod( "Linea", @RichText_Linea(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Linea", @RichText_Linea(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Image( cName, ASize, nPercent, lCell, lInclude, lFrame, aFSize, cHorzAlign,  cVertAlign, lNoWrap, cXAlign, xpos, cYAlign, ypos); IIF( .F., s_oClass:ModMethod( "Image", @RichText_Image(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Image", @RichText_Image(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+
+   _HB_MEMBER InfoDoc( cTitle, cSubject, cAuthor, cManager, cCompany, cOperator,  cCategor, cKeyWords, cComment); IIF( .F., s_oClass:ModMethod( "InfoDoc", @RichText_InfoDoc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InfoDoc", @RichText_InfoDoc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER DocFormat( nTab, nLineStart, lBackup, nDefLang, nDocType,  cFootType, cFootNotes, cEndNotes, cFootNumber, nPage, cProtect, lFacing, nGutter); IIF( .F., s_oClass:ModMethod( "DocFormat", @RichText_DocFormat(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DocFormat", @RichText_DocFormat(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER EndTable(); IIF( .F., s_oClass:ModInline( "EndTable", {|Self | Self, ::CloseGroup() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "EndTable", {|Self | Self, ::CloseGroup() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER TableDef( lHeader, nRowHead, cCellBorder, aColPct); IIF( .F., s_oClass:ModMethod( "TableDef", @RichText_TableDef(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "TableDef", @RichText_TableDef(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER TableCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign,  nSpace, lSpExact, nFontColor,  lDefault, lHeader, lPage, lDate); IIF( .F., s_oClass:ModMethod( "TableCell", @RichText_TableCell(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "TableCell", @RichText_TableCell(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CellFormat( cCellBorder, aCellPct); IIF( .F., s_oClass:ModMethod( "CellFormat", @RichText_CellFormat(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CellFormat", @RichText_CellFormat(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+   _HB_MEMBER DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize,  cCellAppear, cCellHAlign, nTblRows,  nTblColumns, nTblRHgt, aTableCWid, cRowBorder, cCellBorder, aColPct, nCellPct,  lTblNoSplit, nTblHdRows, aHeadTit, nTblHdHgt, nTblHdPct, nTblHdFont,  nTblHdFSize, cHeadAppear, cHeadHAlign, nTblHdColor , nTblHdFColor, aTblCJoin); IIF( .F., s_oClass:ModMethod( "DefNewTable", @RichText_DefNewTable(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DefNewTable", @RichText_DefNewTable(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   nScope := 8 ; ( nScope )
+
+   _HB_MEMBER { nFile} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nFile" }, .F., .F. ), )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS RichText ;
+
+
+UTILITY STATIC function RichText_New( cFileName, aFontData, aFontFam, aFontChar, nFontSize, nFontColor, nScale, aHigh) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i
+   LOCAL cTopFile  := "rtf1\ansi\ansicpg1252\deff0"
+   LOCAL cColors   := ::SetClrTab()
+
+
+
+
+
+
+   IF cFileName == NIL ; cFileName := "REPORT.RTF" ; END ; IF aFontData == NIL ; aFontData := { "Courier New" } ; END ; IF nFontSize == NIL ; nFontSize := 12 ; END ; IF nScale == NIL ; nScale := 1440 ; END ; IF nFontColor == NIL ; nFontColor := 0 ; END
+
+   ::cFileName := cFileName
+   ::nFontSize := nFontSize
+   ::nScale    := nScale
+   ::nFontColor := nFontColor
+
+   ::lTrimSpaces := .F.
+
+   IF aFontFam == nil
+      aFontFam := Array( aFontData )
+      AFill( aFontFam, "fnil" )
+   ENDIF
+   IF aFontChar == nil
+      aFontChar := Array( aFontData )
+      AFill( aFontChar, 0 )
+   ENDIF
+
+   IF ValType( aHigh ) == "A"
+      ::aTranslate := aHigh
+   ENDIF
+
+
+   IF ! ( "." $ ::cFileName )
+      ::cFileName += ".RTF"
+   ENDIF
+
+
+   ::hFile := FCreate( ::cFileName )
+   ::oPrinter := NIL
+
+   IF ::hFile >= 0
+
+
+
+
+
+
+      ::OpenGroup()
+
+      ::TextCode( cTopFile )
+
+
+      ::nFontNum := Len( aFontData )
+      ::OpenGroup()
+      ::TextCode( "fonttbl" )
+      FOR i := 1 TO ::nFontNum
+         ::OpenGroup()
+         ::NewFont( i )
+         ::NumCode( "charset", aFontChar[ i ], .F. )
+         ::TextCode( aFontFam[ i ] )
+         ::Write( aFontData[ i ] + ";" )
+         ::CloseGroup()
+      NEXT
+      ::CloseGroup()
+
+
+      ::OpenGroup()
+      ::TextCode( cColors )
+      ::CloseGroup()
+
+
+
+
+   ENDIF
+
+   RETURN Self
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_PageSetup( nLeft, nRight, nTop, nBottom, nWidth, nHeight,  nTabWidth, lLandscape, lNoWidow, cVertAlign,  cPgNumPos, lPgNumTop) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ( cPgNumPos )
+
+   IF lLandscape == NIL ; lLandscape := .F. ; END
+   IF lNoWidow == NIL ; lNoWidow := .F. ; END
+   IF lPgNumTop == NIL ; lPgNumTop := .F. ; END
+
+
+
+
+
+
+
+   ::LogicCode( "landscape", lLandscape )
+   ::NumCode( "paperw", nWidth )
+   ::NumCode( "paperh", nHeight )
+
+   ::LogicCode( "widowctrl", lNoWidow )
+   ::NumCode( "margl", nLeft )
+   ::NumCode( "margr", nRight )
+   ::NumCode( "margt", nTop )
+   ::NumCode( "margb", nBottom )
+   ::NumCode( "deftab", nTabWidth )
+
+
+
+
+
+   IF ! Empty( cVertAlign )
+      ::TextCode( "vertal" + Lower( Left( cVertAlign, 1 ) ) )
+   ENDIF
+
+
+   ::SetFontSize( ::nFontSize )
+
+
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_Paragraph( cText, nFontNumber, nFontSize, cAppear,  cHorzAlign, aTabPos, nIndent, nFIndent, nRIndent, nSpace,  lSpExact, nBefore, nAfter, lNoWidow, lBreak,  lBullet, cBulletChar, lHang, lDefault, lNoPar,  nFontColor, cTypeBorder, cBordStyle, nBordCol, nShdPct, cShadPat,  nStyle, lChar) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+   LOCAL i
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF lDefault == NIL ; lDefault := .F. ; END ; IF lNoWidow == NIL ; lNoWidow := .F. ; END ; IF lBreak == NIL ; lBreak := .F. ; END ; IF lBullet == NIL ; lBullet := .F. ; END ; IF lHang == NIL ; lHang := .F. ; END ; IF cAppear == NIL ; cAppear := "" ; END ; IF cHorzAlign == NIL ; cHorzAlign := "" ; END ; IF cBulletChar == NIL ; cBulletChar := "\bullet" ; END ; IF lNoPar == NIL ; lNoPar := .F. ; END ; IF nFontColor == NIL ; nFontColor := 0 ; END ; IF cTypeBorder == NIL ; cTypeBorder := NIL ; END ; IF cBordStyle == NIL ; cBordStyle := "SINGLE" ; END ; IF nBordCol == NIL ; nBordCol := 0 ; END ; IF nShdPct == NIL ; nShdPct := 0 ; END ; IF cShadPat == NIL ; cShadPat := "" ; END ; IF lChar == NIL ; lChar := .F. ; END ; IF nStyle == NIL ; nStyle := 0 ; END
+
+   nShdPct := IIf( nShdPct < 1, nShdPct * 10000, nShdPct * 100 )
+
+   ::LogicCode( "pagebb", lBreak )
+
+   IF ! lNoPar
+      ::TextCode( "par" )
+   ENDIF
+
+   ::LogicCode( "pard", lDefault )
+
+   IF ! lChar
+      ::ParaStyle( nStyle )
+   ENDIF
+
+   ::NewFont( nFontNumber )
+   ::SetFontSize( nFontSize )
+   ::SetFontColor( nFontColor )
+   ::Appearance( cAppear )
+   ::HAlignment( cHorzAlign )
+
+   IF ValType( aTabPos ) == "A"
+      AEval( aTabPos, { | x | ::NumCode( "tx", x ) } )
+   ENDIF
+
+   ::NumCode( "li", nIndent )
+   ::NumCode( "fi", nFIndent )
+   ::NumCode( "ri", nRIndent )
+   ::LineSpacing( nSpace, lSpExact )
+
+   ::NumCode( "sb", nBefore )
+   ::NumCode( "sa", nAfter )
+   ::LogicCode( "keep", lNoWidow )
+
+   IF cTypeBorder # NIL
+      IF AScan( cTypeBorder, "ALL" ) # 0
+         ::ParaBorder( "ALL", cBordStyle )
+      ELSEIF AScan( cTypeBorder, "CHARACTER" ) # 0
+         ::ParaBorder( "CHARACTER", cBordStyle )
+      ELSE
+         FOR i = 1 TO Len( cTypeBorder )
+            ::ParaBorder( cTypeBorder[ i ], cBordStyle )
+         next
+      ENDIF
+   ENDIF
+
+   IF lBullet
+      ::OpenGroup()
+      ::TextCode( "*" )
+      ::TextCode( "pnlvlblt" )
+      ::LogicCode( "pnhang", lHang )
+      ::TextCode( "pntxtb " + cBulletChar )
+      ::CloseGroup()
+   ENDIF
+
+   IF nShdPct > 0
+      ::NumCode( IIf( ! lChar, "shading", "chshdng" ), nShdPct, .F. )
+      IF ! Empty( cShadPat )
+         ::TextCode( "bg" + ::ShadeCode( cShadPat ) )
+      ENDIF
+   ENDIF
+
+   ::Write( cText )
+
+   IF lChar
+      IF cTypeBorder # NIL
+         ::TextCode( "chrbdr" )
+      ENDIF
+      IF nShdPct > 0
+         ::NumCode( "chshdng", 0 )
+      ENDIF
+      ::CharStyle( nStyle )
+   ENDIF
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_SetFontSize( nFontSize) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   IF ValType( nFontSize ) == "N"
+      ::nFontSize := nFontSize
+      ::NumCode( "fs", ::nFontSize * 2, .F. )
+   ENDIF
+
+   RETURN NIL
+
+
+
+UTILITY STATIC function RichText_SetFontColor( nFontColor) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   IF ValType( nFontColor ) == "N"
+      ::nFontColor := nFontColor
+      ::NumCode( "cf", ::nFontColor, .F. )
+   ENDIF
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_Write( xData, lCodesOK) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cWrite := ""
+   LOCAL i, cChar, nChar
+   LOCAL cString := cStr( xData )
+   LOCAL aCodes := { "\", "{", "}" }
+
+   IF lCodesOK == NIL ; lCodesOK := .F. ; END
+
+   IF ::lTrimSpaces
+      cString := RTrim( cString )
+   ENDIF
+
+
+
+   FOR i := 1 TO Len( cString )
+
+      cChar := SubStr( cString, i, 1 )
+      nChar := Asc( cChar )
+
+      IF nChar < 128
+
+         IF nChar > 91
+
+
+            IF ! lCodesOK
+               IF AScan( aCodes, cChar ) > 0
+                  cChar := "\" + cChar
+               ENDIF
+            ENDIF
+
+         ELSEIF nChar < 33
+            IF nChar == 13
+               cChar := "\par "
+            ELSEIF nChar == 10
+               LOOP
+            ENDIF
+         ENDIF
+
+         cWrite += cChar
+
+
+      ELSE
+
+
+
+
+
+
+
+         IF Empty( ::aTranslate )
+
+            IF nChar == 141
+               LOOP
+            ELSE
+
+
+               cWrite += "\plain\f" + AllTrim( Str( ::nFontAct - 1 ) ) +  "\fs" + AllTrim( Str( ::nFontSize * 2 ) ) +  "\cf" + AllTrim( Str( ::nFontColor ) ) + AllTrim( ::cLastApar ) + "\'" + Lower( NewBase( nChar, 16 ) )
+            ENDIF
+         ELSE
+            cWrite += ::aTranslate[ Asc( cChar ) - 127 ]
+         ENDIF
+
+      ENDIF
+
+   NEXT
+
+   ::OpenGroup()
+   FWrite( ::hFile, cWrite )
+   ::CloseGroup()
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_NumCode( cCode, nValue, lScale) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cWrite := ""
+
+   IF ValType( cCode ) == "C" .AND. ValType( nValue ) == "N"
+
+      cCode := FormatCode( cCode )
+
+      cWrite += cCode
+
+      IF lScale == NIL ; lScale := .T. ; END
+      IF lScale
+         nValue := Int( nValue * ::nScale )
+      ENDIF
+      cWrite += AllTrim( Str( nValue ) )
+
+      FWrite( ::hFile, cWrite )
+
+   ENDIF
+
+   RETURN cWrite
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_LogicCode( cCode, lTest) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cWrite := ""
+
+   IF ValType( cCode ) == "C" .AND. ValType( lTest ) == "L"
+      IF lTest
+         cWrite := ::TextCode( cCode )
+      ENDIF
+   ENDIF
+
+   RETURN cWrite
+
+
+
+
+
+
+
+
+
+
+FUNCTION FormatCode( cCode )
+
+
+
+
+
+
+
+
+
+
+
+   cCode := AllTrim( cCode )
+   IF ! ( Left( cCode, 1 ) == "\" )
+      cCode := "\" + cCode
+   ENDIF
+
+   RETURN cCode
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_DefineTable( cTblHAlign, nTblFntNum, nTblFntSize,  cCellAppear, cCellHAlign, nTblRows,  nTblColumns, nTblRHgt, aTableCWid, cRowBorder, cCellBorder, aColPct, nCellPct,  lTblNoSplit, nTblHdRows, nTblHdHgt, nTblHdPct, nTblHdFont,  nTblHdFSize, cHeadAppear, cHeadHAlign, nTblHdColor , nTblHdFColor) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF cTblHAlign == NIL ; cTblHAlign := "CENTER" ; END ; IF nTblFntNum == NIL ; nTblFntNum := 1 ; END ; IF nTblFntSize == NIL ; nTblFntSize := ::nFontSize ; END ; IF nTblRows == NIL ; nTblRows := 1 ; END ; IF nTblColumns == NIL ; nTblColumns := 1 ; END ; IF nTblRHgt == NIL ; nTblRHgt := NIL ; END ; IF aTableCWid == NIL ; aTableCWid := Array( nTblColumns ) ; END ; IF cRowBorder == NIL ; cRowBorder := "NONE" ; END ; IF cCellBorder == NIL ; cCellBorder := "SINGLE" ; END ; IF lTblNoSplit == NIL ; lTblNoSplit := .F. ; END ; IF nCellPct == NIL ; nCellPct := 0 ; END ; IF nTblHdRows == NIL ; nTblHdRows := 0 ; END ; IF nTblHdHgt == NIL ; nTblHdHgt := nTblRHgt ; END ; IF nTblHdPct == NIL ; nTblHdPct := 0 ; END ; IF nTblHdFont == NIL ; nTblHdFont := nTblFntNum ; END ; IF nTblHdFSize == NIL ; nTblHdFSize := ::nFontSize + 2 ; END ; IF nTblHdColor == NIL ; nTblHdColor := 0 ; END ; IF nTblHdFColor == NIL ; nTblHdFColor := 0 ; END
+
+   IF aTableCWid[ 1 ] == NIL
+      AFill( aTableCWid, 6.5 / nTblColumns )
+   ELSEIF ValType( aTableCWid[ 1 ] ) == "A"
+      aTableCWid := AClone( aTableCWid[ 1 ] )
+   ENDIF
+
+
+   FOR i := 2 TO Len( aTableCWid )
+      aTableCWid[ i ] += aTableCWid[ i - 1 ]
+   NEXT
+
+   IF aColPct == NIL
+      aColPct   := Array( nTblColumns )
+      AFill( aColPct, 0 )
+   ENDIF
+
+   ::cTblHAlign := Lower( Left( cTblHAlign, 1 ) )
+   ::nTblFntNum := nTblFntNum
+   ::nTblFntSize := nTblFntSize
+   ::cCellAppear := cCellAppear
+   ::cCellHAlign := cCellHAlign
+   ::nTblRows := nTblRows
+   ::nTblColumns := nTblColumns
+   ::nTblRHgt := nTblRHgt
+   ::aTableCWid := aTableCWid
+   ::cRowBorder := ::BorderCode( cRowBorder )
+   ::cCellBorder := ::BorderCode( cCellBorder )
+   ::aColPct := AClone( aColPct )
+   ::nCellPct := IIf( nCellPct < 1, nCellPct * 10000, nCellPct * 100 )
+
+   i := 1
+
+   AEval( ::aColPct, { || ::aColPct[ i ] := IIf( ::aColPct[ i ] < 1, ::aColPct[ i ] * 10000,  ::aColPct[ i ] * 100 ), i ++ } )
+
+   ::lTblNoSplit := lTblNoSplit
+   ::nTblHdRows := nTblHdRows
+   ::nTblHdHgt := nTblHdHgt
+   ::nTblHdPct := IIf( nTblHdPct < 1, nTblHdPct * 10000, nTblHdPct * 100 )
+   ::nTblHdFont := nTblHdFont
+   ::nTblHdFSize := nTblHdFSize
+   ::nTblHdColor := nTblHdColor
+   ::nTblHdFColor := nTblHdFColor
+   ::cHeadAppear := cHeadAppear
+   ::cHeadHAlign := cHeadHAlign
+
+   ::nCurrColumn := 0
+   ::nCurrRow    := 0
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_WriteCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign,  nSpace, lSpExact, cCellBorder, nCellPct, nFontColor, lDefault) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i
+
+   ( cCellBorder )
+   ( nCellPct )
+
+
+   IF cText == NIL ; cText := "" ; END ; IF lDefault == NIL ; lDefault := .F. ; END
+
+
+   IF ::nCurrColumn == ::nTblColumns
+      ::nCurrColumn := 1
+   ELSE
+      ::nCurrColumn += 1
+   ENDIF
+
+
+
+
+   IF ::nCurrColumn == 1
+
+      IF ::nCurrRow == 0 .AND. ::nTblHdRows > 0
+
+
+         ::OpenGroup()
+         ::BeginRow()
+
+
+
+
+
+         ::TextCode( "trgaph108\trleft-108" )
+         ::TextCode( "trq" + ::cTblHAlign )
+         ::Borders( "tr", ::cRowBorder )
+         ::NumCode( "trrh", ::nTblHdHgt )
+         ::TextCode( "trhdr" )
+         ::LogicCode( "trkeep", ::lTblNoSplit )
+
+
+         FOR i := 1 TO Len( ::aTableCWid )
+            ::NumCode( "clshdng", ::nTblHdPct, .F. )
+            IF ::nTblHdColor > 0
+               ::NumCode( "clcbpat", ::nTblHdColor, .F. )
+            ENDIF
+            ::Borders( "cl", ::cCellBorder )
+            ::NumCode( "cellx", ::aTableCWid[ i ] )
+         NEXT
+
+
+         ::NewFont( ::nTblHdFont )
+         ::SetFontSize( ::nTblHdFSize )
+         IF ::nTblHdFColor > 0
+            ::SetFontColor( ::nTblHdFColor )
+         ENDIF
+         ::Appearance( ::cHeadAppear )
+         ::HAlignment( ::cHeadHAlign )
+
+         ::TextCode( "intbl" )
+
+      ELSEIF ::nCurrRow == ::nTblHdRows
+
+
+
+
+
+         IF ::nTblHdRows > 0
+            ::EndRow()
+            ::CloseGroup()
+         ENDIF
+
+         ::BeginRow()
+         ::TextCode( "trgaph108\trleft-108" )
+         ::TextCode( "trq" + ::cTblHAlign )
+         ::Borders( "tr", ::cRowBorder )
+         ::NumCode( "trrh", ::nTblRHgt )
+         ::LogicCode( "trkeep", ::lTblNoSplit )
+
+
+         FOR i := 1 TO Len( ::aTableCWid )
+            ::NumCode( "clshdng", ::aColPct[ i ], .F. )
+            ::Borders( "cl", ::cCellBorder )
+            ::NumCode( "cellx", ::aTableCWid[ i ] )
+         NEXT
+
+
+         ::NewFont( ::nTblFntNum )
+         ::SetFontSize( ::nTblFntSize )
+
+         ::Appearance( ::cCellAppear )
+         ::HAlignment( ::cCellHAlign )
+
+         ::TextCode( "intbl" )
+
+      ELSE
+
+
+         ::EndRow()
+
+
+         ::TextCode( "intbl" )
+
+      ENDIF
+
+   ENDIF
+
+
+
+
+
+   ::OpenGroup()
+
+   ::LogicCode( "pard", lDefault )
+   ::NewFont( nFontNumber )
+   ::SetFontSize( nFontSize )
+   ::SetFontColor( nFontColor )
+   ::Appearance( cAppear )
+   ::HAlignment( cHorzAlign )
+   ::LineSpacing( nSpace, lSpExact )
+
+
+   ::Write( cText )
+
+   ::CloseGroup()
+
+
+   ::TextCode( "cell" )
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_NewSection( lLandscape, nColumns, nLeft, nRight, nTop, nBottom,  nWidth, nHeight, cVertAlign, lDefault) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   IF lDefault == NIL ; lDefault := .F. ; END
+
+
+   ::TextCode( "sect" )
+
+   IF lDefault
+      ::TextCode( "sectd" )
+   ENDIF
+
+   ::LogicCode( "lndscpsxn", lLandscape )
+   ::NumCode( "cols", nColumns, .F. )
+   ::NumCode( "marglsxn", nLeft )
+   ::NumCode( "margrsxn", nRight )
+   ::NumCode( "margtsxn", nTop )
+   ::NumCode( "margbsxn", nBottom )
+   ::NumCode( "pgwsxn", nWidth )
+   ::NumCode( "pghsxn", nHeight )
+
+   IF ! Empty( cVertAlign )
+      ::TextCode( "vertal" + Lower( Left( cVertAlign, 1 ) ) )
+   ENDIF
+
+
+   ::TextCode( "sbkpage" )
+   ::TextCode( "pgncont" )
+   ::TextCode( "pgndec" )
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_NewFont( nFontNumber) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   IF ! Empty( nFontNumber ) .AND. nFontNumber <= ::nFontNum
+      ::NumCode( "f", nFontNumber - 1, .F. )
+      ::nFontAct := nFontNumber
+   ENDIF
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_Appearance( cAppear) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cWrite := ""
+
+   IF ! Empty( cAppear )
+      cWrite := ::TextCode( SubStr( cAppear, 2 ) )
+      ::cLastApar := cAppear
+   ENDIF
+
+   RETURN cWrite
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_HAlignment( cAlign) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+   IF ! Empty( cAlign )
+      ::TextCode( "q" + Lower( Left( cAlign, 1 ) ) )
+   ENDIF
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_LineSpacing( nSpace, lSpExact) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+   IF lSpExact == NIL ; lSpExact := .F. ; END
+
+   ::NumCode( "sl", nSpace, lSpExact )
+   IF ! Empty( nSpace )
+      ::NumCode( "slmult", IIf( lSpExact, 0, 1 ), .F. )
+   ENDIF
+
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_Borders( cEntity, cBorder) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i, aBorder := { "t", "b", "l", "r" }
+
+   IF ValType( cBorder ) == "C"
+      FOR i := 1 TO 4
+         ::TextCode( cEntity + "brdr" + aBorder[ i ] + "\brdr" + cBorder )
+      NEXT
+   ENDIF
+
+   RETURN NIL
+
+
+
+UTILITY STATIC function RichText_ParaBorder( cBorder, cType) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL codigo
+
+   cBorder := Upper( AllTrim( cBorder ) )
+   DO CASE
+   CASE cBorder == "CHARACTER"
+      codigo := "chbrdr"
+   CASE cBorder == "ALL"
+      codigo := "box"
+   CASE cBorder == "TOP"
+      codigo := "brdrt"
+   CASE cBorder == "BOTTOM"
+      codigo := "brdrb"
+   CASE cBorder == "LEFT"
+      codigo := "brdrl"
+   CASE cBorder == "RIGHT"
+      codigo := "RIGHT"
+   ENDCASE
+
+   RETURN ::TextCode( codigo + "\brdr" + ::BorderCode( cType ) )
+
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_BorderCode( cBorderID) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cBorderCode := "", n
+
+
+
+
+
+
+
+
+
+
+   LOCAL aBorder :=  {  { "NONE",        NIL   },  { "SINGLE",      "s"   },  { "DOUBLETHICK", "th"  },  { "SHADOW",      "sh"  },  { "DOUBLE",      "db"  },  { "DOTTED",      "dot" },  { "DASHED",      "dash" },  { "HAIRLINE",    "hair" }   }
+
+   cBorderID := Upper( RTrim( cBorderID ) )
+
+   n := AScan( aBorder, { | x | x[ 1 ] == cBorderID } )
+
+   IF n > 0
+      cBorderCode := aBorder[ n ][ 2 ]
+   ENDIF
+
+   RETURN cBorderCode
+
+
+UTILITY STATIC function RichText_ShadeCode( cShadeID) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cShadeCode := "", n
+
+
+
+
+
+
+
+
+   LOCAL aShade :=  {  { "NONE",         ""        },  { "HORIZ",        "horiz"   },  { "VERT",         "vert"    },  { "CROSS",        "cross"   },  { "FORDIAG",      "fdiag"   },  { "BACKDIAG",     "bdiag"      }  }
+
+   cShadeID := Upper( RTrim( cShadeID ) )
+
+   n := AScan( aShade, { | x | x[ 1 ] == cShadeID } )
+
+   IF n > 0
+      cShadeCode := aShade[ n ][ 2 ]
+   ENDIF
+
+   RETURN cShadeCode
+
+
+
+
+
+
+
+
+
+FUNCTION IntlTranslate()
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i
+   LOCAL aTranslate[ 128 ]
+
+
+
+
+
+
+
+   LOCAL aHighTable :=  {  "\'fc", "\'e9", "\'e2", "\'e4", "\'e0", "\'e5", "\'e7", "\'ea",  "\'eb", "\'e8", "\'ef", "\'ee", "\'ec", "\'c4", "\'c5", "\'c9",  "\'e6", "\'c6", "\'f4", "\'f6", "\'f2", "\'fb", "\'f9", "\'ff",  "\'d6", "\'dc", "\'a2", "\'a3", "\'a5", "\'83", "\'ed", "\'e1",  "\'f3", "\'fa", "\'f1", "\'d1", "\'aa", "\'ba", "\'bf"  }
+
+   AFill( aTranslate, "" )
+
+   FOR i := 1 TO Len( aHighTable )
+      aTranslate[ i ] := aHighTable[ i ]
+   NEXT
+
+   RETURN aTranslate
+
+
+
+
+
+
+
+FUNCTION NewBase( nDec, nBase )
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL cNewBase := "", nDividend, nRemain, lContinue := .T., cRemain
+
+   while lContinue
+
+      nDividend := Int( nDec / nBase )
+      nRemain := nDec % nBase
+
+      IF nDividend >= 1
+         nDec := nDividend
+      ELSE
+         lContinue := .F.
+      ENDIF
+
+      IF nRemain < 10
+         cRemain := AllTrim( Str( nRemain, 2, 0 ) )
+      ELSE
+         cRemain := Chr( nRemain + 55 )
+      ENDIF
+
+      cNewBase := cRemain + cNewBase
+
+   ENDDO
+
+   RETURN cNewBase
+
+
+
+UTILITY STATIC function RichText_BegBookMark( texto) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   IF texto == NIL ; texto := "marca" ; END
+
+   ::cLastBook := StrTran( texto, " ", "_" )
+
+
+   ::OpenGroup()
+   ::TextCode( "*\bkmkstart " + Lower( ::cLastBook ) )
+   ::CloseGroup()
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_EndBookMark() ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+   ::OpenGroup()
+   ::TextCode( "*\bkmkend " + Lower( ::cLastBook ) )
+   ::CloseGroup()
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_Linea( aInicio, aFinal, nxoffset, nyoffset, ASize, cTipo,  aColores, nWidth, nPatron, lSombra, aSombra) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+   IF cTipo == NIL ; cTipo := "SOLIDA" ; END ; IF nxoffset == NIL ; nxoffset := 0 ; END ; IF nyoffset == NIL ; nyoffset := 0 ; END ; IF nWidth == NIL ; nWidth := 0.01 ; END ; IF aColores == NIL ; aColores := { 0, 0, 0 } ; END ; IF ASize == NIL ; ASize := { 2.0, 0 } ; END ; IF nPatron == NIL ; nPatron := 1 ; END ; IF lSombra == NIL ; lSombra := .F. ; END ; IF aSombra == NIL ; aSombra := { 0, 0 } ; END
+
+   ::OpenGroup()
+   ::TextCode( "do\dobxmargin\dobypara\dpline" )
+   ::NumCode( "dpptx", aInicio[ 1 ], .T. )
+   ::NumCode( "dppty", aInicio[ 2 ], .T. )
+   ::NumCode( "dpptx", aFinal[ 1 ], .T. )
+   ::NumCode( "dppty", aFinal[ 2 ], .T. )
+   ::NumCode( "dpx", nxoffset, .T. )
+   ::NumCode( "dpy", nyoffset, .T. )
+   ::NumCode( "dpxsize", ASize[ 1 ], .T. )
+   ::NumCode( "dpysize", ASize[ 2 ], .T. )
+   DO CASE
+   CASE cTipo == "SOLIDA"
+      ::TextCode( "dplinesolid" )
+   CASE cTipo == "PUNTOS"
+      ::TextCode( "dplinedot" )
+   CASE cTipo == "LINEAS"
+      ::TextCode( "dplinedash" )
+   CASE cTipo == "PUNTOLINEA"
+      ::TextCode( "dplinedado" )
+   ENDCASE
+
+   ::NumCode( "dplinecob", aColores[ 1 ], .F. )
+   ::NumCode( "dplinecog", aColores[ 2 ], .F. )
+   ::NumCode( "dplinecor", aColores[ 3 ], .F. )
+
+   ::NumCode( "dplinew", nWidth, .T. )
+
+   ::NumCode( "dpfillpat", nPatron, .F. )
+
+   ::LogicCode( "dpshadow", lSombra )
+   IF lSombra
+      ::NumCode( "dpshadx", aSombra[ 1 ], .T. )
+      ::NumCode( "dpshady", aSombra[ 2 ], .T. )
+   ENDIF
+
+   ::CloseGroup()
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_SetClrTab() ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+   LOCAL colors
+
+   colors := "colortbl;\red0\green0\blue0;\red0\green0\blue128;\red0\green128\blue0;"
+   colors += "\red0\green128\blue128;\red128\green0\blue0;\red128\green0\blue128;\red128\green128\blue0;"
+   colors += "\red192\green192\blue192;\red128\green128\blue128;\red0\green0\blue255;"
+   colors += "\red0\green255\blue0;\red0\green255\blue255;\red255\green0\blue0;"
+   colors += "\red255\green0\blue255;\red255\green255\blue0;\red255\green255\blue255;"
+
+   RETURN colors
+
+UTILITY STATIC function RichText_SetStlDef() ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   ::IncStyle( "Normal" )
+   ::IncStyle( "Default Paragraph Font", "CHARACTER" )
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_InfoDoc( cTitle, cSubject, cAuthor, cManager, cCompany, cOperator,  cCategor, cKeyWords, cComment) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+   IF cTitle == NIL ; cTitle := "Informe" ; END ; IF cSubject == NIL ; cSubject := "" ; END ; IF cAuthor == NIL ; cAuthor := "" ; END ; IF cManager == NIL ; cManager := "" ; END ; IF cCompany == NIL ; cCompany := "" ; END ; IF cOperator == NIL ; cOperator := "" ; END ; IF cCategor == NIL ; cCategor := "" ; END ; IF cKeyWords == NIL ; cKeyWords := "" ; END ; IF cComment == NIL ; cComment := "" ; END
+
+   ::OpenGroup()
+
+   ::TextCode( "info" )
+
+   ::OpenGroup()
+   ::TextCode( "title " + cTitle )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "subject " + cSubject )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "author " + cAuthor )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "manager " + cManager )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "company " + cCompany )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "operator " + cOperator )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "category " + cCategor )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "keywords " + cKeyWords )
+   ::CloseGroup()
+   ::OpenGroup()
+   ::TextCode( "comment " + cComment )
+   ::CloseGroup()
+   ::CloseGroup()
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_FootNote( cTexto, cChar, nFontNumber,  nFontSize, cAppear, nFontColor, lEnd, lAuto, lUpper) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+   IF cTexto == NIL ; cTexto := "" ; END ; IF cChar == NIL ; cChar := "*" ; END ; IF nFontNumber == NIL ; nFontNumber := 0 ; END ; IF nFontSize == NIL ; nFontSize := 8 ; END ; IF cAppear == NIL ; cAppear := "" ; END ; IF nFontColor == NIL ; nFontColor := 0 ; END ; IF lUpper == NIL ; lUpper := .T. ; END ; IF lAuto == NIL ; lAuto := .F. ; END ; IF lEnd == NIL ; lEnd := .F. ; END
+
+   cChar := IIf( lAuto, "", cChar )
+   ::OpenGroup()
+   ::OpenGroup()
+   IF lUpper
+      ::TextCode( "super " + cChar )
+   ELSE
+      IF ! Empty( cChar )
+         ::Write( cChar )
+      ENDIF
+   ENDIF
+
+   IF lAuto ; ::TextCode( "chftn" ) ; ENDIF
+
+   ::CloseGroup()
+
+   ::OpenGroup()
+   ::TextCode( "footnote" )
+   IF lEnd ; ::TextCode( "ftnalt" ) ; ENDIF
+
+   ::NewFont( nFontNumber )
+   ::SetFontSize( nFontSize )
+   ::SetFontColor( nFontColor )
+   ::Appearance( cAppear )
+
+   ::OpenGroup()
+   IF lUpper
+      ::TextCode( "super " + cChar )
+   ELSE
+      IF ! Empty( cChar )
+         ::Write( cChar )
+      ENDIF
+   ENDIF
+
+   IF lAuto ; ::TextCode( "chftn" ) ; ENDIF
+
+   ::CloseGroup()
+
+   ::Write( cTexto )
+
+   ::CloseGroup()
+
+   ::CloseGroup()
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_BegTextBox( cTexto, aOffset, ASize, cTipo, aColores, nWidth, nPatron,  lSombra, aSombra, nFontNumber, nFontSize, cAppear, nFontColor, nIndent, lRounded, lEnd) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+   IF cTexto == NIL ; cTexto := "" ; END ; IF aOffset == NIL ; aOffset := { 0, 0 } ; END ; IF ASize == NIL ; ASize := { 2.0, 1.0 } ; END ; IF cTipo == NIL ; cTipo := "SOLIDA" ; END ; IF aColores == NIL ; aColores := { 0, 0, 0 } ; END ; IF nWidth == NIL ; nWidth := 20 ; END ; IF nPatron == NIL ; nPatron := 1 ; END ; IF lEnd == NIL ; lEnd := .F. ; END ; IF lRounded == NIL ; lRounded := .F. ; END ; IF lSombra == NIL ; lSombra := .F. ; END ; IF aSombra == NIL ; aSombra := { 0, 0 } ; END
+
+   ::aOfftBox := aOffset
+   ::aSztBox := ASize
+   ::aCltBox := aColores
+   ::cTpltBox := cTipo
+   ::nWltBox := nWidth
+   ::nFPtbox := nPatron
+
+   ::OpenGroup()
+   ::TextCode( "do\dobxmargin\dobypara\dptxbx\dptxbxmar40" )
+   ::logicCode( "dproundr", lRounded )
+   ::LogicCode( "dpshadow", lSombra )
+   IF lSombra
+      ::NumCode( "dpshadx", aSombra[ 1 ], .T. )
+      ::NumCode( "dpshadx", aSombra[ 2 ], .T. )
+   ENDIF
+   ::OpenGroup()
+   ::TextCode( "dptxbxtext \s0\ql" )
+   IF ! Empty( cTexto )
+
+      ::Paragraph( cTexto, nFontNumber, nFontSize, cAppear,  ,, nIndent,,,,,,,,,,,, .F., .T. , nFontColor )
+   ENDIF
+
+   IF lEnd
+      ::EndTextBox()
+   ENDIF
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_EndTextBox() ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   ::CloseGroup()
+
+   ::NumCode( "dpx", ::aOfftbox[ 1 ], .T. )
+   ::NumCode( "dpy", ::aOfftbox[ 2 ], .T. )
+   ::NumCode( "dpxsize", ::aSztBox[ 1 ], .T. )
+   ::NumCode( "dpysize", ::aSztBox[ 2 ], .T. )
+   DO CASE
+   CASE ::cTpltBox == "SOLIDA"
+      ::TextCode( "dplinesolid" )
+   CASE ::cTpltBox == "PUNTOS"
+      ::TextCode( "dplinedot" )
+   CASE ::cTpltBox == "LINEAS"
+      ::TextCode( "dplinedash" )
+   CASE ::cTpltBox == "PUNTOLINEA"
+      ::TextCode( "dplinedado" )
+   ENDCASE
+
+   ::NumCode( "dplinecob", ::aCltBox[ 1 ], .F. )
+   ::NumCode( "dplinecog", ::aCltBox[ 2 ], .F. )
+   ::NumCode( "dplinecor", ::aCltBox[ 3 ], .F. )
+
+   ::NumCode( "dplinew", ::nWltBox, .F. )
+   ::TextCode( "\dpfillbgcr255\dpfillbgcg255\dpfillbgcb255" )
+
+   ::NumCode( "dpfillpat", ::nFPtbox, .F. )
+
+   ::CloseGroup()
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_SetFrame( ASize, cHorzAlign, cVertAlign, lNoWrap,  cXAlign, xpos, cYAlign, ypos) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+   LOCAL ancho
+
+   IF Empty( ASize )
+      RETURN NIL
+   ENDIF
+
+   ancho := Round( ( 1.25 * ASize[ 1 ] * ::nScale ) + 0.5, 0 )
+   ::TextCode( "absh0" )
+   ::NumCode( "absw", ancho, .F. )
+
+   IF cXAlign == "MARGIN"
+      ::TextCode( "phmrg" )
+   ELSE
+      ::TextCode( "phpg" )
+   ENDIF
+
+   IF xpos == NIL
+      DO CASE
+      CASE cHorzAlign == "LEFT"
+         ::TextCode( "posxl" )
+      CASE cHorzAlign == "RIGHT"
+         ::TextCode( "posxr" )
+      CASE cHorzAlign == "CENTER"
+         ::TextCode( "posxc" )
+      ENDCASE
+   ELSE
+      ::NumCode( "posx", xpos, .T. )
+   ENDIF
+
+   IF cYAlign == "MARGIN"
+      ::TextCode( "pvmrg" )
+   ELSEIF cYAlign == "PARRAFO"
+      ::TextCode( "pvpara" )
+   ELSE
+      ::TextCode( "pvpg" )
+   ENDIF
+
+   IF ypos == NIL
+      DO CASE
+      CASE cVertAlign == "TOP"
+         ::TextCode( "posyt" )
+      CASE cVertAlign == "BOTTOM"
+         ::TextCode( "posyb" )
+      CASE cVertAlign == "CENTER"
+         ::TextCode( "posyc" )
+      ENDCASE
+   ELSE
+      ::NumCode( "posy", ypos, .T. )
+   ENDIF
+
+   IF lNoWrap
+      ::TextCode( "nowrap" )
+   ELSE
+      ::TextCode( "dxfrtext180\dfrmtxtx180\dfrmtxty0" )
+   ENDIF
+
+   ::TextCode( "par\li0\ql" )
+
+   ::ParaBorder( "ALL", "SINGLE" )
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_Image( cName, ASize, nPercent, lCell, lInclude, lFrame, aFSize, cHorzAlign,  cVertAlign, lNoWrap, cXAlign, xpos, cYAlign, ypos) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   LOCAL cExt
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF cName == NIL ; cName := "" ; END ; IF ASize == NIL ; ASize := { } ; END ; IF cHorzAlign == NIL ; cHorzAlign := "CENTER" ; END ; IF cVertAlign == NIL ; cVertAlign := "TOP" ; END ; IF lFrame == NIL ; lFrame := .T. ; END ; IF lNoWrap == NIL ; lNoWrap := .F. ; END ; IF lCell == NIL ; lCell := .F. ; END ; IF xpos == NIL ; xpos := NIL ; END ; IF cXAlign == NIL ; cXAlign := "MARGIN" ; END ; IF cYAlign == NIL ; cYAlign := "PARRAFO" ; END ; IF ypos == NIL ; ypos := NIL ; END ; IF lInclude == NIL ; lInclude := .F. ; END ; IF nPercent == NIL ; nPercent := 1 ; END
+
+   IF Empty( cName )
+      RETURN NIL
+   ENDIF
+
+   IF lCell
+      ::nCurrColumn += 1
+
+      ::LogicCode( "pard", .T. )
+      ::TextCode( "intbl" )
+      ::OpenGroup()
+   ELSE
+      IF lFrame
+         IF aFSize == NIL ; aFSize := ASize ; END
+
+         ::SetFrame( aFSize, cHorzAlign, cVertAlign, lNoWrap,  cXAlign, xpos, cYAlign, ypos )
+      ENDIF
+   ENDIF
+
+   IF ! lInclude
+      ::NumCode( "sslinkpictw", ASize[ 1 ] )
+      ::NumCode( "sslinkpicth", ASize[ 2 ] )
+
+      ::OpenGroup()
+      ::TextCode( "field" )
+
+      ::OpenGroup()
+      ::TextCode( "fldinst" )
+
+      FWrite( ::hFile, " INCLUDEPICTURE " )
+      cName := StrTran( cName, "\", "\\\\" )
+      FWrite( ::hFile, " " + AllTrim( cName ) + " \\*MERGEFORMAT " )
+
+      ::CloseGroup()
+
+      ::OpenGroup()
+      ::TextCode( "fldrslt" )
+      ::CloseGroup()
+      ::CloseGroup()
+   ELSE
+      cExt := Upper( cFileExt( cName ) )
+
+      DO CASE
+      CASE cExt == "BMP"
+         ::Bmp2Wmf( cName, ASize, nPercent )
+      CASE cExt == "WMF"
+         ::Wmf2Rtf( cName, ASize, nPercent )
+      OTHERWISE
+         ::RtfJpg( cName, ASize, nPercent )
+      ENDCASE
+   ENDIF
+
+   IF lCell
+      ::CloseGroup()
+      ::TextCode( "cell" )
+
+      IF ::nCurrColumn == ::nTblColumns
+         ::TextCode( "intbl\row" )
+         ::nCurrColumn := 0
+      ENDIF
+   ELSE
+      ::TextCode( "par\pard" )
+   ENDIF
+
+   RETURN NIL
+
+
+
+UTILITY STATIC function RichText_IncStyle( cName, styletype, nFontNumber, nFontSize,  nFontColor, cAppear, cHorzAlign, nIndent, cKeys,  cTypeBorder, cBordStyle, nBordColor, nShdPct, cShadPat, lAdd, LUpdate) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   LOCAL lParrafo := .F., lChar := .F., i
+   LOCAL cEstilo := ""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF cName == NIL ; cName := "" ; END ; IF styletype == NIL ; styletype := "PARAGRAPH" ; END ; IF nFontNumber == NIL ; nFontNumber := 1 ; END ; IF nFontSize == NIL ; nFontSize := ::nFontSize ; END ; IF nFontColor == NIL ; nFontColor := ::nFontColor ; END ; IF cAppear == NIL ; cAppear := "" ; END ; IF cHorzAlign == NIL ; cHorzAlign := "LEFT" ; END ; IF nIndent == NIL ; nIndent := 0 ; END ; IF cKeys == NIL ; cKeys := "" ; END ; IF cTypeBorder == NIL ; cTypeBorder := NIL ; END ; IF cBordStyle == NIL ; cBordStyle := "SINGLE" ; END ; IF nBordColor == NIL ; nBordColor := 0 ; END ; IF nShdPct == NIL ; nShdPct := 0 ; END ; IF cShadPat == NIL ; cShadPat := "" ; END ; IF lAdd == NIL ; lAdd := .F. ; END ; IF LUpdate == NIL ; LUpdate := .F. ; END
+
+   nShdPct := IIf( nShdPct < 1, nShdPct * 10000, nShdPct * 100 )
+
+   ::OpenGroup()
+
+   DO CASE
+   CASE styletype == "PARAGRAPH"
+      ::NumCode( "s", ::NStlDef, .F. )
+      lParrafo := .T.
+   CASE styletype == "CHARACTER"
+      ::NumCode( "*\cs", ::nCharStl, .F. )
+      lChar := .T.
+   CASE styletype == "SECTION"
+      ::NumCode( "ds", ::nStlSec, .F. )
+   ENDCASE
+
+   IF ! Empty( cKeys )
+      ::OpenGroup()
+      ::TextCode( "keycode " + cKeys )
+      ::CloseGroup()
+   ENDIF
+   IF lParrafo
+      IF cTypeBorder # NIL
+         IF AScan( cTypeBorder, "ALL" ) # 0
+            cEstilo += ::ParaBorder( "ALL", cBordStyle )
+         ELSE
+            FOR i = 1 TO Len( cTypeBorder )
+               cEstilo += ::ParaBorder( cTypeBorder[ i ], cBordStyle )
+            next
+         ENDIF
+      ENDIF
+      cEstilo += ::NumCode( "\li", nIndent )
+   ENDIF
+
+   cEstilo += ::NumCode( "f", nFontNumber - 1, .F. )
+   cEstilo += ::NumCode( "fs", nFontSize * 2, .F. )
+   cEstilo += ::NumCode( "cf", nFontColor, .F. )
+   cEstilo += ::Appearance( cAppear )
+
+   IF lChar
+      cEstilo += ::LogicCode( "\additive", lAdd )
+      AAdd( ::CharStyles, cEstilo )
+      ::nCharStl += 1
+
+   ENDIF
+   cEstilo += ::LogicCode( "\sautoupd", LUpdate )
+
+   IF lParrafo
+      IF nShdPct > 0
+         cEstilo += ::NumCode( "shading", nShdPct, .F. )
+         IF ! Empty( cShadPat )
+            cEstilo += ::TextCode( "bg" + ::ShadeCode( cShadPat ) )
+         ENDIF
+      ENDIF
+      AAdd( ::ParStyles, cEstilo )
+      ::NStlDef += 1
+   ENDIF
+
+   FWrite( ::hFile, " " + cName + ";" )
+
+   ::CloseGroup()
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_BeginStly() ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   ::OpenGroup()
+   ::TextCode( "stylesheet" )
+   ::SetStlDef()
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_WriteStly() ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   ::CloseGroup()
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_ParaStyle( nStyle) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+   IF nStyle == 0
+      RETURN NIL
+   ENDIF
+   IF ::nStlAct # nStyle
+      IF nStyle <= Len( ::ParStyles[ nStyle ] )
+         ::Numcode( "par\pard\s", nStyle, .F. )
+         FWrite( ::hFile, ::ParStyles[ nStyle ] )
+         ::nStlAct := nStyle
+      ENDIF
+   ENDIF
+
+   RETURN NIL
+UTILITY STATIC function RichText_CharStyle( nStyle) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+   IF nStyle == 0
+      RETURN NIL
+   ENDIF
+
+   IF ::nCharAct # nStyle
+      IF nStyle <= Len( ::CharStyles[ nStyle ] )
+         ::Numcode( "\cs", nStyle, .F. )
+         FWrite( ::hFile, ::CharStyles[ nStyle ] )
+         ::nCharAct := nStyle
+      ENDIF
+   ENDIF
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_TextCode( cCode) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+   LOCAL codigo
+
+   codigo :=  FormatCode( cCode )
+
+   FWrite( ::hFile, codigo )
+
+   RETURN codigo
+
+
+
+
+
+
+
+UTILITY STATIC function RichText_DefNewTable( cTblHAlign, nTblFntNum, nTblFntSize,  cCellAppear, cCellHAlign, nTblRows,  nTblColumns, nTblRHgt, aTableCWid, cRowBorder, cCellBorder, aColPct, nCellPct,  lTblNoSplit, nTblHdRows, aHeadTit, nTblHdHgt, nTblHdPct, nTblHdFont,  nTblHdFSize, cHeadAppear, cHeadHAlign, nTblHdColor , nTblHdFColor,  aTblCJoin) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i, j
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF cTblHAlign == NIL ; cTblHAlign := "CENTER" ; END ; IF nTblFntNum == NIL ; nTblFntNum := 1 ; END ; IF nTblFntSize == NIL ; nTblFntSize := ::nFontSize ; END ; IF nTblRows == NIL ; nTblRows := 1 ; END ; IF nTblColumns == NIL ; nTblColumns := 1 ; END ; IF nTblRHgt == NIL ; nTblRHgt := NIL ; END ; IF aTableCWid == NIL ; aTableCWid := Array( nTblColumns ) ; END ; IF cRowBorder == NIL ; cRowBorder := "NONE" ; END ; IF cCellBorder == NIL ; cCellBorder := "SINGLE" ; END ; IF lTblNoSplit == NIL ; lTblNoSplit := .F. ; END ; IF nCellPct == NIL ; nCellPct := 0 ; END ; IF nTblHdRows == NIL ; nTblHdRows := 0 ; END ; IF aHeadTit == NIL ; aHeadTit := { } ; END ; IF nTblHdHgt == NIL ; nTblHdHgt := nTblRHgt ; END ; IF nTblHdPct == NIL ; nTblHdPct := 0 ; END ; IF nTblHdFont == NIL ; nTblHdFont := nTblFntNum ; END ; IF nTblHdFSize == NIL ; nTblHdFSize := ::nFontSize + 2 ; END ; IF nTblHdColor == NIL ; nTblHdColor := 0 ; END ; IF nTblHdFColor == NIL ; nTblHdFColor := 0 ; END ; IF aTblCJoin == NIL ; aTblCJoin := { } ; END
+
+   IF aTableCWid[ 1 ] == NIL
+      AFill( aTableCWid, 6.5 / nTblColumns )
+   ELSEIF ValType( aTableCWid[ 1 ] ) == "A"
+      aTableCWid := AClone( aTableCWid[ 1 ] )
+   ENDIF
+
+
+   FOR i := 2 TO Len( aTableCWid )
+      aTableCWid[ i ] += aTableCWid[ i - 1 ]
+   NEXT
+
+   IF aColPct == NIL
+      aColPct   := Array( nTblColumns )
+      AFill( aColPct, 0 )
+   ENDIF
+
+   ::cTblHAlign := Lower( Left( cTblHAlign, 1 ) )
+   ::nTblFntNum := nTblFntNum
+   ::nTblFntSize := nTblFntSize
+   ::cCellAppear := cCellAppear
+   ::cCellHAlign := cCellHAlign
+   ::nTblRows := nTblRows
+   ::nTblColumns := nTblColumns
+   ::nTblRHgt := nTblRHgt
+   ::aTableCWid := aTableCWid
+   ::cRowBorder := ::BorderCode( cRowBorder )
+   ::cCellBorder := ::BorderCode( cCellBorder )
+   ::aColPct := AClone( aColPct )
+   ::nCellPct := IIf( nCellPct < 1, nCellPct * 10000, nCellPct * 100 )
+
+   i := 1
+
+   AEval( ::aColPct, { || ::aColPct[ i ] := IIf( ::aColPct[ i ] < 1, ::aColPct[ i ] * 10000,  ::aColPct[ i ] * 100 ), i ++ } )
+
+   ::lTblNoSplit := lTblNoSplit
+   ::nTblHdRows := nTblHdRows
+   ::nTblHdHgt := nTblHdHgt
+   ::nTblHdPct := IIf( nTblHdPct < 1, nTblHdPct * 10000, nTblHdPct * 100 )
+   ::nTblHdFont := nTblHdFont
+   ::nTblHdFSize := nTblHdFSize
+   ::nTblHdColor := nTblHdColor
+   ::nTblHdFColor := nTblHdFColor
+   ::cHeadAppear := cHeadAppear
+   ::cHeadHAlign := cHeadHAlign
+   ::TblCJoin    := AClone( aTblCJoin )
+
+   ::nCurrColumn := 0
+   ::nCurrRow    := 0
+
+   ::OpenGroup()
+
+   FOR j = 1 TO ::nTblHdRows
+      ::TableDef( .T., j )
+      FOR i = 1 TO Len( ::aTableCWid )
+         ::TableCell( aHeadTit[ j ][ i ],,,,,,,, .T., .T. )
+      next
+   next
+
+   ::TableDef()
+
+   RETURN NIL
+
+
+
+
+UTILITY STATIC function RichText_TableDef( lHeader, nRowHead, cCellBorder, aColPct) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   LOCAL i, j, pos
+
+
+
+
+   IF lHeader == NIL ; lHeader := .F. ; END ; IF nRowHead == NIL ; nRowHead := 1 ; END ; IF cCellBorder == NIL ; cCellBorder := ::cCellBorder ; END ; IF aColPct == NIL ; aColPct := AClone( ::aColPct ) ; END
+
+   ::TextCode( "trowd\trgaph108\trleft-108" )
+   ::TextCode( "trq" + ::cTblHAlign )
+   ::Borders( "tr", ::cRowBorder )
+   ::NumCode( "trrh", ::nTblRHgt )
+   ::LogicCode( "trhdr", lHeader )
+   ::LogicCode( "trkeep", ::lTblNoSplit )
+
+
+   FOR i := 1 TO Len( ::aTableCWid )
+      IF lHeader
+         IF ! Empty( ::TblCJoin )
+            FOR j = 1 TO Len( ::TblCJoin[ nRowHead ] )
+               pos := AScan( ::TblCJoin[ nRowHead ][ j ], i )
+               IF pos == 1
+                  ::TextCode( "clvertalt" )
+                  ::TextCode( "clmgf" )
+               ELSEIF pos # 0
+                  ::TextCode( "clmrg" )
+               ELSE
+                  ::TextCode( "clvertalt" )
+               ENDIF
+            next
+         ELSE
+            ::TextCode( "clvertalt" )
+         ENDIF
+      ELSE
+         ::TextCode( "clvertalt" )
+      ENDIF
+      ::Borders( "cl", cCellBorder )
+      IF lHeader
+         ::NumCode( "clshdng", ::nTblHdPct, .F. )
+         IF ::nTblHdColor > 0
+            ::NumCode( "clcbpat", ::nTblHdColor, .F. )
+         ENDIF
+      ELSE
+         ::NumCode( "clshdng", aColPct[ i ], .F. )
+      ENDIF
+      ::NumCode( "cellx", ::aTableCWid[ i ] )
+   NEXT
+
+   RETURN NIL
+
+
+
+
+UTILITY STATIC function RichText_TableCell( cText, nFontNumber, nFontSize, cAppear, cHorzAlign,  nSpace, lSpExact, nFontColor,  lDefault, lHeader, lPage, lDate) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF nFontNumber == NIL ; nFontNumber := - 1 ; END ; IF nFontSize == NIL ; nFontSize := - 1 ; END ; IF cAppear == NIL ; cAppear := NIL ; END ; IF cHorzAlign == NIL ; cHorzAlign := NIL ; END ; IF nSpace == NIL ; nSpace := 0 ; END ; IF nFontColor == NIL ; nFontColor := 0 ; END ; IF lDefault == NIL ; lDefault := .F. ; END ; IF lHeader == NIL ; lHeader := .F. ; END ; IF lPage == NIL ; lPage := .F. ; END ; IF lDate == NIL ; lDate := .F. ; END
+
+   ::nCurrColumn += 1
+
+   ::LogicCode( "pard", lDefault )
+   ::TextCode( "intbl" )
+
+   IF lHeader
+      ::NewFont( ::nTblHdFont )
+      ::SetFontSize( ::nTblHdFSize )
+      IF ::nTblHdFColor > 0
+         ::SetFontColor( ::nTblHdFColor )
+      ENDIF
+      ::Appearance( ::cHeadAppear )
+      ::HAlignment( ::cHeadHAlign )
+   ELSE
+      ::NewFont( IIf( nFontNumber == - 1, ::nTblFntNum, nFontNumber ) )
+      ::SetFontSize( IIf( nFontSize == - 1, ::nTblFntSize, nFontSize ) )
+      ::SetFontColor( nFontColor )
+      ::Appearance( IIf( cAppear == NIL, ::cCellAppear, cAppear ) )
+      ::HAlignment( IIf( cHorzAlign == NIL, ::cCellHAlign, cHorzAlign ) )
+      ::LineSpacing( nSpace, lSpExact )
+   ENDIF
+
+   ::Write( cText )
+   IF lPage
+      ::NumPage()
+   ENDIF
+
+   IF lDate
+      ::CurrDate()
+   ENDIF
+
+   ::TextCode( "cell" )
+
+   IF ::nCurrColumn == ::nTblColumns
+      ::TextCode( "intbl\row" )
+      ::nCurrColumn := 0
+   ENDIF
+
+   RETURN NIL
+
+
+UTILITY STATIC function RichText_CellFormat( cCellBorder, aCellPct) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF cCellBorder == NIL ; cCellBorder := ::cCellBorder ; END ; IF aCellPct == NIL ; aCellPct := AClone( ::aColPct ) ; END
+
+   ::TableDef(,, cCellBorder, aCellPct )
+
+   RETURN NIL
+
+
+
+
+UTILITY STATIC function RichText_DocFormat( nTab, nLineStart, lBackup, nDefLang, nDocType,  cFootType, cFootNotes, cEndNotes, cFootNumber, nPage,  cProtect, lFacing, nGutter) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF nTab == NIL ; nTab := 0.5 ; END ; IF nLineStart == NIL ; nLineStart := 1 ; END ; IF lBackup == NIL ; lBackup := .F. ; END ; IF nDefLang == NIL ; nDefLang := 1034 ; END ; IF nDocType == NIL ; nDocType := 0 ; END ; IF cFootType == NIL ; cFootType := "FOOTNOTES" ; END ; IF cEndNotes == NIL ; cEndNotes := "SECTION" ; END ; IF cFootNotes == NIL ; cFootNotes := "SECTION" ; END ; IF cFootNumber == NIL ; cFootNumber := "SIMBOL" ; END ; IF nPage == NIL ; nPage := 1 ; END ; IF cProtect == NIL ; cProtect := "NONE" ; END ; IF lFacing == NIL ; lFacing := .F. ; END ; IF nGutter == NIL ; nGutter := 0 ; END
+
+   ::lFacing := lFacing
+
+   ::NumCode( "deftab", nTab, .T. )
+   ::NumCode( "linestart", nLineStart, .F. )
+   ::LogicCode( "makebackup", lBackup )
+   ::NumCode( "deflang", nDefLang, .F. )
+   ::NumCode( "doctype", nDocType, .F. )
+
+   DO CASE
+   CASE cFootType == "FOOTNOTES"
+      ::NumCode( "fet", 0, .F. )
+      IF cFootNotes == "SECTION"
+         ::TextCode( "endnotes" )
+      ELSE
+         ::TextCode( "enddoc" )
+      ENDIF
+      ::TextCode( "ftnbj" )
+   CASE cFootType == "ENDNOTES"
+      ::NumCode( "fet", 1, .F. )
+      IF cEndNotes == "SECTION"
+         ::TextCode( "aendnotes" )
+      ELSE
+         ::TextCode( "aenddoc" )
+      ENDIF
+      ::TextCode( "aftnbj" )
+   CASE cFootType == "BOTH"
+      ::NumCode( "fet", 2, .F. )
+      IF cFootNotes == "SECTION"
+         ::TextCode( "endnotes" )
+      ELSE
+         ::TextCode( "enddoc" )
+      ENDIF
+      IF cEndNotes == "SECTION"
+         ::TextCode( "aendnotes" )
+      ELSE
+         ::TextCode( "aenddoc" )
+      ENDIF
+      ::TextCode( "ftnbj" )
+      ::TextCode( "aftnbj" )
+   ENDCASE
+
+   DO CASE
+   CASE cFootNumber == "SIMBOL"
+      ::TextCode( "ftnnchi" )
+      ::TextCode( "aftnnchi" )
+   CASE cFootNumber == "ARABIC"
+      ::TextCode( "ftnnar" )
+      ::TextCode( "aftnnar" )
+   CASE cFootNumber == "ALPHA"
+      ::TextCode( "ftnnalc" )
+      ::TextCode( "aftnnalc" )
+   CASE cFootNumber == "ROMAN"
+      ::TextCode( "ftnnrlc" )
+      ::TextCode( "aftnnrlc" )
+   ENDCASE
+
+   ::LogicCode( "facingp", lFacing )
+   IF lFacing
+      ::NumCode( "gutter", nGutter, .T. )
+   ENDIF
+   ::Numcode( "pgnstart", nPage, .F. )
+
+   DO CASE
+   CASE cProtect == "REVISIONS"
+      ::TextCode( "revprot" )
+   CASE cProtect == "COMMENTS"
+      ::TextCode( "annotprot" )
+   ENDCASE
+
+   RETURN NIL
+
+UTILITY STATIC function RichText_CurrDate( cFormat) ; local Self AS CLASS RichText := QSelf() AS CLASS RichText
+
+   IF cFormat == NIL ; cFormat := "LONGFORMAT" ; END
+
+   DO CASE
+   CASE cFormat == "LONGFORMAT"
+      ::TextCode( "chdpl" )
+   CASE cFormat == "SHORTFORMAT"
+      ::TextCode( "chdpa" )
+   CASE cFormat == "HEADER"
+      ::TextCode( "chdate" )
+   ENDCASE
+
+   RETURN NIL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCTION cFileExt( cFile )
+   RETURN SubStr( cFile, At( ".", cFile ) + 1 )

@@ -1,0 +1,180 @@
+#line 15 "demo01.prg"
+Function Main( cRDD, cDSN )
+
+   local nCnn, i, oSql
+
+   QOut( "" )
+   QOut( "demo01.exe" )
+   QOut( "" )
+   QOut( "Small SQLRDD demo" )
+   QOut( "(c) 2003 - Marcelo Lombardo" )
+   QOut( "" )
+
+   QOut( "Connecting to database..." )
+
+   SR_UseDeleteds( .F. )
+   SR_SetFastOpen(.T.)
+   SR_SetGoTopOnScope(.T.)
+   SR_MaxRowCache( 100 )
+   SR_SetBaseLang( 2 )
+   SR_Msg(2)
+   SR_SETSYNTHETICINDEX(.F.)
+   SR_SETSYNTHETICINDEXMINIMUN(10)
+   SETPGSOLDBEHAVIOR(.T.)
+
+   Connect( @cRDD, cDSN, nil, nil, nil, nil, nil, .T.  )
+
+   RddSetDefault( "SQLRDD" )
+
+   __SetCentury( "ON" )
+   Set( 26, "OFF" )
+   Set( 4, if(__SetCentury(), "dd/mm/yyyy", "dd/mm/yy") )
+   Set( 5, 2000 )
+   Set( 27, "ON" )
+   Set( 11, "ON" )
+   Set( 1, "ON" )
+   Set( 32, "OFF" )
+   Set( 35, "ON" )
+   Set( 8, "OFF" )
+   Set( 45, "ON" )
+   Set( 44, "ON" )
+   Set( 43, "ON" )
+
+   aVetor:={}
+   oSql  := SR_GetConnection()
+   nErr:= oSql:exec("select max(fcfo.codcfo) as codcfo from fcfo (nolock) where fcfo.codcoligada = 0 and fcfo.codcfo like '0%'","COLIGADA",.T.,.T.,@aVetor,,,,.T.)
+
+   ALERT(VALTOPRG(nErr))
+
+   if len(aVetor)>0
+      QOut( aVetor[1,1] )
+   else
+      QOut( "Erro ao pegar o retorno da consulta" )
+   endif
+
+
+
+   DBCLOSEALL()
+   SR_END()
+Return NIL
+#line 17 "connect.prg"
+EXTERNAL SQLRDD
+EXTERNAL SQLEX
+
+EXTERNAL SR_ODBC
+EXTERNAL SR_PGS
+EXTERNAL SR_MYSQL
+EXTERNAL SR_ORACLE
+EXTERNAL SR_FIREBIRD
+
+EXTERNAL DBFNTX
+EXTERNAL DBFCDX
+EXTERNAL DBFFPT
+EXTERNAL DBFDBT
+
+
+
+Function Connect( cRDD, cDatabase )
+
+   local nCnn, nDrv, cDriver, nOpt, nDetected, hIniFile, aKeys, nKey, cConnString
+   local oldScreen, hDsn
+
+   Public cRDDName
+
+   SetMode( 35, 80 )
+
+   hIniFile := HB_ReadIni( "sqlrdd.ini", .F.,,.F. )
+
+   If hIniFile == NIL
+      QOut( "Could not read from sqlrdd.ini" )
+      __Quit()
+   EndIf
+
+   If cDatabase == NIL
+      aKeys := HGetKeys( hIniFile )
+      If len(aKeys) == 0
+         QOut( "No connections available in sqlrdd.ini" )
+         __Quit()
+      ElseIf len(aKeys) == 1
+         nKey := 1
+      Else
+         Scroll() ; SetPos(0,0)
+         DevPos( 5, 1 ) ; DevOut( PadC( "Choose connection option", 80 ) )
+         nKey := achoice( 5, 20, 22, 60, aKeys )
+         Scroll() ; SetPos(0,0)
+
+         If nKey == 0
+            QOut( "No connection selected" )
+            __Quit()
+         EndIf
+      EndIf
+
+      hDsn := HGetValueAt( hIniFile, nKey )
+
+      If !"CONNSTRING" IN hDsn
+         QOut( "ConnString not found in " + aKeys[nKey] )
+         __Quit()
+      EndIf
+   Else
+      If ! cDatabase IN hIniFile
+         QOut( "Connection [" + cDatabase + "] not found in sqlrdd.ini" )
+         __Quit()
+      EndIf
+
+      hDsn := hIniFile[ cDatabase ]
+
+      If !"CONNSTRING" IN hDsn
+         QOut( "ConnString not found in " + cDatabase )
+         __Quit()
+      EndIf
+
+   EndIf
+
+   cConnString := hDsn[ "CONNSTRING" ]
+   nDetected   := DetectDBFromDSN( cConnString )
+
+   If nDetected > 0
+      QOut( "Connecting to", cConnString )
+      nCnn := SR_AddConnection( nDetected, cConnString )
+   Else
+      Scroll() ; SetPos(0,0)
+      nOpt := Alert( "Please, select connection type", { "ODBC", "Postgres", "MySQL", "Oracle", "Firebird" } )
+      If nOpt > 0
+         nCnn := SR_AddConnection( If( nOpt = 1, 1, if( nOpt = 2, 4, if( nOpt = 3, 3, if( nOpt = 4, 5, 6 ) ) ) ), cConnString )
+      Else
+         QOut( "No connection type selected" )
+         __Quit()
+      EndIf
+   EndIf
+
+
+   If nCnn < 0
+      QOut( "Connection error. See sqlerror.log for details." )
+      __Quit()
+   EndIf
+
+   If valtype( cRDD ) == "C"
+      cRDD := alltrim(Upper( cRDD ))
+   EndIf
+
+   if cRDD == NIL
+      i := alert( "Please select RDD", { "Automatic", "SQLRDD Extreme", "SQLRDD" } )
+      If i == 1 .AND. SR_GetConnection():nConnectionType == 1
+         cRDD := "SQLEX"
+      ElseIf i == 1
+         cRDD := "SQLRDD"
+      ElseIf i == 2
+         cRDD := "SQLEX"
+      ElseIf i == 3
+         cRDD := "SQLRDD"
+      Else
+         __Quit()
+      EndIf
+   EndIf
+
+   if SR_GetConnection():nConnectionType <> 1 .AND. cRDD == "SQLEX"
+      Alert( "SQLRDD Extreme supports only ODBC connections.", { "Quit" } )
+      __Quit()
+   EndIf
+
+Return .T.

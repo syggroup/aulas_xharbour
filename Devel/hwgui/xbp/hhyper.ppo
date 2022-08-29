@@ -1,0 +1,445 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 26 "source\hhyper.prg"
+_HB_CLASS HStaticLink ; UTILITY FUNCTION HStaticLink(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HStaticLink" , {HSTATIC():classh} ) ) ; ;
+
+   _HB_MEMBER { state, bClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "state" , "bClick" }, .F., .F. ), )
+   _HB_MEMBER { m_bFireChild} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "m_bFireChild" }, .F., .F. ), )
+
+   _HB_MEMBER { m_hHyperCursor} ; IIF( !.F., s_oClass:AddMultiData(, LoadCursor( 32649 ), nScope + IIF( .F., 32, 0 ), { "m_hHyperCursor" }, .F., .F. ), )
+
+   _HB_MEMBER { m_bMouseOver} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "m_bMouseOver" }, .F., .F. ), )
+   _HB_MEMBER { m_bVisited} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "m_bVisited" }, .F., .F. ), )
+
+   _HB_MEMBER { m_oTextFont} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_oTextFont" }, .F., .F. ), )
+   _HB_MEMBER { m_csUrl} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_csUrl" }, .F., .F. ), )
+   _HB_MEMBER { dc} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "dc" }, .F., .F. ), )
+
+   _HB_MEMBER { m_sHoverColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_sHoverColor" }, .F., .F. ), )
+   _HB_MEMBER { m_sLinkColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_sLinkColor" }, .F., .F. ), )
+   _HB_MEMBER { m_sVisitedColor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_sVisitedColor" }, .F., .F. ), )
+
+   _HB_MEMBER { allMouseOver} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "allMouseOver" }, .F., .F. ), )
+   _HB_MEMBER { hBitmap} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hBitmap" }, .F., .F. ), )
+   _HB_MEMBER { iStyle} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "iStyle" }, .F., .F. ), )
+   _HB_MEMBER { lAllUnderline} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lAllUnderline" }, .F., .F. ), )
+   _HB_MEMBER { oFontUnder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oFontUnder" }, .F., .F. ), )
+   _HB_MEMBER { llost} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "llost" }, .F., .F. ), )
+   _HB_MEMBER { lOverTitle} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lOverTitle" }, .F., .F. ), )
+   _HB_MEMBER { nWidthOver} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nWidthOver" }, .F., .F. ), )
+
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor, hbitmap, bClick); IIF( .F., s_oClass:ModMethod( "New", @HStaticLink_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HStaticLink_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor); IIF( .F., s_oClass:ModMethod( "Redefine", @HStaticLink_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HStaticLink_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT(); IIF( .F., s_oClass:ModMethod( "INIT", @HStaticLink_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HStaticLink_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HStaticLink_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HStaticLink_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GoToLinkUrl( csLink); IIF( .F., s_oClass:ModMethod( "GoToLinkUrl", @HStaticLink_GoToLinkUrl(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GoToLinkUrl", @HStaticLink_GoToLinkUrl(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetLinkText(); IIF( .F., s_oClass:ModMethod( "GetLinkText", @HStaticLink_GetLinkText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetLinkText", @HStaticLink_GetLinkText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetLinkUrl( csUrl); IIF( .F., s_oClass:ModMethod( "SetLinkUrl", @HStaticLink_SetLinkUrl(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetLinkUrl", @HStaticLink_SetLinkUrl(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetLinkUrl(); IIF( .F., s_oClass:ModMethod( "GetLinkUrl", @HStaticLink_GetLinkUrl(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetLinkUrl", @HStaticLink_GetLinkUrl(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetVisitedColor( sVisitedColor); IIF( .F., s_oClass:ModMethod( "SetVisitedColor", @HStaticLink_SetVisitedColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetVisitedColor", @HStaticLink_SetVisitedColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetHoverColor( cHoverColor); IIF( .F., s_oClass:ModMethod( "SetHoverColor", @HStaticLink_SetHoverColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetHoverColor", @HStaticLink_SetHoverColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFireChild(lFlag); IIF( .F., s_oClass:ModInline( "SetFireChild", {|Self,lFlag | Self, ::m_bFireChild := lFlag }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetFireChild", {|Self,lFlag | Self, ::m_bFireChild := lFlag }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER OnClicked(); IIF( .F., s_oClass:ModMethod( "OnClicked", @HStaticLink_OnClicked(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OnClicked", @HStaticLink_OnClicked(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OnSetCursor( pWnd, nHitTest, message); IIF( .F., s_oClass:ModMethod( "OnSetCursor", @HStaticLink_OnSetCursor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OnSetCursor", @HStaticLink_OnSetCursor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetLinkText( csLinkText); IIF( .F., s_oClass:ModMethod( "SetLinkText", @HStaticLink_SetLinkText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetLinkText", @HStaticLink_SetLinkText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetLinkColor( sLinkColor); IIF( .F., s_oClass:ModMethod( "SetLinkColor", @HStaticLink_SetLinkColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetLinkColor", @HStaticLink_SetLinkColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PAint( lpDis); IIF( .F., s_oClass:ModMethod( "PAint", @HStaticLink_PAint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PAint", @HStaticLink_PAint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OnMouseMove( nFlags, lParam); IIF( .F., s_oClass:ModMethod( "OnMouseMove", @HStaticLink_OnMouseMove(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OnMouseMove", @HStaticLink_OnMouseMove(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Resize( x, y); IIF( .F., s_oClass:ModMethod( "Resize", @HStaticLink_Resize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Resize", @HStaticLink_Resize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HStaticLink ;
+
+
+UTILITY STATIC function HStaticLink_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor, hbitmap, bClick) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+   LOCAL oPrevFont
+
+   nStyle := Hwg_BitOR( nStyle, 256 + 2  )
+   ::lAllUnderline := IIF( EMPTY( cLink ), .F., ::lAllUnderline )
+   ::title := IIF(cCaption <> Nil,cCaption ,"Sygecom Home Page")
+   ::hbitmap := hbitmap
+
+
+   ::HSTATIC:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, bClick )
+
+   IF vColor == NIL ; vColor := RGB( 5, 34, 143 ) ; END
+   IF lColor == NIL ; lColor := RGB( 0, 0, 255 ) ; END
+   IF hColor == NIL ; hColor := RGB( 255, 0, 0 ) ; END
+   ::m_csUrl := cLink
+   ::m_sHoverColor   := hColor
+   ::m_sLinkColor    := lColor
+   ::m_sVisitedColor := vColor
+
+   ::state := 0
+   ::title := IIf( cCaption == Nil, "", cCaption )
+   ::bClick  := bClick
+
+
+   IF ::oFont == NIL
+      IF ::oParent:oFont <> NIL
+
+         ::oFont := HFONT():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height,  ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut )
+      ELSE
+         ::oFont := HFONT():Add( "Arial", 0, - 12, , , , IIF( ::lAllUnderline, 1, ), )
+      ENDIF
+   ELSE
+      IF ::oFont:Underline  == 0 .AND. ::lAllUnderline
+         oPrevFont := ::oFont
+         ::oFont:Release()
+
+         ::oFont := HFONT():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height,  oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut )
+      ENDIF
+   ENDIF
+   ::oFontUnder := HFONT():Add( ::oFont:Name, 0, ::oFont:Height, , , , 1 )
+   ::nWidthOver := nWidth
+   IF lTransp <> NIL .AND. lTransp
+
+      ::backstyle := 1
+   ENDIF
+
+   ::Activate()
+
+   RETURN Self
+
+
+UTILITY STATIC function HStaticLink_Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, cLink, vColor, lColor, hColor) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+   LOCAL oPrevFont
+
+
+   ::HSTATIC:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+
+   IF vColor == NIL ; vColor := RGB( 5, 34, 143 ) ; END
+   IF lColor == NIL ; lColor := RGB( 0, 0, 255 ) ; END
+   IF hColor == NIL ; hColor := RGB( 255, 0, 0 ) ; END
+   ::state := 0
+   ::m_csUrl := cLink
+   ::m_sHoverColor   := hColor
+   ::m_sLinkColor    := lColor
+   ::m_sVisitedColor := vColor
+
+   IF ::oFont == NIL
+      IF ::oParent:oFont <> NIL
+
+         ::oFont := HFONT():Add( ::oParent:oFont:name, ::oParent:oFont:width, ::oParent:oFont:height,  ::oParent:oFont:weight, ::oParent:oFont:charset, ::oParent:oFont:italic, 1, ::oParent:oFont:StrikeOut )
+      ENDIF
+   ELSE
+      IF ::oFont:Underline  == 0
+         oPrevFont := ::oFont
+         ::oFont:Release()
+
+         ::oFont := HFONT():Add( oPrevFont:name, oPrevFont:width, oPrevFont:height,  oPrevFont:weight, oPrevFont:charset, oPrevFont:italic, 1, oPrevFont:StrikeOut )
+      ENDIF
+   ENDIF
+
+   ::title   := cCaption
+   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::bClick  := bClick
+
+   IF lTransp <> NIL .AND. lTransp
+
+      ::backstyle := 1
+   ENDIF
+
+
+
+   RETURN Self
+
+UTILITY STATIC function HStaticLink_INIT() ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   IF ! ::lInit
+
+
+
+
+
+
+
+
+
+      ::Resize( )
+      ::HSTATIC:init()
+      IF ::Title <> NIL
+         SETWINDOWTEXT( ::handle, ::title )
+      ENDIF
+
+   ENDIF
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_onEvent( msg, wParam, lParam) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   IF msg == 15
+
+
+   ELSEIF msg == 512
+      hwg_SetCursor( ::m_hHyperCursor )
+     ::OnMouseMove( wParam, lParam )
+
+
+
+
+
+
+
+
+
+   ELSEIF ( msg = 0x02A3 .OR. msg = 0x02A2 )
+        ::state := 1
+   ELSEIF msg =  0x02A1
+   ELSEIF msg == 0x0020
+      ::OnSetCursor( msg, wParam, lParam )
+
+   ELSEIF msg == 513
+      hwg_SetCursor( ::m_hHyperCursor )
+      ::OnClicked()
+   ELSEIF msg == 5
+
+   ENDIF
+
+   RETURN - 1
+
+UTILITY STATIC function HStaticLink_GoToLinkUrl( csLink) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   LOCAL hInstance := 0
+   IF UPPER(alltrim(csLink))<>"NOLINK"
+      hInstance := SHELLEXECUTE( csLink, "open", NIL, NIL, 2 )
+   ENDIF
+
+   IF hInstance < 33
+      RETURN .F.
+   ENDIF
+
+   RETURN .T.
+
+UTILITY STATIC function HStaticLink_GetLinkText() ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   IF ( Empty( ::Title ) )
+      RETURN ""
+   ENDIF
+
+   RETURN ::Title
+
+UTILITY STATIC function HStaticLink_SetLinkUrl( csUrl) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   ::m_csUrl := csUrl
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_GetLinkUrl() ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   RETURN ::m_csUrl
+
+UTILITY STATIC function HStaticLink_SetVisitedColor( sVisitedColor) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   ::m_sVisitedColor := sVisitedColor
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_SetHoverColor( cHoverColor) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   ::m_sHoverColor := cHoverColor
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_OnClicked() ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+   LOCAL nCtrlID
+
+   IF ( Valtype(::bClick) == "B" )
+      ::state := 1
+
+   ELSEIF !EMPTY( ::m_csUrl)
+      IF ( ::m_bFireChild )
+         nCtrlID := ::id
+         ::SendMessage( ::oparent:Handle, 1024 + 101, nCtrlID, 0 )
+      ELSE
+         ::GoToLinkUrl( ::m_csUrl )
+      ENDIF
+      ::m_bVisited := .T.
+   ENDIF
+   ::state := 1
+   InvalidateRect( ::handle, 0 )
+
+   RedrawWindow( ::oParent:Handle, 4 + 1 + 2  , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+   ::SetFocus( )
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_OnSetCursor( pWnd, nHitTest, message) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   ( pWnd )
+   ( nHitTest )
+   ( message )
+
+   hwg_SetCursor( ::m_hHyperCursor )
+
+   RETURN .T.
+
+UTILITY STATIC function HStaticLink_SetLinkText( csLinkText) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   ::Title := csLinkText
+   ::SetText( csLinkText )
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_SetLinkColor( sLinkColor) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   ::m_sLinkColor := sLinkColor
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_OnMouseMove( nFlags, lParam) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   LOCAL xPos
+   LOCAL yPos
+   LOCAL res  := .F.
+
+   ( nFlags )
+
+   IF ::state <> 0
+      xPos := LOWORD( lParam )
+      yPos := HIWORD( lParam )
+      IF (  ! PtInRect( { 0, 0, ::nWidthOver , ::nHeight }, { xPos, yPos } ) ) .AND. ::state <> 3
+          res := .T.
+      ELSE
+        hwg_SetCursor( ::m_hHyperCursor )
+        IF ( !  PtInRect( { 4, 4, ::nWidthover - 6, ::nHeight - 6 }, { xPos, yPos } ) )
+
+           res := .T.
+        ENDIF
+      ENDIF
+      IF ( res .AND. ! ::m_bVisited ) .OR. ( res .AND. ::m_bVisited )
+         ::state := 1
+         InvalidateRect( ::handle, 0 )
+         RedrawWindow( ::oParent:Handle, 4 + 1 + 2 , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ENDIF
+
+      IF ( ::state == 1 .AND. ! res ) .OR.  ( ::state == 1 .AND. ! res .AND. ::m_bVisited )
+         ::state := 3
+         InvalidateRect( ::handle, 0 )
+            RedrawWindow( ::oParent:Handle, 4 + 1 + 2 , ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ENDIF
+
+   ENDIF
+
+   RETURN NIL
+
+UTILITY STATIC function HStaticLink_PAint( lpDis) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+   LOCAL drawInfo := GetDrawItemInfo( lpDis )
+   LOCAL dc := drawInfo[ 3 ]
+   LOCAL strtext    := ::Title
+
+   LOCAL dwFlags
+
+   LOCAL rcClient
+
+
+   LOCAL bHasTitle
+   LOCAL aBmpSize    := IIF( ! EMPTY( ::hbitmap ), GetBitmapSize( ::hbitmap ),{0,0} )
+   LOCAL itemRect    := copyrect( { drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] } )
+   LOCAL captionRect := { drawInfo[ 4 ]  , drawInfo[ 5 ], drawInfo[ 6 ] , drawInfo[ 7 ]  }
+   LOCAL bmpRect
+
+   IF ::state == 0
+      ::State := 1
+   ENDIF
+   rcClient   := CopyRect( { drawInfo[ 4 ] , drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] } )
+
+   IF  ValType( ::hbitmap ) == "N"
+      bHasTitle := ValType( strtext ) == "C" .AND. ! Empty( strtext )
+      itemRect[ 4 ] := aBmpSize[ 2 ] + 1
+      bmpRect := PrepareImageRect( ::handle, dc, bHasTitle, @itemRect, @captionRect, , , ::hbitmap, ::iStyle )
+      itemRect[ 4 ] := drawInfo[ 7 ]
+      IF ::backstyle = 1
+         DrawTransparentBitmap( dc, ::hbitmap, bmpRect[ 1 ], bmpRect[ 2 ] )
+      ELSE
+         DrawBitmap( dc, ::hbitmap, , bmpRect[ 1 ], bmpRect[ 2 ] )
+      ENDIF
+      rcclient[ 1 ] +=  IIF( ::iStyle = 0, aBmpSize[ 1 ] + 8, 1 )
+   ENDIF
+   SetBkMode( DC, ::backstyle )
+   IF ::backstyle <> 1
+       SetBkColor( DC,  IIF( ::bColor = NIL, GetSysColor( 15 ), ::bcolor ) )
+       FillRect( dc, rcclient[ 1 ], rcclient[ 2 ], rcclient[ 3 ], rcclient[ 4 ] )
+   ENDIF
+   dwFlags    := 0 + 16
+
+   dwFlags  += ( 4 + 32768 )
+
+
+   SelectObject( dc, ::oFont:handle )
+   IF ::state == 1
+      IF ::m_bVisited
+
+         SetTextColor( DC,::m_sVisitedColor )
+      ELSE
+
+         SetTextColor( DC, ::m_sLinkColor )
+      ENDIF
+   ELSEIF ::state == 3
+
+      SetTextColor( DC,::m_sHoverColor )
+   ENDIF
+
+
+   IF ::state = 3 .AND. ! ::lAllUnderline
+      SelectObject( DC, ::oFontUnder:handle )
+      DrawText( dc, strText, rcClient, dwFlags )
+      SelectObject( DC, ::oFont:handle )
+   ELSE
+      DrawText( dc, strText, rcClient, dwFlags )
+   ENDIF
+
+
+
+  RETURN NIL
+
+UTILITY STATIC function HStaticLink_Resize( x, y) ; local Self AS CLASS HStaticLink := QSelf() AS CLASS HStaticLink
+
+   LOCAL aBmpSize, aTxtSize
+   LOCAL nHeight := ::nHeight
+
+   IF x <> Nil .AND. x + y = 0
+      RETURN Nil
+   ENDIF
+
+   x := iif( x == Nil, 0, x - ::nWidth + 1 )
+   aBmpSize := IIF( ! EMPTY( ::hbitmap ), GetBitmapSize( ::hbitmap ), { 0,0 } )
+   aBmpSize[ 1 ] += IIF( aBmpSize[ 1 ] > 0, 6, 0 )
+   ::Move( , , ::nWidth + x , , 0 )
+   aTxtSize := TxtRect( ::Title, Self )
+   aTxtSize[ 2 ] += IIF( ::lAllUnderline, 0, 3 )
+   IF aTxtSize[ 1 ] + 1  <  ::nWidth - aBmpSize[ 1 ]
+      ::nHeight := aTxtSize[ 2 ] + 2
+   ELSE
+      ::nHeight := aTxtSize[ 2 ] * 2 + 1
+   ENDIF
+   ::nWidthOver  := MIN( aTxtSize[ 1 ] + 1 + aBmpSize[ 1 ], ::nWidth )
+   ::nHeight := MAX( ::nHeight, aTxtSize[ 2 ] )
+   ::nHeight := MAX( ::nHeight, aBmpSize[ 2 ] + 4 )
+
+   IF nHeight <> ::nHeight
+      ::Move( , , , ::nHeight , 0 )
+      Invalidaterect( ::Handle, 0 )
+   ENDIF
+
+   RETURN Nil

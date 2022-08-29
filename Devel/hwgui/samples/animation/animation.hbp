@@ -1,0 +1,8 @@
+animation.prg
+animation.rc
+-i..\..\include
+-lhwgui
+-lprocmisc
+-lhbxml
+-L..\..\lib
+-gui

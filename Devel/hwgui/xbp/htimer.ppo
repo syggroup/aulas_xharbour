@@ -1,0 +1,120 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 18 "source\htimer.prg"
+_HB_CLASS HTimer ; UTILITY FUNCTION HTimer(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HTimer" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aTimers} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aTimers" }, .F. ), )
+
+   _HB_MEMBER { lInit} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lInit" }, .F., .F. ), )
+   _HB_MEMBER { id} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "id" }, .F., .F. ), )
+   _HB_MEMBER { value} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "value" }, .F., .F. ), )
+   _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+   _HB_MEMBER { bAction} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bAction" }, .F., .F. ), )
+
+   _HB_MEMBER { xName} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "xName" }, .F., .F. ), )
+   _HB_MEMBER Name(); IIF( .F., s_oClass:ModInline( "Name", {|Self | Self, ::xName }, 1, .F. ), s_oClass:AddInline( "Name", {|Self | Self, ::xName }, 1, .F. ) )
+
+   _HB_MEMBER _Name(cName); IIF( .F., s_oClass:ModInline( "_Name", {|Self,cName | Self, IIF( !EMPTY( cName ) .AND. VALTYPE( cName) == "C" .AND. ! ":" $ cName .AND. ! "[" $ cName,    ( ::xName := cName, __objAddData( ::oParent, cName ), ::oParent: & ( cName ) := Self), Nil) }, 1 ), s_oClass:AddInline( "_Name", {|Self,cName | Self, IIF( !EMPTY( cName ) .AND. VALTYPE( cName) == "C" .AND. ! ":" $ cName .AND. ! "[" $ cName,    ( ::xName := cName, __objAddData( ::oParent, cName ), ::oParent: & ( cName ) := Self), Nil) }, 1 ) )
+   _HB_MEMBER Interval(); IIF( .F., s_oClass:ModInline( "Interval", {|Self | Self, ::value }, 1, .F. ), s_oClass:AddInline( "Interval", {|Self | Self, ::value }, 1, .F. ) )
+
+   _HB_MEMBER _Interval(x); IIF( .F., s_oClass:ModInline( "_Interval", {|Self,x | Self, ::value := x,      SetTimer( ::oParent:handle, ::id, ::value ) }, 1 ), s_oClass:AddInline( "_Interval", {|Self,x | Self, ::value := x,      SetTimer( ::oParent:handle, ::id, ::value ) }, 1 ) )
+
+   _HB_MEMBER New( oParent, nId, value, bAction); IIF( .F., s_oClass:ModMethod( "New", @HTimer_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HTimer_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HTimer_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HTimer_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onAction(); IIF( .F., s_oClass:ModMethod( "onAction", @HTimer_onAction(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onAction", @HTimer_onAction(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HTimer_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HTimer_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HTimer ;
+
+
+UTILITY STATIC function HTimer_New( oParent, nId, value, bAction) ; local Self AS CLASS HTimer := QSelf() AS CLASS HTimer
+
+   ::oParent := Iif( oParent==Nil, HWindow():GetMain():oDefaultParent, oParent )
+   IF nId == nil
+      nId := 33900
+      while AScan( ::aTimers, { | o | o:id == nId } ) <>  0
+         nId ++
+      ENDDO
+   ENDIF
+   ::id      := nId
+   ::value   := IIF( VALTYPE( value ) = "N", value, 0 )
+   ::bAction := bAction
+
+
+
+
+
+   ::Init()
+   AAdd( ::aTimers, Self )
+   ::oParent:AddObject( Self )
+
+   RETURN Self
+
+UTILITY STATIC function HTimer_Init() ; local Self AS CLASS HTimer := QSelf() AS CLASS HTimer
+   IF ! ::lInit
+      IF ::value > 0
+         SetTimer( ::oParent:handle, ::id, ::value )
+      ENDIF
+   ENDIF
+   RETURN  NIL
+
+UTILITY STATIC function HTimer_END() ; local Self AS CLASS HTimer := QSelf() AS CLASS HTimer
+   LOCAL i
+
+   IF ::oParent <> Nil
+      KillTimer( ::oParent:handle, ::id )
+   ENDIF
+   IF ( i := AScan( ::aTimers, { | o | o:id == ::id } ) ) > 0
+      ADel( ::aTimers, i )
+      ASize( ::aTimers, Len( ::aTimers ) - 1 )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HTimer_onAction() ; local Self AS CLASS HTimer := QSelf() AS CLASS HTimer
+
+   TimerProc( , ::id, ::interval )
+
+RETURN Nil
+
+
+FUNCTION TimerProc( hWnd, idTimer, Time )
+   LOCAL i := AScan( HTimer():aTimers, { | o | o:id == idTimer } )
+
+   ( (hWnd) := (hWnd) )
+
+
+   IF i <> 0 .AND. HTimer():aTimers[ i ]:value > 0 .AND. HTimer():aTimers[ i ]:bAction <> Nil .AND. ValType( HTimer():aTimers[ i ]:bAction ) == "B"
+      Eval( HTimer():aTimers[ i ]:bAction, HTimer():aTimers[i], time )
+   ENDIF
+
+   RETURN Nil
+
+
+
+   EXIT PROCEDURE CleanTimers
+   LOCAL oTimer, i
+
+   FOR i := 1 TO Len( HTimer():aTimers )
+      oTimer := HTimer():aTimers[ i ]
+      KillTimer( oTimer:oParent:handle, oTimer:id )
+   NEXT
+
+   RETURN

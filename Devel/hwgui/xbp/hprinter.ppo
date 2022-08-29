@@ -1,0 +1,805 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 16 "source\hprinter.prg"
+_HB_CLASS HPrinter ; UTILITY FUNCTION HPrinter(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HPrinter" , {HObject():classh} ) ) ; ;
+
+   _HB_MEMBER { hDCPrn} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "hDCPrn" }, .F., .F. ), )
+   _HB_MEMBER { hDC} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hDC" }, .F., .F. ), )
+   _HB_MEMBER { cPrinterName} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cPrinterName" }, .F., .F. ), )
+   _HB_MEMBER { hPrinter} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "hPrinter" }, .F., .F. ), )
+   _HB_MEMBER { aMeta} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aMeta" }, .F., .F. ), )
+   _HB_MEMBER { lPreview} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lPreview" }, .F., .F. ), )
+   _HB_MEMBER { cMetaName} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cMetaName" }, .F., .F. ), )
+   _HB_MEMBER { nWidth, nHeight, nPWidth, nPHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nWidth" , "nHeight" , "nPWidth" , "nPHeight" }, .F., .F. ), )
+   _HB_MEMBER { nHRes, nVRes} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nHRes" , "nVRes" }, .F., .F. ), )
+   _HB_MEMBER { nPage} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nPage" }, .F., .F. ), )
+
+   _HB_MEMBER { lmm} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lmm" }, .F., .F. ), )
+   _HB_MEMBER { nCurrPage, oTrackV, oTrackH} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nCurrPage" , "oTrackV" , "oTrackH" }, .F., .F. ), )
+   _HB_MEMBER { nZoom, xOffset, yOffset, x1, y1, x2, y2} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nZoom" , "xOffset" , "yOffset" , "x1" , "y1" , "x2" , "y2" }, .F., .F. ), )
+
+   _HB_MEMBER { memDC} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "memDC" }, .F., .F. ), )
+   _HB_MEMBER { memBitmap} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "memBitmap" }, .F., .F. ), )
+   _HB_MEMBER { NeedsRedraw} ; IIF( !.F., s_oClass:AddMultiData(, .T., 8 + IIF( .F., 32, 0 ), { "NeedsRedraw" }, .F., .F. ), )
+   _HB_MEMBER { FormType} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "FormType" }, .F., .F. ), )
+   _HB_MEMBER { BinNumber} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "BinNumber" }, .F., .F. ), )
+   _HB_MEMBER { Landscape} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "Landscape" }, .F., .F. ), )
+   _HB_MEMBER { Copies} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "Copies" }, .F., .F. ), )
+   _HB_MEMBER { fDuplexType} ; IIF( !.F., s_oClass:AddMultiData(, 0, 8 + IIF( .F., 32, 0 ), { "fDuplexType" }, .F., .F. ), )
+   _HB_MEMBER { fPrintQuality} ; IIF( !.F., s_oClass:AddMultiData(, 0, 8 + IIF( .F., 32, 0 ), { "fPrintQuality" }, .F., .F. ), )
+   _HB_MEMBER { PaperLength} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "PaperLength" }, .F., .F. ), )
+   _HB_MEMBER { PaperWidth} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "PaperWidth" }, .F., .F. ), )
+   _HB_MEMBER { PixelsPerInchY} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "PixelsPerInchY" }, .F., .F. ), )
+   _HB_MEMBER { PixelsPerInchX} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "PixelsPerInchX" }, .F., .F. ), )
+   _HB_MEMBER { TopMargin} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "TopMargin" }, .F., .F. ), )
+   _HB_MEMBER { BottomMargin} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "BottomMargin" }, .F., .F. ), )
+   _HB_MEMBER { LeftMargin} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "LeftMargin" }, .F., .F. ), )
+   _HB_MEMBER { RightMargin} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "RightMargin" }, .F., .F. ), )
+
+
+
+
+   _HB_MEMBER New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn); IIF( .F., s_oClass:ModMethod( "New", @HPrinter_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HPrinter_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER SetMode( nOrientation); IIF( .F., s_oClass:ModMethod( "SetMode", @HPrinter_SetMode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetMode", @HPrinter_SetMode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharSet); IIF( .F., s_oClass:ModMethod( "AddFont", @HPrinter_AddFont(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddFont", @HPrinter_AddFont(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFont(oFont); IIF( .F., s_oClass:ModInline( "SetFont", {|Self,oFont | Self, SelectObject( ::hDC, oFont:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetFont", {|Self,oFont | Self, SelectObject( ::hDC, oFont:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetTextColor(nColor); IIF( .F., s_oClass:ModInline( "SetTextColor", {|Self,nColor | Self, SetTextColor( ::hDC, nColor ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetTextColor", {|Self,nColor | Self, SetTextColor( ::hDC, nColor ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetTBkColor(nColor); IIF( .F., s_oClass:ModInline( "SetTBkColor", {|Self,nColor | Self, SetBKColor( ::hDC, nColor ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetTBkColor", {|Self,nColor | Self, SetBKColor( ::hDC, nColor ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetBkmode(lmode); IIF( .F., s_oClass:ModInline( "SetBkmode", {|Self,lmode | Self, SetBkmode( ::hDC, IF( lmode, 1, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetBkmode", {|Self,lmode | Self, SetBkmode( ::hDC, IF( lmode, 1, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER StartDoc( lPreview, cMetaName); IIF( .F., s_oClass:ModMethod( "StartDoc", @HPrinter_StartDoc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "StartDoc", @HPrinter_StartDoc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER EndDoc(); IIF( .F., s_oClass:ModMethod( "EndDoc", @HPrinter_EndDoc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "EndDoc", @HPrinter_EndDoc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER StartPage(); IIF( .F., s_oClass:ModMethod( "StartPage", @HPrinter_StartPage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "StartPage", @HPrinter_StartPage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER EndPage(); IIF( .F., s_oClass:ModMethod( "EndPage", @HPrinter_EndPage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "EndPage", @HPrinter_EndPage(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReleaseMeta(); IIF( .F., s_oClass:ModMethod( "ReleaseMeta", @HPrinter_ReleaseMeta(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReleaseMeta", @HPrinter_ReleaseMeta(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PlayMeta( oWnd); IIF( .F., s_oClass:ModMethod( "PlayMeta", @HPrinter_PlayMeta(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PlayMeta", @HPrinter_PlayMeta(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER PrintMeta( nPage); IIF( .F., s_oClass:ModMethod( "PrintMeta", @HPrinter_PrintMeta(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PrintMeta", @HPrinter_PrintMeta(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Preview( cTitle, aBitmaps, aTooltips, aBootUser); IIF( .F., s_oClass:ModMethod( "Preview", @HPrinter_Preview(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Preview", @HPrinter_Preview(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HPrinter_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HPrinter_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Box( x1, y1, x2, y2, oPen, oBrush); IIF( .F., s_oClass:ModMethod( "Box", @HPrinter_Box(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Box", @HPrinter_Box(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Line( x1, y1, x2, y2, oPen); IIF( .F., s_oClass:ModMethod( "Line", @HPrinter_Line(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Line", @HPrinter_Line(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor); IIF( .F., s_oClass:ModMethod( "Say", @HPrinter_Say(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Say", @HPrinter_Say(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Bitmap( x1, y1, x2, y2, nOpt, hBitmap); IIF( .F., s_oClass:ModMethod( "Bitmap", @HPrinter_Bitmap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Bitmap", @HPrinter_Bitmap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetTextWidth( cString, oFont); IIF( .F., s_oClass:ModMethod( "GetTextWidth", @HPrinter_GetTextWidth(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetTextWidth", @HPrinter_GetTextWidth(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "ResizePreviewDlg", @HPrinter_ResizePreviewDlg(), 8 + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ResizePreviewDlg", @HPrinter_ResizePreviewDlg(), 8 + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ChangePage( oSayPage, n, nPage); IIF( .F., s_oClass:ModMethod( "ChangePage", @HPrinter_ChangePage(), 8 + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ChangePage", @HPrinter_ChangePage(), 8 + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HPrinter ;
+
+UTILITY STATIC function HPrinter_New( cPrinter, lmm, nFormType, nBin, lLandScape, nCopies, lProprierties, hDCPrn) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   LOCAL aPrnCoors, cPrinterName
+
+   IF Valtype(nFormType) ="N"
+      ::FormType       := nFormType
+   ENDIF
+   IF valtype(nBin) == "N"
+      ::BinNumber      := nBin
+   ENDIF
+   IF Valtype(lLandScape) =="L"
+      ::Landscape      := lLandScape
+   ENDIF
+   IF valtype(nCopies) == "N"
+      IF nCopies>0
+         ::Copies := nCopies
+      ENDIF
+   ENDIF
+   IF valtype(lProprierties ) <> "L"
+      lProprierties := .T.
+   ENDIF
+
+   IF lmm <> Nil
+      ::lmm := lmm
+   ENDIF
+   IF hDCPrn = Nil
+      hDCPrn = 0
+   ENDIF
+   IF hDCPrn <> 0
+      ::hDCPrn = hDCPrn
+      ::cPrinterName := cPrinter
+   ELSE
+
+      IF cPrinter == Nil
+         ::hDCPrn := PrintSetup( @cPrinterName )
+         ::cPrinterName := cPrinterName
+     ELSEIF Empty( cPrinter )
+         cPrinterName := HWG_GETDEFAULTPRINTER()
+         ::hDCPrn := Hwg_OpenPrinter( cPrinterName )
+         ::cPrinterName := cPrinterName
+      ELSE
+         ::hDCPrn := Hwg_OpenPrinter( cPrinter )
+         ::cPrinterName := cPrinter
+      ENDIF
+   ENDIF
+
+   IF empty( ::hDCPrn )
+      RETURN Nil
+   ELSE
+      if lProprierties
+         if !Hwg_SetDocumentProperties(::hDCPrn, ::cPrinterName, @::FormType, @::Landscape, @::Copies, @::BinNumber, @::fDuplexType, @::fPrintQuality, @::PaperLength, @::PaperWidth )
+           Return NIL
+         endif
+      endif
+
+      aPrnCoors := GetDeviceArea( ::hDCPrn )
+      ::nWidth  := IIf( ::lmm, aPrnCoors[ 3 ], aPrnCoors[ 1 ] )
+      ::nHeight := IIf( ::lmm, aPrnCoors[ 4 ], aPrnCoors[ 2 ] )
+      ::nPWidth  := IIf( ::lmm, aPrnCoors[ 8 ], aPrnCoors[ 1 ] )
+      ::nPHeight := IIf( ::lmm, aPrnCoors[ 9 ], aPrnCoors[ 2 ] )
+      ::nHRes   := aPrnCoors[ 1 ] / aPrnCoors[ 3 ]
+      ::nVRes   := aPrnCoors[ 2 ] / aPrnCoors[ 4 ]
+      ::PixelsPerInchY   := aPrnCoors[ 6 ]
+      ::PixelsPerInchX   := aPrnCoors[ 5 ]
+
+      ::TopMargin        := aPrnCoors[ 10 ]
+      ::BottomMargin     := (::nPHeight - ::TopMargin)+1
+      ::LeftMargin       := aPrnCoors[ 11]
+      ::RightMargin      := (::nPWidth - ::LeftMargin)+1
+
+   ENDIF
+
+   RETURN Self
+
+UTILITY STATIC function HPrinter_SetMode( nOrientation) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL hPrinter := ::hPrinter, hDC, aPrnCoors
+
+   hDC := SetPrinterMode( ::cPrinterName, @hPrinter, nOrientation )
+   IF hDC <> Nil
+      IF ::hDCPrn <> 0
+         DeleteDC( ::hDCPrn )
+      ENDIF
+      ::hDCPrn := hDC
+      ::hPrinter := hPrinter
+      aPrnCoors := GetDeviceArea( ::hDCPrn )
+      ::nWidth  := IIf( ::lmm, aPrnCoors[ 3 ], aPrnCoors[ 1 ] )
+      ::nHeight := IIf( ::lmm, aPrnCoors[ 4 ], aPrnCoors[ 2 ] )
+      ::nPWidth  := IIf( ::lmm, aPrnCoors[ 8 ], aPrnCoors[ 1 ] )
+      ::nPHeight := IIf( ::lmm, aPrnCoors[ 9 ], aPrnCoors[ 2 ] )
+      ::nHRes   := aPrnCoors[ 1 ] / aPrnCoors[ 3 ]
+      ::nVRes   := aPrnCoors[ 2 ] / aPrnCoors[ 4 ]
+
+      RETURN .T.
+   ENDIF
+
+   RETURN .F.
+
+UTILITY STATIC function HPrinter_AddFont( fontName, nHeight , lBold, lItalic, lUnderline, nCharset) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL oFont
+
+   IF ::lmm .AND. nHeight <> Nil
+      nHeight *= ::nVRes
+   ENDIF
+
+
+   oFont := HFont():Add( fontName,, nHeight,           IIf( lBold <> Nil.AND.lBold, 700, 400 ), nCharset,  IIf( lItalic <> Nil.AND.lItalic, 255, 0 ), IIf( lUnderline <> Nil.AND.lUnderline, 1, 0 ) )
+
+   RETURN oFont
+
+UTILITY STATIC function HPrinter_END() ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF !empty( ::hDCPrn )
+      DeleteDC( ::hDCPrn )
+      ::hDCPrn := nil
+   ENDIF
+   IF !empty( ::hPrinter )
+      ClosePrinter( ::hPrinter )
+   ENDIF
+   ::ReleaseMeta()
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_Box( x1, y1, x2, y2, oPen, oBrush) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF oPen <> Nil
+      SelectObject( ::hDC, oPen:handle )
+   ENDIF
+   IF oBrush <> Nil
+      SelectObject( ::hDC, oBrush:handle )
+   ENDIF
+   IF ::lmm
+      Box( ::hDC, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2 )
+   ELSE
+      Box( ::hDC, x1, y1, x2, y2 )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_Line( x1, y1, x2, y2, oPen) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF oPen <> Nil
+      SelectObject( ::hDC, oPen:handle )
+   ENDIF
+   IF ::lmm
+      DrawLine( ::hDC, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2 )
+   ELSE
+      DrawLine( ::hDC, x1, y1, x2, y2 )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_Say( cString, x1, y1, x2, y2, nOpt, oFont, nTextColor, nBkColor) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL hFont, nOldTC, nOldBC
+
+   IF oFont <> Nil
+      hFont := SelectObject( ::hDC, oFont:handle )
+   ENDIF
+   IF nTextColor <> Nil
+      nOldTC := SetTextColor( ::hDC, nTextColor )
+   ENDIF
+   IF nBkColor <> Nil
+      nOldBC := SetBKColor( ::hDC, nBkColor )
+   ENDIF
+
+   IF ::lmm
+      DrawText( ::hDC, cString, ::nHRes * x1, ::nVRes * y1, ::nHRes * x2, ::nVRes * y2, IIf( nOpt == Nil, 0, nOpt ) )
+   ELSE
+      DrawText( ::hDC, cString, x1, y1, x2, y2, IIf( nOpt == Nil, 0, nOpt ) )
+   ENDIF
+
+   IF oFont <> Nil
+      SelectObject( ::hDC, hFont )
+   ENDIF
+
+   IF nTextColor <> Nil
+      SetTextColor( ::hDC, nOldTC )
+   ENDIF
+
+   IF nBkColor <> Nil
+      SetBKColor( ::hDC, nOldBC )
+   ENDIF
+
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_Bitmap( x1, y1, x2, y2, nOpt, hBitmap) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF ::lmm
+      DrawBitmap( ::hDC, hBitmap, IIf( nOpt == Nil, 8913094, nOpt ), ::nHRes * x1, ::nVRes * y1, ::nHRes * ( x2 - x1 + 1 ), ::nVRes * ( y2 - y1 + 1 ) )
+   ELSE
+      DrawBitmap( ::hDC, hBitmap, IIf( nOpt == Nil, 8913094, nOpt ), x1, y1, x2 - x1 + 1, y2 - y1 + 1 )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_GetTextWidth( cString, oFont) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL arr, hFont
+
+   IF oFont <> Nil
+      hFont := SelectObject( ::hDC, oFont:handle )
+   ENDIF
+   arr := GetTextSize( ::hDC, cString )
+   IF oFont <> Nil
+      SelectObject( ::hDC, hFont )
+   ENDIF
+
+   RETURN IIf( ::lmm, Int( arr[ 1 ] / ::nHRes ), arr[ 1 ] )
+
+UTILITY STATIC function HPrinter_StartDoc( lPreview, cMetaName) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF lPreview <> Nil .AND. lPreview
+      ::lPreview := .T.
+      ::ReleaseMeta()
+      ::aMeta := { }
+      ::cMetaName := cMetaName
+   ELSE
+      ::lPreview := .F.
+      ::hDC := ::hDCPrn
+      Hwg_StartDoc( ::hDC )
+   ENDIF
+   ::nPage := 0
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_EndDoc() ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF ! ::lPreview
+      Hwg_EndDoc( ::hDC )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_StartPage() ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL fname
+
+   IF ::lPreview
+      fname := IIf( ::cMetaName <> Nil, ::cMetaName + LTrim( Str( Len( ::aMeta ) + 1 ) ) + ".emf", Nil )
+      AAdd( ::aMeta, CreateMetaFile( ::hDCPrn, fname ) )
+      ::hDC := ATail( ::aMeta )
+   ELSE
+      Hwg_StartPage( ::hDC )
+   ENDIF
+   ::nPage ++
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_EndPage() ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL nLen
+
+   IF ::lPreview
+      nLen := Len( ::aMeta )
+      ::aMeta[ nLen ] := CloseEnhMetaFile( ::aMeta[ nLen ] )
+      ::hDC := 0
+   ELSE
+      Hwg_EndPage( ::hDC )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_ReleaseMeta() ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL i, nLen
+
+   IF ::aMeta == Nil .OR. Empty( ::aMeta )
+      RETURN Nil
+   ENDIF
+
+   nLen := Len( ::aMeta )
+   FOR i := 1 TO nLen
+      DeleteEnhMetaFile( ::aMeta[ i ] )
+   NEXT
+   ::aMeta := Nil
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_Preview( cTitle, aBitmaps, aTooltips, aBootUser) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL oDlg, oToolBar, oSayPage, oBtn, oCanvas, oTimer, i, nLastPage := Len( ::aMeta ), aPage := { }
+   LOCAL oFont := HFont():Add( "Times New Roman", 0, - 13, 700 )
+   LOCAL lTransp := ( aBitmaps <> Nil .AND. Len( aBitmaps ) > 9 .AND. aBitmaps[ 10 ] <> Nil .AND. aBitmaps[ 10 ] )
+
+   FOR i := 1 TO nLastPage
+      AAdd( aPage, Str( i, 4 ) + ":" + Str( nLastPage, 4 ) )
+   NEXT
+
+   IF cTitle == Nil ; cTitle := "Print preview - " + ::cPrinterName ; ENDIF
+   ::nZoom := 0
+   ::nCurrPage := 1
+
+   ::NeedsRedraw := .T.
+
+
+
+
+
+
+   oDlg := HDialog():New( Iif(.F.,10,11), hwg_multibitor( 2147483648, 268435456, 12582912, 524288, 262144, 65536, 33554432 ),40,10,GetDesktopWidth(),GetDesktopHeight(),cTitle,,{ | o | o:Maximize(), ::ResizePreviewDlg( oCanvas, 1 ), SetTimerPrinter( oCanvas, @oTimer ) },{ || oCanvas:brush := NIL, .T. },,,,,,.F.,, HIcon():AddResource("ICON_PRW"),.F.,,,.F.,,, .F.,.F.)
+
+
+   oDlg:bScroll := { | oWnd, msg, wParam, lParam | ( (oWnd) := (oWnd) ), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
+   oDlg:brush := HBrush():Add( 11316396 )
+
+   oToolBar := HPanel():New(,,,0,0,88,oDlg:nHeight,,,, ); oToolBar:name := "oToolBar"
+
+
+
+
+
+
+   oCanvas := HPanel():New(,,2097152 + 1048576,oToolBar:nWidth,0,oDlg:nWidth - oToolBar:nWidth,oDlg:nHeight,,{ | o, x, y | o:Move(,, x - oToolBar:nWidth, y ), ::ResizePreviewDlg( o ) },{ || ::PlayMeta( oCanvas ) }, ); oCanvas:name := "oCanvas"
+
+   oCanvas:bScroll := { | oWnd, msg, wParam, lParam | ( (oWnd) := (oWnd) ), ::ResizePreviewDlg( oCanvas,, msg, wParam, lParam ) }
+
+
+   oCanvas:brush := 0
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,2,oToolBar:nWidth - 6, 24,,,,{ || EndDialog() },.F.,"Exit",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 1 ], "Exit Preview" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 1 .AND. aBitmaps[ 2 ] <> Nil
+      oBtn:oBitmap  := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 2 ] ), HBitmap():AddFile( aBitmaps[ 2 ] ) )
+      oBtn:title    := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+   HLine():New(,,.F.,1,31,oToolBar:nWidth - 1,,,,,, );
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,36,oToolBar:nWidth - 6, 24,,,,{ || ::PrintMeta() },.F.,"Print",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 2 ], "Print file" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 2 .AND. aBitmaps[ 3 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 3 ] ), HBitmap():AddFile( aBitmaps[ 3 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+
+
+   oSayPage := HComboBox():New( oToolBar,,,,2097152,3,62,oToolBar:nWidth - 6, 24,aPage,,,,,{ || ::ChangePage( oSayPage,, oSayPage:GetValue() ) },, .F.,.F.,,"fff000",12507070,,,,,,,.F.); oSayPage:name := "oSayPage"
+
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,86,oToolBar:nWidth - 6, 24,,,,{ || ::ChangePage( oSayPage, 0 ) },.F.,"|<<",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 3 ], "First page" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 3 .AND. aBitmaps[ 4 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 4 ] ), HBitmap():AddFile( aBitmaps[ 4 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,110,oToolBar:nWidth - 6, 24,,,,{ || ::ChangePage( oSayPage, 1 ) },.F.,">>",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 4 ], "Next page" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 4 .AND. aBitmaps[ 5 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 5 ] ), HBitmap():AddFile( aBitmaps[ 5 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,134,oToolBar:nWidth - 6, 24,,,,{ || ::ChangePage( oSayPage, - 1 ) },.F.,"<<",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 5 ], "Previous page" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 5 .AND. aBitmaps[ 6 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 6 ] ), HBitmap():AddFile( aBitmaps[ 6 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,158,oToolBar:nWidth - 6, 24,,,,{ || ::ChangePage( oSayPage, 2 ) },.F.,">>|",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 6 ], "Last page" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 6 .AND. aBitmaps[ 7 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 7 ] ), HBitmap():AddFile( aBitmaps[ 7 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+   HLine():New(,,.F.,1,189,oToolBar:nWidth - 1,,,,,, );
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,192,oToolBar:nWidth - 6, 24,,,,{ || ::ResizePreviewDlg( oCanvas, - 1 ) },.F.,"(-)",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 7 ], "Zoom out" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 7 .AND. aBitmaps[ 8 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 8 ] ), HBitmap():AddFile( aBitmaps[ 8 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+
+
+   oBtn := HOWNBUTTON():New( oToolBar,,,3,216,oToolBar:nWidth - 6, 24,,,,{ || ::ResizePreviewDlg( oCanvas, 1 ) },.F.,"(+)",, oFont,,,,,,.F.,,,,,.F.,,IIf( aTooltips <> Nil, aTooltips[ 8 ], "Zoom in" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+   IF aBitmaps <> Nil .AND. Len( aBitmaps ) > 8 .AND. aBitmaps[ 9 ] <> Nil
+      oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBitmaps[ 9 ] ), HBitmap():AddFile( aBitmaps[ 9 ] ) )
+      oBtn:title   := Nil
+      oBtn:lTransp := lTransp
+   ENDIF
+
+   HLine():New(,,.F.,1,243,oToolBar:nWidth - 1,,,,,, );
+
+   IF aBootUser <> Nil
+
+      HLine():New(,,.F.,1,313,oToolBar:nWidth - 1,,,,,, );
+
+
+
+
+
+      oBtn := HOWNBUTTON():New( oToolBar,,,3,316,oToolBar:nWidth - 6, 24,,,,,.F.,IIf( Len( aBootUser ) == 4, aBootUser[ 4 ], "User Button" ),, oFont,,,,,,.F.,,,,,.F.,,IIf( aBootUser[ 3 ] <> Nil, aBootUser[ 3 ], "User Button" ),!.F.,.F.,,,,.F., .F. ); oBtn:name := "oBtn"
+
+      oBtn:bClick := aBootUser[ 1 ]
+
+      IF aBootUser[ 2 ] <> Nil
+         oBtn:oBitmap := IIf( aBitmaps[ 1 ], HBitmap():AddResource( aBootUser[ 2 ] ), HBitmap():AddFile( aBootUser[ 2 ] ) )
+         oBtn:title   := Nil
+         oBtn:lTransp := lTransp
+      ENDIF
+
+   ENDIF
+
+   oDlg:Activate()
+
+   oTimer:END()
+
+   oDlg:brush:Release()
+
+   oFont:Release()
+
+   RETURN Nil
+
+STATIC FUNCTION SetTimerPrinter( oDlg, oTimer )
+   oTimer := HTimer():New( oDlg,, 500, { || TimerFunc( oDlg ) } ); oTimer:name := "oTimer"
+   RETURN Nil
+
+STATIC FUNCTION TimerFunc( o )
+
+   RedrawWindow( o:handle, 1024 + 2 + 256 + 1 )
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_ChangePage( oSayPage, n, nPage) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   ::NeedsRedraw := .T.
+   IF nPage == nil
+      IF n == 0
+         ::nCurrPage := 1
+      ELSEIF n == 2
+         ::nCurrPage := Len( ::aMeta )
+      ELSEIF n == 1 .AND. ::nCurrPage < Len( ::aMeta )
+         ::nCurrPage ++
+      ELSEIF n == - 1 .AND. ::nCurrPage > 1
+         ::nCurrPage --
+      ENDIF
+      oSayPage:SetItem( ::nCurrPage )
+   ELSE
+      ::nCurrPage := nPage
+   ENDIF
+
+   RETURN Nil
+
+
+
+
+
+
+UTILITY STATIC function HPrinter_ResizePreviewDlg( oCanvas, nZoom, msg, wParam, lParam) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL nWidth, nHeight, k1, k2, x, y
+   LOCAL i, nPos, wmsg, nPosVert, nPosHorz
+
+   x := oCanvas:nWidth
+   y := oCanvas:nHeight
+
+   ( (lParam) := (lParam) )
+
+   nPosVert := getscrollpos( oCanvas:handle, 1 )
+   nPosHorz := getscrollpos( oCanvas:handle, 0 )
+
+   IF msg = 277
+      setscrollrange( oCanvas:handle, 1, 1, 20 )
+      wmsg := LOWORD( wParam )
+      IF wmsg = 4 .OR. wmsg = 5
+         nPosVert := HIWORD( wParam )
+      ELSEIF wmsg = 0
+         nPosVert := nPosVert - 1
+         IF nPosVert < 1
+            nPosVert := 1
+         ENDIF
+      ELSEIF wmsg = 1
+         nPosVert := nPosVert + 1
+         IF nPosVert > 20
+            nPosVert = 20
+         ENDIF
+      ELSEIF wmsg = 3
+         nPosVert := nPosVert + 4
+         IF nPosVert > 20
+            nPosVert = 20
+         ENDIF
+      ELSEIF wmsg = 2
+         nPosVert := nPosVert - 4
+         IF nPosVert < 1
+            nPosVert = 1
+         ENDIF
+      ENDIF
+      setscrollpos( oCanvas:handle, 1, nPosVert )
+      ::NeedsRedraw := .T.
+   ENDIF
+
+   IF msg = 276
+      setscrollrange( oCanvas:handle, 0, 1, 20 )
+      wmsg := LOWORD( wParam )
+      IF wmsg = 4 .OR. wmsg = 5
+         nPosHorz := HIWORD( wParam )
+      ELSEIF wmsg = 0
+         nPosHorz := nPosHorz - 1
+         IF nPosHorz < 1
+            nPosHorz = 1
+         ENDIF
+      ELSEIF wmsg = 1
+         nPosHorz := nPosHorz + 1
+         IF nPosHorz > 20
+            nPosHorz = 20
+         ENDIF
+      ELSEIF wmsg = 3
+         nPosHorz := nPosHorz + 4
+         IF nPosHorz > 20
+            nPosHorz = 20
+         ENDIF
+      ELSEIF wmsg = 2
+         nPosHorz := nPosHorz - 4
+         IF nPosHorz < 1
+            nPosHorz = 1
+         ENDIF
+      ENDIF
+      setscrollpos( oCanvas:handle, 0, nPosHorz )
+      ::NeedsRedraw := .T.
+   ENDIF
+
+   IF msg == 522
+      SetScrollRange( oCanvas:handle, 1, 1, 20 )
+      IF HIWORD( wParam ) > 32678
+         IF ++ nPosVert > 20
+            nPosVert := 20
+         ENDIF
+      ELSE
+         IF -- nPosVert < 1
+            nPosVert := 1
+         ENDIF
+      ENDIF
+      SetScrollPos( oCanvas:handle, 1, nPosVert )
+      ::NeedsRedraw := .T.
+   ENDIF
+
+   IF nZoom <> Nil
+
+      IF nZoom < 0 .AND. ::nZoom == 0
+         RETURN Nil
+      ENDIF
+      ::nZoom += nZoom
+      ::NeedsRedraw := .T.
+   ENDIF
+   k1 := ::nWidth / ::nHeight
+   k2 := ::nHeight / ::nWidth
+
+   IF ::nWidth > ::nHeight
+      nWidth := x - 20
+      nHeight := Round( nWidth * k2, 0 )
+      IF nHeight > y - 20
+         nHeight := y - 20
+         nWidth := Round( nHeight * k1, 0 )
+      ENDIF
+      ::NeedsRedraw := .T.
+   ELSE
+      nHeight := y - 10
+      nWidth := Round( nHeight * k1, 0 )
+      IF nWidth > x - 20
+         nWidth := x - 20
+         nHeight := Round( nWidth * k2, 0 )
+      ENDIF
+      ::NeedsRedraw := .T.
+   ENDIF
+
+   IF ::nZoom > 0
+      FOR i := 1 TO ::nZoom
+         nWidth := Round( nWidth * 1.5, 0 )
+         nHeight := Round( nHeight * 1.5, 0 )
+      NEXT
+      ::NeedsRedraw := .T.
+   ELSEIF ::nZoom == 0
+      nWidth := Round( nWidth * 0.93, 0 )
+      nHeight := Round( nHeight * 0.93, 0 )
+   ENDIF
+
+   ::xOffset := ::yOffset := 0
+   IF nHeight > y
+      nPos := nPosVert
+      IF nPos > 0
+         ::yOffset := Round( ( ( nPos - 1 ) / 18 ) * ( nHeight - y + 10 ), 0 )
+      ENDIF
+   ELSE
+      setscrollpos( oCanvas:handle, 1, 0 )
+   ENDIF
+
+   IF nWidth > x
+      nPos := nPosHorz
+      IF nPos > 0
+         nPos := ( nPos - 1 ) / 18
+         ::xOffset := Round( nPos * ( nWidth - x + 10 ), 0 )
+      ENDIF
+   ELSE
+      setscrollpos( oCanvas:handle, 0, 0 )
+   ENDIF
+
+   ::x1 := IIf( nWidth < x, Round( ( x - nWidth ) / 2, 0 ), 10 ) - ::xOffset
+   ::x2 := ::x1 + nWidth - 1
+   ::y1 := IIf( nHeight < y, Round( ( y - nHeight ) / 2, 0 ), 10 ) - ::yOffset
+   ::y2 := ::y1 + nHeight - 1
+
+   IF nZoom <> Nil .OR. msg <> Nil
+      RedrawWindow( oCanvas:handle, 1024 + 2 + 256 + 1 )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_PlayMeta( oWnd) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+   LOCAL pps, hDC
+   LOCAL rect
+   LOCAL aArray
+   STATIC lRefreshVideo := .T.
+   STATIC Brush := NIL
+   STATIC BrushShadow := NIL
+   STATIC BrushBorder := NIL
+   STATIC BrushWhite := NIL
+   STATIC BrushBlack := NIL
+   STATIC BrushLine := NIL
+   STATIC BrushBackground := NIL
+
+   rect := GetClientRect( oWnd:handle )
+
+
+
+
+   IF ::xOffset == Nil
+      ::ResizePreviewDlg( oWnd )
+   ENDIF
+
+   pps := DefinePaintStru()
+   hDC := BeginPaint( oWnd:handle, pps )
+   aArray = GetPPSRect( pps )
+
+
+   IF ( aArray[ 1 ] == 0 .AND. aArray[ 2 ] == 0 )
+      IF ( ::NeedsRedraw .OR. lRefreshVideo )
+         IF ValType( ::memDC ) == "U"
+            ::memDC := hDC():New()
+            ::memDC:CreateCompatibleDC( hDC )
+            ::memBitmap := CreateCompatibleBitmap( hDC, rect[ 3 ] - rect[ 1 ], rect[ 4 ] - rect[ 2 ] )
+            ::memDC:SelectObject( ::memBitmap )
+            Brush           := HBrush():Add( GetSysColor( 20 + 1 ) ):handle
+            BrushWhite      := HBrush():Add( RGB( 255, 255, 255 ) ):handle
+            BrushBlack      := HBrush():Add( RGB( 0, 0, 0 ) ):handle
+            BrushLine       := HBrush():Add( RGB( 102, 100, 92 ) ):handle
+            BrushBackground := HBrush():Add( RGB( 204, 200, 184 ) ):handle
+            BrushShadow     := HBrush():Add( RGB( 178, 175, 161 ) ):handle
+            BrushBorder     := HBrush():Add( RGB( 129, 126, 115 ) ):handle
+         ENDIF
+
+         IF ::NeedsRedraw
+
+            FillRect( ::memDC:m_hDC, rect[ 1 ], rect[ 2 ], rect[ 3 ], rect[ 4 ], BrushBackground )
+            FillRect( ::memDC:m_hDC, rect[ 1 ], rect[ 2 ], rect[ 1 ], rect[ 4 ], BrushBorder )
+            FillRect( ::memDC:m_hDC, rect[ 1 ], rect[ 2 ], rect[ 3 ], rect[ 2 ], BrushBorder )
+
+            FillRect( ::memDC:m_hDC, ::x1 - 1, ::y1 - 1, ::x2 + 1, ::y2 + 1, BrushLine )
+            FillRect( ::memDC:m_hDC, ::x1, ::y1, ::x2, ::y2, BrushWhite )
+
+            PlayEnhMetafile( ::memDC:m_hDC, ::aMeta[ ::nCurrPage ], ::x1, ::y1, ::x2, ::y2 )
+
+
+
+            FillRect( ::memDC:m_hDC, ::x2, ::y1 + 2, ::x2 + 1, ::y2 + 2, BrushBlack )
+            FillRect( ::memDC:m_hDC, ::x2 + 1, ::y1 + 1, ::x2 + 2, ::y2 + 2, BrushShadow )
+            FillRect( ::memDC:m_hDC, ::x2 + 1, ::y1 + 2, ::x2 + 2, ::y2 + 2, BrushLine )
+            FillRect( ::memDC:m_hDC, ::x2 + 2, ::y1 + 2, ::x2 + 3, ::y2 + 2, BrushShadow )
+
+
+            FillRect( ::memDC:m_hDC, ::x1 + 2, ::y2, ::x2, ::y2 + 2, BrushBlack )
+            FillRect( ::memDC:m_hDC, ::x1 + 2, ::y2 + 1, ::x2 + 1, ::y2 + 2, BrushLine )
+            FillRect( ::memDC:m_hDC, ::x1 + 2, ::y2 + 2, ::x2 + 2, ::y2 + 3, BrushShadow )
+            ::NeedsRedraw := .F.
+         ENDIF
+
+         lRefreshVideo := .F.
+         BitBlt( hDC, rect[ 1 ], rect[ 2 ], rect[ 3 ], rect[ 4 ], ::memDC:m_hDC, 0, 0, 13369376 )
+      ELSE
+         lRefreshVideo := .T.
+      ENDIF
+   ELSE
+
+      lRefreshVideo := .T.
+   ENDIF
+
+
+
+
+
+
+
+
+   EndPaint( oWnd:handle, pps )
+
+   RETURN Nil
+
+UTILITY STATIC function HPrinter_PrintMeta( nPage) ; local Self AS CLASS HPrinter := QSelf() AS CLASS HPrinter
+
+   IF ::lPreview
+
+      ::StartDoc()
+      IF nPage == Nil
+         FOR nPage := 1 TO Len( ::aMeta )
+            PrintEnhMetafile( ::hDCPrn, ::aMeta[ nPage ] )
+         NEXT
+      ELSE
+         PrintEnhMetafile( ::hDCPrn, ::aMeta[ nPage ] )
+      ENDIF
+      ::EndDoc()
+      ::lPreview := .T.
+   ENDIF
+   RETURN Nil

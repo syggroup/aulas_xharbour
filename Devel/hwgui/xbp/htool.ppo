@@ -1,0 +1,580 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 20 "source\htool.prg"
+_HB_CLASS HToolButton ; UTILITY FUNCTION HToolButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HToolButton" , {HObject():classh} ) ) ; ;
+
+   _HB_MEMBER { Name} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "Name" }, .F., .F. ), )
+   _HB_MEMBER { id} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "id" }, .F., .F. ), )
+   _HB_MEMBER { nBitIp} ; IIF( !.F., s_oClass:AddMultiData(, -1, nScope + IIF( .F., 32, 0 ), { "nBitIp" }, .F., .F. ), )
+   _HB_MEMBER { bState} ; IIF( !.F., s_oClass:AddMultiData(, 0x04, nScope + IIF( .F., 32, 0 ), { "bState" }, .F., .F. ), )
+   _HB_MEMBER { bStyle} ; IIF( !.F., s_oClass:AddMultiData(, 0x0000, nScope + IIF( .F., 32, 0 ), { "bStyle" }, .F., .F. ), )
+   _HB_MEMBER { tooltip} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "tooltip" }, .F., .F. ), )
+   _HB_MEMBER { aMenu} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aMenu" }, .F., .F. ), )
+   _HB_MEMBER { hMenu} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hMenu" }, .F., .F. ), )
+   _HB_MEMBER { Title} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "Title" }, .F., .F. ), )
+   _HB_MEMBER { lEnabled} ; IIF( !.F., s_oClass:AddMultiData(, .T., 8 + IIF( .F., 32, 0 ), { "lEnabled" }, .F., .F. ), )
+   _HB_MEMBER { lChecked} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lChecked" }, .F., .F. ), )
+   _HB_MEMBER { lPressed} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lPressed" }, .F., .F. ), )
+   _HB_MEMBER { bClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" }, .F., .F. ), )
+   _HB_MEMBER { oParent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oParent" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oParent,cName,nBitIp,nId,bState,bStyle,cText,bClick,ctip, aMenu); IIF( .F., s_oClass:ModMethod( "New", @HToolButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HToolButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Enable(); IIF( .F., s_oClass:ModInline( "Enable", {|Self | Self, ::oParent:EnableButton( ::id, .T. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Enable", {|Self | Self, ::oParent:EnableButton( ::id, .T. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Disable(); IIF( .F., s_oClass:ModInline( "Disable", {|Self | Self, ::oParent:EnableButton( ::id, .F. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Disable", {|Self | Self, ::oParent:EnableButton( ::id, .F. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Show(); IIF( .F., s_oClass:ModInline( "Show", {|Self | Self, SENDMESSAGE( ::oParent:handle, (1024 + 4), INT( ::id ), MAKELONG( 0, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Show", {|Self | Self, SENDMESSAGE( ::oParent:handle, (1024 + 4), INT( ::id ), MAKELONG( 0, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Hide(); IIF( .F., s_oClass:ModInline( "Hide", {|Self | Self, SENDMESSAGE( ::oParent:handle, (1024 + 4), INT( ::id ), MAKELONG( 1, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Hide", {|Self | Self, SENDMESSAGE( ::oParent:handle, (1024 + 4), INT( ::id ), MAKELONG( 1, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Enabled(lEnabled); _HB_MEMBER _Enabled(lEnabled); IIF( .F., s_oClass:ModMethod( "Enabled", @HToolButton_Enabled(), 1 + 32, .F. ), s_oClass:AddMethod( "Enabled", @HToolButton_Enabled(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Enabled", @HToolButton_Enabled() ), s_oClass:AddMethod( "_Enabled", @HToolButton_Enabled() ) ) ;
+   _HB_MEMBER Checked(lCheck); _HB_MEMBER _Checked(lCheck); IIF( .F., s_oClass:ModMethod( "Checked", @HToolButton_Checked(), 1 + 32, .F. ), s_oClass:AddMethod( "Checked", @HToolButton_Checked(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Checked", @HToolButton_Checked() ), s_oClass:AddMethod( "_Checked", @HToolButton_Checked() ) ) ;
+   _HB_MEMBER Pressed(lPressed); _HB_MEMBER _Pressed(lPressed); IIF( .F., s_oClass:ModMethod( "Pressed", @HToolButton_Pressed(), 1 + 32, .F. ), s_oClass:AddMethod( "Pressed", @HToolButton_Pressed(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Pressed", @HToolButton_Pressed() ), s_oClass:AddMethod( "_Pressed", @HToolButton_Pressed() ) ) ;
+   _HB_MEMBER onClick(); IIF( .F., s_oClass:ModMethod( "onClick", @HToolButton_onClick(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onClick", @HToolButton_onClick(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Caption(cText); _HB_MEMBER _Caption(cText); IIF( .F., s_oClass:ModMethod( "Caption", @HToolButton_Caption(), 1 + 32, .F. ), s_oClass:AddMethod( "Caption", @HToolButton_Caption(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Caption", @HToolButton_Caption() ), s_oClass:AddMethod( "_Caption", @HToolButton_Caption() ) ) ;
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HToolButton ;
+
+UTILITY STATIC function HToolButton_New( oParent,cName,nBitIp,nId,bState,bStyle,cText,bClick,ctip,aMenu) ; local Self AS CLASS HToolButton := QSelf() AS CLASS HToolButton
+
+   ::Name := cName
+   ::iD := nId
+   ::title  := cText
+   ::nBitIp := nBitIp
+   ::bState := bState
+   ::bStyle := bStyle
+   ::tooltip := ctip
+   ::bClick  := bClick
+   ::aMenu := amenu
+    ::oParent := oParent
+     __objAddData(::oParent, cName)
+    ::oParent:&(cName) := Self
+
+
+
+RETURN Self
+
+UTILITY STATIC function HToolButton_Caption(cText) ; local Self AS CLASS HToolButton := QSelf() AS CLASS HToolButton
+   IF cText <> Nil
+      ::Title := cText
+      TOOLBAR_SETBUTTONINFO( ::oParent:handle, ::id, cText )
+   ENDIF
+   RETURN ::Title
+
+UTILITY STATIC function HToolButton_onClick() ; local Self AS CLASS HToolButton := QSelf() AS CLASS HToolButton
+  IF ::bClick <> Nil
+      Eval( ::bClick, self, ::id )
+   ENDIF
+RETURN Nil
+
+ UTILITY STATIC function HToolButton_Enabled(lEnabled) ; local Self AS CLASS HToolButton := QSelf() AS CLASS HToolButton
+  IF lEnabled <> Nil
+     IF lEnabled
+        ::enable()
+     ELSE
+        ::disable()
+     ENDIF
+     ::lEnabled := lEnabled
+  ENDIF
+  RETURN ::lEnabled
+
+UTILITY STATIC function HToolButton_Pressed(lPressed) ; local Self AS CLASS HToolButton := QSelf() AS CLASS HToolButton
+LOCAL nState
+
+   IF lPressed <> Nil
+      nState := SENDMESSAGE( ::oParent:handle, (1024 + 18), INT( ::id ), 0 )
+
+      SENDMESSAGE( ::oParent:handle, (1024 + 17), INT( ::id ), MAKELONG( IIF( lPressed, HWG_BITOR( nState, 0x02 ), nState - HWG_BITAND( nState, 0x02 ) ), 0 ) )
+      ::lPressed := lPressed
+   ENDIF
+   RETURN ::lPressed
+
+UTILITY STATIC function HToolButton_Checked(lcheck) ; local Self AS CLASS HToolButton := QSelf() AS CLASS HToolButton
+LOCAL nState
+
+   IF lCheck <> Nil
+      nState := SENDMESSAGE( ::oParent:handle, (1024 + 18), INT( ::id ), 0 )
+
+      SENDMESSAGE( ::oParent:handle, (1024 + 17), INT( ::id ), MAKELONG( IIF( lCheck, HWG_BITOR( nState, 0x01 ), nState - HWG_BITAND( nState, 0x01 ) ), 0 ) )
+      ::lChecked := lCheck
+   ENDIF
+   RETURN ::lChecked
+
+
+_HB_CLASS HToolBar ; UTILITY FUNCTION HToolBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HToolBar" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiData(, "ToolbarWindow32", nScope + IIF( .F., 32, 0 ), { "winclass" }, .F., .F. ), )
+   _HB_MEMBER { TEXT, id, nTop, nLeft, nwidth, nheight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "TEXT" , "id" , "nTop" , "nLeft" , "nwidth" , "nheight" }, .F., .F. ), )
+   _HB_MEMBER { oSelected} ; IIF( !.F., s_oClass:AddMultiClsData(, Nil, nScope + IIF( .F., 32, 0 ) + 64, { "oSelected" }, .F. ), )
+   _HB_MEMBER { State} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "State" }, .F., .F. ), )
+   _HB_MEMBER { ExStyle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ExStyle" }, .F., .F. ), )
+   _HB_MEMBER { bClick, cTooltip} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" , "cTooltip" }, .F., .F. ), )
+
+   _HB_MEMBER { lPress} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lPress" }, .F., .F. ), )
+   _HB_MEMBER { lFlat} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lFlat" }, .F., .F. ), )
+   _HB_MEMBER { lTransp} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lTransp" }, .F., .F. ), )
+   _HB_MEMBER { lVertical} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lVertical" }, .F., .F. ), )
+   _HB_MEMBER { lCreate} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lCreate" }, .F., .F. ), )
+   _HB_MEMBER { lResource} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lResource" }, .F., .F. ), )
+   _HB_MEMBER { nOrder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nOrder" }, .F., .F. ), )
+   _HB_MEMBER { BtnWidth, BtnHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "BtnWidth" , "BtnHeight" }, .F., .F. ), )
+   _HB_MEMBER { nIDB} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nIDB" }, .F., .F. ), )
+   _HB_MEMBER { aButtons} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aButtons" }, .F., .F. ), )
+   _HB_MEMBER { aSeparators} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aSeparators" }, .F., .F. ), )
+   _HB_MEMBER { aItem} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aItem" }, .F., .F. ), )
+   _HB_MEMBER { Line} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "Line" }, .F., .F. ), )
+   _HB_MEMBER { nIndent} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nIndent" }, .F., .F. ), )
+   _HB_MEMBER { nwSize, nHSize} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nwSize" , "nHSize" }, .F., .F. ), )
+   _HB_MEMBER { nDrop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nDrop" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,btnWidth,oFont,bInit,  bSize,bPaint,ctooltip,tcolor,bcolor,lTransp, lVertical ,aItem, nWSize,nHSize, nIndent, nIDB); IIF( .F., s_oClass:ModMethod( "New", @HToolBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HToolBar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem); IIF( .F., s_oClass:ModMethod( "Redefine", @HToolBar_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HToolBar_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HToolBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HToolBar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT(); IIF( .F., s_oClass:ModMethod( "INIT", @HToolBar_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HToolBar_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CreateTool(); IIF( .F., s_oClass:ModMethod( "CreateTool", @HToolBar_CreateTool(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CreateTool", @HToolBar_CreateTool(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex); IIF( .F., s_oClass:ModMethod( "AddButton", @HToolBar_AddButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddButton", @HToolBar_AddButton(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Notify( lParam); IIF( .F., s_oClass:ModMethod( "Notify", @HToolBar_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Notify", @HToolBar_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER EnableButton(idButton, lEnable); IIF( .F., s_oClass:ModInline( "EnableButton", {|Self,idButton, lEnable | Self, SENDMESSAGE( ::handle, (1024 + 1), INT( idButton ), MAKELONG( IIF( lEnable, 1, 0 ), 0) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "EnableButton", {|Self,idButton, lEnable | Self, SENDMESSAGE( ::handle, (1024 + 1), INT( idButton ), MAKELONG( IIF( lEnable, 1, 0 ), 0) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER ShowButton(idButton); IIF( .F., s_oClass:ModInline( "ShowButton", {|Self,idButton | Self, SENDMESSAGE( ::handle, (1024 + 4), INT( idButton ), MAKELONG( 0, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ShowButton", {|Self,idButton | Self, SENDMESSAGE( ::handle, (1024 + 4), INT( idButton ), MAKELONG( 0, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER HideButton(idButton); IIF( .F., s_oClass:ModInline( "HideButton", {|Self,idButton | Self, SENDMESSAGE( ::handle, (1024 + 4), INT( idButton ), MAKELONG( 1, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "HideButton", {|Self,idButton | Self, SENDMESSAGE( ::handle, (1024 + 4), INT( idButton ), MAKELONG( 1, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER REFRESH( ); IIF( !.F., s_oClass:AddVirtual( "REFRESH" ), )
+   _HB_MEMBER RESIZE( xIncrSize, lWidth, lHeight); IIF( .F., s_oClass:ModMethod( "RESIZE", @HToolBar_RESIZE(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "RESIZE", @HToolBar_RESIZE(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HToolBar ;
+
+
+UTILITY STATIC function HToolBar_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, btnWidth, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, lVertical ,aItem, nWSize,nHSize, nIndent, nIDB) ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+
+
+
+
+   IF aitem == NIL ; aitem := { } ; END
+
+
+   nStyle := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ), IIF( Hwg_BitAnd( nStyle, 4194304 + 8388608 ) > 0, 0x00000040 , 0 ) )
+   nHeight += IIF( Hwg_BitAnd( nStyle, 4194304 + 8388608 ) > 0, 1, 0 )
+   nWidth  -= IIF( Hwg_BitAnd( nStyle, 4194304 + 8388608 ) > 0, 2, 0 )
+
+   ::lTransp := IIF( lTransp <> NIL, lTransp, .F. )
+   ::lVertical := IIF( lVertical <> NIL .AND. VALTYPE( lVertical ) = "L", lVertical, ::lVertical )
+   IF ::lTransp  .OR. ::lVertical
+      nStyle += IIF( ::lTransp, 0x8000, IIF( ::lVertical, 0x00000080, 0 ) )
+   ENDIF
+
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+
+   ::BtnWidth :=  BtnWidth
+   ::nIDB := nIDB
+   ::aItem := aItem
+   ::nIndent := IIF( nIndent <> NIL , nIndent, 1 )
+   ::nwSize := IIF( nwSize <> NIL .AND. nwSize > 11 , nwSize, 16 )
+   ::nhSize := IIF( nhSize <> NIL .AND. nhSize > 11 , nhSize, ::nwSize - 1 )
+   ::lnoThemes := ! ISTHEMEACTIVE() .OR. ! ::WindowsManifest
+   IF Hwg_BitAnd( ::Style, 4194304 + 8388608 + 0x00000040 ) = 0
+      IF ! ::lVertical
+
+         ::Line := HLine():New( oWndParent,,, nLeft, nTop + nHeight +  IIF( ::lnoThemes .AND. Hwg_BitAnd( nStyle,  0x0800 ) > 0, 2, 1 ) , nWidth )
+      ELSE
+         ::Line := HLine():New(oWndParent,,::lVertical,nLeft + nWidth + 1 ,nTop,nHeight )
+      ENDIF
+   ENDIF
+
+   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == 2 .AND.  ::oParent:aOffset[ 2 ] + ::oParent:aOffset[ 3 ] = 0
+      IF ::nWidth > ::nHeight .OR. ::nWidth == 0
+
+         ::oParent:aOffset[ 2 ] += ::nHeight
+      ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
+         IF ::nLeft == 0
+            ::oParent:aOffset[ 1 ] += ::nWidth
+         ELSE
+            ::oParent:aOffset[ 3 ] += ::nWidth
+         ENDIF
+      ENDIF
+   ENDIF
+
+   ::extstyle:= 0x00000008
+
+   HWG_InitCommonControlsEx()
+
+   ::Activate()
+
+   RETURN Self
+
+
+
+UTILITY STATIC function HToolBar_Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lTransp, aItem) ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+
+   ( (cCaption) := (cCaption) )
+   ( (lTransp) := (lTransp) )
+
+   IF aItem == NIL ; aItem := { } ; END
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+   HWG_InitCommonControlsEx()
+   ::aItem := aItem
+
+   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::nIndent := 1
+   ::lResource := .T.
+
+
+   RETURN Self
+
+
+UTILITY STATIC function HToolBar_Activate() ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+
+   IF ! Empty( ::oParent:handle )
+      ::lCreate := .T.
+
+      ::handle := CREATETOOLBAR( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HToolBar_INIT() ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+
+   IF ! ::lInit
+      IF ::Line <> Nil
+         ::Line:Anchor := ::Anchor
+      ENDIF
+      ::HControl:Init()
+      ::CreateTool()
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HToolBar_CreateTool() ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+   Local n,n1
+   Local aTemp
+   Local aButton :={}
+   Local aBmpSize, hIm, nPos
+   Local nMax := 0
+   Local hImage, img, nlistimg, ndrop := 0
+
+   IF ! ::lResource
+      IF Empty( ::handle )
+         RETURN Nil
+               ENDIF
+               IF ! ::lCreate
+                  DESTROYWINDOW( ::Handle )
+                  ::Activate()
+
+                  ::SetFont( ::oFont )
+
+            ENDIF
+   ELSE
+      FOR n = 1 TO Len( ::aitem )
+         ::AddButton(::aitem[ n, 1 ],::aitem[ n, 2 ],::aitem[ n, 3 ],::aitem[ n, 4 ],::aitem[ n, 6 ], ::aitem[ n, 7 ], ::aitem[ n, 8 ], ::aitem[ n, 9 ], , n )
+
+      NEXT
+   ENDIF
+
+
+
+
+
+
+   nlistimg := 0
+   IF ::nIDB <> Nil .AND. ::nIDB >= 0
+      nlistimg := TOOLBAR_LOADSTANDARTIMAGE( ::handle, ::nIDB )
+   ENDIF
+         IF Hwg_BitAnd( ::Style,  0x1000 ) > 0 .AND. ::nwSize = Nil
+            ::nwSize := MAX( 16, ( ::nHeight - 16 )  )
+      ENDIF
+      IF ::nwSize <> Nil
+         SendMessage( ::HANDLE ,(1024 + 32),0, MAKELONG ( ::nwSize, ::nhSize ) )
+      ENDIF
+
+   FOR n := 1 TO Len( ::aItem )
+      IF ValType( ::aItem[ n, 7 ] ) == "B"
+
+      ENDIF
+      IF ValType( ::aItem[ n, 9 ] ) == "A"
+         ::aItem[ n, 10 ] := hwg__CreatePopupMenu()
+         ::aItem[ n, 11 ]:hMenu := ::aItem[ n, 10 ]
+         aTemp := ::aItem[ n, 9 ]
+
+         FOR n1 := 1 TO Len( aTemp )
+            aTemp[ n1, 1 ] := IIF( aTemp[ n1, 1 ] = "-", NIL, aTemp[ n1, 1 ] )
+            hwg__AddMenuItem( ::aItem[ n, 10 ], aTemp[ n1, 1 ], - 1, .F., aTemp[ n1, 2 ], , .F. )
+            ::oParent:AddEvent( 0, aTemp[ n1, 2 ], aTemp[ n1, 3 ] )
+         NEXT
+      ENDIF
+               IF ::aItem[ n, 4 ] = 0x0001
+                     LOOP
+                  ENDIF
+
+                  nDrop := Max( nDrop, IIF( Hwg_Bitand(::aItem[ n, 4 ], 0x0080 ) <> 0, 0,  IIF( Hwg_Bitand(::aItem[ n, 4 ], 0x0008 ) <> 0, 8,0 ) ) )
+
+
+
+
+
+      IF ValType( ::aItem[ n, 1 ] )  == "C" .OR. ::aItem[ n, 1 ] > 1
+         IF ValType( ::aItem[ n, 1 ] )  == "C" .AND. At(".", ::aitem[ n, 1 ] ) <> 0
+            IF !File( ::aitem[ n, 1 ] )
+               Loop
+            ENDIF
+
+            hImage := HBITMAP():AddFile( ::aitem[ n, 1 ], , .T., ::nwSize, ::nhSize ):handle
+         ELSE
+
+            hImage := HBitmap():AddResource( ::aitem[ n, 1 ], 32 + 4096, ,::nwSize,::nhSize ):handle
+         ENDIF
+         IF ( img := Ascan( aButton, hImage )) = 0
+            AAdd( aButton, hImage )
+            img := Len( aButton )
+         ENDIF
+         ::aItem[ n ,1 ] := img + nlistimg
+         IF ! ::lResource
+            TOOLBAR_LOADIMAGE( ::Handle, aButton[ img ])
+         ENDIF
+      ELSE
+
+
+
+
+
+
+
+      ENDIF
+   NEXT
+   IF Len( aButton ) > 0
+      aBmpSize := GetBitmapSize( aButton[ 1 ] )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      hIm := CreateImageList( {} ,aBmpSize[ 1 ], aBmpSize[ 2 ], 1, 0x00FE + 0x0001 )
+      FOR nPos := 1 TO Len( aButton )
+
+
+
+
+
+
+
+
+
+
+         Imagelist_Add( hIm, aButton[ nPos ] )
+      NEXT
+      SendMessage( ::Handle, (1024 + 48), 0, hIm )
+   ELSEIF Len(aButton ) = 0
+      SendMessage( ::HANDLE ,(1024 + 32),0, MAKELONG ( 0, 0 ) )
+
+   ENDIF
+   SENDMESSAGE( ::Handle, (1024 + 47), ::nIndent,  0)
+   IF !Empty( ::BtnWidth )
+      SENDMESSAGE( ::Handle, (1024 + 59), 0, MAKELPARAM( ::BtnWidth -1, ::BtnWidth + 1  ) )
+
+   ENDIF
+   IF Len( ::aItem ) > 0
+      TOOLBARADDBUTTONS( ::handle, ::aItem, Len( ::aItem ) )
+      SendMessage( ::handle, (1024 + 84), 0, 0x00000001 )
+   ENDIF
+   IF ::BtnWidth <> Nil
+      IF Hwg_BitAnd( ::Style, 0x00000040  ) > 0
+         nMax := IIF( Hwg_BitAnd( ::Style, 4194304 + 8388608 ) > 0 , 4, 2 )
+      ELSEIF Hwg_BitAnd( ::Style,  0x0800 ) > 0
+         nMax := 2
+      ENDIF
+      ::ndrop := nMax + IIF( ! ::WindowsManifest , 0, nDrop )
+
+      ::BtnHeight := MAX( HIWORD( SENDMESSAGE( ::handle, (1024 + 58), 0, 0 ) ), ::nHeight - ::nDrop - IIF( ! ::lnoThemes .AND. Hwg_BitAnd( ::Style,  0x0800 ) > 0, 0, 2 ) )
+      IF  ! ::lVertical
+         SENDMESSAGE( ::handle, (1024 + 31), 0,  MAKELPARAM( ::BtnWidth , ::BtnHeight ) )
+      ELSE
+         SENDMESSAGE( ::handle, (1024 + 31), 0,  MAKELPARAM( ::nWidth - ::nDrop - 1, ::BtnWidth )  )
+      ENDIF
+   ENDIF
+   ::BtnWidth := LOWORD( SENDMESSAGE( ::handle, (1024 + 58), 0, 0 ) )
+
+
+
+
+
+
+
+   RETURN Nil
+
+
+UTILITY STATIC function HToolBar_Notify( lParam) ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+
+   LOCAL nCode :=  GetNotifyCode( lParam )
+   LOCAL nId
+
+   LOCAL nButton
+   LOCAL nPos
+
+   IF nCode == (-520 - 0)
+
+      nButton := TOOLBAR_GETDISPINFOID( lParam )
+      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nButton } )
+      TOOLBAR_SETDISPINFO( lParam, ::aItem[ nPos, 8 ] )
+
+   ELSEIF nCode == ((-700) - 18)
+
+      nId := TOOLBAR_GETINFOTIPID( lParam )
+      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+      TOOLBAR_GETINFOTIP( lParam, ::aItem[ nPos, 8 ] )
+
+   ELSEIF nCode == ((-700) - 10)
+      nId := TOOLBAR_SUBMENUEXGETID( lParam )
+      IF nId > 0
+
+         nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+         TOOLBAR_SUBMENUEx( lParam, ::aItem[ nPos, 10 ], ::oParent:handle )
+      ELSE
+         TOOLBAR_SUBMENU( lParam, 1, ::oParent:handle )
+      ENDIF
+   elseif nCode == (0-2)
+      nId := TOOLBAR_IDCLICK( lParam )
+      nPos := AScan( ::aItem,  { | x | x[ 2 ] == nId } )
+      if nPos > 0 .AND. ::aItem[nPos,7] <> NIL
+         Eval( ::aItem[nPos,7], ::aItem[nPos,11], nId )
+      endif
+   ENDIF
+
+   RETURN 0
+
+UTILITY STATIC function HToolBar_AddButton( nBitIp, nId, bState, bStyle, cText, bClick, c, aMenu, cName, nIndex) ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+   Local hMenu := Nil, oButton
+
+   IF nBitIp == NIL ; nBitIp := -1 ; END
+   IF bstate == NIL ; bstate := 0x04 ; END
+   IF bstyle == NIL ; bstyle := 0x0000 ; END
+   IF c == NIL ; c := "" ; END
+   IF ctext == NIL ; ctext := "" ; END
+   IF nId = Nil .OR. EMPTY( nId )
+
+      nId := VAL( RIGHT( STR( ::id, 6 ), 1 ) ) * 64
+      nId := nId + ::id + 700 + LEN( ::aButtons ) + LEN( ::aSeparators ) + 1
+   ENDIF
+
+   IF bStyle <> 0x0001
+      IF cName == NIL ; cName := "oToolButton" + LTRIM( STR( LEN( ::aButtons ) + 1 ) ) ; END
+      AAdd( ::aButtons,{ Alltrim( cName ), nid } )
+   ELSE
+      bstate :=  IIF( !( ::lVertical .AND. LEN( ::aButtons) = 0 ), bState, 8 )
+      IF nBitIp == NIL ; nBitIp := 0 ; END
+      IF cName == NIL ; cName := "oSeparator"+LTRIM( STR( LEN( ::aSeparators ) + 1 ) ) ; END
+      AAdd( ::aSeparators,{ cName, nid } )
+
+   ENDIF
+
+   oButton := HToolButton():New(Self,cName,nBitIp,nId,bState,bStyle,cText,bClick, c ,aMenu)
+   IF ! ::lResource
+      AAdd( ::aItem ,{ nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton } )
+   ELSE
+      ::aItem[ nIndex ] := { nBitIp, nId, bState, bStyle, 0, cText, bClick, c, aMenu, hMenu, oButton }
+   Endif
+   RETURN oButton
+
+UTILITY STATIC function HToolBar_RESIZE( xIncrSize, lWidth, lHeight) ; local Self AS CLASS HToolBar := QSelf() AS CLASS HToolBar
+   LOCAL nSize
+
+   IF ::Anchor = 0 .OR. ( ! lWidth .AND. ! lHeight )
+      RETURN Nil
+   ENDIF
+   nSize := SENDMESSAGE( ::handle, (1024 + 58), 0, 0 )
+   IF xIncrSize <> 1
+      ::Move( ::nLeft, ::nTop, ::nWidth, ::nHeight, 0 )
+   ENDIF
+   IF xIncrSize < 1 .OR. LOWORD( nSize) <= ::BtnWidth
+      ::BtnWidth :=  ::BtnWidth  * xIncrSize
+   ELSE
+      ::BtnWidth :=  LOWORD( nSize) * xIncrSize
+   ENDIF
+   SENDMESSAGE( ::Handle, (1024 + 59), MAKELPARAM( ::BtnWidth - 1, ::BtnWidth + 1 ) )
+   IF ::BtnWidth <> Nil
+      IF  ! ::lVertical
+         SENDMESSAGE( ::handle, (1024 + 31), 0,  MAKELPARAM( ::BtnWidth, ::BtnHeight ))
+      ELSE
+         SENDMESSAGE( ::handle, (1024 + 31), 0,  MAKELPARAM( ::nWidth - ::nDrop - 1, ::BtnWidth )  )
+            ENDIF
+            SENDMESSAGE( ::handle, 5, 0,  0 )
+   ENDIF
+   RETURN NIL
+
+
+_HB_CLASS HToolBarEX ; UTILITY FUNCTION HToolBarEX(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HToolBarEX" , {HToolBar():classh} ) ) ; ;
+
+
+   _HB_MEMBER init(); IIF( .F., s_oClass:ModMethod( "init", @HToolBarEX_init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "init", @HToolBarEX_init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ExecuteTool( nid); IIF( .F., s_oClass:ModMethod( "ExecuteTool", @HToolBarEX_ExecuteTool(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ExecuteTool", @HToolBarEX_ExecuteTool(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MyDestructor(); s_oClass:SetDestructor( @HToolBarEX_MyDestructor() ) ;
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HToolBarEX ;
+
+
+UTILITY STATIC function HToolBarEX_init() ; local Self AS CLASS HToolBarEX := QSelf() AS CLASS HToolBarEX
+   ::HToolBar:init()
+   SetWindowObject( ::handle, Self )
+   SETTOOLHANDLE( ::handle )
+   Sethook()
+   RETURN Self
+
+
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function HToolBarEX_ExecuteTool( nid) ; local Self AS CLASS HToolBarEX := QSelf() AS CLASS HToolBarEX
+
+   IF nid > 0
+      SendMessage( ::oParent:handle, 273, makewparam( nid, 0 ), ::handle )
+      RETURN 0
+   ENDIF
+   RETURN - 200
+
+
+
+
+
+
+
+
+
+UTILITY STATIC PROCEDURE HToolBarEX_MyDestructor ; local Self AS CLASS HToolBarEX := QSelf() AS CLASS HToolBarEX
+   unsethook()
+   RETURN

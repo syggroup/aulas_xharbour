@@ -1,0 +1,7 @@
+grid_4.prg
+-i..\..\include
+-lhwgui
+-lprocmisc
+-lhbxml
+-L..\..\lib
+-gui

@@ -1,0 +1,83 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 21 "source\hshbtn.prg"
+_HB_CLASS HShadeButton ; UTILITY FUNCTION HShadeButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HShadeButton" , {HOwnButton():classh} ) ) ; ;
+
+   _HB_MEMBER { hShade} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hShade" }, .F., .F. ), )
+
+
+
+
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, bClick, lflat,               cText, color, font, xt, yt,                        bmp, lResour, xb, yb, widthb, heightb, lTr, trColor,  cTooltip, lEnabled, shadeID, palette,          granularity, highlight, coloring, shcolor); IIF( .F., s_oClass:ModMethod( "New", @HShadeButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HShadeButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint(); IIF( .F., s_oClass:ModMethod( "Paint", @HShadeButton_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HShadeButton_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HShadeButton_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HShadeButton_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HShadeButton ;
+
+
+
+
+
+
+UTILITY STATIC function HShadeButton_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, bClick, lFlat,               cText, color, font, xt, yt,                        bmp, lResour, xb, yb, widthb, heightb, lTr, trColor,  cTooltip, lEnabled, shadeID, palette,          granularity, highlight, coloring, shcolor) ; local Self AS CLASS HShadeButton := QSelf() AS CLASS HShadeButton
+
+
+
+
+
+   ::HOwnButton:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,     bInit, bSize, bPaint, bClick, lFlat,              cText, color, font, xt, yt,,,                     bmp, lResour, xb, yb, widthb, heightb, lTr, trColor,  cTooltip, lEnabled )
+
+   ::hShade := shade_New( 0, 0, nWidth, nHeight, lFlat )
+   shade_Set( ::hShade, shadeID, palette, granularity, highlight, coloring, shcolor )
+   RETURN Self
+
+UTILITY STATIC function HShadeButton_Paint() ; local Self AS CLASS HShadeButton := QSelf() AS CLASS HShadeButton
+   LOCAL pps, hDC
+   LOCAL nState
+
+   pps := DefinePaintStru()
+   hDC := BeginPaint( ::handle, pps )
+
+   IF ::state == 0
+      ::state := 1
+   ENDIF
+
+   IF ::lEnabled
+
+
+      nState := IIf( ::state == 3, 2, 1 +  IIf( ::state == 2, 8, 0 ) ) +  IIf( GetFocus() == ::handle, 4, 0 )
+   ELSE
+      nState := 16
+   ENDIF
+
+   shade_Draw( ::hShade, hDC, nState )
+
+   ::DrawItems( hDC )
+
+   EndPaint( ::handle, pps )
+   RETURN Nil
+
+UTILITY STATIC function HShadeButton_END() ; local Self AS CLASS HShadeButton := QSelf() AS CLASS HShadeButton
+
+   ::HOwnButton:END()
+   shade_Release( ::hShade )
+   RETURN Nil

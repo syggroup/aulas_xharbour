@@ -1,0 +1,62 @@
+CINI =
+C_OUTPUTFOLDER =
+DEFFILE =
+INCLUDEFOLDERS = C:\aulas_xharbour\Devel\hwgui\include;
+LAUTORUN =
+LDEBUG = .F.
+LGUI = .T.
+LIBFOLDERS =
+LMT = .F.
+LNOAUTOFWH = .F.
+LPRG_CLASSICDEBUG = .F.
+LPRG_DEBUG = .F.
+LUSEDLL = .F.
+MAPFILE =
+MYC_FLAGS =
+MYDEFINES = 
+MYLINK_FLAGS = 
+MYPRG_FLAGS =
+MYRC_FLAGS =
+MYSLY_FLAGS =
+OUTPUTFOLDER = objdbf
+PRG_OUTPUTFOLDER =
+RC_OUTPUTFOLDER =
+RUNARGUMENTS =
+SLY_OUTPUTFOLDER =
+STARTIN =
+TARGETFOLDER =
+
+[source\scm.prg]
+MYC_FLAGS = 
+MYDEFINES = 
+MYPRG_FLAGS = 
+
+[source\*.prg]
+MYC_FLAGS =
+MYDEFINES =
+MYPRG_FLAGS =
+
+[source\scm.rc]
+MYDEFINES = 
+MYRC_FLAGS =
+
+[C:\aulas_xharbour\Devel\hwgui\lib\hwgui_xhb72.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib\BC5\SQL.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib\BC5\libpq.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib\BC5\odbccp32.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\pdflib.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\tip.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbmzip.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbzip.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\bmdbfcdx.lib]
+
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\dbfcdx.lib]
+

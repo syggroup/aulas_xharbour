@@ -1,0 +1,224 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 18 "source\hsplit.prg"
+_HB_CLASS HSplitter ; UTILITY FUNCTION HSplitter(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HSplitter" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { aLeft} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aLeft" }, .F., .F. ), )
+   _HB_MEMBER { aRight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aRight" }, .F., .F. ), )
+   _HB_MEMBER { lVertical} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lVertical" }, .F., .F. ), )
+   _HB_MEMBER { hCursor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hCursor" }, .F., .F. ), )
+   _HB_MEMBER { lCaptured} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lCaptured" }, .F., .F. ), )
+   _HB_MEMBER { lMoved} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lMoved" }, .F., .F. ), )
+   _HB_MEMBER { bEndDrag} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bEndDrag" }, .F., .F. ), )
+   _HB_MEMBER { lScrolling} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lScrolling" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nLeft, nTop, nWidth, nHeight,  bSize, bDraw, color, bcolor, aLeft, aRight, lTransp, lScrolling); IIF( .F., s_oClass:ModMethod( "New", @HSplitter_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HSplitter_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HSplitter_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HSplitter_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HSplitter_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HSplitter_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HSplitter_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HSplitter_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint(); IIF( .F., s_oClass:ModMethod( "Paint", @HSplitter_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HSplitter_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Drag( lParam); IIF( .F., s_oClass:ModMethod( "Drag", @HSplitter_Drag(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Drag", @HSplitter_Drag(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DragAll( lScroll); IIF( .F., s_oClass:ModMethod( "DragAll", @HSplitter_DragAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DragAll", @HSplitter_DragAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HSplitter ;
+
+
+UTILITY STATIC function HSplitter_New( oWndParent, nId, nLeft, nTop, nWidth, nHeight,  bSize, bDraw, color, bcolor, aLeft, aRight, lTransp, lScrolling) ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+
+
+   ::HControl:New( oWndParent, nId, 268435456 + 13 , nLeft, nTop, nWidth, nHeight,,,  bSize, bDraw,, color, bcolor )
+
+   ::title   := ""
+
+   ::aLeft   := IIf( aLeft == Nil, { }, aLeft )
+   ::aRight  := IIf( aRight == Nil, { }, aRight )
+   ::lVertical := ( ::nHeight > ::nWidth )
+   ::lScrolling := Iif( lScrolling == Nil, .F., lScrolling )
+   IF ( lTransp <> NIL .AND. lTransp )
+      ::BackStyle := 1
+      ::extStyle += 32
+   ENDIF
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HSplitter_Activate() ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateStatic( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::extStyle )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HSplitter_Init() ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+
+   IF ! ::lInit
+      ::HControl:Init()
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      Hwg_InitWinCtrl( ::handle )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HSplitter_onEvent( msg, wParam, lParam) ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+
+   ( (wParam) := (wParam) )
+
+   IF msg == 512
+      IF ::hCursor == Nil
+         ::hCursor := LoadCursor( IIf( ::lVertical, 32644, 32645 ) )
+      ENDIF
+      Hwg_SetCursor( ::hCursor )
+      IF ::lCaptured
+         ::Drag( lParam )
+         IF ::lScrolling
+            ::DragAll( .T. )
+         ENDIF
+      ENDIF
+   ELSEIF msg == 15
+      ::Paint()
+   ELSEIF msg == 20
+
+   ELSEIF msg == 513
+      Hwg_SetCursor( ::hCursor )
+      SetCapture( ::handle )
+      ::lCaptured := .T.
+      InvalidateRect( ::handle, 1 )
+   ELSEIF msg == 514
+      ReleaseCapture()
+      ::lCaptured := .F.
+      ::lMoved := .F.
+      ::DragAll( .F. )
+      IF ::bEndDrag <> Nil
+
+      ENDIF
+   ELSEIF msg == 2
+      ::END()
+   ENDIF
+
+   RETURN - 1
+
+
+UTILITY STATIC function HSplitter_Paint() ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+   LOCAL pps, hDC, aCoors, x1, y1, x2, y2, oBrushFill
+
+
+   pps := DefinePaintStru()
+   hDC := BeginPaint( ::handle, pps )
+   aCoors := GetClientRect( ::handle )
+
+   x1 := aCoors[ 1 ]
+   y1 := aCoors[ 2 ]
+   x2 := aCoors[ 3 ]
+   y2 := aCoors[ 4 ]
+
+   SetBkMode( hDC, ::backStyle )
+   IF ::bPaint <> Nil
+      Eval( ::bPaint, Self )
+   ELSEIF ! ::lScrolling
+      IF ::lCaptured
+         oBrushFill := HBrush():Add( RGB( 156, 156, 156 ) )
+         SelectObject( hDC, oBrushFill:handle )
+         DrawEdge( hDC, x1, y1, x2, y2, (2 + 4), Iif( ::lVertical,(1 + 2 + 4 + 8),2 ) + 2048 )
+         FillRect( hDC, x1, y1, x2, y2, oBrushFill:handle )
+      ELSEIF ::BackStyle = 2
+         DrawEdge( hDC, x1, y1, x2, y2, (2 + 4), IIf( ::lVertical, 1, 2 ) )
+      ENDIF
+   ELSEIF !::lMoved .AND. ::BackStyle = 2
+      DrawEdge( hDC, x1, y1, x2, y2, (2 + 4), Iif( ::lVertical,(1 + 2 + 4 + 8),2 ) )
+   ENDIF
+   EndPaint( ::handle, pps )
+
+   RETURN Nil
+
+UTILITY STATIC function HSplitter_Drag( lParam) ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+   LOCAL xPos := LOWORD( lParam ), yPos := HIWORD( lParam )
+
+   IF ::lVertical
+      IF xPos > 32000
+         xPos -= 65535
+      ENDIF
+      ::nLeft += xPos
+      yPos := 0
+   ELSE
+      IF yPos > 32000
+         yPos -= 65535
+      ENDIF
+      ::nTop += yPos
+      xPos := 0
+   ENDIF
+   ::Move( ::nLeft + xPos, ::nTop + yPos, ::nWidth, ::nHeight )
+   InvalidateRect( ::oParent:handle, 1, ::nLeft, ::nTop, ::nleft + ::nWidth , ::nTop + ::nHeight )
+   ::lMoved := .T.
+
+   RETURN Nil
+
+UTILITY STATIC function HSplitter_DragAll( lScroll) ; local Self AS CLASS HSplitter := QSelf() AS CLASS HSplitter
+   LOCAL i, oCtrl, xDiff := 0, yDiff := 0
+
+   lScroll := IIF(  Len( ::aLeft ) = 0 .OR. Len( ::aRight ) = 0, .F., lScroll )
+
+   FOR i := 1 TO Len( ::aRight )
+      oCtrl := ::aRight[ i ]
+      IF ::lVertical
+         xDiff := ::nLeft + ::nWidth - oCtrl:nLeft
+
+
+      ELSE
+         yDiff := ::nTop + ::nHeight - oCtrl:nTop
+
+
+      ENDIF
+      oCtrl:Move( oCtrl:nLeft + xDiff, oCtrl:nTop + yDiff, oCtrl:nWidth - xDiff ,oCtrl:nHeight - yDiff, ! lScroll )
+
+          InvalidateRect( oCtrl:Handle, 1 )
+
+   NEXT
+   FOR i := 1 TO Len( ::aLeft )
+      oCtrl := ::aLeft[ i ]
+      IF ::lVertical
+         xDiff := ::nLeft - ( oCtrl:nLeft + oCtrl:nWidth )
+
+      ELSE
+         yDiff := ::nTop - ( oCtrl:nTop + oCtrl:nHeight )
+
+      ENDIF
+      oCtrl:Move( oCtrl:nLeft, oCtrl:nTop, oCtrl:nWidth + xDiff, oCtrl:nHeight + yDiff , ! lScroll )
+
+         InvalidateRect( oCtrl:Handle, 1 )
+
+   NEXT
+
+   IF ! lScroll
+      InvalidateRect( ::oParent:handle, 1, ::nLeft ,::nTop  , ::nLeft + ::nWidth , ::nTop + ::nHeight  )
+   ELSEIF ::lVertical
+      InvalidateRect( ::oParent:Handle, 0, ::nLeft - ::nWidth - xDiff - 1 , ::nTop , ::nLeft + ::nWidth + xDiff + 1, ::nTop + ::nHeight )
+   ELSE
+      InvalidateRect( ::oParent:Handle, 0, ::nLeft , ::nTop - ::nHeight - yDiff - 1 , ::nLeft + ::nWidth, ::nTop + ::nHeight + yDiff + 1 )
+   ENDIF
+   IF ::bEndDrag <> Nil
+      Eval( ::bEndDrag,Self )
+   ENDIF
+
+   RETURN Nil

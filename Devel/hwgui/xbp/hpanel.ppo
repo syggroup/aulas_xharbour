@@ -1,0 +1,424 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 17 "source\hpanel.prg"
+_HB_CLASS HPanel ; UTILITY FUNCTION HPanel(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HPanel" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiData(, "PANEL", nScope + IIF( .F., 32, 0 ), { "winclass" }, .F., .F. ), )
+   _HB_MEMBER { oEmbedded} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oEmbedded" }, .F., .F. ), )
+   _HB_MEMBER { bScroll} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bScroll" }, .F., .F. ), )
+   _HB_MEMBER { lResizeX, lResizeY} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "lResizeX" , "lResizeY" }, .F., .F. ), )
+   _HB_MEMBER { lBorder} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lBorder" }, .F., .F. ), )
+   _HB_MEMBER { nRePaint} ; IIF( !.F., s_oClass:AddMultiData(, - 1, nScope + IIF( .F., 32, 0 ), { "nRePaint" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, bcolor); IIF( .F., s_oClass:ModMethod( "New", @HPanel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HPanel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HPanel_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HPanel_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HPanel_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HPanel_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HPanel_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HPanel_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor); IIF( .F., s_oClass:ModMethod( "Redefine", @HPanel_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HPanel_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint(); IIF( .F., s_oClass:ModMethod( "Paint", @HPanel_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HPanel_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER BackColor(bcolor); IIF( .F., s_oClass:ModInline( "BackColor", {|Self,bcolor | Self, ::SetColor(, bcolor, .T. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "BackColor", {|Self,bcolor | Self, ::SetColor(, bcolor, .T. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Hide(); IIF( .F., s_oClass:ModMethod( "Hide", @HPanel_Hide(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Hide", @HPanel_Hide(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Show(); IIF( .F., s_oClass:ModMethod( "Show", @HPanel_Show(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Show", @HPanel_Show(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HPanel_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HPanel_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Resize(); IIF( .F., s_oClass:ModMethod( "Resize", @HPanel_Resize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Resize", @HPanel_Resize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ResizeOffSet( nMode); IIF( .F., s_oClass:ModMethod( "ResizeOffSet", @HPanel_ResizeOffSet(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ResizeOffSet", @HPanel_ResizeOffSet(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HPanel ;
+
+
+UTILITY STATIC function HPanel_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, bcolor) ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+LOCAL oParent := Iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
+
+
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, Iif( nWidth == Nil, 0, nWidth ),  Iif( nHeight == Nil, 0, nHeight ), oParent:oFont, bInit,  bSize, bPaint,,, bcolor )
+
+   ::lBorder  := IIF( Hwg_Bitand( nStyle,8388608 ) + Hwg_Bitand( nStyle,4194304 ) > 0, .T., .F. )
+   ::bPaint   := bPaint
+   ::lResizeX := ( ::nWidth == 0 )
+   ::lResizeY := ( ::nHeight == 0 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ::nGetSkip := 1
+   IF Hwg_Bitand( nStyle,1048576 ) > 0
+      ::nScrollBars ++
+   ENDIF
+    IF  Hwg_Bitand( nStyle,2097152 ) > 0
+      ::nScrollBars += 2
+    ENDIF
+
+   hwg_RegPanel()
+   ::Activate()
+
+RETURN Self
+
+UTILITY STATIC function HPanel_Redefine( oWndParent, nId, nWidth, nHeight, bInit, bSize, bPaint, bcolor) ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+LOCAL oParent := Iif( oWndParent == Nil, ::oDefaultParent, oWndParent )
+
+
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, Iif( nWidth == Nil, 0, nWidth ),  Iif( nHeight <> Nil, nHeight, 0 ), oParent:oFont, bInit,  bSize, bPaint,,, bcolor )
+
+
+   ::bPaint   := bPaint
+   ::lResizeX := ( ::nWidth == 0 )
+   ::lResizeY := ( ::nHeight == 0 )
+   hwg_RegPanel()
+
+RETURN Self
+
+UTILITY STATIC function HPanel_Activate() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+   LOCAL handle := ::oParent:handle
+
+   IF !Empty( handle )
+
+      ::handle := CreatePanel( handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::ResizeOffSet( 0 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HPanel_Init() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+
+   IF !::lInit
+      IF ::bSize == Nil
+
+
+
+         ::bSize := { | o, x, y | o:Move( Iif( ::nLeft > 0, x - ::nLeft, 0 ),  Iif( ::nTop > 0, y - ::nHeight, 0 ),  Iif( ::nWidth == 0 .OR. ::lResizeX, x, ::nWidth ),  Iif( ::nHeight == 0 .OR. ::lResizeY, y, ::nHeight ) ) }
+      ENDIF
+
+      ::HControl:Init()
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      Hwg_InitWinCtrl( ::handle )
+
+      ::RedefineScrollbars()
+
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HPanel_onEvent( msg, wParam, lParam) ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+   LOCAL nret
+
+   IF msg == 15
+      InvalidateRect( ::handle, 0 )
+      ::Paint()
+   ELSEIF msg == 133
+
+   ELSEIF msg == 20
+      IF ::backstyle = 2
+         RETURN ::nrePaint
+
+
+
+
+
+
+
+
+
+
+
+      ELSE
+         SETTRANSPARENTMODE( wParam, .T. )
+         RETURN GetStockObject( 5 )
+      ENDIF
+   ELSEIF msg == 5
+      IF ::oEmbedded <> Nil
+         ::oEmbedded:Resize( Loword( lParam ), Hiword( lParam ) )
+      ENDIF
+
+      ::RedefineScrollbars()
+      ::Resize()
+      RETURN ::HControl:onEvent( 5, wParam, lParam )
+
+   ELSEIF msg == 2
+      IF ::oEmbedded <> Nil
+         ::oEmbedded:END()
+      ENDIF
+      ::HControl:onEvent( 2 )
+      RETURN 0
+   ENDIF
+   IF ::bOther <> Nil
+      IF Valtype( nRet := Eval( ::bOther,Self,msg,wParam,lParam ) ) <> "N"
+         nRet := IIF( VALTYPE( nRet ) = "L" .AND. ! nRet, 0, -1 )
+      ENDIF
+      IF nRet >= 0
+           RETURN -1
+      ENDIF
+   ENDIF
+
+
+   IF  msg = 133 .AND. ::GetParentForm():nInitFocus > 0 .AND.  ( SELFFOCUS( GetParent( ::GetParentForm():nInitFocus ), ::Handle  ) .OR.  SELFFOCUS( GetParent( ::GetParentForm():nInitFocus ), GetParent( ::Handle ) ) )
+      GetSkip( ::oParent, ::GetParentForm():nInitFocus , , IIF( SelfFocus( ::GetParentForm():nInitFocus, ::Handle ), 1, 0 ) )
+      ::GetParentForm():nInitFocus := 0
+
+   ELSEIF msg = 7 .AND. EMPTY(::GetParentForm():nInitFocus) .AND. ! ::lSuspendMsgsHandling
+      Getskip( ::oParent, ::handle, , ::nGetSkip )
+
+
+
+
+
+
+
+
+
+
+
+   ELSE
+      IF msg == 276 .OR. msg == 277 .OR. msg == 522
+         IF ::nScrollBars <> -1 .AND. ::bScroll = Nil
+             ::ScrollHV( Self, msg, wParam, lParam )
+             IF  msg == 522
+                 RETURN 0
+             ENDIF
+         ENDIF
+         onTrackScroll( Self,msg,wParam,lParam )
+      ENDIF
+      Return ::HControl:onEvent( msg, wParam, lParam )
+   ENDIF
+
+   RETURN - 1
+
+
+UTILITY STATIC function HPanel_Paint() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+LOCAL pps, hDC, aCoors, oPenLight, oPenGray
+
+   IF ::bPaint <> Nil
+      Eval( ::bPaint, Self )
+      RETURN Nil
+   ENDIF
+
+   pps    := DefinePaintStru()
+   hDC    := BeginPaint( ::handle, pps )
+   aCoors := GetClientRect( ::handle )
+
+   SetBkMode( hDC, ::backStyle )
+   IF ::backstyle = 2 .AND. ::nrePaint = -1
+      aCoors := GetClientRect( ::handle )
+      IF ::brush <> Nil
+         IF Valtype( ::brush ) <> "N"
+            FillRect( hDC, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ], aCoors[ 4 ], ::brush:handle )
+         ENDIF
+      ELSE
+         FillRect( hDC, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ], aCoors[ 4 ], 15 + 1 )
+      ENDIF
+   ENDIF
+   ::nrePaint := -1
+   IF ::nScrollBars = - 1
+      IF  ! ::lBorder
+         oPenLight := HPen():Add( 0, 1, GetSysColor( 20 ) )
+         oPenGray := HPen():Add( 0, 1, GetSysColor( 16) )
+
+         SelectObject( hDC, oPenLight:handle )
+         DrawLine( hDC, 0, 1, aCoors[ 3 ] - 1, 1 )
+         SelectObject( hDC, oPenGray:handle )
+         DrawLine( hDC, 0, 0, aCoors[ 3 ] - 1, 0 )
+         oPenGray:Release()
+         oPenLight:Release()
+      ENDIF
+   ENDIF
+   EndPaint( ::handle, pps )
+   RETURN Nil
+
+UTILITY STATIC function HPanel_Release() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+
+   InvalidateRect(::oParent:handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight)
+   ::ResizeOffSet( 3 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ::nHeight := 0
+   ::nWidth := 0
+   ::HControl:Release( )
+
+RETURN Nil
+
+UTILITY STATIC function HPanel_Hide() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+   LOCAL lRes
+
+   IF ::lHide
+      Return Nil
+   ENDIF
+   ::nrePaint := 0
+   lres := ::ResizeOffSet( 3 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ::HControl:Hide()
+    IF ::oParent:type == 2 .AND. lRes
+
+       InvalidateRect( ::oParent:handle, 1, ::nLeft, ::nTop + 1, ::nLeft + ::nWidth, ::nTop + ::nHeight )
+    ENDIF
+    RETURN Nil
+
+UTILITY STATIC function HPanel_Show() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+   LOCAL lRes
+
+   IF ! ::lHide
+      Return Nil
+   ENDIF
+   ::nrePaint := - 1
+   lRes := ::ResizeOffSet( 2 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ::HControl:Show()
+   IF ::oParent:type == 2 .AND. lRes
+
+       InvalidateRect( ::oParent:handle, 1, ::nLeft, ::nTop+1, ::nLeft + ::nWidth, ::nTop + ::nHeight )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HPanel_Resize() ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+   LOCAL aCoors := GetWindowRect( ::handle )
+   Local nHeight := aCoors[ 4 ] - aCoors[ 2 ]
+   Local nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
+   IF !isWindowVisible( ::handle ) .OR.  ( ::nHeight = nHeight .AND. ::nWidth = nWidth )
+      Return Nil
+   ENDIF
+
+   IF ! ::ResizeOffSet( 1 )
+      RETURN Nil
+   ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ::nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
+   ::nHeight := aCoors[ 4 ] - aCoors[ 2 ]
+
+
+
+   RETURN Nil
+
+
+UTILITY STATIC function HPanel_ResizeOffSet( nMode) ; local Self AS CLASS HPanel := QSelf() AS CLASS HPanel
+   LOCAL aCoors := GetWindowRect( ::handle )
+   LOCAL nHeight := aCoors[ 4 ] - aCoors[ 2 ]
+   LOCAL nWidth  := aCoors[ 3 ] - aCoors[ 1 ]
+   LOCAL nWinc :=  nWidth  - ::nWidth
+   LOCAL nHinc :=  nHeight - ::nHeight
+   LOCAL lres := .F.
+
+   nWinc := IIF( nMode = 1, nWinc, IIF( nMode = 2, ::nWidth, nWidth ) )
+   nHinc := IIF( nMode = 1, nHinc, IIF( nMode = 2, ::nHeight, nHeight ) )
+   nMode := IIf( nMode == nil, 0, nMode ) ;
+
+   IF __ObjHasMsg( ::oParent,"AOFFSET" ) .AND. ::oParent:type == 2
+      IF ( ::nWidth > ::nHeight .OR. ::nWidth == 0 )
+         ::oParent:aOffset[2] += IIF( nMode <> 3, nHinc, - nHinc )
+         lRes := .T.
+      ELSEIF ::nHeight > ::nWidth .OR. ::nHeight == 0
+         IF ::nLeft == 0
+            ::oParent:aOffset[ 1 ] += IIF( nMode <> 3, nWinc, - nWinc )
+         ELSE
+            ::oParent:aOffset[ 3 ] += IIF( nMode <> 3, nWinc, - nWinc )
+         ENDIF
+         lRes := .T.
+      ENDIF
+      ::oParent:aOffset[ 1 ] := MAX( ::oParent:aOffset[ 1 ] , 0 )
+      ::oParent:aOffset[ 2 ] := MAX( ::oParent:aOffset[ 2 ] , 0 )
+      ::oParent:aOffset[ 3 ] := MAX( ::oParent:aOffset[ 3 ] , 0 )
+      IF lRes
+         SENDMESSAGE( ::oParent:Handle, 5, 0, MAKELPARAM( ::oParent:nWidth, ::oParent:nHeight ) )
+      ENDIF
+   ENDIF
+
+   RETURN lRes

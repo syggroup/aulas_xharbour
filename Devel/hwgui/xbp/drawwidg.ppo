@@ -1,0 +1,656 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 17 "source\drawwidg.prg"
+_HB_CLASS HFont ; UTILITY FUNCTION HFont(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HFont" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aFonts} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aFonts" }, .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { name, width, height , weight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "name" , "width" , "height" , "weight" }, .F., .F. ), )
+   _HB_MEMBER { charset, italic, Underline, StrikeOut} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "charset" , "italic" , "Underline" , "StrikeOut" }, .F., .F. ), )
+   _HB_MEMBER { nCounter} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCounter" }, .F., .F. ), )
+
+   _HB_MEMBER Add( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle); IIF( .F., s_oClass:ModMethod( "Add", @HFont_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Add", @HFont_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Select( oFont, nCharSet); IIF( .F., s_oClass:ModMethod( "Select", @HFont_Select(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Select", @HFont_Select(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HFont_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HFont_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight); IIF( .F., s_oClass:ModMethod( "SetFontStyle", @HFont_SetFontStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFontStyle", @HFont_SetFontStyle(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HFont ;
+
+
+UTILITY STATIC function HFont_Add( fontName, nWidth, nHeight , fnWeight,  fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut, nHandle) ; local Self AS CLASS HFont := QSelf() AS CLASS HFont
+
+   LOCAL i, nlen := Len( ::aFonts )
+
+   nHeight  := IIf( nHeight == Nil, - 13, nHeight )
+   fnWeight := IIf( fnWeight == Nil, 0, fnWeight )
+   fdwCharSet := IIf( fdwCharSet == Nil, 0, fdwCharSet )
+   fdwItalic := IIf( fdwItalic == Nil, 0, fdwItalic )
+   fdwUnderline := IIf( fdwUnderline == Nil, 0, fdwUnderline )
+   fdwStrikeOut := IIf( fdwStrikeOut == Nil, 0, fdwStrikeOut )
+
+   FOR i := 1 TO nlen
+
+
+
+
+
+
+
+      IF ::aFonts[ i ]:name == fontName .AND.           ::aFonts[ i ]:width == nWidth .AND.            ::aFonts[ i ]:height == nHeight .AND.          ::aFonts[ i ]:weight == fnWeight .AND.         ::aFonts[ i ]:CharSet == fdwCharSet .AND.      ::aFonts[ i ]:Italic == fdwItalic .AND.        ::aFonts[ i ]:Underline == fdwUnderline .AND.  ::aFonts[ i ]:StrikeOut == fdwStrikeOut
+
+         ::aFonts[ i ]:nCounter ++
+         IF nHandle <> Nil
+            DeleteObject( nHandle )
+         ENDIF
+         RETURN ::aFonts[ i ]
+      ENDIF
+   NEXT
+
+   IF nHandle == Nil
+      ::handle := CreateFont( fontName, nWidth, nHeight , fnWeight, fdwCharSet, fdwItalic, fdwUnderline, fdwStrikeOut )
+   ELSE
+      ::handle := nHandle
+   ENDIF
+
+   ::name      := fontName
+   ::width     := nWidth
+   ::height    := nHeight
+   ::weight    := fnWeight
+   ::CharSet   := fdwCharSet
+   ::Italic    := fdwItalic
+   ::Underline := fdwUnderline
+   ::StrikeOut := fdwStrikeOut
+
+   AAdd( ::aFonts, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HFont_Select( oFont, nCharSet) ; local Self AS CLASS HFont := QSelf() AS CLASS HFont
+   LOCAL af := SelectFont( oFont )
+
+   IF af == Nil
+      RETURN Nil
+   ENDIF
+
+   RETURN ::Add( af[ 2 ], af[ 3 ], af[ 4 ], af[ 5 ], IIF( Empty( nCharSet ), af[ 6 ], nCharSet ), af[ 7 ], af[ 8 ], af[ 9 ], af[ 1 ] )
+
+UTILITY STATIC function HFont_SetFontStyle( lBold, nCharSet, lItalic, lUnder, lStrike, nHeight) ; local Self AS CLASS HFont := QSelf() AS CLASS HFont
+   LOCAL  weight, Italic, Underline, StrikeOut
+
+   IF lBold <> Nil
+      weight = IIF( lBold, 700, 400 )
+   ELSE
+      weight := ::weight
+   ENDIF
+   Italic    := IIF( lItalic = Nil, ::Italic, IIF( lItalic, 1, 0 ) )
+   Underline := IIF( lUnder  = Nil, ::Underline, IIF( lUnder , 1, 0 ) )
+   StrikeOut := IIF( lStrike = Nil, ::StrikeOut, IIF( lStrike , 1, 0 ) )
+   nheight   := IIF( nheight = Nil, ::height, nheight )
+   nCharSet  := IIF( nCharSet = Nil, ::CharSet, nCharSet )
+
+   RETURN ::Add( ::name, ::width, nheight, weight, nCharSet, Italic, Underline, StrikeOut )
+
+UTILITY STATIC function HFont_Release() ; local Self AS CLASS HFont := QSelf() AS CLASS HFont
+   LOCAL i, nlen := Len( ::aFonts )
+
+   ::nCounter --
+   IF ::nCounter == 0
+
+         FOR EACH i IN ::aFonts
+            IF i:handle == ::handle
+               DeleteObject( ::handle )
+               ADel( ::aFonts, hb_enumindex() )
+               ASize( ::aFonts, nlen - 1 )
+               EXIT
+            ENDIF
+         NEXT
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+
+
+_HB_CLASS HPen ; UTILITY FUNCTION HPen(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HPen" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aPens} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aPens" }, .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { style, width, color} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "style" , "width" , "color" }, .F., .F. ), )
+   _HB_MEMBER { nCounter} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCounter" }, .F., .F. ), )
+
+   _HB_MEMBER Add( nStyle, nWidth, nColor); IIF( .F., s_oClass:ModMethod( "Add", @HPen_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Add", @HPen_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Get( nStyle, nWidth, nColor); IIF( .F., s_oClass:ModMethod( "Get", @HPen_Get(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Get", @HPen_Get(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HPen_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HPen_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HPen ;
+
+UTILITY STATIC function HPen_Add( nStyle, nWidth, nColor) ; local Self AS CLASS HPen := QSelf() AS CLASS HPen
+   LOCAL i
+
+   nStyle := IIf( nStyle == Nil, 0, nStyle )
+   nWidth := IIf( nWidth == Nil, 1, nWidth )
+   nColor := IIf( nColor == Nil, 0, nColor )
+
+
+      FOR EACH i IN ::aPens
+
+
+         IF i:style == nStyle .AND.  i:width == nWidth .AND.  i:color == nColor
+
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+
+
+
+
+   ::handle := CreatePen( nStyle, nWidth, nColor )
+   ::style  := nStyle
+   ::width  := nWidth
+   ::color  := nColor
+   AAdd( ::aPens, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HPen_Get( nStyle, nWidth, nColor) ; local Self AS CLASS HPen := QSelf() AS CLASS HPen
+   LOCAL i
+
+   nStyle := IIf( nStyle == Nil, 0, nStyle )
+   nWidth := IIf( nWidth == Nil, 1, nWidth )
+   nColor := IIf( nColor == Nil, 0, nColor )
+
+
+      FOR EACH i IN ::aPens
+
+
+         IF i:style == nStyle .AND.  i:width == nWidth .AND.  i:color == nColor
+
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+
+
+
+   RETURN Nil
+
+UTILITY STATIC function HPen_Release() ; local Self AS CLASS HPen := QSelf() AS CLASS HPen
+   LOCAL i, nlen := Len( ::aPens )
+
+   ::nCounter --
+   IF ::nCounter == 0
+
+         FOR EACH i  IN ::aPens
+            IF i:handle == ::handle
+               DeleteObject( ::handle )
+               ADel( ::aPens, hb_EnumIndex() )
+               ASize( ::aPens, nlen - 1 )
+               EXIT
+            ENDIF
+         NEXT
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+
+
+_HB_CLASS HBrush ; UTILITY FUNCTION HBrush(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HBrush" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aBrushes} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aBrushes" }, .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { color} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "color" }, .F., .F. ), )
+   _HB_MEMBER { nHatch} ; IIF( !.F., s_oClass:AddMultiData(, 99, nScope + IIF( .F., 32, 0 ), { "nHatch" }, .F., .F. ), )
+   _HB_MEMBER { nCounter} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCounter" }, .F., .F. ), )
+
+   _HB_MEMBER Add( nColor, nHatch); IIF( .F., s_oClass:ModMethod( "Add", @HBrush_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Add", @HBrush_Add(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HBrush_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HBrush_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HBrush ;
+
+UTILITY STATIC function HBrush_Add( nColor, nHatch) ; local Self AS CLASS HBrush := QSelf() AS CLASS HBrush
+   LOCAL i
+
+   IF nHatch == Nil
+      nHatch := 99
+   ENDIF
+   IF Valtype( nColor ) == "P"
+      nColor := PTRTOULONG( nColor )
+   ENDIF
+
+      FOR EACH i IN ::aBrushes
+
+         IF i:color == nColor .AND. i:nHatch == nHatch
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+   IF nHatch <> 99
+      ::handle := CreateHatchBrush( nHatch, nColor )
+   ELSE
+      ::handle := CreateSolidBrush( nColor )
+   ENDIF
+   ::color  := nColor
+   AAdd( ::aBrushes, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HBrush_Release() ; local Self AS CLASS HBrush := QSelf() AS CLASS HBrush
+   LOCAL i, nlen := Len( ::aBrushes )
+
+   ::nCounter --
+   IF ::nCounter == 0
+
+         FOR EACH i IN ::aBrushes
+            IF i:handle == ::handle
+               DeleteObject( ::handle )
+               ADel( ::aBrushes, hb_enumindex() )
+               ASize( ::aBrushes, nlen - 1 )
+               EXIT
+            ENDIF
+         NEXT
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+
+
+
+_HB_CLASS HBitmap ; UTILITY FUNCTION HBitmap(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HBitmap" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aBitmaps} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aBitmaps" }, .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { name} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "name" }, .F., .F. ), )
+   _HB_MEMBER { nWidth, nHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nWidth" , "nHeight" }, .F., .F. ), )
+   _HB_MEMBER { nCounter} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCounter" }, .F., .F. ), )
+
+   _HB_MEMBER AddResource( name, nFlags, lOEM, nWidth, nHeight); IIF( .F., s_oClass:ModMethod( "AddResource", @HBitmap_AddResource(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddResource", @HBitmap_AddResource(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddStandard( nId); IIF( .F., s_oClass:ModMethod( "AddStandard", @HBitmap_AddStandard(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddStandard", @HBitmap_AddStandard(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddFile( name, hDC, lTranparent, nWidth, nHeight); IIF( .F., s_oClass:ModMethod( "AddFile", @HBitmap_AddFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddFile", @HBitmap_AddFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddWindow( oWnd, lFull); IIF( .F., s_oClass:ModMethod( "AddWindow", @HBitmap_AddWindow(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddWindow", @HBitmap_AddWindow(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Draw(hDC, x1, y1, width, height); IIF( .F., s_oClass:ModInline( "Draw", {|Self,hDC, x1, y1, width, height | Self, DrawBitmap( hDC, ::handle, 13369376, x1, y1, width, height ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Draw", {|Self,hDC, x1, y1, width, height | Self, DrawBitmap( hDC, ::handle, 13369376, x1, y1, width, height ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HBitmap_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HBitmap_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HBitmap ;
+
+UTILITY STATIC function HBitmap_AddResource( name, nFlags, lOEM, nWidth, nHeight) ; local Self AS CLASS HBitmap := QSelf() AS CLASS HBitmap
+   LOCAL lPreDefined := .F., i, aBmpSize
+
+   IF nFlags == nil
+      nFlags := 0
+   ENDIF
+   IF lOEM == nil
+      lOEM := .F.
+   ENDIF
+   IF ValType( name ) == "N"
+      name := LTrim( Str( name ) )
+      lPreDefined := .T.
+   ENDIF
+
+      FOR EACH i  IN  ::aBitmaps
+         IF i:name == name .AND. ( nWidth == nil .OR. nHeight == nil )
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+   IF lOEM
+      ::handle := LoadImage( 0, Val( name ), 0, nil, nil, Hwg_bitor( nFlags, 32768 ) )
+   ELSE
+
+      ::handle := LoadImage( nil, IIf( lPreDefined, Val( name ), name ), 0, nWidth, nHeight, nFlags )
+   ENDIF
+   ::name   := name
+   aBmpSize  := GetBitmapSize( ::handle )
+   ::nWidth  := aBmpSize[ 1 ]
+   ::nHeight := aBmpSize[ 2 ]
+   AAdd( ::aBitmaps, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HBitmap_AddStandard( nId) ; local Self AS CLASS HBitmap := QSelf() AS CLASS HBitmap
+   LOCAL i, aBmpSize, name := "s" + LTrim( Str( nId ) )
+
+
+      FOR EACH i  IN  ::aBitmaps
+         IF i:name == name
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+   ::handle :=   LoadBitmap( nId, .T. )
+   ::name   := name
+   aBmpSize  := GetBitmapSize( ::handle )
+   ::nWidth  := aBmpSize[ 1 ]
+   ::nHeight := aBmpSize[ 2 ]
+   AAdd( ::aBitmaps, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HBitmap_AddFile( name, hDC, lTranparent, nWidth, nHeight) ; local Self AS CLASS HBitmap := QSelf() AS CLASS HBitmap
+   LOCAL i, aBmpSize, cname
+
+   cname := CutPath( name )
+
+      FOR EACH i IN ::aBitmaps
+         IF i:name == name .AND. ( nWidth == nil .OR. nHeight == nil )
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+   name := IIf( ! File( name ) .AND. FILE( CutPath( name ) ), CutPath( name ), name )
+   IF ! File( name )
+      name := HWG_SelectFile( {"Imagens de JPEG ( *.jpg )","Imagens de Bitmap ( *.bmp )","Imagens PNG ( *.png )"}, {"*.jpg","*.bmp","*.png"} )
+   ENDIF
+
+     IF Lower( Right( name, 4 ) ) <> ".bmp" .OR. ( nWidth == nil .AND. nHeight == nil .AND. lTranparent == Nil )
+      IF Lower( Right( name, 4 ) ) == ".bmp"
+         ::handle := OpenBitmap( name, hDC )
+      ELSE
+         ::handle := OpenImage( name )
+      ENDIF
+   ELSE
+      IF lTranparent <> Nil .AND. lTranparent
+         ::handle := LoadImage( nil, name, 0, nWidth, nHeight, 16 + 32 + 4096)
+      ELSE
+         ::handle := LoadImage( nil, name, 0, nWidth, nHeight, 16 )
+            ENDIF
+     ENDIF
+   IF Empty( ::handle )
+      RETURN self
+   ENDIF
+
+   ::name := cname
+   aBmpSize  := GetBitmapSize( ::handle )
+   ::nWidth  := aBmpSize[ 1 ]
+   ::nHeight := aBmpSize[ 2 ]
+   AAdd( ::aBitmaps, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HBitmap_AddWindow( oWnd, lFull) ; local Self AS CLASS HBitmap := QSelf() AS CLASS HBitmap
+   LOCAL aBmpSize
+
+   ::handle := Window2Bitmap( oWnd:handle, lFull )
+   ::name := LTrim( hb_valToStr( oWnd:handle ) )
+   aBmpSize  := GetBitmapSize( ::handle )
+   ::nWidth  := aBmpSize[ 1 ]
+   ::nHeight := aBmpSize[ 2 ]
+   AAdd( ::aBitmaps, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HBitmap_Release() ; local Self AS CLASS HBitmap := QSelf() AS CLASS HBitmap
+   LOCAL i, nlen := Len( ::aBitmaps )
+
+   ::nCounter --
+   IF ::nCounter == 0
+
+         FOR EACH i IN ::aBitmaps
+            IF i:handle == ::handle
+               DeleteObject( ::handle )
+               ADel( ::aBitmaps, hB_enumIndex() )
+               ASize( ::aBitmaps, nlen - 1 )
+               EXIT
+            ENDIF
+         NEXT
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+
+
+
+_HB_CLASS HIcon ; UTILITY FUNCTION HIcon(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HIcon" , {HObject():classh} ) ) ; ;
+
+_HB_MEMBER { aIcons} ; IIF( !.F., s_oClass:AddMultiClsData(, { }, nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "aIcons" }, .F. ), )
+   _HB_MEMBER { handle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "handle" }, .F., .F. ), )
+   _HB_MEMBER { name} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "name" }, .F., .F. ), )
+   _HB_MEMBER { nWidth, nHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nWidth" , "nHeight" }, .F., .F. ), )
+   _HB_MEMBER { nCounter} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nCounter" }, .F., .F. ), )
+
+   _HB_MEMBER AddResource( name, nWidth, nHeight, nFlags, lOEM); IIF( .F., s_oClass:ModMethod( "AddResource", @HIcon_AddResource(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddResource", @HIcon_AddResource(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddFile( name, nWidth, nHeight); IIF( .F., s_oClass:ModMethod( "AddFile", @HIcon_AddFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddFile", @HIcon_AddFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Draw(hDC, x, y); IIF( .F., s_oClass:ModInline( "Draw", {|Self,hDC, x, y | Self, DrawIcon( hDC, ::handle, x, y ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Draw", {|Self,hDC, x, y | Self, DrawIcon( hDC, ::handle, x, y ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Release(); IIF( .F., s_oClass:ModMethod( "Release", @HIcon_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Release", @HIcon_Release(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HIcon ;
+
+UTILITY STATIC function HIcon_AddResource( name, nWidth, nHeight, nFlags, lOEM) ; local Self AS CLASS HIcon := QSelf() AS CLASS HIcon
+   LOCAL lPreDefined := .F., i, aIconSize
+
+   IF nWidth == nil
+      nWidth := 0
+   ENDIF
+   IF nHeight == nil
+      nHeight := 0
+   ENDIF
+   IF nFlags == nil
+      nFlags := 0
+   ENDIF
+   IF lOEM == nil
+      lOEM := .F.
+   ENDIF
+   IF ValType( name ) == "N"
+      name := LTrim( Str( name ) )
+      lPreDefined := .T.
+   ENDIF
+
+      FOR EACH i IN ::aIcons
+         IF i:name == name
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+
+   IF lOEM
+      ::handle := LoadImage( 0, Val( name ), 1, nWidth, nHeight, Hwg_bitor( nFlags, 32768 ) )
+   ELSE
+      ::handle := LoadImage( nil, IIf( lPreDefined, Val( name ), name ), 1, nWidth, nHeight, nFlags )
+   ENDIF
+   ::name   := name
+   aIconSize := GetIconSize( ::handle )
+   ::nWidth  := aIconSize[ 1 ]
+   ::nHeight := aIconSize[ 2 ]
+
+   AAdd( ::aIcons, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HIcon_AddFile( name, nWidth, nHeight) ; local Self AS CLASS HIcon := QSelf() AS CLASS HIcon
+   LOCAL i, aIconSize, cname
+
+
+   IF nWidth == nil
+      nWidth := 0
+   ENDIF
+   IF nHeight == nil
+      nHeight := 0
+   ENDIF
+   cname := CutPath( name )
+
+      FOR EACH i IN  ::aIcons
+         IF i:name == name
+            i:nCounter ++
+            RETURN i
+         ENDIF
+      NEXT
+
+
+
+
+
+
+
+
+
+   name := IIf( ! File( name ) .AND.FILE( CutPath( name ) ), CutPath( name ), name )
+   IF ! File( name )
+      name := HWG_SelectFile( {"Imagens de JPEG ( *.jpg )","Imagens de Bitmap ( *.bmp )","Imagens PNG ( *.png )"}, {"*.jpg","*.bmp","*.png"} )
+   ENDIF
+
+
+   ::handle := LoadImage( 0, name, 1, nWidth, nHeight, 64 + 16 + 32768 )
+   ::name := cname
+   aIconSize := GetIconSize( ::handle )
+   ::nWidth  := aIconSize[ 1 ]
+   ::nHeight := aIconSize[ 2 ]
+
+   AAdd( ::aIcons, Self )
+
+   RETURN Self
+
+UTILITY STATIC function HIcon_Release() ; local Self AS CLASS HIcon := QSelf() AS CLASS HIcon
+   LOCAL i, nlen := Len( ::aIcons )
+
+   ::nCounter --
+   IF ::nCounter == 0
+
+         FOR EACH i IN ::aIcons
+            IF i:handle == ::handle
+               DeleteObject( ::handle )
+               ADel( ::aIcons, hb_enumindex() )
+               ASize( ::aIcons, nlen - 1 )
+               EXIT
+            ENDIF
+         NEXT
+
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+
+   EXIT PROCEDURE CleanDrawWidg
+   LOCAL i
+
+   FOR i := 1 TO Len( HPen():aPens )
+      DeleteObject( HPen():aPens[ i ]:handle )
+   NEXT
+   FOR i := 1 TO Len( HBrush():aBrushes )
+      DeleteObject( HBrush():aBrushes[ i ]:handle )
+   NEXT
+   FOR i := 1 TO Len( HFont():aFonts )
+      DeleteObject( HFont():aFonts[ i ]:handle )
+   NEXT
+   FOR i := 1 TO Len( HBitmap():aBitmaps )
+      DeleteObject( HBitmap():aBitmaps[ i ]:handle )
+   NEXT
+   FOR i := 1 TO Len( HIcon():aIcons )
+      DeleteObject( HIcon():aIcons[ i ]:handle )
+   NEXT
+
+   RETURN

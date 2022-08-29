@@ -1,0 +1,20 @@
+Error BASE/1004  Class: 'NIL' has no exported method: HANDLE
+Called from ->HANDLE(0)
+Called from ->HWGAX_DISPLAYHTMLPAGE(0)
+Called from source\activex\hhtml.prg->(b)HHTML:HHTML(30)
+Called from ->HHTML:DISPLAYPAGE(0)
+Called from iesample.prg->FINDINGOOGLE(65)
+Called from iesample.prg->(b)MAIN(33)
+Called from source\hcontrol.prg->HBUTTON:ONCLICK(1139)
+Called from source\hcontrol.prg->(b)HBUTTON:NEW(1042)
+Called from source\hcwindow.prg->ONCOMMAND(836)
+Called from source\hcwindow.prg->(b)(_INITSTATICS00003)(0)
+Called from source\hcwindow.prg->HCONTROL:ONEVENT(264)
+Called from source\hpanel.prg->HPANEL:ONEVENT(222)
+Called from ->HWG_DLGBOXINDIRECT(0)
+Called from source\hdialog.prg->HDIALOG:ACTIVATE(188)
+Called from iesample.prg->MAIN(41)
+
+HwGUI 2.17 xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
+Date:04/17/17
+Time:11:29:34

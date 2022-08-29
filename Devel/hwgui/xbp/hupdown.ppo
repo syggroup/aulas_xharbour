@@ -1,0 +1,340 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 20 "source\hupdown.prg"
+_HB_CLASS HUpDown ; UTILITY FUNCTION HUpDown(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HUpDown" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "EDIT", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { bSetGet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSetGet" }, .F., .F. ), )
+   _HB_MEMBER { nValue} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nValue" }, .F., .F. ), )
+   _HB_MEMBER { bValid} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bValid" }, .F., .F. ), )
+   _HB_MEMBER { hwndUpDown, idUpDown, styleUpDown} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hwndUpDown" , "idUpDown" , "styleUpDown" }, .F., .F. ), )
+   _HB_MEMBER { bkeydown, bkeyup, bchange} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bkeydown" , "bkeyup" , "bchange" }, .F., .F. ), )
+   _HB_MEMBER { bClickDown, bClickUp} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClickDown" , "bClickUp" }, .F., .F. ), )
+   _HB_MEMBER { nLower} ; IIF( !.F., s_oClass:AddMultiData(, -9999, nScope + IIF( .F., 32, 0 ), { "nLower" }, .F., .F. ), )
+   _HB_MEMBER { nUpper} ; IIF( !.F., s_oClass:AddMultiData(, 9999, nScope + IIF( .F., 32, 0 ), { "nUpper" }, .F., .F. ), )
+   _HB_MEMBER { nUpDownWidth} ; IIF( !.F., s_oClass:AddMultiData(, 10, nScope + IIF( .F., 32, 0 ), { "nUpDownWidth" }, .F., .F. ), )
+   _HB_MEMBER { lChanged} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lChanged" }, .F., .F. ), )
+   _HB_MEMBER { Increment} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "Increment" }, .F., .F. ), )
+   _HB_MEMBER { nMaxLength} ; IIF( !.F., s_oClass:AddMultiData(, Nil, nScope + IIF( .F., 32, 0 ), { "nMaxLength" }, .F., .F. ), )
+   _HB_MEMBER { lNoBorder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lNoBorder" }, .F., .F. ), )
+   _HB_MEMBER { cPicture} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cPicture" }, .F., .F. ), )
+   _HB_MEMBER { oEditUpDown} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oEditUpDown" }, .F., .F. ), )
+   _HB_MEMBER { bColorOld} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "bColorOld" }, .F., .F. ), )
+
+   _HB_MEMBER { lCreate} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lCreate" }, .F., .F. ), )
+
+
+
+
+   _HB_MEMBER New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,  oFont, bInit,bSize,bPaint,bGfocus,bLfocus,ctooltip,tcolor,bcolor, nUpDWidth, nLower,nUpper, nIncr,cPicture,lNoBorder, nMaxLength, bKeyDown, bChange, bOther, bClickUp ,bClickDown); IIF( .F., s_oClass:ModMethod( "New", @HUpDown_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HUpDown_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HUpDown_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HUpDown_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HUpDown_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HUpDown_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CreateUpDown(); IIF( .F., s_oClass:ModMethod( "CreateUpDown", @HUpDown_CreateUpDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CreateUpDown", @HUpDown_CreateUpDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetValue( nValue); IIF( .F., s_oClass:ModMethod( "SetValue", @HUpDown_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HUpDown_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Value(Value); _HB_MEMBER _Value(Value); IIF( .F., s_oClass:ModMethod( "Value", @HUpDown_Value(), 1 + 32, .F. ), s_oClass:AddMethod( "Value", @HUpDown_Value(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Value", @HUpDown_Value() ), s_oClass:AddMethod( "_Value", @HUpDown_Value() ) ) ;
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HUpDown_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HUpDown_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER SetColor(tColor, bColor, lRedraw); IIF( .F., s_oClass:ModInline( "SetColor", {|Self,tColor, bColor, lRedraw | Self, ::HControl:SetColor(tColor, bColor, lRedraw ), IIF( ::oEditUpDown <> Nil,  ::oEditUpDown:SetColor( tColor, bColor, lRedraw ),) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetColor", {|Self,tColor, bColor, lRedraw | Self, ::HControl:SetColor(tColor, bColor, lRedraw ), IIF( ::oEditUpDown <> Nil,  ::oEditUpDown:SetColor( tColor, bColor, lRedraw ),) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER DisableBackColor(DisableBColor); _HB_MEMBER _DisableBackColor(DisableBColor); IIF( .F., s_oClass:ModMethod( "DisableBackColor", @HUpDown_DisableBackColor(), 1 + 32, .F. ), s_oClass:AddMethod( "DisableBackColor", @HUpDown_DisableBackColor(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_DisableBackColor", @HUpDown_DisableBackColor() ), s_oClass:AddMethod( "_DisableBackColor", @HUpDown_DisableBackColor() ) ) ;
+   _HB_MEMBER Hide(); IIF( .F., s_oClass:ModInline( "Hide", {|Self | Self, (::lHide := .T., HideWindow( ::handle ), HideWindow( ::hwndUpDown ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Hide", {|Self | Self, (::lHide := .T., HideWindow( ::handle ), HideWindow( ::hwndUpDown ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Show(); IIF( .F., s_oClass:ModInline( "Show", {|Self | Self, (::lHide := .F., ShowWindow( ::handle ), ShowWindow( ::hwndUpDown ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Show", {|Self | Self, (::lHide := .F., ShowWindow( ::handle ), ShowWindow( ::hwndUpDown ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Enable(); IIF( .F., s_oClass:ModInline( "Enable", {|Self | Self, ( ::HControl:Enable(), EnableWindow( ::hwndUpDown, .T. ), InvalidateRect( ::hwndUpDown, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Enable", {|Self | Self, ( ::HControl:Enable(), EnableWindow( ::hwndUpDown, .T. ), InvalidateRect( ::hwndUpDown, 0 ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER Disable(); IIF( .F., s_oClass:ModInline( "Disable", {|Self | Self, ( ::HControl:Disable(), EnableWindow( ::hwndUpDown, .F. ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Disable", {|Self | Self, ( ::HControl:Disable(), EnableWindow( ::hwndUpDown, .F. ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Valid(); IIF( .F., s_oClass:ModMethod( "Valid", @HUpDown_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Valid", @HUpDown_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetRange( nLower, nUpper); IIF( .F., s_oClass:ModMethod( "SetRange", @HUpDown_SetRange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetRange", @HUpDown_SetRange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER Move(x1, y1, width, height, nRepaint); IIF( .F., s_oClass:ModInline( "Move", {|Self,x1, y1, width, height, nRepaint | Self, ::HControl:Move( x1, y1 , IIF( width <> Nil, width, ::nWidth ), height, nRepaint  ) , SENDMESSAGE( ::hwndUpDown, ( 1024 + 105 ), ::oEditUpDown:handle, 0 ), IIF( ::lHide, ::Hide(), ::Show() ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Move", {|Self,x1, y1, width, height, nRepaint | Self, ::HControl:Move( x1, y1 , IIF( width <> Nil, width, ::nWidth ), height, nRepaint  ) , SENDMESSAGE( ::hwndUpDown, ( 1024 + 105 ), ::oEditUpDown:handle, 0 ), IIF( ::lHide, ::Hide(), ::Show() ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HUpDown ;
+
+
+
+
+UTILITY STATIC function HUpDown_New( oWndParent,nId,vari,bSetGet,nStyle,nLeft,nTop,nWidth,nHeight,  oFont, bInit,bSize,bPaint,bGfocus,bLfocus,ctooltip,tcolor,bcolor, nUpDWidth, nLower,nUpper, nIncr,cPicture,lNoBorder, nMaxLength, bKeyDown, bChange, bOther, bClickUp ,bClickDown) ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   ( (bOther) := (bOther) )
+
+   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 65536 + IIf( lNoBorder == Nil.OR. ! lNoBorder, 8388608, 0 ) )
+
+   IF Valtype(vari) <> "N"
+      vari := 0
+      Eval( bSetGet,vari )
+   ENDIF
+   IF bSetGet = Nil
+      bSetGet := {| v | IIF( v == Nil, ::nValue, ::nValue := v ) }
+   ENDIF
+
+   ::nValue := Vari
+   ::title := Str( vari )
+   ::bSetGet := bSetGet
+   ::bColorOld := bColor
+
+   ::HControl:New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,oFont,bInit,  bSize,bPaint,ctooltip,tcolor,bcolor )
+
+   ::idUpDown := ::id
+
+   ::Increment := IIF( nIncr = Nil, 1, nIncr )
+   ::styleUpDown := 0x0004  + 0x0020 + 0x0080
+   IF nLower <> Nil ; ::nLower := nLower ; ENDIF
+   IF nUpper <> Nil ; ::nUpper := nUpper ; ENDIF
+
+   IF nUpDWidth <> Nil ; ::nUpDownWidth := nUpDWidth ; ENDIF
+   ::nMaxLength :=  nMaxLength
+   ::cPicture := IIF( cPicture = Nil, Replicate("9", 4), cPicture )
+   ::lNoBorder := lNoBorder
+   ::bkeydown := bkeydown
+   ::bchange  := bchange
+   ::bGetFocus := bGFocus
+   ::bLostFocus := bLFocus
+
+   ::Activate()
+
+   ::bClickDown := bClickDown
+   ::bClickUp := bClickUp
+
+   IF bSetGet <> Nil
+      ::bValid := bLFocus
+   ELSE
+      IF bGfocus <> Nil
+         ::lnoValid := .T.
+      ENDIF
+   ENDIF
+
+  Return Self
+
+UTILITY STATIC function HUpDown_Activate() ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   IF !empty( ::oParent:handle )
+      ::lCreate := .T.
+
+
+      ::oEditUpDown := HEditUpDown():New( ::oParent, ::id , val(::title) , ::bSetGet, ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight,  ::oFont, ::bInit, ::bSize, ::bPaint, ::bGetfocus, ::bLostfocus, ::tooltip, ::tcolor, ::bcolor, ::cPicture, ::lNoBorder, ::nMaxLength, , ::bKeyDown, ::bChange, ::bOther , ::controlsource)
+      ::oEditUpDown:Name := "oEditUpDown"
+      ::SetColor( ::tColor, ::oEditUpDown:bColor )
+      ::Init()
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HUpDown_Init() ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   IF !::lInit
+      ::HControl:Init()
+      ::Createupdown()
+      ::DisableBackColor := ::DisablebColor
+      ::Refresh()
+   ENDIF
+   Return Nil
+
+
+UTILITY STATIC function HUpDown_CreateUpDown() ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+
+
+
+   ::nHolder := 0
+   IF !::lCreate
+       ::Activate()
+       AddToolTip( ::GetParentForm():handle, ::oEditUpDown:handle, ::tooltip )
+       ::oEditUpDown:SetFont( ::oFont )
+       ::oEditUpDown:DisableBrush := ::DisableBrush
+       SETWINDOWPOS( ::oEditUpDown:handle, ::Handle, 0, 0, 0, 0, 0x0001 +  0x0002 )
+       DESTROYWINDOW( ::Handle )
+   ELSEIF ::getParentForm():Type < 10 .AND. ::oParent:ClassName = "HTAB"
+
+      ::nHolder := 1
+      SetWindowObject( ::oEditUpDown:handle, ::oEditUpDown )
+      Hwg_InitEditProc( ::oEditUpDown:handle )
+    ENDIF
+   ::handle := ::oEditUpDown:handle
+
+   ::hwndUpDown := CreateUpDownControl( ::oParent:handle, ::idUpDown,  ::styleUpDown, 0, 0, ::nUpDownWidth, 0, ::handle, -2147483647, 2147483647, Val(::title) )
+
+   ::oEditUpDown:oUpDown := Self
+   ::oEditUpDown:lInit := .T.
+   IF ::nHolder = 0
+      ::nHolder := 1
+      SetWindowObject( ::handle, ::oEditUpDown )
+      Hwg_InitEditProc( ::handle )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HUpDown_DisableBackColor(DisableBColor) ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+    IF DisableBColor <> NIL
+       ::HControl:DisableBackColor( DisableBColor )
+       IF ::oEditUpDown <> Nil
+          ::oEditUpDown:DisableBrush := ::DisableBrush
+       ENDIF
+    ENDIF
+    RETURN ::DisableBColor
+
+UTILITY STATIC function HUpDown_SetRange( nLower, nUpper) ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   ::nLower := IIF( nLower <> Nil, nLower, ::nLower )
+   ::nUpper := IIF( nUpper <> Nil, nUpper, ::nUpper )
+   SETRANGEUPDOWN( ::nLower, ::nUpper )
+
+   RETURN Nil
+
+UTILITY STATIC function HUpDown_Value(Value) ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   IF Value <> Nil .AND. ::oEditUpDown <> Nil
+       ::SetValue( Value )
+       ::oEditUpDown:Title :=  ::Title
+       ::oEditUpDown:Refresh()
+   ENDIF
+   RETURN ::nValue
+
+UTILITY STATIC function HUpDown_SetValue( nValue) ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   IF  nValue < ::nLower .OR. nValue > ::nUpper
+       nValue := ::nValue
+   ENDIF
+   ::nValue := nValue
+   ::title := Str( ::nValue )
+   SetUpDown( ::hwndUpDown, ::nValue )
+   IF ::bSetGet <> Nil
+      Eval( ::bSetGet, ::nValue, Self )
+   ENDIF
+
+   RETURN ::nValue
+
+UTILITY STATIC function HUpDown_Refresh() ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+
+   IF ::bSetGet <> Nil
+      ::nValue := Eval( ::bSetGet, , Self )
+      IF Str(::nValue) <> ::title
+
+
+         ::SetValue( ::nValue )
+      ENDIF
+   ELSE
+      SetUpDown( ::hwndUpDown, Val(::title) )
+   ENDIF
+   ::oEditUpDown:Title :=  ::Title
+   ::oEditUpDown:Refresh()
+   IF SelfFocus( ::handle )
+      InvalidateRect( ::hwndUpDown, 0 )
+   ENDIF
+
+   RETURN Nil
+
+UTILITY STATIC function HUpDown_Valid() ; local Self AS CLASS HUpDown := QSelf() AS CLASS HUpDown
+   LOCAL res
+
+
+
+
+
+
+
+
+   res :=  ::nValue <= ::nUpper .AND. ::nValue >= ::nLower
+   IF ! res
+      ::nValue := IIF( ::nValue > ::nUpper, Min( ::nValue, ::nUpper ), Max( ::nValue, ::nLower ) )
+      ::SetValue( ::nValue )
+      ::oEditUpDown:Refresh()
+      SendMessage( ::oEditUpDown:Handle, 177 , 0, -1 )
+      ::SetFocus()
+        RETURN res
+   ENDIF
+   Return res
+
+
+_HB_CLASS HEditUpDown ; UTILITY FUNCTION HEditUpDown(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HEditUpDown" , {HEdit():classh} ) ) ; ;
+
+
+
+    _HB_MEMBER INIT(); IIF( .F., s_oClass:ModMethod( "INIT", @HEditUpDown_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HEditUpDown_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+    _HB_MEMBER Notify( lParam); IIF( .F., s_oClass:ModMethod( "Notify", @HEditUpDown_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Notify", @HEditUpDown_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+    _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HEditUpDown_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HEditUpDown_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+    _HB_MEMBER Move( ); IIF( !.F., s_oClass:AddVirtual( "Move" ), )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HEditUpDown ;
+
+UTILITY STATIC function HEditUpDown_INIT() ; local Self AS CLASS HEditUpDown := QSelf() AS CLASS HEditUpDown
+
+   IF ! ::lInit
+      IF ::bChange <> Nil
+         ::oParent:AddEvent( 768, self,{|| ::onChange()},,"onChange")
+      ENDIF
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HEditUpDown_Notify( lParam) ; local Self AS CLASS HEditUpDown := QSelf() AS CLASS HEditUpDown
+   Local nCode := GetNotifyCode( lParam )
+   Local iPos := GETNOTIFYDELTAPOS( lParam, 1 )
+   Local iDelta := GETNOTIFYDELTAPOS( lParam , 2 )
+   Local vari, res
+
+
+
+
+
+      IF ::oUpDown = Nil .OR. Hwg_BitAnd( GetWindowLong( ::handle, - 16 ), 2048 ) <> 0 .OR.  GetFocus() <> ::Handle .OR.  ( ::oUpDown:bGetFocus <> Nil .AND. ! Eval( ::oUpDown:bGetFocus, ::oUpDown:nValue, ::oUpDown ) )
+         Return 0
+   ENDIF
+
+   vari := Val( LTrim( ::UnTransform( ::title ) ) )
+
+
+   IF ( vari <= ::oUpDown:nLower .AND. iDelta < 0 ) .OR.  ( vari >= ::oUpDown:nUpper .AND. iDelta > 0 ) .OR. ::oUpDown:Increment = 0
+       ::SetFocus()
+       RETURN 0
+   ENDIF
+   vari :=  vari + ( ::oUpDown:Increment * idelta )
+   ::Title := Transform( vari , ::cPicFunc + IIf( Empty( ::cPicFunc ), "", " " ) + ::cPicMask )
+   SetDlgItemText( ::oParent:handle, ::id, ::title )
+   ::oUpDown:Title := ::Title
+   ::oUpDown:SetValue( vari )
+   ::SetFocus()
+   IF nCode = ( ( -721 ) - 1 ) .AND. ( ::oUpDown:bClickUp <> Nil .OR. ::oUpDown:bClickDown <> Nil )
+      ::oparent:lSuspendMsgsHandling := .T.
+      IF iDelta < 0 .AND. ::oUpDown:bClickDown  <> Nil
+         res := Eval( ::oUpDown:bClickDown, ::oUpDown, ::oUpDown:nValue, iDelta, ipos )
+      ELSEIF iDelta > 0 .AND. ::oUpDown:bClickUp  <> Nil
+         res := Eval( ::oUpDown:bClickUp, ::oUpDown, ::oUpDown:nValue, iDelta, ipos )
+      ENDIF
+      ::oparent:lSuspendMsgsHandling := .F.
+      IF VALTYPE( res ) = "L" .AND. !res
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF nCode = ( -721 )
+
+   ENDIF
+   RETURN 0
+
+   UTILITY STATIC function HEditUpDown_Refresh() ; local Self AS CLASS HEditUpDown := QSelf() AS CLASS HEditUpDown
+   LOCAL vari
+
+   vari := ::Value
+   IF  ::bSetGet <> Nil  .AND. ::title <> Nil
+      ::Title := Transform( vari , ::cPicFunc + IIf( Empty( ::cPicFunc ), "", " " ) + ::cPicMask )
+   ENDIF
+   SetDlgItemText( ::oParent:handle, ::id, ::title )
+
+   RETURN Nil

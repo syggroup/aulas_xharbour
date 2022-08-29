@@ -1,0 +1,647 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 28 "source\syg\syg_hmsg.prg"
+static nContaMsg       := 0
+static nTempo          := 0
+
+
+FUNCTION ALERT(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO ALERT" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "ALERT" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+HWG_MSGINFO(_cMSG,_cTIT)
+RETURN(.T.)
+
+
+FUNCTION MSGINFO(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGINFO" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGINFO" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+HWG_MSGINFO(_cMSG,_cTIT)
+RETURN(.T.)
+
+
+FUNCTION MsgStop(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGSTOP" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGSTOP" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+HWG_MSGSTOP(_cMSG,_cTIT)
+RETURN(.T.)
+
+
+FUNCTION MsgNoYes(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGNOYES" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGNOYES" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+RETURN(HWG_MsgNoYes(_cMSG,_cTIT))
+
+
+FUNCTION MsgYesNo(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+IF VALTYPE(_cTIT)="N"
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGYESNO" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGYESNO" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+RETURN(HWG_MsgYesNo(_cMSG,_cTIT))
+
+
+FUNCTION MSGRETRYCANCEL(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+LOCAL nRET:=0
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGRETRYCANCEL" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGRETRYCANCEL" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+nRET:=HWG_MSGRETRYCANCEL(_cMSG,_cTIT)
+RETURN(IIF(nRET=4,.T.,.F.))
+
+
+FUNCTION MSGOKCANCEL(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGOKCANCEL" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGOKCANCEL" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+RETURN(HWG_MSGOKCANCEL(_cMSG,_cTIT))
+
+
+FUNCTION MSGYESNOCANCEL(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGYESNOCANCEL" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGYESNOCANCEL" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+RETURN(HWG_MSGYESNOCANCEL(_cMSG,_cTIT))
+
+
+FUNCTION MSGEXCLAMATION(_cMSG,_cTIT,_cNAOTRADUZ)
+
+
+IF _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+ENDIF
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MSGEXCLAMATION" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MSGEXCLAMATION" )
+_cMSG := Alltrim(_cMSG)+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+RETURN(HWG_MSGEXCLAMATION(_cMSG,_cTIT))
+
+
+FUNCTION MY_SHOWMSG(_cMSG,nTEMPO_PAR,_cTIT,_cNAOTRADUZ,nLeft, nTop)
+
+
+local oSay, oDLG_SHOWMSG
+local oButton1
+local oButton2
+local oTime_MSG
+
+nTop :=IF(nTop=Nil,0,nTop)
+nLeft:=IF(nLeft=Nil,0,nLeft)
+
+if nTempo <> 0
+   nTempo:= 0
+endif
+
+if nTEMPO_PAR =  nil
+   nTEMPO_PAR:=10
+endif
+
+If _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+Endif
+
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO MY_SHOWMSG" )
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG), "MY_SHOWMSG" )
+_cMSG := _cMSG+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+
+
+
+
+oDLG_SHOWMSG := HDialog():New( Iif(.F.,10,11), IF(nTop=0 .AND. nLeft=0, 2048+268435456 , 268435456),nLeft,nTop,400,165,_cTIT,,,{|| NoSaidaF4() },,,,,,.F.,, HIcon():AddResource(1001),.T.,,,.T.,,, .F.,.F.)
+
+
+
+
+
+oButton1 := HButtonEx():New(,1,65536,150,100,60, 28,"&OK",HFont():Add( "",0,-13,400,,,),,,,{|| oDLG_SHOWMSG:oTime_MSG:interval:=0,oDLG_SHOWMSG:oTime_MSG:end(), oDLG_SHOWMSG:Close() },"Clique Aqui Para Proseguir",,,,,, .F.,,,.F.,, .F. ); oButton1:name := "oButton1"
+
+
+
+
+oSAY := HEdit():New(,,_cMSG, {|v|Iif(v==Nil,_cMSG,_cMSG:=v)}, 64+1+4+2048,-1,0,400,95,HFont():Add( "",0,-12,700,,,),,,,,,"",,,, .F.,,.F.,,,,.F.,,.F.); oSAY:name := "oSAY"
+
+
+
+oTIME_MSG := HTimer():New( oDLG_SHOWMSG, HB_RandomInt(99999), 1000, {|| ATUALIZA_TIMER(nTEMPO_PAR,oDLG_SHOWMSG) } ); oTIME_MSG:name := "oTIME_MSG"
+
+oDLG_SHOWMSG:Activate(.F.,,,.F. )
+
+Return nil
+
+
+STATIC FUNCTION ATUALIZA_TIMER(nTEMPO_PAR,oDLG_SHOWMSG)
+
+
+  ntempo++
+  if ntempo>=nTEMPO_PAR
+     oDLG_SHOWMSG:otime_msg:End()
+     oDLG_SHOWMSG:close()
+  endif
+
+  oDLG_SHOWMSG:oButton1:SetText("&OK-"+AllTrim(Str(nTEMPO_PAR-ntempo)) )
+  oDLG_SHOWMSG:oButton1:Refresh()
+Return(.T.)
+
+
+
+
+FUNCTION MsgRun( cMsg, bEval )
+
+
+
+
+IF bEval#NIL
+   IF ValType(bEval) = "B"
+
+      PRIVATE oDlgHabla:=NIL
+      MsgRun2(cMsg)
+      HW_Atualiza_Dialogo2(cMsg)
+
+      EVAL( bEval )
+      Fim_Run()
+   ENDIF
+ELSE
+   MsgRun2(cMsg)
+   HW_Atualiza_Dialogo2(cMsg)
+ENDIF
+Return NIL
+
+
+FUNCTION MsgRun2(cMsg)
+
+
+
+Local oTimHabla
+
+if cMsg=Nil
+   cMsg:="Aguarde em processamento...."
+endif
+
+
+
+
+
+oDlgHabla := HDialog():New( Iif(.F.,10,11), 2147483648+524288+262144+2048,0,0,385,60,"Processando...",,,{|| NoSaidaF4() },,,,,,.F.,,,.T.,,,.T.,Rgb(255, 255, 255),, .F.,.T.)
+
+
+
+
+
+oTimHabla := HStatic():New(,,,10,25,365, 20,cMsg,HFont():Add( "",0,-11,400,,,),,,,,,Rgb(255, 255, 255),.F.,,,,.T. ); oTimHabla:name := "oTimHabla"
+
+
+
+
+
+
+
+
+
+
+
+oDlgHabla:Activate(.T.,,,.F. )
+
+Return Nil
+
+
+FUNCTION FIM_RUN
+
+sygDialogo()
+TRY
+   IF oDlgHabla # NIL
+      oDlgHabla:CLOSE()
+   ENDIF
+CATCH
+END
+Return Nil
+
+
+FUNCTION HW_ATUALIZA_DIALOGO2(cMENSAGEM)
+
+
+
+
+IF cMENSAGEM=nIL
+   cMENSAGEM:="Aguarde em processamento...."
+ENDIF
+
+nCONTAMSG++
+IF nCONTAMSG = 250
+   HWG_DOEVENTS()
+   SLEEP(60)
+   nCONTAMSG:=0
+ENDIF
+
+TRY
+
+   oDlgHabla:ACONTROLS[1]:SETTEXT(cMENSAGEM)
+
+catch
+
+END
+RETURN NIL
+
+
+FUNCTION HW_ATUALIZA_DIALOGO(vMensagem)
+
+
+
+LOCAL oWnd
+
+TRY
+   oWnd:=oTelaPrincipal
+CATCH
+END
+
+nCONTAMSG++
+IF nCONTAMSG = 250
+   HWG_DOEVENTS()
+   SLEEP(80)
+   nCONTAMSG:=0
+ENDIF
+
+TRY
+   IF TYPE(vMensagem)="N"
+      WriteStatus( oWnd,2, STR(vMensagem))
+   ELSE
+      WriteStatus( oWnd,2, vMensagem)
+   ENDIF
+catch
+
+END
+RETURN(.T.)
+
+
+FUNCTION SHOWMSG(cMSG,_cNAOTRADUZ,_cTIT)
+
+
+
+If _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+Endif
+
+If VALTYPE(cMSG) = "C"
+   cMSG:=STRTRAN(cMSG, ";", CHR(13) )
+ElseIf VALTYPE(cMSG) = "N"
+   cMSG:=ALLTRIM(STR(cMSG))
+ElseIf VALTYPE(cMSG) = "L"
+   If cMSG
+      cMSG:="True"
+   Else
+      cMSG:="False"
+   Endif
+ElseIf VALTYPE(cMSG) = "D"
+   cMSG:=Transform(cMSG,"@D")
+ElseIf VALTYPE(cMSG) = "B" .OR. VALTYPE(cMSG) = "A" .OR. VALTYPE(cMSG) = "H"
+   cMSG:=VALTOPRG(cMSG)
+Endif
+If _cNAOTRADUZ<>NIL
+   If VALTYPE(_cNAOTRADUZ) = "C"
+      _cNAOTRADUZ:=STRTRAN(_cNAOTRADUZ, ";", CHR(13) )
+   ElseIf VALTYPE(_cNAOTRADUZ) = "N"
+      _cNAOTRADUZ:=ALLTRIM(STR(_cNAOTRADUZ))
+   ElseIf VALTYPE(_cNAOTRADUZ) = "L"
+      If _cNAOTRADUZ
+         _cNAOTRADUZ:="True"
+      Else
+         _cNAOTRADUZ:="False"
+      Endif
+   ElseIf VALTYPE(_cNAOTRADUZ) = "D"
+      _cNAOTRADUZ:=Transform(_cNAOTRADUZ,"@D")
+   ElseIf VALTYPE(_cNAOTRADUZ) = "B" .OR. VALTYPE(_cNAOTRADUZ) = "A" .OR. VALTYPE(_cNAOTRADUZ) = "H"
+      _cNAOTRADUZ:=VALTOPRG(_cNAOTRADUZ)
+   Endif
+Endif
+
+_cTIT := HWG_TRANSLATOR( Alltrim(_cTIT), "TITULO SHOWMSG" )
+_cMSG := HWG_TRANSLATOR( Alltrim(cMSG) , "SHOWMSG" )
+_cMSG := _cMSG+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+
+HWG_MsgInfo(_cMSG,_cTIT)
+RETURN(.T.)
+
+
+FUNCTION MY_MSGYESNO(_cMSG,nTEMPO_PAR,_cTIT,_cNAOTRADUZ)
+
+
+Local oSAY, oButton1, oButton2
+Local lRET:=.T., aJUSTIFICA:={}, nI
+Local oTime_MSG, oDLG_YESNO
+
+PRIVATE nTempo := 0
+
+IF nTEMPO_PAR=Nil
+   nTEMPO_PAR=20
+ELSEIF VALTYPE(nTEMPO_PAR)#"N"
+   nTEMPO_PAR=20
+ENDIF
+
+If _cTIT=NIL
+   _cTIT:="Aviso do Sistema"
+Endif
+
+_cMSG := HWG_TRANSLATOR( Alltrim(_cMSG) , "MY_MSGYESNO" )
+_cMSG := _cMSG+If(_cNAOTRADUZ<>NIL,Hb_OsNewLine()+Alltrim(_cNAOTRADUZ),"")
+
+
+
+
+
+oDLG_YESNO := HDialog():New( Iif(.F.,10,11), 2048 +268435456,0,0,400,160,_cTIT,,,{|| NoSaidaF4() },,,,,,.F.,, HIcon():AddResource(1001),.T.,,,.T.,,, .F.,.F.)
+
+
+
+
+
+oButton1 := HButtonEx():New(,1,65536,220,100,80, 24,"&Sim",HFont():Add( "",0,-12,400,,,),,,,{|| (oTime_MSG:end()), lRET:=.T. ,oDLG_YESNO:Close() },"Clique Aqui Para Proseguir",,,,,, .F.,,,.F.,, .F. ); oButton1:name := "oButton1"
+
+
+
+
+oButton2 := HButtonEx():New(,,65536,310,100,80, 24,"&Não",HFont():Add( "",0,-12,400,,,),,,,{|| (oTime_MSG:end()), lRET:=.F. ,oDLG_YESNO:Close() },"Clique Aqui Para Voltar ou Cancelar",,,,,, .F.,,,.F.,, .F. ); oButton2:name := "oButton2"
+
+
+
+
+oSAY := HEdit():New(,,_cMSG, {|v|Iif(v==Nil,_cMSG,_cMSG:=v)}, 64+1+4+2048,-1,0,400,95,HFont():Add( "",0,-12,400,,,),,,,,," ",,,, .F.,,.F.,,,,.F.,,.T.); oSAY:name := "oSAY"
+
+oTime_MSG := HTimer():New( oDLG_YESNO, 90007, 1000, {|| ATUALIZA_TIMER_MSGYESNO(nTEMPO_PAR,oButton1,oDLG_YESNO,oTime_MSG) } ); oTime_MSG:name := "oTime_MSG"
+
+oDLG_YESNO:Activate(.F.,,,.F. )
+
+Return(lRET)
+
+
+STATIC FUNCTION ATUALIZA_TIMER_MSGYESNO(nTEMPO_PAR,oButton1,oDlg,oTime_MSG)
+
+nTempo++
+IF nTempo=nTEMPO_PAR
+   oTime_MSG:end()
+   oDlg:Close()
+ENDIF
+HWG_DOEVENTS()
+oButton1:SETTEXT("&Sim-"+alltrim(str(nTEMPO_PAR-nTempo)) )
+RETURN(.T.)
+
+
+FUNCTION SN(cMSG,cBTN,_cTIT,_cNAOTRADUZ)
+
+
+
+
+
+
+
+LOCAL lRET:=.T.
+
+IF cBTN=NIL
+   cBTN:="S"
+ENDIF
+if VALTYPE(cMSG) = "C"
+   cMSG:=STRTRAN(cMSG, ";", CHR(13) )
+endif
+
+IF cBTN="S"
+   lRET:=MSGYESNO(cMSG,_cTIT,_cNAOTRADUZ)
+ELSE
+   lRET:=MSGNOYES(cMSG,_cTIT,_cNAOTRADUZ)
+ENDIF
+
+RETURN(lRET)
+
+
+FUNCTION MY_MSGGET(cTitle,cText,vINI,cMask,nMAXLE,lPASSWORD,cNaoTraduz )
+
+
+Local oDlg, oRES,cText1:=""
+Local cRes := IIF(vINI=Nil,"",vINI)
+
+cMask := IIF(cMask=Nil,"@!",cMask)
+lPASSWORD:= IIF(lPASSWORD=NIL,.F.,lPASSWORD)
+
+nMAXLE:= IIF(nMAXLE=NIL,0,nMAXLE)
+IF VALTYPE(nMAXLE)<>"N"
+   nMAXLE:=0
+ENDIF
+
+cText  := HWG_TRANSLATOR( Alltrim(cText) , "MY_MSGGET" )
+If cNaoTraduz<>NIL .AND. Valtype(cNaoTraduz)<>"D"
+   cText1 := Alltrim(cNaoTraduz)
+Endif
+
+
+
+
+oDlg := HDialog():New( Iif(.F.,10,11), 2048 +524288+268435456,0,0,300,If(!Empty(cText1),180,140),cTitle,HFont():Add( "MS Sans Serif", 0, - 13 ),,,,,,,,.T.,, HIcon():AddResource(1001),.T.,,,.F.,,, .F.,.F.)
+
+   HStatic():New(,,,20,10,260, 22,cText,,,,,,,,.F.,,,,.T. );
+   If !Empty(cText1)
+      HStatic():New(,,,20,30,260, 22,cText1,,,,,,,,.F.,,,,.T. );
+   Endif
+   IF cMask="@D" .OR. cMask="@d"
+
+
+
+      oRES := HDatePicker():New(,,cRes, {|v|Iif(v==Nil,cRes,cRes:=v)}, 0  + 65536,20,If(!Empty(cText1),65,35),260,24,,,,,,"Informe a Data",,,.F.,.F. ); oRES:name := "oRES"
+   ELSE
+      IF lPASSWORD
+
+
+
+         oRES := HEdit():New(,,cRes, {|v|Iif(v==Nil,cRes,cRes:=v)}, 65536 + 128,20,If(!Empty(cText1),65,35),260,24,,,,,,,cText,,,cMask, .F.,,.T.,,,,.F.,,.F.); oRES:name := "oRES"
+      ELSEIF nMAXLE >0
+
+
+
+         oRES := HEdit():New(,,cRes, {|v|Iif(v==Nil,cRes,cRes:=v)}, 65536 + 128,20,If(!Empty(cText1),65,35),260,24,,,,,,,cText,,,cMask, .F.,nMAXLE,.F.,,,,.F.,,.F.); oRES:name := "oRES"
+      ELSE
+
+
+
+         oRES := HEdit():New(,,cRes, {|v|Iif(v==Nil,cRes,cRes:=v)}, 65536 + 128,20,If(!Empty(cText1),65,35),260,24,,,,,,,cText,,,cMask, .F.,,.F.,,,,.F.,,.F.); oRES:name := "oRES"
+      ENDIF
+   ENDIF
+
+
+
+
+
+
+   HButtonEx():New(,,65536,020,If(!Empty(cText1),95,65),110, 38,"Ok",,,,,{|| oDlg:CLOSE() },"Clique aqui para Continuar",,,(HBitmap():AddResource(1002)):handle,,, .F.,,,.F.,, .F. );
+
+
+
+
+
+
+   HButtonEx():New(,,65536,170,If(!Empty(cText1),95,65),110, 38,"Cancelar",,,,,{|| cRes:="",oDlg:CLOSE() },"Clique aqui para Cancelar",,,(HBitmap():AddResource(1003)):handle,,, .F.,,,.F.,, .F. );
+
+oDlg:Activate()
+
+RETURN(cRes)
+
+
+
+
+
+
+
+
+
+
+Function SYGDIALOGO(cMsg,bBlc)
+
+
+
+Static oDlgHab
+
+IF cMsg=nil
+   cMsg=""
+ENDIF
+
+
+
+if Empty(cMsg)
+   if oDlgHab <> nil
+      oDlgHab:Close()
+      oDlgHab:= nil
+   endif
+   return nil
+endif
+
+if oDlgHab == nil
+   oDlgHab:= CriaObjDialogo()
+endif
+
+AtualizaDialogo(cMsg, @oDlgHab)
+
+IF bBlc#NIL
+   IF ValType(bBlc) = "B"
+      EVAL( bBlc )
+      if oDlgHab <> nil
+         oDlgHab:Close()
+         oDlgHab:= nil
+      endif
+   ENDIF
+ENDIF
+Return nil
+
+
+
+
+
+Static function CriaObjDialogo()
+
+
+
+Local oBox
+Local oTimHabla
+
+
+
+
+
+oBox := HDialog():New( Iif(.F.,10,11), 2147483648+524288+262144+2048,0,0,385,60,"Processando...",,,{|| NOSAIDAF4() },,,,,,.F.,,,.T.,,,.T.,Rgb(255, 255, 255),, .F.,.T.)
+
+
+
+  oTimHabla := HStatic():New(,,,10,26,365, 20,"Aguarde, em processamento.",HFont():Add( "",0,-11,400,,,),,,,,,Rgb(255, 255, 255),.F.,,,,.T. ); oTimHabla:name := "oTimHabla"
+
+
+
+
+
+
+
+
+
+
+
+
+oBox:Activate(.T.,,,.F. )
+
+Return(oBox)
+
+
+Static Function AtualizaDialogo(cMsg, oDLG_SYGD)
+
+
+
+IF EMPTY(cMsg) .OR. VALTYPE(cMsg)#"C"
+   cMsg:="Aguarde, em processamento..."
+ENDIF
+
+nCONTAMSG++
+IF nCONTAMSG = 250
+   HWG_DOEVENTS()
+   SLEEP(60)
+   nCONTAMSG:=0
+ENDIF
+
+try
+  oDLG_SYGD:ACONTROLS[1]:SETTEXT(cMsg)
+catch
+
+end
+Return nil

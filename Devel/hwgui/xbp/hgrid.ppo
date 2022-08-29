@@ -1,0 +1,208 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 37 "source\hgrid.prg"
+_HB_CLASS HGrid ; UTILITY FUNCTION HGrid(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HGrid" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "SYSLISTVIEW32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { aBitMaps} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aBitMaps" }, .F., .F. ), )
+   _HB_MEMBER { ItemCount} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ItemCount" }, .F., .F. ), )
+   _HB_MEMBER { color} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "color" }, .F., .F. ), )
+   _HB_MEMBER { bkcolor} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bkcolor" }, .F., .F. ), )
+   _HB_MEMBER { aColumns} ; IIF( !.F., s_oClass:AddMultiData(, { }, nScope + IIF( .F., 32, 0 ), { "aColumns" }, .F., .F. ), )
+   _HB_MEMBER { nRow} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nRow" }, .F., .F. ), )
+   _HB_MEMBER { nCol} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nCol" }, .F., .F. ), )
+
+   _HB_MEMBER { lNoScroll} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lNoScroll" }, .F., .F. ), )
+   _HB_MEMBER { lNoBorder} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lNoBorder" }, .F., .F. ), )
+   _HB_MEMBER { lNoLines} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lNoLines" }, .F., .F. ), )
+   _HB_MEMBER { lNoHeader} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lNoHeader" }, .F., .F. ), )
+
+   _HB_MEMBER { bEnter} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bEnter" }, .F., .F. ), )
+   _HB_MEMBER { bKeyDown} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bKeyDown" }, .F., .F. ), )
+   _HB_MEMBER { bPosChg} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bPosChg" }, .F., .F. ), )
+   _HB_MEMBER { bDispInfo} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bDispInfo" }, .F., .F. ), )
+
+   _HB_MEMBER { bGfocus} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bGfocus" }, .F., .F. ), )
+   _HB_MEMBER { bLfocus} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bLfocus" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter,  bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo,  nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit); IIF( .F., s_oClass:ModMethod( "New", @HGrid_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HGrid_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HGrid_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HGrid_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HGrid_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HGrid_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddColumn(cHeader, nWidth, nJusHead, nBit); IIF( .F., s_oClass:ModInline( "AddColumn", {|Self,cHeader, nWidth, nJusHead, nBit | Self, AAdd( ::aColumns, { cHeader, nWidth, nJusHead, nBit } ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "AddColumn", {|Self,cHeader, nWidth, nJusHead, nBit | Self, AAdd( ::aColumns, { cHeader, nWidth, nJusHead, nBit } ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HGrid_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HGrid_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER RefreshLine(); IIF( .F., s_oClass:ModInline( "RefreshLine", {|Self | Self, Listview_update( ::handle, Listview_getfirstitem( ::handle ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "RefreshLine", {|Self | Self, Listview_update( ::handle, Listview_getfirstitem( ::handle ) ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetItemCount(nItem); IIF( .F., s_oClass:ModInline( "SetItemCount", {|Self,nItem | Self, Listview_setitemcount( ::handle, nItem ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetItemCount", {|Self,nItem | Self, Listview_setitemcount( ::handle, nItem ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Row(); IIF( .F., s_oClass:ModInline( "Row", {|Self | Self, Listview_getfirstitem( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Row", {|Self | Self, Listview_getfirstitem( ::handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Notify( lParam); IIF( .F., s_oClass:ModMethod( "Notify", @HGrid_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Notify", @HGrid_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HGrid ;
+
+
+
+
+UTILITY STATIC function HGrid_New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit, bSize, bPaint, bEnter,  bGfocus, bLfocus, lNoScroll, lNoBord, bKeyDown, bPosChg, bDispInfo,  nItemCount, lNoLines, color, bkcolor, lNoHeader, aBit) ; local Self AS CLASS HGrid := QSelf() AS CLASS HGrid
+
+   nStyle := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 8 + 65536 + IIf( lNoBord, 0, 8388608 ) + 1 + 4096 + 4 )
+
+   ::HControl:New( oWnd, nId, nStyle, x, y, width, height, oFont, bInit,  bSize, bPaint )
+   IF aBit == NIL ; aBit := { } ; END
+   ::ItemCount := nItemCount
+   ::aBitMaps := aBit
+   ::bGfocus := bGfocus
+   ::bLfocus := bLfocus
+
+   ::color   := color
+   ::bkcolor := bkcolor
+
+   ::lNoScroll := lNoScroll
+   ::lNoBorder := lNoBord
+   ::lNoLines  := lNoLines
+   ::lNoHeader := lNoHeader
+
+   ::bEnter    := bEnter
+   ::bKeyDown  := bKeyDown
+   ::bPosChg   := bPosChg
+   ::bDispInfo := bDispInfo
+
+   HWG_InitCommonControlsEx()
+
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HGrid_Activate() ; local Self AS CLASS HGrid := QSelf() AS CLASS HGrid
+   IF ! Empty( ::oParent:handle )
+      ::handle := ListView_Create ( ::oParent:handle, ::id, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::style, ::lNoHeader, ::lNoScroll )
+
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HGrid_Init() ; local Self AS CLASS HGrid := QSelf() AS CLASS HGrid
+   LOCAL i, nPos
+   LOCAL aButton := { }
+   LOCAL aBmpSize
+   LOCAL n
+
+   IF ! ::lInit
+      ::HControl:Init()
+      FOR n := 1 TO Len( ::aBitmaps )
+         AAdd( aButton, LoadImage( , ::aBitmaps[ n ] , 0, 0, 0, 64 + 8192 ) )
+      NEXT
+
+      IF Len( aButton ) > 0
+
+         aBmpSize := GetBitmapSize( aButton[ 1 ] )
+
+         IF aBmpSize[ 3 ] == 4
+            ::hIm := CreateImageList( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, 0x0004 + 0x0001 )
+         ELSEIF aBmpSize[ 3 ] == 8
+            ::hIm := CreateImageList( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, 0x0008 + 0x0001 )
+         ELSEIF aBmpSize[ 3 ] == 24
+            ::hIm := CreateImageList( { } , aBmpSize[ 1 ], aBmpSize[ 2 ], 1, 0x00FE + 0x0001 )
+         ENDIF
+
+         FOR nPos := 1 TO Len( aButton )
+
+            aBmpSize := GetBitmapSize( aButton[ nPos ] )
+
+            IF aBmpSize[ 3 ] == 24
+
+               Imagelist_Add( ::hIm, aButton[ nPos ] )
+            ELSE
+               Imagelist_Add( ::hIm, aButton[ nPos ] )
+            ENDIF
+
+         NEXT
+
+         Listview_setimagelist( ::handle, ::him )
+
+      ENDIF
+
+      Listview_Init( ::handle, ::ItemCount, ::lNoLines )
+
+      FOR i := 1 TO Len( ::aColumns )
+         Listview_addcolumn( ::handle, i, ::aColumns[ i, 2 ], ::aColumns[ i, 1 ], ::aColumns[ i, 3 ], IF( ::aColumns[ i, 4 ] <> nil, ::aColumns[ i, 4 ], 0 ) )
+      NEXT
+
+      IF ::color <> nil
+         ListView_SetTextColor( ::handle, ::color )
+
+      ENDIF
+
+      IF ::bkcolor <> nil
+         Listview_setbkcolor( ::handle, ::bkcolor )
+         Listview_settextbkcolor( ::handle, ::bkcolor )
+      ENDIF
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HGrid_Refresh() ; local Self AS CLASS HGrid := QSelf() AS CLASS HGrid
+   LOCAL iFirst, iLast
+
+   iFirst := ListView_GetTopIndex( ::handle )
+
+   iLast := iFirst + ListView_GetCountPerPage( ::handle )
+
+   ListView_RedrawItems( ::handle , iFirst, iLast )
+   RETURN Nil
+
+UTILITY STATIC function HGrid_Notify( lParam) ; local Self AS CLASS HGrid := QSelf() AS CLASS HGrid
+   RETURN ListViewNotify( Self, lParam )
+
+FUNCTION ListViewNotify( oCtrl, lParam )
+   LOCAL aCord
+
+   IF GetNotifyCode ( lParam ) = - 155 .AND. oCtrl:bKeydown <> nil
+      Eval( oCtrl:bKeyDown, oCtrl, Listview_GetGridKey( lParam ) )
+
+   ELSEIF GetNotifyCode ( lParam ) == - 3 .AND. oCtrl:bEnter <> nil
+
+      aCord := Listview_Hittest( oCtrl:handle, GetCursorRow() - GetWindowRow ( oCtrl:handle ),  GetCursorCol() - GetWindowCol ( oCtrl:handle ) )
+      oCtrl:nRow := aCord[ 1 ]
+      oCtrl:nCol := aCord[ 2 ]
+
+      Eval( oCtrl:bEnter, oCtrl )
+
+   ELSEIF GetNotifyCode ( lParam ) == - 7 .AND. oCtrl:bGfocus <> nil
+      Eval( oCtrl:bGfocus, oCtrl )
+
+   ELSEIF GetNotifyCode ( lParam ) == - 8 .AND. oCtrl:bLfocus <> nil
+      Eval( oCtrl:bLfocus, oCtrl )
+
+   ELSEIF GetNotifyCode ( lParam ) = - 101
+      oCtrl:nRow := oCtrl:Row()
+
+      IF oCtrl:bPosChg <> nil
+         Eval( oCtrl:bPosChg, oCtrl, Listview_getfirstitem( oCtrl:handle ) )
+      ENDIF
+
+   ELSEIF GetNotifyCode ( lParam ) = - 150 .AND. oCtrl:bDispInfo <> nil
+      aCord := Listview_getdispinfo( lParam )
+
+      oCtrl:nRow := aCord[ 1 ]
+      oCtrl:nCol := aCord[ 2 ]
+
+      Listview_setdispinfo( lParam, Eval( oCtrl:bDispInfo, oCtrl, oCtrl:nRow, oCtrl:nCol ) )
+
+   ENDIF
+   RETURN 0

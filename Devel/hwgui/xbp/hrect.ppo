@@ -1,0 +1,487 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\hrect.prg"
+_HB_CLASS HRect ; UTILITY FUNCTION HRect(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HRect" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { oLine1} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLine1" }, .F., .F. ), )
+   _HB_MEMBER { oLine2} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLine2" }, .F., .F. ), )
+   _HB_MEMBER { oLine3} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLine3" }, .F., .F. ), )
+   _HB_MEMBER { oLine4} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oLine4" }, .F., .F. ), )
+
+   _HB_MEMBER New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle); IIF( .F., s_oClass:ModMethod( "New", @HRect_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HRect_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HRect ;
+
+
+UTILITY STATIC function HRect_New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nStyle) ; local Self AS CLASS HRect := QSelf() AS CLASS HRect
+   LOCAL nCor1, nCor2
+
+   IF nStyle = NIL
+      nStyle := 3
+   ENDIF
+   IF lPress
+      nCor2 := 20
+      nCor1 := 16
+   ELSE
+      nCor1 := 20
+      nCor2 := 16
+   ENDIF
+
+   DO CASE
+   CASE nStyle = 1
+      ::oLine1 = HRect_Line():New( oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1 )
+      ::oLine3 = HRect_Line():New( oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2 )
+
+   CASE nStyle = 2
+      ::oLine2 = HRect_Line():New( oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1 )
+      ::oLine4 = HRect_Line():New( oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2 )
+
+   OTHERWISE
+      ::oLine1 = HRect_Line():New( oWndParent, , .F., nLeft,  nTop,    nRight - nLeft, , nCor1 )
+      ::oLine2 = HRect_Line():New( oWndParent, , .T., nLeft,  nTop,    nBottom - nTop, , nCor1 )
+      ::oLine3 = HRect_Line():New( oWndParent, , .F., nLeft,  nBottom, nRight - nLeft, , nCor2 )
+      ::oLine4 = HRect_Line():New( oWndParent, , .T., nRight, nTop,    nBottom - nTop, , nCor2 )
+   ENDCASE
+
+   RETURN Self
+
+
+_HB_CLASS HRect_Line ; UTILITY FUNCTION HRect_Line(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HRect_Line" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { lVert} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lVert" }, .F., .F. ), )
+   _HB_MEMBER { oPen} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPen" }, .F., .F. ), )
+
+   _HB_MEMBER New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor); IIF( .F., s_oClass:ModMethod( "New", @HRect_Line_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HRect_Line_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HRect_Line_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HRect_Line_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpDis); IIF( .F., s_oClass:ModMethod( "Paint", @HRect_Line_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HRect_Line_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HRect_Line ;
+
+
+
+UTILITY STATIC function HRect_Line_New( oWndParent, nId, lVert, nLeft, nTop, nLength, bSize, nColor) ; local Self AS CLASS HRect_Line := QSelf() AS CLASS HRect_Line
+
+   ::HControl:New( oWndParent, nId, 13, nLeft, nTop,,,,, bSize, { | o, lp | o:Paint( lp ) } )
+
+
+
+   ::lVert := IIf( lVert == Nil, .F., lVert )
+   IF ::lVert
+      ::nWidth  := 10
+      ::nHeight := IIf( nLength == Nil, 20, nLength )
+   ELSE
+      ::nWidth  := IIf( nLength == Nil, 20, nLength )
+      ::nHeight := 10
+   ENDIF
+   ::oPen := HPen():Add( 0, 1, GetSysColor( nColor ) )
+
+   ::Activate()
+
+   RETURN Self
+
+
+UTILITY STATIC function HRect_Line_Activate() ; local Self AS CLASS HRect_Line := QSelf() AS CLASS HRect_Line
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateStatic( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HRect_Line_Paint( lpdis) ; local Self AS CLASS HRect_Line := QSelf() AS CLASS HRect_Line
+   LOCAL drawInfo := GetDrawItemInfo( lpdis )
+   LOCAL hDC := drawInfo[ 3 ], x1 := drawInfo[ 4 ], y1 := drawInfo[ 5 ], x2 := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+
+
+   SelectObject( hDC, ::oPen:handle )
+
+   IF ::lVert
+      DrawLine( hDC, x1, y1, x1, y2 )
+   ELSE
+      DrawLine( hDC, x1, y1, x2, y1 )
+   ENDIF
+
+
+   RETURN Nil
+
+
+
+
+_HB_CLASS HShape ; UTILITY FUNCTION HShape(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HShape" , {HControl():classh} ) ) ; ;
+
+
+   _HB_MEMBER New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature,  nbStyle, nfStyle, tcolor, bcolor, bSize, bInit, nBackStyle); IIF( .F., s_oClass:ModMethod( "New", @HShape_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HShape_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HShape ;
+
+
+UTILITY STATIC function HShape_New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nBorder, nCurvature,  nbStyle, nfStyle, tcolor, bcolor, bSize, bInit, nBackStyle) ; local Self AS CLASS HShape := QSelf() AS CLASS HShape
+
+   nBorder := IIf( nBorder = Nil, 1, nBorder )
+   nbStyle := IIf( nbStyle = Nil, 0, nbStyle )
+   nfStyle := IIf( nfStyle = Nil, 10 , nfStyle )
+   nCurvature := nCurvature
+
+
+   return HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bcolor,,,  nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle )
+
+
+
+_HB_CLASS HLContainer ; UTILITY FUNCTION HLContainer(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HLContainer" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBorder, bInit); IIF( .F., s_oClass:ModMethod( "New", @HLContainer_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HLContainer_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HLContainer ;
+
+
+UTILITY STATIC function HLContainer_New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, nStyle, bSize, lnoBorder, bInit) ; local Self AS CLASS HLContainer := QSelf() AS CLASS HLContainer
+
+   nStyle := IIf( nStyle = NIL, 3, nStyle )
+   lnoBorder := IIf( lnoBorder = NIL, .F., lnoBorder )
+
+   return HDrawShape():New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize,,, nStyle, lnoBorder,,,,, bInit )
+
+
+
+
+_HB_CLASS HDrawShape ; UTILITY FUNCTION HDrawShape(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HDrawShape" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { oPen, oBrush} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPen" , "oBrush" }, .F., .F. ), )
+   _HB_MEMBER { ncStyle, nbStyle, nfStyle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ncStyle" , "nbStyle" , "nfStyle" }, .F., .F. ), )
+   _HB_MEMBER { nCurvature} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nCurvature" }, .F., .F. ), )
+   _HB_MEMBER { nBorder, lnoBorder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBorder" , "lnoBorder" }, .F., .F. ), )
+   _HB_MEMBER { brushFill} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "brushFill" }, .F., .F. ), )
+   _HB_MEMBER { bClick, bDblClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" , "bDblClick" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle,  lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle); IIF( .F., s_oClass:ModMethod( "New", @HDrawShape_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HDrawShape_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HDrawShape_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HDrawShape_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpDis); IIF( .F., s_oClass:ModMethod( "Paint", @HDrawShape_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HDrawShape_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetColor( tcolor, bcolor, lRedraw); IIF( .F., s_oClass:ModMethod( "SetColor", @HDrawShape_SetColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetColor", @HDrawShape_SetColor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Curvature( nCurvature); IIF( .F., s_oClass:ModMethod( "Curvature", @HDrawShape_Curvature(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Curvature", @HDrawShape_Curvature(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HDrawShape ;
+
+
+
+UTILITY STATIC function HDrawShape_New( oWndParent, nId, nLeft, nTop, nWidth, nHeight, bSize, tcolor, bColor, ncStyle,  lnoBorder, nBorder, nCurvature, nbStyle, nfStyle, bInit, nBackStyle) ; local Self AS CLASS HDrawShape := QSelf() AS CLASS HDrawShape
+
+   ( (ncStyle) := (ncStyle) )
+
+   ::bPaint   := { | o, p | o:paint( p ) }
+
+   ::HControl:New( oWndParent, nId, 13, nLeft, nTop, nWidth, nHeight, , bInit, bSize, ::bPaint, , tcolor, bColor )
+
+
+
+   ::backStyle := IIF( nbackStyle = Nil, 2, nbackStyle )
+
+   ::lnoBorder := lnoBorder
+   ::nBorder := nBorder
+   ::nbStyle := nbStyle
+   ::nfStyle := nfStyle
+   ::nCurvature := nCurvature
+   ::SetColor( ::tcolor , ::bColor )
+
+   ::Activate()
+
+   IF ::ncStyle == Nil
+      ::oPen := HPen():Add( ::nbStyle, ::nBorder, ::tColor )
+
+
+   ENDIF
+
+  RETURN Self
+
+
+
+UTILITY STATIC function HDrawShape_Activate() ; local Self AS CLASS HDrawShape := QSelf() AS CLASS HDrawShape
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateStatic( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HDrawShape_SetColor( tcolor, bColor, lRedraw) ; local Self AS CLASS HDrawShape := QSelf() AS CLASS HDrawShape
+
+   ::brushFill := HBrush():Add( tColor, ::nfstyle )
+   ::HControl:SetColor( tColor, bColor )
+   IF ! Empty( lRedraw )
+      RedrawWindow( ::handle, 4 + 1 )
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HDrawShape_Curvature( nCurvature) ; local Self AS CLASS HDrawShape := QSelf() AS CLASS HDrawShape
+
+   IF nCurvature <> NIL
+      ::nCurvature := nCurvature
+      RedrawWindow( ::oParent:Handle, 4 + 1 + 512, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      InvalidateRect( ::oParent:Handle, 1, ::nLeft, ::nTop, ::nLeft + ::nWidth, ::nTop + ::nHeight )
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HDrawShape_Paint( lpdis) ; local Self AS CLASS HDrawShape := QSelf() AS CLASS HDrawShape
+   LOCAL drawInfo := GetDrawItemInfo( lpdis )
+   LOCAL hDC := drawInfo[ 3 ], oldbkMode
+   LOCAL  x1 := drawInfo[ 4 ], y1 := drawInfo[ 5 ]
+   LOCAL  x2 := drawInfo[ 6 ], y2 := drawInfo[ 7 ]
+
+   oldbkMode := SetBKMode( hdc, ::backStyle )
+   SelectObject( hDC, ::oPen:handle )
+   IF ::ncStyle <> Nil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ELSE
+      IF ::backStyle = 2
+         IF ::Brush <> Nil
+            SelectObject( hDC, ::Brush:handle )
+         ENDIF
+
+      ENDIF
+      IF ::nfStyle <> 10 .OR. ::backStyle = 2
+         SelectObject( hDC, ::BrushFill:handle )
+      ELSE
+         SelectObject( hDC, GetStockObject( 5 ) )
+      ENDIF
+      RoundRect( hDC, x1 + 1, y1 + 1, x2, y2 , ::nCurvature, ::nCurvature)
+   ENDIF
+   SetBKMode( hDC, oldbkMode )
+   RETURN Nil
+
+
+
+
+
+FUNCTION Rect( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST )
+
+   IF lPress = NIL
+      lPress := .F.
+   ENDIF
+
+   RETURN  HRect():New( oWndParent, nLeft, nTop, nRight, nBottom, lPress, nST )
+
+
+
+
+
+_HB_CLASS HContainer ; UTILITY FUNCTION HContainer(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HContainer" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "STATIC", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { oPen, oBrush} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oPen" , "oBrush" }, .F., .F. ), )
+   _HB_MEMBER { ncStyle} ; IIF( !.F., s_oClass:AddMultiData(, 3, nScope + IIF( .F., 32, 0 ), { "ncStyle" }, .F., .F. ), )
+   _HB_MEMBER { nBorder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBorder" }, .F., .F. ), )
+   _HB_MEMBER { lnoBorder} ; IIF( !.F., s_oClass:AddMultiData(, .T., nScope + IIF( .F., 32, 0 ), { "lnoBorder" }, .F., .F. ), )
+   _HB_MEMBER { bLoad} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bLoad" }, .F., .F. ), )
+   _HB_MEMBER { bClick, bDblClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" , "bDblClick" }, .F., .F. ), )
+
+   _HB_MEMBER { lCreate} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lCreate" }, .F., .F. ), )
+   _HB_MEMBER { xVisible} ; IIF( !.F., s_oClass:AddMultiData(, .T., 8 + IIF( .F., 32, 0 ), { "xVisible" }, .F., .F. ), )
+   _HB_MEMBER { lTABSTOP} ; IIF( !.F., s_oClass:AddMultiData(, .F., 8 + IIF( .F., 32, 0 ), { "lTABSTOP" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nstyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize, lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther); IIF( .F., s_oClass:ModMethod( "New", @HContainer_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HContainer_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HContainer_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HContainer_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HContainer_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HContainer_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModInline( "Create", {|Self | Self, ::lCreate := .T. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Create", {|Self | Self, ::lCreate := .T. }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HContainer_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HContainer_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpDis); IIF( .F., s_oClass:ModMethod( "Paint", @HContainer_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HContainer_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Visible(lVisibled); _HB_MEMBER _Visible(lVisibled); IIF( .F., s_oClass:ModMethod( "Visible", @HContainer_Visible(), 1 + 32, .F. ), s_oClass:AddMethod( "Visible", @HContainer_Visible(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Visible", @HContainer_Visible() ), s_oClass:AddMethod( "_Visible", @HContainer_Visible() ) ) ;
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HContainer ;
+
+
+UTILITY STATIC function HContainer_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ncStyle, bSize, lnoBorder, bInit, nBackStyle, tcolor, bcolor, bLoad, bRefresh, bOther) ; local Self AS CLASS HContainer := QSelf() AS CLASS HContainer
+
+    ::lTABSTOP :=  nStyle = 65536
+    ::bPaint   := { | o, p | o:paint( p ) }
+    nStyle := 13 + IIF( nStyle = 65536, 65536 , 0 ) + Hwg_Bitand( nStyle, 256 )
+
+    ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, ,  bInit, bSize, ::bPaint,, tcolor, bColor )
+
+
+   ::ncStyle := IIF( ncStyle = NIL .AND. nStyle < 65536, 3, ncStyle )
+   ::lnoBorder := IIF( lnoBorder = NIL, .F., lnoBorder )
+
+   ::backStyle := IIF( nbackStyle = Nil, 2, nbackStyle )
+   ::bLoad := bLoad
+   ::bRefresh := bRefresh
+   ::bOther := bOther
+
+   ::SetColor( ::tColor, ::bColor )
+   ::Activate()
+   IF ::bLoad <> Nil
+
+       Eval( ::bLoad,Self )
+   ENDIF
+   ::oPen := HPen():Add( 0, 1, GetSysColor( 20 ) )
+
+  Return Self
+
+
+UTILITY STATIC function HContainer_Activate() ; local Self AS CLASS HContainer := QSelf() AS CLASS HContainer
+
+   IF !Empty( ::oParent:handle )
+
+      ::handle := CreateStatic( ::oParent:handle, ::id, ::style,  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      IF ! ::lInit
+         AddToolTip( ::handle, ::handle, "" )
+         ::nHolder := 1
+         SetWindowObject( ::handle, Self )
+         Hwg_InitStaticProc( ::handle )
+         ::linit := .T.
+         IF Empty( ::oParent:oParent ) .AND. ::oParent:Type >= 10
+            ::Create()
+            ::lCreate := .T.
+         ENDIF
+      ENDIF
+      ::Init()
+   ENDIF
+   IF ! ::lCreate
+      ::Create()
+      ::lCreate := .T.
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HContainer_Init() ; local Self AS CLASS HContainer := QSelf() AS CLASS HContainer
+
+   IF ! ::lInit
+      ::HControl:init()
+      AddToolTip( ::handle, ::handle, "" )
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      Hwg_InitStaticProc( ::handle )
+
+   ENDIF
+   RETURN  NIL
+
+
+UTILITY STATIC function HContainer_onEvent( msg, wParam, lParam) ; local Self AS CLASS HContainer := QSelf() AS CLASS HContainer
+   Local nEval
+
+   IF ::bOther <> Nil
+      IF ( nEval := Eval( ::bOther,Self,msg,wParam,lParam ) ) <> Nil .AND. nEval <> -1
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF msg == 15
+      RETURN - 1
+   ELSEIF msg == 20
+      RETURN 0
+   ENDIF
+   IF ::lTABSTOP
+      IF msg == 7
+         GetSkip( ::oparent, ::handle, , ::nGetSkip )
+      ELSEIF msg == 257
+         IF wParam = 0x28
+            GetSkip( ::oparent, ::handle, , 1 )
+         ELSEIF  wParam = 0x26
+            GetSkip( ::oparent, ::handle, , -1 )
+         ELSEIF wParam = 0x09
+            GetSkip( ::oParent, ::handle, , iif( IsCtrlShift(.F., .T.), -1, 1) )
+         ENDIF
+         RETURN 0
+      ELSEIF msg = 261
+      ENDIF
+   ENDIF
+   RETURN ::HControl:onEvent( msg, wParam, lParam )
+
+UTILITY STATIC function HContainer_Visible(lVisibled) ; local Self AS CLASS HContainer := QSelf() AS CLASS HContainer
+
+    IF lVisibled <> Nil
+      IF lVisibled
+        ::Show()
+      ELSE
+        ::Hide()
+      ENDIF
+      ::xVisible := lVisibled
+   ENDIF
+   RETURN ::xVisible
+
+
+
+UTILITY STATIC function HContainer_Paint( lpdis) ; local Self AS CLASS HContainer := QSelf() AS CLASS HContainer
+   Local drawInfo, hDC
+   Local x1, y1, x2, y2
+
+    drawInfo := GetDrawItemInfo( lpdis )
+    hDC := drawInfo[ 3 ]
+    x1  := drawInfo[ 4 ]
+    y1  := drawInfo[ 5 ]
+    x2  := drawInfo[ 6 ]
+    y2  := drawInfo[ 7 ]
+
+   SelectObject( hDC, ::oPen:handle )
+
+   IF ::ncStyle <> Nil
+      SetBkMode( hDC, ::backStyle )
+      IF ! ::lnoBorder
+         IF ::ncStyle == 0
+           DrawEdge( hDC, x1, y1, x2, y2,(1 + 4),1+2+4+8)
+         ELSEIF ::ncStyle == 1
+           DrawEdge( hDC, x1, y1, x2, y2,(2 + 8),1+2+4+8 )
+         ELSEIF ::ncStyle == 2
+           DrawEdge( hDC, x1, y1, x2, y2,(1 + 4)+1,1+2+4+8)
+         ELSE
+           DrawEdge( hDC, x1, y1, x2, y2,8,2)
+           DrawEdge( hDC, x1, y1, x2, y2,1,8)
+           DrawEdge( hDC, x1, y2, x2, y1,8,1)
+           DrawEdge( hDC, x1, y2, x2, y1,1,4)
+         ENDIF
+      ELSE
+         DrawEdge( hDC, x1, y1, x2, y2,0,0)
+      ENDIF
+      IF ::backStyle <> 1
+         IF ::Brush <> Nil
+            FillRect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , ::brush:handle )
+         ENDIF
+      ELSE
+         FillRect( hDC, x1 + 2, y1 + 2, x2 - 2, y2 - 2 , GetStockObject( 5 ) )
+      ENDIF
+
+   ENDIF
+
+   Return 1

@@ -1,0 +1,61 @@
+CINI = 
+C_OUTPUTFOLDER = 
+DEFFILE = 
+INCLUDEFOLDERS = D:\Devel\hwgui\include;
+LAUTORUN =
+LDEBUG = .F.
+LGUI = .T.
+LIBFOLDERS = 
+LMT = .F.
+LNOAUTOFWH = .F.
+LPRG_CLASSICDEBUG = .F.
+LPRG_DEBUG = .F.
+LUSEDLL = .F.
+MAPFILE = 
+MYC_FLAGS = 
+MYDEFINES = 
+MYLINK_FLAGS = 
+MYPRG_FLAGS =
+#MYPRG_FLAGS = /w2 /es2
+MYRC_FLAGS = 
+MYSLY_FLAGS = 
+OUTPUTFOLDER = obj7
+PRG_OUTPUTFOLDER = 
+RC_OUTPUTFOLDER = 
+RUNARGUMENTS = 
+SLY_OUTPUTFOLDER = 
+STARTIN = 
+TARGETFOLDER = 
+
+[grid.prg]
+MYC_FLAGS =
+MYDEFINES =
+MYPRG_FLAGS =
+
+[D:\Devel\hwgui\lib\hwgui_xhb72.lib]
+
+[D:\Devel\xharbour_bcc7\lib\gdlib.lib]
+
+[D:\Devel\xharbour_bcc7\lib\libbgd.lib]
+
+[D:\Devel\xharbour_bcc7\lib\hbhpdf.lib]
+
+[D:\Devel\xharbour_bcc7\lib\pdflib.lib]
+
+[D:\Devel\xharbour_bcc7\lib\hbmzip.lib]
+
+[D:\Devel\xharbour_bcc7\lib\hbzip.lib]
+
+[D:\devel\xharbour_bcc7\lib\tipssl.lib]
+
+[D:\devel\xharbour_bcc7\lib\ssleay32.lib]
+
+[D:\devel\xharbour_bcc7\lib\libeay32.lib]
+
+[D:\Devel\xharbour_bcc7\lib\tip.lib]
+
+[D:\Devel\xharbour_bcc7\lib\codepage.lib]
+
+[D:\Devel\xharbour_bcc7\lib\libfi.lib]
+
+[D:\Devel\xharbour_bcc7\lib\png.lib]

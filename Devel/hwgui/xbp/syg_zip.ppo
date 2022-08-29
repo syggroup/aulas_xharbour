@@ -1,0 +1,208 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 71 "source\syg\syg_zip.prg"
+procedure SYG_ZipFile( cFile, uFileToCompress, nLevel, bUpdate,lOverwrite, cPassword, lWithPath, lWithDrive, bFileUpdate, cComment )
+
+   local hZip, hHandle, nLen, cBuffer := Space( 1024 ),cFileToZip, nPos := 1, nRead, cExt
+
+   if !( ".zip" $ cFile )
+      cFile += ".zip"
+   endif
+
+   hZip = HB_ZipOpen( cFile )
+
+   if !Empty( hZip )
+
+      if HB_IsString( uFileToCompress )
+         uFileToCompress = { uFileToCompress }
+      endif
+
+      for each cFileToZip in uFileToCompress
+
+         if HB_IsBlock( bUpdate )
+            Eval( bUpdate, cFileToZip, nPos++ )
+         endif
+
+         hHandle = FOpen( cFileToZip )
+
+         nRead = 0
+
+         HB_FNameSplit( cFileToZip, nil, @cFileToZip, @cExt )
+
+         HB_ZipFileCreate( hZip, cFileToZip + cExt, nil, nil, nil,nil, nil, nLevel, cPassword, nil, nil )
+
+         while ( nLen := FRead( hHandle, @cBuffer, 1024 )) > 0
+
+            if HB_IsBlock( bFileUpdate )
+
+               nRead += nLen
+
+               Eval( bFileUpdate, nRead, FSize( cFileToZip ) )
+
+            endif
+
+            HB_ZipFileWrite( hZip, SubStr( cBuffer, 1, nLen ), nLen )
+
+         enddo
+
+         FClose( hHandle )
+
+         HB_ZipFileClose( hZip )
+
+      next
+
+      HB_ZipClose( hZip, cComment )
+
+   endif
+
+return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FUNCTION SYG_UnZipFile( cFile, bUpdate, lWithPath, cPassword, cPath,uFileToUnzip, bFileUpdate )
+
+   local hUnZip, nErr, cZipName, nTentativa:=0
+
+
+
+
+
+   hUnZip = HB_UnZipOpen( cFile )
+
+   if !Empty( hUnZip )
+
+      if HB_IsString( uFileToUnzip )
+         uFileToUnzip = { uFileToUnzip }
+      endif
+
+      if Empty( cPath )
+         HB_FNameSplit( cFile, @cPath )
+      endif
+
+      nErr = HB_UnZipFileFirst( hUnZip )
+
+      while nErr == 0
+         nTentativa:=nTentativa+1
+
+         if HB_UnzipFileInfo( hUnzip, @cZipName ) == 0
+
+            if AScan( uFileToUnzip, cZipName ) > 0
+
+               cZipName = cPath + cZipName
+
+               HB_UnzipExtractCurrentFile( hUnZip, cZipName, cPassword )
+
+            endif
+
+         endif
+
+         nErr = HB_UnZipFileNext( hUnZip )
+         if nTentativa>1000
+            exit
+         endif
+      enddo
+
+      HB_UnZipClose( hUnZip )
+
+   endif
+
+return(.T.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function SYG_GetFilesInZip( cFile, lExtended )
+
+   local hUnZip, nErr, dDate, cTime, nSize, nCompSize, lCrypted, cComment, aFiles := {}
+
+
+
+
+
+   if !HB_IsLogical( lExtended )
+      lExtended = .F.
+   endif
+
+   hUnZip = HB_UnZipOpen( cFile )
+
+   if !Empty( hUnZip )
+
+      nErr = HB_UnZipFileFirst( hUnZip )
+
+      while nErr == 0
+
+         HB_UnzipFileInfo( hUnzip, @cFile, @dDate, @cTime, nil, nil,nil, @nSize, @nCompSize, @lCrypted, @cComment )
+
+         if lExtended
+            AAdd( aFiles, { cFile, dDate, cTime, nSize, nCompSize,lCrypted, cComment } )
+         else
+            AAdd( aFiles, cFile )
+         endif
+
+         nErr = HB_UnZipFileNext( hUnZip )
+
+      enddo
+
+      HB_UnZipClose( hUnZip )
+
+   endif
+
+return aFiles
+
+function FSize( cFile )
+         local aFiles := Directory( cFile )
+         If Len( aFiles ) > 0
+            return aFiles[ 1 ][ 2 ]
+         endif
+         return 0

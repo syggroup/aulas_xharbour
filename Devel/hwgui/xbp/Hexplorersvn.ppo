@@ -1,0 +1,825 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 43 "source\Hexplorersvn.prg"
+_HB_CLASS HExplorerBar ; UTILITY FUNCTION HExplorerBar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HExplorerBar" , {HPanel():classh} ) ) ; ;
+
+   _HB_MEMBER { aPanels} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aPanels" }, .F., .F. ), )
+   _HB_MEMBER { nTopColor} ; IIF( !.F., s_oClass:AddMultiData(, RGB( 122, 161, 230 ), nScope + IIF( .F., 32, 0 ), { "nTopColor" }, .F., .F. ), )
+   _HB_MEMBER { nBottomColor} ; IIF( !.F., s_oClass:AddMultiData(, RGB( 99, 117, 214 ), nScope + IIF( .F., 32, 0 ), { "nBottomColor" }, .F., .F. ), )
+   _HB_MEMBER { oVScroll} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oVScroll" }, .F., .F. ), )
+   _HB_MEMBER { nVPos} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nVPos" }, .F., .F. ), )
+   _HB_MEMBER { nVirtualHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nVirtualHeight" }, .F., .F. ), )
+   _HB_MEMBER { nVirtualTop} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nVirtualTop" }, .F., .F. ), )
+   _HB_MEMBER { lSBVisible} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lSBVisible" }, .F., .F. ), )
+   _HB_MEMBER { lDrag} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lDrag" }, .F., .F. ), )
+   _HB_MEMBER { oBitMap, oSplit} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oBitMap" , "oSplit" }, .F., .F. ), )
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft,nTop, nWidth, nHeight, bInit ,bSize,bPaint, bcolor) AS CLASS HExplorerBar; IIF( .F., s_oClass:ModMethod( "New", @HExplorerBar_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HExplorerBar_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddPanel( cName, cBmpName); IIF( .F., s_oClass:ModMethod( "AddPanel", @HExplorerBar_AddPanel(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddPanel", @HExplorerBar_AddPanel(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeletePanel(nPanel); IIF( .F., s_oClass:ModInline( "DeletePanel", {|Self,nPanel | Self, ::aPanels[ nPanel ]:Delete() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "DeletePanel", {|Self,nPanel | Self, ::aPanels[ nPanel ]:Delete() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER CheckScroll( oPanel); IIF( .F., s_oClass:ModMethod( "CheckScroll", @HExplorerBar_CheckScroll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CheckScroll", @HExplorerBar_CheckScroll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HExplorerBar_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HExplorerBar_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint(); IIF( .F., s_oClass:ModMethod( "Paint", @HExplorerBar_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HExplorerBar_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER REFRESH(); IIF( .F., s_oClass:ModInline( "REFRESH", {|Self | Self, REDRAWWINDOW( ::handle, 5 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "REFRESH", {|Self | Self, REDRAWWINDOW( ::handle, 5 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HExplorerBar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HExplorerBar_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CoorsUpdate(); IIF( .F., s_oClass:ModMethod( "CoorsUpdate", @HExplorerBar_CoorsUpdate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CoorsUpdate", @HExplorerBar_CoorsUpdate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ReSize( nWidth, nHeight); IIF( .F., s_oClass:ModMethod( "ReSize", @HExplorerBar_ReSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ReSize", @HExplorerBar_ReSize(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ShowPanel(nPanel); IIF( .F., s_oClass:ModInline( "ShowPanel", {|Self,nPanel | Self, ::aPanels[ nPanel ]:Show() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ShowPanel", {|Self,nPanel | Self, ::aPanels[ nPanel ]:Show() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER HidePanel(nPanel); IIF( .F., s_oClass:ModInline( "HidePanel", {|Self,nPanel | Self, ::aPanels[ nPanel ]:Hide() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "HidePanel", {|Self,nPanel | Self, ::aPanels[ nPanel ]:Hide() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Reposition( nIndex); IIF( .F., s_oClass:ModMethod( "Reposition", @HExplorerBar_Reposition(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Reposition", @HExplorerBar_Reposition(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModInline( "Close", {|Self | Self, ::oSplit:Release(), ::Release() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Close", {|Self | Self, ::oSplit:Release(), ::Release() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HExplorerBar ;
+
+
+
+
+UTILITY STATIC function HExplorerBar_New( oWndParent, nId, nStyle, nLeft,nTop, nWidth, nHeight, bInit, bSize,  bPaint, bcolor, oBitmap) ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+
+   oWndParent := IIF( oWndParent = Nil, ::oDefaultParent, oWndParent )
+   nStyle := Hwg_BitOr( IIF( nStyle == Nil, 0, nStyle ), 67108864 + 33554432 + 65536 + 2097152 )
+
+   bSize := { | o | .T. }
+
+   nTop    := IIF( nTop == Nil, 28, nTop )
+   nLeft   := IIF( nLeft == Nil, 0, nLeft )
+   nHeight := IIF( nHeight == Nil, oWndParent:nHeight - nTop, nHeight )
+   nWidth  := IIF( nWidth == Nil, 350 , nWidth )
+   IF __ObjHasMsg( oWndParent, "AOFFSET" ) .AND. oWndParent:TYPE <= 2
+       nTop    := oWndParent:aOffset[ 2 ]+35
+       nHeight := GetSystemMetrics( 15 ) + GETSYSTEMMETRICS( 4 ) + GETSYSTEMMETRICS( 51 )
+       nHeight := oWndParent:nHeight - ( oWndParent:aOffset[ 2 ] + oWndParent:aOffset[ 4 ] ) - nHeight +30
+
+   ENDIF
+   ::nVirtualTop    := 0
+   ::nVirtualHeight := 0
+   ::oBitmap := oBitmap
+
+
+   ::HPanel:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  bInit, bSize, bPaint, bcolor )
+
+   ::lDrag  := .F.
+
+
+   ::oSplit := HSplitter():New( oWndParent, , nLeft + nWidth + 1, nTop, 10, nHeight,  , , , , { Self }, {}, .T., .T. )
+
+   ::Anchor := 7
+   ::oSplit:Anchor := 5
+   RETURN Self
+
+
+UTILITY STATIC function HExplorerBar_Init() ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+
+   IF !::lInit
+      ::HPanel:Init()
+      ::ReSize( )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HExplorerBar_onEvent( msg, wParam, lParam) ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL aCoors, nret
+
+   IF msg == 15
+      ::Paint()
+   ELSEIF msg == 20
+      IF ::backstyle = 1
+         SETTRANSPARENTMODE( wParam, .T. )
+      ENDIF
+      RETURN - 1
+   ELSEIF msg == 5
+      IF ::oEmbedded <> Nil
+         ::oEmbedded:Resize( LoWord( lParam ), HiWord( lParam ) )
+      ENDIF
+      ::CoorsUpdate()
+      ::RedefineScrollbars()
+      ::Resize( LoWord( lParam ), HiWord( lParam ) )
+      ::HPanel:Resize()
+      RETURN - 1
+
+    ELSEIF msg == 276 .OR. msg == 277 .OR. msg == 522
+
+         IF ::nScrollBars <> -1 .AND. ::bScroll = Nil
+             ::ScrollHV( Self,msg,wParam,lParam )
+             ::CoorsUpdate(.T.)
+             IF  msg == 522
+                 RETURN 0
+             ENDIF
+         ENDIF
+         onTrackScroll( Self,msg,wParam,lParam )
+         RETURN - 1
+   ENDIF
+   IF ::bOther <> Nil
+      IF Valtype( nRet := Eval( ::bOther,Self,msg,wParam,lParam ) ) <> "N"
+         nRet := IIF( VALTYPE( nRet ) = "L" .AND. ! nRet, 0, -1 )
+      ENDIF
+      IF nRet >= 0
+           RETURN -1
+      ENDIF
+   ENDIF
+   RETURN ::HPanel:onEvent( msg, wParam, lParam )
+
+
+UTILITY STATIC function HExplorerBar_AddPanel( cName, cBmpName, nBodyHeight) ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL oPanel
+
+   oPanel := AAdd( ::aPanels, HTaskPanel():New( Self, cName, , Len( ::aPanels ), cBmpName, nBodyHeight ) )
+   ::CheckScroll( )
+
+   RETURN oPanel
+
+
+UTILITY STATIC function HExplorerBar_CheckScroll() ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL nLastRow
+   LOCAL oLastItem
+   LOCAL nPos
+
+   IF EMPTY( ::aPanels )
+      RETURN Nil
+   ENDIF
+   ::RedefineScrollbars()
+   ::Resize()
+
+   oLastItem := ATail( ::aPanels )
+
+   nLastRow := oLastItem:nTop + oLastItem:nHeight + ::nVirtualTop
+
+   IF nLastRow > ::nHeight
+      ::nVirtualHeight := nLastRow
+      IF  (::nVirtualHeight - ::nVirtualTop) < ::nHeight
+         ::nVirtualTop := ::nVirtualHeight - ::nHeight
+      ENDIF
+      ::lSBVisible := .T.
+   ELSE
+      ::nVirtualTop := 0
+      ::nVirtualHeight := ::nHeight
+      ::lSBVisible := .F.
+   ENDIF
+   RETURN nil
+
+UTILITY STATIC function HExplorerBar_Paint() ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL pps, hDC, aCoors, oBmpPanel
+   LOCAL n
+
+   IF ::bPaint <> Nil
+      Eval( ::bPaint,Self )
+      RETURN Nil
+   ENDIF
+
+   pps    := DefinePaintStru()
+   hDC    := BeginPaint( ::handle, pps )
+   aCoors := GetClientRect( ::handle )
+
+   IF ::backstyle = 2
+
+      Gradient( hDC, aCoors[ 1 ], aCoors[ 2 ], aCoors[ 3 ], aCoors[ 4 ] -  aCoors[ 2 ],  ::nTopColor, ::nBottomColor, 1 )
+   ENDIF
+   DrawEdge( hDC,  aCoors[ 3 ], aCoors[ 2 ], aCoors[ 3 ], aCoors[ 4 ], (1 + 4) + 1, 1 + 2 + 4 + 8)
+
+
+
+
+
+
+   EndPaint( ::handle, pps )
+   RETURN 0
+
+
+
+UTILITY STATIC function HExplorerBar_CoorsUpdate( L) ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL oPanel, aCoors
+
+   FOR Each oPanel IN ::aPanels
+       aCoors := GetWindowRect( oPanel:handle )
+       aCoors := ScreenToClient( ::oParent:handle, aCoors )
+       oPanel:nTop :=  acoors[ 2 ] - ::nTop
+   NEXT
+   RETURN Nil
+
+
+UTILITY STATIC function HExplorerBar_ReSize( x, y) ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL oPanel, aCoors
+
+   aCoors := GetClientRect( ::handle )
+   IF LEN( ::aPanels ) = 0
+
+      RETURN Nil
+   ENDIF
+   ::CoorsUpdate()
+
+   IF ::nHeight > ::nVirtualHeight .OR. x <> Nil
+      ::nVirtualHeight := ::nHeight
+      ::nVirtualTop := 0
+
+      FOR each oPanel IN ::aPanels
+         IF ! oPanel:lHide
+           oPanel:nWidth :=  acoors[ 3 ] - 24
+
+           oPanel:nTop += ::nVirtualTop
+
+           oPanel:Move( , oPanel:nTop, oPanel:nWidth, , 1 )
+           IF acoors[4] > ::nHeight .AND. oPanel:nTop + oPanel:nHeight > ::nHeight
+               InvalidateRect( oPanel:Handle, 1 )
+           ENDIF
+           oPanel:UpdateRegion()
+           IF x <> Nil
+              oPanel:Resize( x, y )
+           ENDIF
+         ELSE
+           ::nVirtualTop -= oPanel:nHeight + oPanel:nTopMargin
+         ENDIF
+      NEXT
+      ::nVirtualTop := 0
+   ELSE
+      IF GetScrollPos( ::handle, 1 ) = 0
+         ::nVirtualTop := 0
+         ::nVirtualHeight := 0
+      ENDIF
+
+
+
+
+
+
+
+
+
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HExplorerBar_Reposition( nIndex) ; local Self AS CLASS HExplorerBar := QSelf() AS CLASS HExplorerBar
+   LOCAL oPanel ,n
+
+   nIndex := IIF( nIndex = Nil, 1, nIndex )
+   nTop :=  ::aPanels[ nIndex ]:nTop
+   FOR n := nIndex + 1 TO LEN ( ::aPanels )
+      oPanel := ::aPanels[ n ]
+      oPanel:nIndex := n - 1
+      IF ! oPanel:lHide
+         oPanel:nTop := nTop + ::nVirtualTop
+         oPanel:Move( ,oPanel:nTop, oPanel:nWidth, , 1 )
+         nTop += oPanel:nHeight + oPanel:nTopMargin
+         oPanel:UpdateRegion()
+      ELSE
+         ::nVirtualTop -= oPanel:nHeight + oPanel:nTopMargin
+      ENDIF
+   NEXT
+   RETURN NIL
+
+
+
+_HB_CLASS HTaskPanel ; UTILITY FUNCTION HTaskPanel(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HTaskPanel" , {HPanel():classh} ) ) ; ;
+
+   _HB_MEMBER { cTitle, nIndex} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cTitle" , "nIndex" }, .F., .F. ), )
+   _HB_MEMBER { nTopMargin, nLeftMargin, nRightMargin} ; IIF( !.F., s_oClass:AddMultiData(, 16, nScope + IIF( .F., 32, 0 ), { "nTopMargin" , "nLeftMargin" , "nRightMargin" }, .F., .F. ), )
+   _HB_MEMBER { nTitleHeight} ; IIF( !.F., s_oClass:AddMultiData(, 25, nScope + IIF( .F., 32, 0 ), { "nTitleHeight" }, .F., .F. ), )
+   _HB_MEMBER { nBodyHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nBodyHeight" }, .F., .F. ), )
+   _HB_MEMBER { lSpecial} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lSpecial" }, .F., .F. ), )
+   _HB_MEMBER { lCollapsed} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lCollapsed" }, .F., .F. ), )
+   _HB_MEMBER { lOverTitle} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lOverTitle" }, .F., .F. ), )
+   _HB_MEMBER { lHasAlpha} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lHasAlpha" }, .F., .F. ), )
+   _HB_MEMBER { aLinks} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aLinks" }, .F., .F. ), )
+   _HB_MEMBER { nClrTextSpecial} ; IIF( !.F., s_oClass:AddMultiData(, RGB( 255, 255,255 ), nScope + IIF( .F., 32, 0 ), { "nClrTextSpecial" }, .F., .F. ), )
+   _HB_MEMBER { nClrHover} ; IIF( !.F., s_oClass:AddMultiData(, RGB( 66, 117, 220 ), nScope + IIF( .F., 32, 0 ), { "nClrHover" }, .F., .F. ), )
+   _HB_MEMBER { hRegion} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hRegion" }, .F., .F. ), )
+   _HB_MEMBER { aBitmaps} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aBitmaps" }, .F., .F. ), )
+   _HB_MEMBER { oBmpPanel} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oBmpPanel" }, .F., .F. ), )
+   _HB_MEMBER { oFontTitle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oFontTitle" }, .F., .F. ), )
+   _HB_MEMBER { nHeightHide, nTopMarginHide} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nHeightHide" , "nTopMarginHide" }, .F., .F. ), )
+
+   _HB_MEMBER New( cTitle, oWnd, nIndex, cBmpPanel, nBodyHeight); IIF( .F., s_oClass:ModMethod( "New", @HTaskPanel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HTaskPanel_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HTaskPanel_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HTaskPanel_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddLink( cPrompt, bAction, cBitmap); IIF( .F., s_oClass:ModMethod( "AddLink", @HTaskPanel_AddLink(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddLink", @HTaskPanel_AddLink(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER AddTree(); IIF( .F., s_oClass:ModMethod( "AddTree", @HTaskPanel_AddTree(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddTree", @HTaskPanel_AddTree(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Delete(); IIF( .F., s_oClass:ModMethod( "Delete", @HTaskPanel_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Delete", @HTaskPanel_Delete(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Destroy(); IIF( .F., s_oClass:ModMethod( "Destroy", @HTaskPanel_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Destroy", @HTaskPanel_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Paint(); IIF( .F., s_oClass:ModMethod( "Paint", @HTaskPanel_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HTaskPanel_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HTaskPanel_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HTaskPanel_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER nTotalHeight(); IIF( .F., s_oClass:ModInline( "nTotalHeight", {|Self | Self, ::nTitleHeight + ::nBodyHeight }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "nTotalHeight", {|Self | Self, ::nTitleHeight + ::nBodyHeight }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER LButtonUp( nRow, nCol, nFlags); IIF( .F., s_oClass:ModMethod( "LButtonUp", @HTaskPanel_LButtonUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LButtonUp", @HTaskPanel_LButtonUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LoadBitmaps(); IIF( .F., s_oClass:ModMethod( "LoadBitmaps", @HTaskPanel_LoadBitmaps(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LoadBitmaps", @HTaskPanel_LoadBitmaps(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MouseMove( nRow, nCol, nFlags); IIF( .F., s_oClass:ModMethod( "MouseMove", @HTaskPanel_MouseMove(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MouseMove", @HTaskPanel_MouseMove(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MouseLeave( nRow, nCol, nFlags); IIF( .F., s_oClass:ModMethod( "MouseLeave", @HTaskPanel_MouseLeave(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MouseLeave", @HTaskPanel_MouseLeave(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER UpdateRegion(); IIF( .F., s_oClass:ModMethod( "UpdateRegion", @HTaskPanel_UpdateRegion(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "UpdateRegion", @HTaskPanel_UpdateRegion(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetPanelBitmap( cnBmp); IIF( .F., s_oClass:ModMethod( "SetPanelBitmap", @HTaskPanel_SetPanelBitmap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetPanelBitmap", @HTaskPanel_SetPanelBitmap(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Expand(); IIF( .F., s_oClass:ModInline( "Expand", {|Self | Self, ::Collapsed( .T. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Expand", {|Self | Self, ::Collapsed( .T. ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Collapsed(); IIF( .F., s_oClass:ModMethod( "Collapsed", @HTaskPanel_Collapsed(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Collapsed", @HTaskPanel_Collapsed(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Show(); IIF( .F., s_oClass:ModMethod( "Show", @HTaskPanel_Show(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Show", @HTaskPanel_Show(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Hide(); IIF( .F., s_oClass:ModMethod( "Hide", @HTaskPanel_Hide(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Hide", @HTaskPanel_Hide(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HTaskPanel ;
+
+
+UTILITY STATIC function HTaskPanel_New( oParent, cTitle, nStyle, nIndex, cBmpPanel, nBodyHeight) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL n
+
+   nBodyHeight := IIf( nBodyHeight == nil, 50, nBodyHeight ) ;
+
+   ::cTitle  := cTitle
+   ::nTop    := ::nTopMargin
+   ::nBodyHeight := nBodyHeight
+
+   IF nIndex > 0
+      aEval( oParent:aPanels, { | p | ::nTop += IIF( ! p:lHide,  p:nTotalHeight + ::nTopMargin , 0 ) } )
+
+
+   ENDIF
+   ::nIndex := nIndex + 1
+   ::nLeft   := 12
+   ::bColor  := RGB( 214, 223, 247 )
+   ::tColor  := RGB( 33, 93, 198 )
+
+   ::LoadBitmaps()
+
+   nStyle := Hwg_BitOr( IIF( nStyle == Nil, 0, nStyle ),  67108864  + 65536  )
+   ::nHeight := ::nTotalHeight()
+   ::nWidth  := oParent:nWidth - ( ::nRightMargin + ::nLeftMargin ) + 8
+
+   ::HPanel:New( oParent,, nStyle, ::nLeft, ::nTop, ::nWidth, ::nHeight, , {|| .T. }, ,::bcolor )
+
+   ::oFont      := HFont():Add( "Tahoma", 0, -11, 400 , , , )
+   ::oFontTitle := HFont():Add( "Tahoma", 0, -11, 600 , , , )
+
+   ::UpdateRegion()
+   ::SetPanelBitmap( cBmpPanel )
+
+   RETURN Self
+
+UTILITY STATIC function HTaskPanel_Init() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+   IF !::lInit
+      ::HPanel:Init()
+   ENDIF
+   RETURN Nil
+
+
+
+UTILITY STATIC function HTaskPanel_AddLink( cPrompt, bAction, cBitmap, cToolTip) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL nTop := ::nTitleHeight + 10, n, oUrlLink , hbitmap
+
+   IF ! Empty( ::aControls )
+      FOR n := 1 to Len( ::aControls )
+         nTop +=  ::aControls[ n ]:nHeight + IIF( ::aControls[ n ]:winclass = "STATIC", 3, 5 )
+      NEXT
+   ENDIF
+   IF !EMPTY( cBitmap )
+      IF ValType( cBitMap )  == "C" .AND. At(".", cBitmap) <> 0 .AND. File( cBitmap )
+         hbitmap := ( HBitmap():AddFile( cBitMap ) ):Handle
+      ELSE
+         hbitmap := ( HBitmap():AddResource( cBitMap ) ):Handle
+
+      ENDIF
+   ENDIF
+   aTxtSize := TxtRect( "V", Self )
+   cLinkColor := ::nClrHover
+
+   oUrlLink := HStaticLink():New( Self ,, 65536, 10, nTop, ::nWidth - ::nRightMargin   , aTxtSize[ 2 ] * 1.5,  cPrompt, ::oFont, ,,, ctooltip, cLinkColor ,::bColor , .T., "", , cLinkColor , ::tcolor , hbitmap )
+
+   oUrlLink:bClick := bAction
+
+   IF oUrlLink:nTop + oUrlLink:nHeight > ::nHeight
+      ::nHeight := oUrlLink:nTop + oUrlLink:nHeight + 6
+      ::nBodyHeight := ::nHeight - ::nTitleHeight
+      ::Move( , ::nTop , , ::nheight, 1 )
+      ::UpdateRegion()
+   ENDIF
+
+
+   RETURN nil
+
+UTILITY STATIC function HTaskPanel_AddTree( nHeight, bAction, aBitmaps) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL nTop := ::nTitleHeight + 10, n, oUrlLink , hbitmap
+   LOCAL nHeightFull
+
+   IF ! Empty( ::aControls )
+      FOR n := 1 to Len( ::aControls )
+         nTop += ::aControls[ n ]:nHeight + IIF( ::aControls[ n ]:winclass = "STATIC", 3, 5 )
+      NEXT
+   ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   IF nTop + nHeight > ::nHeight
+      ::nHeight := nTop + nHeight + ::nTopMargin / 2
+      ::nBodyHeight := ::nHeight - ::nTitleHeight
+      ::Move( , ::nTop , , ::nheight, 1 )
+
+      ::UpdateRegion()
+   ENDIF
+
+
+   oTree := HTree():New( Self ,, 65536, ::nLeftMargin / 2, nTop, ::nWidth - ::nRightMargin, nHeight, ::oFont, ,  , ::tColor,  , aBitmaps, .T., , ,  , )
+   oTree:bAction := bAction
+   OTREE:BACKSTYLE := 2
+   __objAddMethod( oTree, "Resize", @TreeResize() )
+
+
+
+
+
+
+
+
+
+
+
+   oTree:bSize   := {| o, x ,y | o:Move( , , x - ::nRightMargin ,  , 0 ) }
+
+   RETURN oTree
+
+UTILITY STATIC function HTaskPanel_Delete() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL nTop := 0 , n, oPanel
+
+   ::lHide := .T.
+   ::oParent:Reposition( ::nIndex )
+   Aeval( ::aControls,{ | o | SendMessage( o:Handle, 16, 0, 0 ) }    )
+   SendMessage( ::Handle, 16, 0, 0 )
+   Adel( ::oParent:aPanels, ::nIndex )
+   Asize( ::oParent:aPanels, Len( ::oParent:aPanels ) - 1 )
+   ::oParent:nVirtualHeight -= ::nHeight
+   ::lHide := .F.
+   ::oParent:CheckScroll()
+
+   RETURN NIL
+
+UTILITY STATIC function HTaskPanel_Show() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL oPanel ,n
+
+   IF ! ::lHide
+      RETURN NIL
+   ENDIF
+   ::nHeight := ::nHeightHide
+   ::nTopMargin := ::nTopMarginHide
+   nTop :=  ::nTopMargin
+   ::HPanel:Show()
+
+
+
+   nTop += ::oParent:aPanels[ ::nIndex ]:nTop + ::oParent:aPanels[ ::nIndex ]:nTotalHeight
+   FOR n := ::nIndex + 1 TO LEN ( ::oParent:aPanels )
+      oPanel := ::oParent:aPanels[ n ]
+      IF ! oPanel:lHide
+         oPanel:nTop := nTop + ::oParent:nVirtualTop
+         oPanel:Move( ,oPanel:nTop, oPanel:nWidth, , 1 )
+         nTop += oPanel:nHeight + oPanel:nTopMargin
+
+         oPanel:UpdateRegion()
+      ELSE
+         ::oParent:nVirtualTop -= oPanel:nHeight + oPanel:nTopMargin
+      ENDIF
+   NEXT
+   AEval( ::oParent:aPanels, { | o | InvalidateRect( o:handle, 0, o:nWidth - 1, o:nTitleHeight - 1 ) } )
+
+   ::oParent:CheckScroll()
+   RETURN NIL
+
+UTILITY STATIC function HTaskPanel_Hide() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+   ::nHeightHide    := ::nHeight
+   ::nTopMarginHide := ::nTopMargin
+   ::HPanel:Hide()
+   ::oParent:nVirtualHeight -= ::nHeight
+   ::oParent:Resize()
+   ::nHeight := 0
+   ::nTopMargin := 0
+   ::oParent:CheckScroll()
+   RETURN Nil
+
+UTILITY STATIC function HTaskPanel_Collapsed( lExpand) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL n
+
+   lExpand := IIF( lExpand = Nil, .F., lExpand )
+   IF ::lCollapsed .AND. !lExpand
+      RETURN Nil
+   ENDIF
+   ::lCollapsed := ! lExpand
+
+   IF ::lCollapsed
+      ::nHeight := ::nTitleHeight
+      ::Move( ,  , , ::nheight, 1 )
+      For n := ::nIndex  + 1 To Len( ::oParent:aPanels )
+         IF ! ::lHide
+            ::oParent:aPanels[ n ]:nTop -= ::nBodyHeight
+            ::oParent:aPanels[ n ]:Move( , ::oParent:aPanels[ n ]:nTop , , , 1 )
+         ENDIF
+      NEXT
+   ELSE
+      ::nHeight := ::nTotalHeight()
+      ::Move( , , , ::nheight, 1 )
+      For n := ::nIndex  + 1 To Len( ::oParent:aPanels )
+         IF ! ::lHide
+            ::oParent:aPanels[ n ]:nTop += ::nBodyHeight
+            ::oParent:aPanels[ n ]:move( , ::oParent:aPanels[ n ]:nTop , , , 1 )
+         ENDIF
+      NEXT
+   ENDIF
+   RETURN ::lCollapsed
+
+
+
+
+UTILITY STATIC function HTaskPanel_Destroy() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+
+
+   AEval( ::aBitmaps, { | aItem | DeleteObject( aItem[ 1 ] ), DeleteObject( aItem[ 2 ] ) } )
+
+   DeleteObject( ::hBmpPanel )
+   DeleteObject( ::hRegion )
+
+   RETURN NIL
+
+
+
+UTILITY STATIC function HTaskPanel_onEvent( msg, wParam, lParam) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+   IF msg == 15
+      ::Paint()
+      RETURN -1
+   ELSEIF msg == 20
+
+   ELSEIF Msg == 512
+       ::MouseMove(  HiWord( lParam ), LoWord( lParam ), wParam )
+   ELSEIF Msg == 675
+      RETURN ::MouseLeave( HiWord( lParam ), LoWord( lParam ), wParam )
+   ELSEIF msg == 513
+
+
+   ELSEIF msg == 514
+      ::LButtonUp(  HiWord( lParam ), LoWord( lParam ), wParam )
+   ELSEIF msg == 5
+
+   ENDIF
+
+   RETURN ::HPanel:onEvent( Msg, wParam, lParam )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function HTaskPanel_LButtonUp( nRow, nCol, wParam) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL n, hWndFocus, ntop
+
+   IF nRow < ::nTitleHeight
+      IF ( ::lCollapsed := ::nHeight > ::nTitleHeight )
+         ::nHeight := ::nTitleHeight
+         ::move( ,  , , ::nheight, 1 )
+         FOR n := ::nIndex  + 1 to Len( ::oParent:aPanels )
+            IF ! ::lHide
+               ::oParent:aPanels[ n ]:nTop -= ::nBodyHeight
+               ::oParent:aPanels[ n ]:move( , ::oParent:aPanels[ n ]:nTop , , , 1 )
+            ENDIF
+         NEXT
+      ELSE
+         ::nHeight := ::nTotalHeight()
+         ::move( , , , ::nheight, 1 )
+         FOR n := ::nIndex  + 1 to Len( ::oParent:aPanels )
+            IF ! ::lHide
+               ::oParent:aPanels[ n ]:nTop += ::nBodyHeight
+               ::oParent:aPanels[ n ]:move( , ::oParent:aPanels[ n ]:nTop , , , 1 )
+               InvalidateRect( :: oParent:aPanels[ n ]:handle, 1 )
+            ENDIF
+         NEXT
+      ENDIF
+      IF SelfFocus( ::handle )
+         ::SetFocus( )
+      ENDIF
+
+      ::oParent:CheckScroll()
+   ENDIF
+   RETURN nil
+
+
+UTILITY STATIC function HTaskPanel_LoadBitmaps( nType, cnBitmap) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL nWidth, nHeight, lHasAlpha
+   LOCAL oBitmap
+
+   nType := IIf( nType == nil, 0, nType ) ;
+
+   IF nType > 2 .OR. nType < 0
+      RETURN nil
+   ENDIF
+
+   IF nType == 0
+
+      ::aBitmaps = {}
+      oBitmap := HBitmap():AddStandard( 32753 )
+
+      AAdd( ::aBitmaps, { oBitmap:handle, 0, .F., oBitmap:nWidth, oBitmap:nHeight } )
+                      ::aBitmaps[ 1 ][ 2 ] := oBitmap:handle
+
+      oBitmap := HBitmap():AddStandard( 32752 )
+      AAdd( ::aBitmaps, { oBitmap:handle, 0, .F., oBitmap:nWidth, oBitmap:nHeight } )
+                       ::aBitmaps[ 2 ][ 2 ] := oBitmap:handle
+   ELSE
+      IF File( cnBitmap )
+
+         oBitmap := HBitmap():AddFile( cnBitmap )
+      ELSE
+
+        oBitmap := HBitmap():AddResource( cnBitmap )
+      ENDIF
+      hBitmap := oBitmap:handle
+      nWidth  := oBitmap:nWidth
+      nHeight := oBitmap:nHeight
+      lHasAlpha := .F.
+      DeleteObject( ::aBitmaps[ nType ][ 1 ] )
+      DeleteObject( ::aBitmaps[ nType ][ 2 ] )
+      ::aBitmaps[ nType ] = { hBitmap, , lHasAlpha, nWidth, nHeight }
+
+   ENDIF
+
+   RETURN nil
+
+UTILITY STATIC function HTaskPanel_MouseLeave( nRow, nCol, wParam) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+   ::lOverTitle := .F.
+   InvalidateRect( ::handle, 1 , 1, 1, ::nWidth - 1, ::nTitleHeight - 1 )
+
+   RETURN 0
+
+UTILITY STATIC function HTaskPanel_MouseMove( nRow, nCol, wParam) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL lOverTitle := ::lOverTitle
+
+   IF ( ::lOverTitle := nRow < ::nTitleHeight )
+
+      downCursor := LoadCursor( 32649 )
+      Hwg_SetCursor( downCursor )
+      IF lOverTitle <> ::lOverTitle
+         InvalidateRect( ::handle, 1 , 1, 1, ::nWidth - 1 , ::nTitleHeight - 1 )
+      ENDIF
+   ELSE
+
+      arrowCursor := LoadCursor( 32512 )
+      Hwg_SetCursor( arrowCursor )
+   ENDIF
+   TRACKMOUSEVENT( ::handle,  2 )
+
+   RETURN 0
+
+
+
+UTILITY STATIC function HTaskPanel_Paint() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+   LOCAL pps, hDC, aCoors
+   LOCAL oItem, n, brush
+
+   pps := DefinePaintStru()
+   hDC := BeginPaint( ::handle, pps )
+   aCoors := GetClientRect( ::handle )
+
+
+
+   Gradient( hDC, ::nLeft , ::nTop, ::nWidth - 1, ::nTitleHeight ,  IIF( ::lSpecial, RGB( 0, 73, 181 ), Rgb( 255, 255, 255 ) ),  IIF( ::lSpecial, RGB( 41, 93, 206 ), RGB( 198, 211, 247 ) ), , 0 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   SetBkMode( hDc, 1 )
+
+   SetTextColor( hDC, IIF( ::lSpecial, IIF( ::lOverTitle, ::nClrHover, ::nClrTextSpecial ),  IIF( ::lOverTitle,::nClrHover, ::tColor )) )
+   SelectObject( hDC, ::oFonttitle:handle )
+   dwText := 0 + 32
+   DrawText( hDc, ::cTiTle, { 15, 6, ::nWidth - ::aBitmaps[ 1 ][ 4 ] - ::nRightMargin +  2 , ::nTitleHeight } ,dwtext )
+   SelectObject( hDC, ::oFont:handle )
+
+
+   brush := IIF( ::lSpecial, HBrush():Add( RGB( 239,243,255 ) ), ::Brush )
+
+   FillRect( hDC, 0, ::nTitleHeight, ::nWidth - 1, ::nTitleHeight + ::nBodyHeight + 1 , Brush:handle )
+
+
+   IF ::lCollapsed
+
+
+      IF ::aBitmaps[ 1 ][ 3 ]
+
+
+         DrawBitMap( hDC, "::aBitmaps[ BMPEXPAND "[ IIF( ! ::lOverTitle, 1, 2 ) ],, ::nWidth - ::aBitmaps[ 1 ][ 4 ] * 1.35, 4, ::aBitmaps[ 1 ][ 4 ],::aBitmaps[1 ][ 5 ], 255)
+
+      ELSE
+
+         DrawTransparentBitMap( hDC, ::aBitmaps[ 1 ][ IIF( ! ::lOverTitle, 1, 2 ) ], ::nWidth - ::aBitmaps[ 1 ][ 4 ] * 1.35, 4, 255 )
+      ENDIF
+   ELSE
+      IF ::aBitmaps[ 2 ][ 3 ]
+
+
+         DrawBitMap( hDC, ::aBitmaps[ 2 ][ IIF( ! ::lOverTitle, 1, 2 ) ],,  ::nWidth - ::aBitmaps[ 2 ][ 4 ] * 1.35, 4,  ::aBitmaps[ 2 ][ 4 ],::aBitmaps[ 2 ][ 5 ],255)
+      ELSE
+
+         DrawTransparentBitMap( hDC, ::aBitmaps[ 2 ][ iIF( ! ::lOverTitle, 1, 2 ) ], ::nWidth - ::aBitmaps[ 2 ][ 4 ] * 1.35, 4 , 255)
+      ENDIF
+    ENDIF
+    IF !Empty( ::oBmpPanel )
+
+       IF ::lHasAlpha
+
+
+          DrawBitmap( hDC, ::oBmpPanel:handle, ,   ::oBmpPanel:nWidth -  ::oBmpPanel:nWidth / 3, ::oBmpPanel:nHeight -  ::oBmpPanel:nHeight / 3  )
+       ELSE
+
+
+          DrawTransparentBitMap( hDC, ::oBmpPanel:handle, ::oBmpPanel:nWidth - ::oBmpPanel:nWidth / 3 ,  ::oBmpPanel:nHeight - ::oBmpPanel:nHeight / 3 , 255 )
+      ENDIF
+   ENDIF
+   IF ! Empty( ::aControls )
+      AEval( ::aControls, { | oControl | oControl:Refresh() } )
+   ENDIF
+
+   EndPaint( ::handle, pps )
+
+   RETURN 1
+
+
+
+UTILITY STATIC function HTaskPanel_SetPanelBitmap( cnBitmap) ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+
+
+   IF !EMPTY( cnBitMap )
+      IF File( cnBitmap )
+        ::oBmpPanel := HBitmap():AddFile( cnBitmap )
+      ELSE
+        ::oBmpPanel := HBitmap():AddResource( cnBitmap )
+      ENDIF
+      ::lHasAlpha := .T.
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function HTaskPanel_UpdateRegion() ; local Self AS CLASS HTaskPanel := QSelf() AS CLASS HTaskPanel
+
+   IF ! Empty( ::hRegion )
+      DeleteObject( ::hRegion )
+      ::hRegion = nil
+   ENDIF
+
+   ::hRegion = CreateRoundRectRgn( 0, 0, ::nWidth, ::nTitleHeight + ::nBodyHeight + 14, 6, 6 )
+   SetWindowRgn( ::handle, ::hRegion )
+   RETURN nil
+
+STATIC FUNCTION TreeResize
+   RETURN Nil

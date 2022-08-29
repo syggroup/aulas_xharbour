@@ -1,0 +1,187 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 15 "source\qhtm\hqhtm.prg"
+_HB_CLASS HQhtm ; UTILITY FUNCTION HQhtm(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HQhtm" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiData(, "QHTM_Window_Class_001", nScope + IIF( .F., 32, 0 ), { "winclass" }, .F., .F. ), )
+   _HB_MEMBER { cText} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "cText" }, .F., .F. ), )
+   _HB_MEMBER { filename} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "filename" }, .F., .F. ), )
+   _HB_MEMBER { resname} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "resname" }, .F., .F. ), )
+   _HB_MEMBER { bLink, bSubmit} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bLink" , "bSubmit" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,  bInit,bSize,bLink,bSubmit,fname,resname); IIF( .F., s_oClass:ModMethod( "New", @HQhtm_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HQhtm_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HQhtm_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HQhtm_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWndParent,nId,caption,bInit,bSize,bLink,bSubmit,fname,resname); IIF( .F., s_oClass:ModMethod( "Redefine", @HQhtm_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HQhtm_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HQhtm_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HQhtm_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Notify( lParam); IIF( .F., s_oClass:ModMethod( "Notify", @HQhtm_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Notify", @HQhtm_Notify(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HQhtm ;
+
+
+
+UTILITY STATIC function HQhtm_New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,caption,  bInit,bSize,bLink,bSubmit,fname,resname) ; local Self AS CLASS HQhtm := QSelf() AS CLASS HQhtm
+
+
+   ::oParent := Iif( oWndParent==Nil, ::oDefaultParent, oWndParent )
+   ::id      := Iif( nId==Nil,::NewId(), nId )
+   ::style   := Hwg_BitOr( Iif( nStyle==Nil,0,nStyle ), 1073741824+268435456 )
+   ::nLeft   := nLeft
+   ::nTop    := nTop
+   ::nWidth  := nWidth
+   ::nHeight := nHeight
+   ::bInit   := bInit
+   ::bSize   := bSize
+   ::bLink   := bLink
+   ::bSubmit := bSubmit
+   IF caption <> Nil
+      ::cText := caption
+   ELSEIF fname <> Nil
+      ::filename := fname
+   ELSEIF resname <> Nil
+      ::resname := resname
+   ENDIF
+
+   ::oParent:AddControl( Self )
+   ::Activate()
+
+Return Self
+
+UTILITY STATIC function HQhtm_Activate() ; local Self AS CLASS HQhtm := QSelf() AS CLASS HQhtm
+   IF ::oParent:handle <> 0
+
+      ::handle := CreateQHTM( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ELSE
+      QHTM_INIT()
+   ENDIF
+Return Nil
+
+UTILITY STATIC function HQhtm_Redefine( oWndParent,nId,caption,bInit,bSize,bLink,bSubmit,fname,resname) ; local Self AS CLASS HQhtm := QSelf() AS CLASS HQhtm
+
+   ::oParent := Iif( oWndParent==Nil, ::oDefaultParent, oWndParent )
+   ::id      := nId
+   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+   ::bInit   := bInit
+   ::bSize   := bSize
+   ::bLink   := bLink
+   ::bSubmit := bSubmit
+   IF caption <> Nil
+      ::cText := caption
+   ELSEIF fname <> Nil
+      ::filename := fname
+   ELSEIF resname <> Nil
+      ::resname := resname
+   ENDIF
+
+   ::oParent:AddControl( Self )
+   QHTM_INIT()
+
+Return Self
+
+UTILITY STATIC function HQhtm_Init() ; local Self AS CLASS HQhtm := QSelf() AS CLASS HQhtm
+
+   IF !::lInit
+      ::HControl:Init()
+      IF !Empty( ::cText )
+         SetWindowText( ::handle,::cText )
+      ELSEIF !Empty( ::filename )
+         QHTM_LoadFile( ::handle,::filename )
+      ELSEIF !Empty( ::resname )
+         QHTM_LoadRes( ::handle,::resname )
+      ENDIF
+      QHTM_FormCallBack( ::handle )
+   ENDIF
+
+Return Nil
+
+UTILITY STATIC function HQhtm_Notify( lParam) ; local Self AS CLASS HQhtm := QSelf() AS CLASS HQhtm
+Local cLink := QHTM_GetNotify( lParam )
+
+   IF ::bLink == Nil .OR. !Eval( ::bLink,Self,cLink )
+      IF "tp://" $ clink
+         Return 0
+      ELSE
+         IF File( cLink )
+            QHTM_LoadFile( ::handle,cLink )
+         ELSE
+            MsgStop( cLink,"File not found" )
+         ENDIF
+      ENDIF
+   ENDIF
+   QHTM_SetReturnValue( lParam,.F. )
+Return 0
+
+Function QhtmFormProc( hCtrl,cMethod,cAction,cName,aFields )
+Local oCtrl := FindSelf( hCtrl )
+
+   IF oCtrl <> Nil
+      IF oCtrl:bSubmit <> Nil
+         Eval( oCtrl:bSubmit,oCtrl,cMethod,cAction,cName,aFields )
+      ENDIF
+   ENDIF
+
+Return 0
+
+
+
+_HB_CLASS HQhtmButton ; UTILITY FUNCTION HQhtmButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HQhtmButton" , {HButton():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "BUTTON", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { cHtml} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cHtml" }, .F., .F. ), )
+
+   _HB_MEMBER New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont,  bInit,bSize,bClick,ctooltip); IIF( .F., s_oClass:ModMethod( "New", @HQhtmButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HQhtmButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWnd,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip); IIF( .F., s_oClass:ModMethod( "Redefine", @HQhtmButton_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HQhtmButton_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HQhtmButton_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HQhtmButton_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HQhtmButton ;
+
+
+UTILITY STATIC function HQhtmButton_New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,cCaption,oFont,  bInit,bSize,bClick,ctooltip) ; local Self AS CLASS HQhtmButton := QSelf() AS CLASS HQhtmButton
+
+   ::cHtml := cCaption
+
+   ::HButton:New( oWndParent,nId,nStyle,nLeft,nTop,nWidth,nHeight,"",,  bInit,bSize,,bClick,ctooltip )
+
+
+Return Self
+
+UTILITY STATIC function HQhtmButton_Redefine( oWndParent,nId,cCaption,oFont,bInit,bSize,bClick,ctooltip) ; local Self AS CLASS HQhtmButton := QSelf() AS CLASS HQhtmButton
+
+   ::cHtml := cCaption
+   ::HButton:Redefine( oWndParent,nId,,bInit,bSize,,bClick,ctooltip )
+
+
+Return Self
+
+UTILITY STATIC function HQhtmButton_Init() ; local Self AS CLASS HQhtmButton := QSelf() AS CLASS HQhtmButton
+
+   ::HButton:Init()
+   IF ::oFont == Nil .AND. ::oParent:oFont == Nil
+      SetCtrlFont( ::oParent:handle, ::id, GetStockObject(13) )
+   ENDIF
+   SetWindowText( ::handle,::cHtml )
+   QHTM_SetHtmlButton( ::handle )
+
+Return Nil
+
+EXIT PROCEDURE FreeQHTM
+   QHTM_End()
+Return

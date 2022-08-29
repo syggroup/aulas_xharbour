@@ -1,0 +1,127 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\hrebar.prg"
+_HB_CLASS hrebar ; UTILITY FUNCTION hrebar(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "hrebar" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiData(, "ReBarWindow32", nScope + IIF( .F., 32, 0 ), { "winclass" }, .F., .F. ), )
+   _HB_MEMBER { TEXT, id, nTop, nLeft, nwidth, nheight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "TEXT" , "id" , "nTop" , "nLeft" , "nwidth" , "nheight" }, .F., .F. ), )
+   _HB_MEMBER { oSelected} ; IIF( !.F., s_oClass:AddMultiClsData(, Nil, nScope + IIF( .F., 32, 0 ) + 64, { "oSelected" }, .F. ), )
+   _HB_MEMBER { ExStyle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ExStyle" }, .F., .F. ), )
+   _HB_MEMBER { bClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" }, .F., .F. ), )
+   _HB_MEMBER { lVert} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lVert" }, .F., .F. ), )
+   _HB_MEMBER { hTool} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hTool" }, .F., .F. ), )
+   _HB_MEMBER { m_nWidth, m_nHeight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_nWidth" , "m_nHeight" }, .F., .F. ), )
+   _HB_MEMBER { aBands} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aBands" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lVert); IIF( .F., s_oClass:ModMethod( "New", @hrebar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @hrebar_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lVert); IIF( .F., s_oClass:ModMethod( "Redefine", @hrebar_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @hrebar_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @hrebar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @hrebar_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT(); IIF( .F., s_oClass:ModMethod( "INIT", @hrebar_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @hrebar_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ADDBARColor(pBar, clrFore, clrBack, pszText, dwStyle); IIF( .F., s_oClass:ModInline( "ADDBARColor", {|Self,pBar, clrFore, clrBack, pszText, dwStyle | Self, ADDBARCOLORS( ::handle, pBar, clrFore, clrBack, pszText, dwStyle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ADDBARColor", {|Self,pBar, clrFore, clrBack, pszText, dwStyle | Self, ADDBARCOLORS( ::handle, pBar, clrFore, clrBack, pszText, dwStyle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER ADDBARBITMAP(pBar, pszText, pbmp, dwStyle); IIF( .F., s_oClass:ModInline( "ADDBARBITMAP", {|Self,pBar, pszText, pbmp, dwStyle | Self, ADDBARBITMAP( ::handle, pBar, pszText, pbmp, dwStyle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ADDBARBITMAP", {|Self,pBar, pszText, pbmp, dwStyle | Self, ADDBARBITMAP( ::handle, pBar, pszText, pbmp, dwStyle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER RebarBandNew(pBar, pszText, clrFore, clrBack, pbmp, dwStyle); IIF( .F., s_oClass:ModInline( "RebarBandNew", {|Self,pBar, pszText, clrFore, clrBack, pbmp, dwStyle | Self, ::CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "RebarBandNew", {|Self,pBar, pszText, clrFore, clrBack, pbmp, dwStyle | Self, ::CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle); IIF( .F., s_oClass:ModMethod( "CreateBands", @hrebar_CreateBands(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CreateBands", @hrebar_CreateBands(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS hrebar ;
+
+
+
+UTILITY STATIC function hrebar_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lvert) ; local Self AS CLASS hrebar := QSelf() AS CLASS hrebar
+
+   ( (cCaption) := (cCaption) )
+
+   IF lvert == NIL ; lvert := .F. ; END
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == NIL, 0, nStyle ),  268435456 + 1073741824 )
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+   ::Title := ""
+   HWG_InitCommonControlsEx()
+
+
+   ::Activate()
+
+   RETURN Self
+
+
+
+
+UTILITY STATIC function hrebar_Redefine( oWndParent, nId, cCaption, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor, lVert) ; local Self AS CLASS hrebar := QSelf() AS CLASS hrebar
+
+   ( (cCaption) := (cCaption) )
+
+   IF lVert == NIL ; lVert := .F. ; END
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+   HWG_InitCommonControlsEx()
+
+   ::style   := ::nLeft := ::nTop := ::nWidth := ::nHeight := 0
+
+   RETURN Self
+
+
+UTILITY STATIC function hrebar_Activate() ; local Self AS CLASS hrebar := QSelf() AS CLASS hrebar
+
+   IF ! Empty( ::oParent:handle )
+
+
+      ::handle := CREATEREBAR( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function hrebar_INIT() ; local Self AS CLASS hrebar := QSelf() AS CLASS hrebar
+
+   IF ! ::lInit
+      ::HControl:Init()
+      ::CreateBands()
+
+   ENDIF
+   RETURN Nil
+
+
+UTILITY STATIC function hrebar_CreateBands( pBar, pszText, clrFore, clrBack, pbmp, dwStyle) ; local Self AS CLASS hrebar := QSelf() AS CLASS hrebar
+   LOCAL i
+
+   IF pBar <> Nil
+      AADD( ::aBands, { pBar, pszText, clrFore, clrBack, pbmp, dwStyle } )
+   ENDIF
+   IF ! ::lInit
+       RETURN Nil
+   ENDIF
+   dwStyle := 0x00000080 + 0x00000200
+   FOR i = 1 TO LEN( ::aBands )
+      ::aBands[ i, 4 ] := IIF( ::aBands[ i, 4 ] = Nil, GetSysColor( 15 ), ::aBands[ i, 4 ] )
+      ::aBands[ i, 6 ] := IIF( ::aBands[ i, 6 ] = Nil, dwStyle, ::aBands[ i, 6 ] )
+      IF ! Empty( ::aBands[ i, 1 ] )
+         ::aBands[ i, 1 ] := IIF( ValType( ::aBands[ i, 1 ] ) = "C", &( ::aBands[ i, 1 ] ), ::aBands[ i, 1 ] )
+         IF ( ::aBands[ i, 5 ] <> Nil )
+            ADDBARBITMAP( ::handle, ::aBands[ i, 1 ]:handle, ::aBands[ i, 2 ], ::aBands[ i, 5 ], ::aBands[ i, 6 ] )
+         ELSE
+           ADDBARCOLORS( ::handle, ::aBands[ i, 1 ]:handle, ::aBands[ i, 3 ], ::aBands[ i, 4 ], ::aBands[ i, 2 ], ::aBands[ i, 6 ]  )
+         ENDIF
+      ENDIF
+   NEXT
+   ::aBands := {}
+   RETURN Nil

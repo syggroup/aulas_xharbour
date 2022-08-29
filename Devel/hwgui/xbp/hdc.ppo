@@ -1,0 +1,320 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 14 "source\hdc.prg"
+_HB_CLASS HPAINTDC ; UTILITY FUNCTION HPAINTDC(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HPAINTDC" , {HDC():classh} ) ) ; ;
+
+   _HB_MEMBER { m_ps} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_ps" }, .F., .F. ), )
+
+   _HB_MEMBER NEW( nWnd); IIF( .F., s_oClass:ModMethod( "NEW", @HPAINTDC_NEW(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NEW", @HPAINTDC_NEW(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HPAINTDC_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HPAINTDC_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   nScope := 8 ; ( nScope )
+   _HB_MEMBER { m_hWnd} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_hWnd" }, .F., .F. ), )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HPAINTDC ;
+
+UTILITY STATIC function HPAINTDC_NEW( nWnd) ; local Self AS CLASS HPAINTDC := QSelf() AS CLASS HPAINTDC
+
+   ::HDC:new()
+   ::m_ps   := DefinePaintStru()
+   ::m_hWnd := nWnd
+   ::Attach( BeginPaint( ::m_hWnd, ::m_ps ) )
+
+   RETURN Self
+
+UTILITY STATIC function HPAINTDC_END() ; local Self AS CLASS HPAINTDC := QSelf() AS CLASS HPAINTDC
+
+   EndPaint( ::m_hWnd, ::m_ps )
+   ::m_hDC       := NIL
+   ::m_hAttribDC := NIL
+
+   RETURN NIL
+
+_HB_CLASS HDC ; UTILITY FUNCTION HDC(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HDC" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { m_hDC} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_hDC" }, .F., .F. ), )
+   _HB_MEMBER { m_hAttribDC} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_hAttribDC" }, .F., .F. ), )
+
+   _HB_MEMBER NEW(); IIF( .F., s_oClass:ModMethod( "NEW", @HDC_NEW(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NEW", @HDC_NEW(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetAttribDC( hDC); IIF( .F., s_oClass:ModMethod( "SetAttribDC", @HDC_SetAttribDC(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetAttribDC", @HDC_SetAttribDC(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ATTACH( hDc); IIF( .F., s_oClass:ModMethod( "ATTACH", @HDC_ATTACH(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ATTACH", @HDC_ATTACH(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MOVETO( x1, y1); IIF( .F., s_oClass:ModMethod( "MOVETO", @HDC_MOVETO(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MOVETO", @HDC_MOVETO(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER LINETO( x1, y1); IIF( .F., s_oClass:ModMethod( "LINETO", @HDC_LINETO(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "LINETO", @HDC_LINETO(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER fillsolidrect( lpRect, clr); IIF( .F., s_oClass:ModMethod( "fillsolidrect", @HDC_fillsolidrect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "fillsolidrect", @HDC_fillsolidrect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER fillrect( lpRect, clr); IIF( .F., s_oClass:ModMethod( "fillrect", @HDC_fillrect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "fillrect", @HDC_fillrect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SelectClipRgn( pRgn); IIF( .F., s_oClass:ModMethod( "SelectClipRgn", @HDC_SelectClipRgn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SelectClipRgn", @HDC_SelectClipRgn(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetTextcolor( xColor); IIF( .F., s_oClass:ModMethod( "SetTextcolor", @HDC_SetTextcolor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetTextcolor", @HDC_SetTextcolor(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetBkMode( xMode); IIF( .F., s_oClass:ModMethod( "SetBkMode", @HDC_SetBkMode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetBkMode", @HDC_SetBkMode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetBkColor(clr); IIF( .F., s_oClass:ModInline( "SetBkColor", {|Self,clr | Self, SetBkColor( ::m_hDC, clr ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetBkColor", {|Self,clr | Self, SetBkColor( ::m_hDC, clr ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SelectObject( xMode); IIF( .F., s_oClass:ModMethod( "SelectObject", @HDC_SelectObject(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SelectObject", @HDC_SelectObject(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DrawText( strText, Rect, dwFlags); IIF( .F., s_oClass:ModMethod( "DrawText", @HDC_DrawText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DrawText", @HDC_DrawText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CreateCompatibleDc( x); IIF( .F., s_oClass:ModMethod( "CreateCompatibleDc", @HDC_CreateCompatibleDc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "CreateCompatibleDc", @HDC_CreateCompatibleDc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER patblt(a, s, d, f, g); IIF( .F., s_oClass:ModInline( "patblt", {|Self,a, s, d, f, g | Self, patblt( ::m_hDc, a, s, d, f, g ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "patblt", {|Self,a, s, d, f, g | Self, patblt( ::m_hDc, a, s, d, f, g ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER Savedc(); IIF( .F., s_oClass:ModMethod( "Savedc", @HDC_Savedc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Savedc", @HDC_Savedc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER RestoreDC( nSavedDC); IIF( .F., s_oClass:ModMethod( "RestoreDC", @HDC_RestoreDC(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "RestoreDC", @HDC_RestoreDC(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetMapMode( nMapMode); IIF( .F., s_oClass:ModMethod( "SetMapMode", @HDC_SetMapMode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetMapMode", @HDC_SetMapMode(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetWindowOrg( x, y); IIF( .F., s_oClass:ModMethod( "SetWindowOrg", @HDC_SetWindowOrg(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetWindowOrg", @HDC_SetWindowOrg(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetWindowExt( x, y); IIF( .F., s_oClass:ModMethod( "SetWindowExt", @HDC_SetWindowExt(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetWindowExt", @HDC_SetWindowExt(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetViewportOrg( x, y); IIF( .F., s_oClass:ModMethod( "SetViewportOrg", @HDC_SetViewportOrg(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetViewportOrg", @HDC_SetViewportOrg(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetViewportExt( x, y); IIF( .F., s_oClass:ModMethod( "SetViewportExt", @HDC_SetViewportExt(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetViewportExt", @HDC_SetViewportExt(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetArcDirection( nArcDirection); IIF( .F., s_oClass:ModMethod( "SetArcDirection", @HDC_SetArcDirection(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetArcDirection", @HDC_SetArcDirection(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetTextMetric(); IIF( .F., s_oClass:ModInline( "GetTextMetric", {|Self | Self, GetTextMetric( ::m_hDC ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetTextMetric", {|Self | Self, GetTextMetric( ::m_hDC ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetROP2( nDrawMode); IIF( .F., s_oClass:ModMethod( "SetROP2", @HDC_SetROP2(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetROP2", @HDC_SetROP2(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER BitBlt(x,  y,  nWidth,  nHeight,  pSrcDC,  xSrc, ySrc,  dwRop); IIF( .F., s_oClass:ModInline( "BitBlt", {|Self,x,  y,  nWidth,  nHeight,  pSrcDC,  xSrc, ySrc,  dwRop | Self, BitBlt( ::m_hDc, x, y, nWidth, nHeight,  pSrcDC,       xSrc,  ySrc,  dwRop ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "BitBlt", {|Self,x,  y,  nWidth,  nHeight,  pSrcDC,  xSrc, ySrc,  dwRop | Self, BitBlt( ::m_hDc, x, y, nWidth, nHeight,  pSrcDC,       xSrc,  ySrc,  dwRop ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER PIE( arect, apt1, apt2); IIF( .F., s_oClass:ModMethod( "PIE", @HDC_PIE(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "PIE", @HDC_PIE(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeleteDc(); IIF( .F., s_oClass:ModMethod( "DeleteDc", @HDC_DeleteDc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DeleteDc", @HDC_DeleteDc(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HDC ;
+
+UTILITY STATIC function HDC_NEW() ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   ::m_hDC       := NIL
+   ::m_hAttribDC := NIL
+
+   RETURN Self
+
+UTILITY STATIC function HDC_MOVETO( x1, y1) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+   MoveTo( ::m_hDC, x1, y1 )
+   RETURN Self
+
+UTILITY STATIC function HDC_LINETO( x1, y1) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+   LineTo( ::m_hDC, x1, y1 )
+   RETURN Self
+
+UTILITY STATIC function HDC_ATTACH( hDC) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   IF Empty( hDC )
+      RETURN .F.
+   ENDIF
+
+   ::m_hDC := hDC
+
+   ::SetAttribDC( ::m_hDC )
+   return.T.
+
+UTILITY STATIC function HDC_DeleteDc() ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+   DeleteDc( ::m_hDC )
+   ::m_hDC := nil
+   ::m_hAttribDC := nil
+   RETURN nil
+
+UTILITY STATIC function HDC_SetAttribDC( hDC) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   ::m_hAttribDC := hDC
+   RETURN NIL
+
+UTILITY STATIC function HDC_SelectClipRgn( pRgn) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   LOCAL nRetVal := - 1
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      nRetVal := SelectClipRgn( ::m_hDC, pRgn )
+   ENDIF
+
+   IF ! Empty( ::m_hAttribDC  )
+      nRetVal := SelectClipRgn( ::m_hAttribDC, pRgn )
+   ENDIF
+
+   RETURN nRetVal
+
+UTILITY STATIC function HDC_fillsolidrect( lpRect, clr) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   SetBkColor( ::m_hDC, clr )
+   ExtTextOut( ::m_hDC, 0, 0, lpRect[ 1 ], lpRect[ 2 ], lpRect[ 3 ], lpRect[ 4 ], NIL )
+
+   RETURN NIL
+
+UTILITY STATIC function HDC_SetTextcolor( xColor) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   RETURN SetTextColor( ::m_hDc, xColor )
+
+UTILITY STATIC function HDC_SetBkMode( xMode) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   RETURN SetBkMode( ::m_hDc, xMode )
+
+UTILITY STATIC function HDC_SelectObject( xMode) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   RETURN SelectObject( ::m_hDc, xMode )
+
+UTILITY STATIC function HDC_DrawText( strText, Rect, dwFlags) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   DrawText( ::m_hDC, strText, Rect[ 1 ], Rect[ 2 ], Rect[ 3 ], Rect[ 4 ], dwFlags )
+
+   RETURN NIL
+
+UTILITY STATIC function HDC_fillrect( lpRect, clr) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   FillRect( ::m_hDC, lpRect[ 1 ], lpRect[ 2 ], lpRect[ 3 ], lpRect[ 4 ], clr )
+
+   RETURN NIL
+
+
+UTILITY STATIC function HDC_CreateCompatibleDc( x) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+   RETURN ::Attach( CreateCompatibleDC( x ) )
+
+UTILITY STATIC function HDC_Savedc() ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+   LOCAL nRetVal := 0
+
+   IF ( ! Empty( ::m_hAttribDC ) )
+      nRetVal := SaveDC( ::m_hAttribDC )
+   ENDIF
+   IF ( ::m_hDC <> ::m_hAttribDC .AND. SaveDC( ::m_hDC ) <> 0 )
+      nRetVal := - 1
+   ENDIF
+   RETURN nRetVal
+
+UTILITY STATIC function HDC_RestoreDC( nSavedDC) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+
+
+   LOCAL bRetVal := .T.
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      bRetVal := RestoreDC( ::m_hDC, nSavedDC )
+   ENDIF
+   IF ( ! Empty( ::m_hAttribDC ) )
+      bRetVal := ( bRetVal .AND. RestoreDC( ::m_hAttribDC, nSavedDC ) )
+   ENDIF
+   RETURN bRetVal
+
+UTILITY STATIC function HDC_SetMapMode( nMapMode) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   LOCAL nRetVal := 0
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      nRetVal := ::SetMapMode( ::m_hDC, nMapMode )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      nRetVal := SetMapMode( ::m_hAttribDC, nMapMode )
+   ENDIF
+   RETURN nRetVal
+
+
+
+UTILITY STATIC function HDC_SetWindowOrg( x, y) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+
+   LOCAL point
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      SetWindowOrgEx( ::m_hDC, x, y, @point )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      SetWindowOrgEx( ::m_hAttribDC, x, y, @point )
+   ENDIF
+   RETURN point
+
+
+UTILITY STATIC function HDC_SetWindowExt( x, y) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+
+   LOCAL point
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      SetWindowExtEx( ::m_hDC, x, y, @point )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      SetWindowExtEx( ::m_hAttribDC, x, y, @point )
+   ENDIF
+   RETURN point
+
+
+UTILITY STATIC function HDC_SetViewportOrg( x, y) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+
+   LOCAL point
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      SetViewportOrgEx( ::m_hDC, x, y, @point )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      SetViewportOrgEx( ::m_hAttribDC, x, y, @point )
+   ENDIF
+   RETURN point
+
+
+UTILITY STATIC function HDC_SetViewportExt( x, y) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+   LOCAL point
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      SetViewportExtEx( ::m_hDC, x, y, @point )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      SetViewportExtEx( ::m_hAttribDC, x, y, @point )
+   ENDIF
+   RETURN point
+
+
+UTILITY STATIC function HDC_SetArcDirection( nArcDirection) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+
+   LOCAL nResult := 0
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      nResult = SetArcDirection( ::m_hDC, nArcDirection )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      nResult = SetArcDirection( ::m_hAttribDC, nArcDirection )
+   ENDIF
+   RETURN nResult
+
+
+UTILITY STATIC function HDC_PIE( arect, apt1, apt2) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+   RETURN PIE( ::m_hdc, arect[ 1 ], arect[ 2 ], arect[ 3 ], arect[ 4 ], apt1[ 1 ], apt1[ 2 ], apt2[ 1 ], apt2[ 2 ] )
+
+UTILITY STATIC function HDC_SetROP2( nDrawMode) ; local Self AS CLASS HDC := QSelf() AS CLASS HDC
+
+
+   LOCAL nRetVal := 0
+
+   IF ( ::m_hDC <> ::m_hAttribDC )
+      nRetVal := SetROP2( ::m_hDC, nDrawMode )
+   ENDIF
+   IF ! Empty( ::m_hAttribDC )
+      nRetVal := SetROP2( ::m_hAttribDC, nDrawMode )
+   ENDIF
+   RETURN nRetVal
+
+
+
+_HB_CLASS HCLIENTDC ; UTILITY FUNCTION HCLIENTDC(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HCLIENTDC" , {HDC():classh} ) ) ; ;
+
+   _HB_MEMBER NEW( nWnd); IIF( .F., s_oClass:ModMethod( "NEW", @HCLIENTDC_NEW(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NEW", @HCLIENTDC_NEW(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HCLIENTDC_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HCLIENTDC_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   nScope := 8 ; ( nScope )
+   _HB_MEMBER { m_hWnd} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "m_hWnd" }, .F., .F. ), )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HCLIENTDC ;
+
+UTILITY STATIC function HCLIENTDC_NEW( nWnd) ; local Self AS CLASS HCLIENTDC := QSelf() AS CLASS HCLIENTDC
+
+   ::HDC:new()
+   ::m_hWnd := nWnd
+   ::Attach( GetDc( ::m_hWnd ) )
+
+   RETURN Self
+
+UTILITY STATIC function HCLIENTDC_END() ; local Self AS CLASS HCLIENTDC := QSelf() AS CLASS HCLIENTDC
+
+   ReleaseDc( ::m_hWnd, ::m_hDC )
+   ::m_hDC       := NIL
+   ::m_hAttribDC := NIL
+
+   RETURN NIL

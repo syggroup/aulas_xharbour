@@ -1,0 +1,317 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 19 "source\hnice.prg"
+_HB_CLASS HNiceButton ; UTILITY FUNCTION HNiceButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HNiceButton" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiData(, "NICEBUTT", nScope + IIF( .F., 32, 0 ), { "winclass" }, .F., .F. ), )
+   _HB_MEMBER { TEXT, id, nTop, nLeft, nwidth, nheight} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "TEXT" , "id" , "nTop" , "nLeft" , "nwidth" , "nheight" }, .F., .F. ), )
+   _HB_MEMBER { oSelected} ; IIF( !.F., s_oClass:AddMultiClsData(, Nil, nScope + IIF( .F., 32, 0 ) + 64, { "oSelected" }, .F. ), )
+   _HB_MEMBER { State} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "State" }, .F., .F. ), )
+   _HB_MEMBER { ExStyle} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ExStyle" }, .F., .F. ), )
+   _HB_MEMBER { bClick, cTooltip} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" , "cTooltip" }, .F., .F. ), )
+
+   _HB_MEMBER { lPress} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lPress" }, .F., .F. ), )
+   _HB_MEMBER { r} ; IIF( !.F., s_oClass:AddMultiData(, 30, nScope + IIF( .F., 32, 0 ), { "r" }, .F., .F. ), )
+   _HB_MEMBER { g} ; IIF( !.F., s_oClass:AddMultiData(, 90, nScope + IIF( .F., 32, 0 ), { "g" }, .F., .F. ), )
+   _HB_MEMBER { b} ; IIF( !.F., s_oClass:AddMultiData(, 90, nScope + IIF( .F., 32, 0 ), { "b" }, .F., .F. ), )
+   _HB_MEMBER { lFlat} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lFlat" }, .F., .F. ), )
+   _HB_MEMBER { nOrder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nOrder" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight,  bInit, bClick,  cText, cTooltip, r, g, b); IIF( .F., s_oClass:ModMethod( "New", @HNiceButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HNiceButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER Redefine( oWndParent, nId, nStyleEx,  bInit, bClick,  cText, cTooltip, r, g, b); IIF( .F., s_oClass:ModMethod( "Redefine", @HNiceButton_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HNiceButton_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HNiceButton_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HNiceButton_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT(); IIF( .F., s_oClass:ModMethod( "INIT", @HNiceButton_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HNiceButton_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Create(); IIF( .F., s_oClass:ModMethod( "Create", @HNiceButton_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Create", @HNiceButton_Create(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Size(); IIF( .F., s_oClass:ModMethod( "Size", @HNiceButton_Size(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Size", @HNiceButton_Size(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Moving(); IIF( .F., s_oClass:ModMethod( "Moving", @HNiceButton_Moving(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Moving", @HNiceButton_Moving(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint(); IIF( .F., s_oClass:ModMethod( "Paint", @HNiceButton_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HNiceButton_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MouseMove( wParam, lParam); IIF( .F., s_oClass:ModMethod( "MouseMove", @HNiceButton_MouseMove(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MouseMove", @HNiceButton_MouseMove(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MDown(); IIF( .F., s_oClass:ModMethod( "MDown", @HNiceButton_MDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MDown", @HNiceButton_MDown(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MUp(); IIF( .F., s_oClass:ModMethod( "MUp", @HNiceButton_MUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MUp", @HNiceButton_MUp(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Press(); IIF( .F., s_oClass:ModInline( "Press", {|Self | Self, ( ::lPress := .T., ::MDown() ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Press", {|Self | Self, ( ::lPress := .T., ::MDown() ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER RELEASE(); IIF( .F., s_oClass:ModMethod( "RELEASE", @HNiceButton_RELEASE(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "RELEASE", @HNiceButton_RELEASE(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER END(); IIF( .F., s_oClass:ModMethod( "END", @HNiceButton_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "END", @HNiceButton_END(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HNiceButton ;
+
+
+
+UTILITY STATIC function HNiceButton_New( oWndParent, nId, nStyle, nStyleEx, nLeft, nTop, nWidth, nHeight,  bInit, bClick,  cText, cTooltip, r, g, b) ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,, bInit,  ,, cTooltip )
+   g := IIf( g == nil, ::g, g ) ;
+   b := IIf( b == nil, ::b, b ) ;
+
+   r := IIf( r == nil, ::r, r ) ;
+   ::lFlat  := .T.
+   ::bClick := bClick
+   ::nOrder  := IIf( oWndParent == nil, 0, Len( oWndParent:aControls ) )
+
+   ::ExStyle := nStyleEx
+   ::text    := cText
+   ::r       := r
+   ::g       := g
+   ::b       := b
+   ::nTop    := nTop
+   ::nLeft   := nLeft
+   ::nWidth  := nWidth
+   ::nHeight := nHeight
+
+   hwg_Regnice()
+   ::Activate()
+
+   RETURN Self
+
+
+
+
+UTILITY STATIC function HNiceButton_Redefine( oWndParent, nId, nStyleEx,  bInit, bClick,  cText, cTooltip, r, g, b) ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0,, bInit,,, cTooltip )
+
+   g := IIf( g == nil, ::g, g ) ;
+   b := IIf( b == nil, ::b, b ) ;
+   r := IIf( r == nil, ::r, r ) ;
+
+   ::lFlat  := .T.
+
+   ::bClick := bClick
+
+   ::ExStyle := nStyleEx
+   ::text    := cText
+   ::r       := r
+   ::g       := g
+   ::b       := b
+
+   hwg_Regnice()
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_Activate() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateNiceBtn( ::oParent:handle, ::id,  ::Style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::ExStyle, ::Text )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HNiceButton_INIT() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   IF ! ::lInit
+      ::HControl:Init()
+      ::Create()
+   ENDIF
+   RETURN Nil
+
+FUNCTION NICEBUTTPROC( hBtn, msg, wParam, lParam )
+
+   LOCAL oBtn
+   IF msg <> 1
+      IF AScan( { 512, 15, 513, 514, 515, 2, 534, 5 }, msg ) > 0
+         IF ( oBtn := FindSelf( hBtn ) ) == Nil
+            RETURN .F.
+         ENDIF
+
+         IF msg == 15
+            oBtn:Paint()
+         ELSEIF msg == 514
+            oBtn:MUp()
+         ELSEIF msg == 513
+            oBtn:MDown()
+         ELSEIF msg == 512
+            oBtn:MouseMove( wParam, lParam )
+         ELSEIF msg == 5
+            oBtn:Size( )
+
+         ELSEIF msg == 2
+            oBtn:END()
+            RETURN .T.
+         ENDIF
+      ENDIF
+
+   ENDIF
+   RETURN .F.
+
+UTILITY STATIC function HNiceButton_Create() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   LOCAL Region
+   LOCAL Rct
+   LOCAL w
+   LOCAL h
+
+   Rct    := GetClientRect( ::handle )
+   w      := Rct[ 3 ] - Rct[ 1 ]
+   h      := Rct[ 4 ] - Rct[ 2 ]
+   Region := CreateRoundRectRgn( 0, 0, w, h, h * 0.90, h * 0.90 )
+   SetWindowRgn( ::Handle, Region, .T. )
+   InvalidateRect( ::Handle, 0, 0 )
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_Size() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   ::State := 1
+   InvalidateRect( ::Handle, 0, 0 )
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_Moving() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   ::State := .F.
+   InvalidateRect( ::Handle, 0, 0 )
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_MouseMove( wParam, lParam) ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   LOCAL otmp
+
+   ( (wParam) := (wParam) )
+   ( (lParam) := (lParam) )
+
+   IF ::lFlat .AND. ::state <> 0
+      otmp := SetNiceBtnSelected()
+
+      IF otmp <> Nil .AND. otmp:id <> ::id .AND. ! otmp:lPress
+         otmp:state := 1
+         InvalidateRect( otmp:handle, 0 )
+         PostMessage( otmp:handle, 15, 0, 0 )
+         SetNiceBtnSelected( Nil )
+      ENDIF
+
+      IF ::state == 1
+         ::state := 2
+
+
+         InvalidateRect( ::handle, 0 )
+         PostMessage( ::handle, 15, 0, 0 )
+         SetNiceBtnSelected( Self )
+      ENDIF
+   ENDIF
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_MUp() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   IF ::state == 3
+      IF ! ::lPress
+         ::state := IIf( ::lFlat, 2, 1 )
+         InvalidateRect( ::handle, 0 )
+         PostMessage( ::handle, 15, 0, 0 )
+      ENDIF
+      IF ! ::lFlat
+         SetNiceBtnSelected( Nil )
+      ENDIF
+      IF ::bClick <> Nil
+         Eval( ::bClick, ::oParent, ::id )
+      ENDIF
+   ENDIF
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_MDown() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   IF ::state <> 3
+      ::state := 3
+
+      InvalidateRect( ::Handle, 0, 0 )
+      PostMessage( ::handle, 15, 0, 0 )
+      SetNiceBtnSelected( Self )
+   ENDIF
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_Paint() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   LOCAL ps        := DefinePaintStru()
+   LOCAL hDC       := BeginPaint( ::Handle, ps )
+   LOCAL Rct
+   LOCAL Size
+   LOCAL T
+   LOCAL XCtr
+   LOCAL YCtr
+   LOCAL x
+   LOCAL y
+   LOCAL w
+   LOCAL h
+
+
+   Rct  := GetClientRect( ::Handle )
+   x    := Rct[ 1 ]
+   y    := Rct[ 2 ]
+   w    := Rct[ 3 ] - Rct[ 1 ]
+   h    := Rct[ 4 ] - Rct[ 2 ]
+   XCtr := ( Rct[ 1 ] + Rct[ 3 ] ) / 2
+   YCtr := ( Rct[ 2 ] + Rct[ 4 ] ) / 2
+   T    := GetWindowText( ::Handle )
+
+
+
+
+   IF ::state == 0
+      ::state := 1
+   ENDIF
+
+   Size := GetTextSize( hDC, T )
+
+   Draw_Gradient( hDC, x, y, w, h, ::r, ::g, ::b )
+   SetBkMode( hDC, 1 )
+
+   IF ( ::State == 2 )
+      SetTextColor( hDC, VCOLOR( "FF0000" ) )
+      TextOut( hDC, XCtr - ( Size[ 1 ] / 2 ) + 1, YCtr - ( Size[ 2 ] / 2 ) + 1, T )
+   ELSE
+      SetTextColor( hDC, VCOLOR( "0000FF" ) )
+      TextOut( hDC, XCtr - Size[ 1 ] / 2, YCtr - Size[ 2 ] / 2, T )
+   ENDIF
+
+   EndPaint( ::Handle, ps )
+
+   RETURN Self
+
+UTILITY STATIC function HNiceButton_END() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   RETURN Nil
+
+UTILITY STATIC function HNiceButton_RELEASE() ; local Self AS CLASS HNiceButton := QSelf() AS CLASS HNiceButton
+
+   ::lPress := .F.
+   ::state  := 1
+   InvalidateRect( ::handle, 0 )
+   PostMessage( ::handle, 15, 0, 0 )
+
+   RETURN Nil
+
+FUNCTION SetNiceBtnSelected( oBtn )
+
+   LOCAL otmp := HNiceButton() :oSelected
+
+   IF PCount() > 0
+      HNiceButton() :oSelected := oBtn
+   ENDIF
+
+   RETURN otmp

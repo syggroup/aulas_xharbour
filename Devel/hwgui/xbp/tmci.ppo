@@ -1,0 +1,81 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 20 "source\tmci.prg"
+_HB_CLASS TMci ; UTILITY FUNCTION TMci(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "TMci" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { nError, nId} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nError" , "nId" }, .F., .F. ), )
+   _HB_MEMBER { cType, cFileName} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cType" , "cFileName" }, .F., .F. ), )
+   _HB_MEMBER { oWnd} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oWnd" }, .F., .F. ), )
+   _HB_MEMBER { cBuffer} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cBuffer" }, .F., .F. ), )
+
+   _HB_MEMBER New( cDevice, cFileName) AS CLASS TMci; IIF( .F., s_oClass:ModMethod( "New", @TMci_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @TMci_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER lOpen(); IIF( .F., s_oClass:ModMethod( "lOpen", @TMci_lOpen(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "lOpen", @TMci_lOpen(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER Play(nFrom, nTo, hWnd); IIF( .F., s_oClass:ModInline( "Play", {|Self,nFrom, nTo, hWnd | Self, ::nError := nMciPlay( ::nId, nFrom, nTo, hWnd ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "Play", {|Self,nFrom, nTo, hWnd | Self, ::nError := nMciPlay( ::nId, nFrom, nTo, hWnd ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER cGetError(); IIF( .F., s_oClass:ModMethod( "cGetError", @TMci_cGetError(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "cGetError", @TMci_cGetError(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+
+   _HB_MEMBER SetWindow(oWnd); IIF( .F., s_oClass:ModInline( "SetWindow", {|Self,oWnd | Self, ::oWnd := oWnd,  ::nError := nMciWindow( ::nId, oWnd:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "SetWindow", {|Self,oWnd | Self, ::oWnd := oWnd,  ::nError := nMciWindow( ::nId, oWnd:handle ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER SendStr( cMciStr); IIF( .F., s_oClass:ModMethod( "SendStr", @TMci_SendStr(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SendStr", @TMci_SendStr(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS TMci ;
+
+
+
+UTILITY STATIC function TMci_New( cDevice, cFileName) ; local Self AS CLASS TMci := QSelf() AS CLASS TMci
+
+   IF cDevice == NIL ; cDevice := "" ; END
+
+   ::nError    = 0
+   ::nId       = 0
+   ::cType     = cDevice
+   ::cFileName = cFileName
+   ::cBuffer   = Space( 200 )
+
+   RETURN Self
+
+
+
+UTILITY STATIC function TMci_SendStr( cMciStr) ; local Self AS CLASS TMci := QSelf() AS CLASS TMci
+
+   LOCAL cBuffer := ::cBuffer
+
+   MciSendString( cMciStr, @cBuffer, ::oWnd:hWnd )
+   ::cBuffer = cBuffer
+
+   RETURN nil
+
+
+UTILITY STATIC function TMci_lOpen() ; local Self AS CLASS TMci := QSelf() AS CLASS TMci
+   LOCAL nId
+   ::nError := nMciOpen( ::cType, ::cFileName, @nId )
+   ::nId := nId
+   RETURN ::nError == 0
+
+UTILITY STATIC function TMci_cGetError() ; local Self AS CLASS TMci := QSelf() AS CLASS TMci
+   LOCAL cError
+   mciGetErrorString( ::nError, @cError )
+   RETURN    cError

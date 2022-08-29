@@ -1,0 +1,84 @@
+
+- EM hownbtn.prg deixar o METHOD abaixo exatamente igual:
+METHOD MDown()  CLASS HOwnButton
+   IF ::state != OBTN_PRESSED
+      ::state := OBTN_PRESSED
+      InvalidateRect( ::handle, 0 )
+      ::SetFocus()
+      SendMessage( ::Handle, WM_SETFOCUS, 0, 0 )
+      RedrawWindow( ::handle, RDW_ERASE + RDW_INVALIDATE )
+   ELSEIF  ::lCheck
+      ::state := OBTN_NORMAL
+      InvalidateRect( ::handle, 0 )
+      PostMessage( ::handle, WM_PAINT, 0, 0 )
+   ENDIF
+   RETURN Nil
+
+
+- EM drawwidg.prg ACRESENTADO AS LINHAS ABAIXO POR CAUSA DO SelectFile()
+      Dirchange(CAMINHO_EXE())  // caso esteja no meio de uma navegação que mudou o path do sistema.
+      IF ! File( name )
+         name := SelectFile( "Image Files( *.jpg;*.gif;*.bmp;*.ico )", CutPath( name ),FilePath( name ), "Locate " + name ) //"*.jpg;*.gif;*.bmp;*.ico"
+      ENDIF
+
+
+- ACRESENTADO TOOLTIP NO BROWSE
+
+- NA LINHA 1000 DO METHOD onClick()  CLASS HButton DE HCONTROL.PRG
+	METHOD onClick()  CLASS HButton
+	LOCAL lHAB_TEMP:=.T.
+
+   IF ::bClick != Nil
+      IF !IsWindowEnabled( ::Handle )
+         lHAB_TEMP:=.F.
+      ENDIF
+      EnableWindow( ::handle, .F. )
+      Eval( ::bClick, Self, ::id )
+      ::oParent:lSuspendMsgsHandling := .F.
+      IF lHAB_TEMP
+         EnableWindow( ::handle, .T. )
+      ENDIF
+   ENDIF
+	RETURN Nil
+
+- NA LINHA 1354 DO METHOD Paint() DE HBROWSE.PRG
+ACRESENTAR A SEGUINTE LINHA:
+SELECT(::Alias)
+
+ACRESENTAR NO HBROWSE.PRG NA LINHDA 2949 NO METHOD Edit() :
+.AND. fipos > 0
+
+ACRESENTAR A SEGUINTE LINHA ANTES DE CADA DBUnlock() do HBROWSE.PRG:
+( ::Alias ) ->( DBcommit() )
+
+NA FUNÇÃO CREATEARLIST() DO HBROWSE.PRG TEM QUE RETIRAR A LINHA ABAIXO
+Eval( oBrw:bGoTop, oBrw )
+
+
+- EM HCONTROL.PRG NA LINHA 726 FOR ACRESENTADO A LINHA ABAIXO PARA DEIXAR OS SAY NO TAMANHO
+DA PALAVRA
+::autosize := .t. 
+
+
+- EM HCONTROL.PRG FOI MUDADO DE 0 PARA 1 NA CLASSE BUTTONEX CONFORME A LINHA ABAIXO, PARA DEIXAR AS IMAGENS A ESQUERDA DOS BUTTON:
+DEFAULT nPictureMargin TO 1
+
+- EM HCONTROL.PRG FOI ACRESENTADO A LINHA ABAIXO NO INICIO DO NEW DA CLASSE HGroup,QUE SERVE PARA DEIXAR TODOS OS GROUPBOX SEM DEFINIÇÃO
+NA COR AZUL, NA LINHA APROXIMADA 1863, ANTES DE Super:New()
+::setcolor( IIF(tcolor == NIL,16711680,tcolor), bcolor )
+
+- EM HTAB.PRG NA LINHA 249 E 253 FOI MUDADO DE 25 PARA 22
+
+NA LINHA 94 DO ARQUIVO hcombo.prg FOI MUDADO PARA USAR UM DISPLAY PARA 10
+
+nDisplay := 10
+
+
+Adicionar no arquivo wprint.c
+
+HB_FUNC( COPYENHMETAFILE )
+{
+   LPCTSTR lpFilename = hb_parc(2) ;
+   HB_RETHANDLE( (LONG) CopyEnhMetaFile( (HENHMETAFILE) HB_PARHANDLE(1), lpFilename ) );
+}
+

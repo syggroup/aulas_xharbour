@@ -1,0 +1,107 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 15 "source\hanimat.prg"
+_HB_CLASS HAnimation ; UTILITY FUNCTION HAnimation(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HAnimation" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "SysAnimate32", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+
+   _HB_MEMBER { cFileName} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cFileName" }, .F., .F. ), )
+   _HB_MEMBER { xResID} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "xResID" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  cFilename, lAutoPlay, lCenter, lTransparent, xResID); IIF( .F., s_oClass:ModMethod( "New", @HAnimation_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HAnimation_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HAnimation_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HAnimation_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HAnimation_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HAnimation_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Open( cFileName); IIF( .F., s_oClass:ModMethod( "Open", @HAnimation_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Open", @HAnimation_Open(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Play( nFrom, nTo, nRep); IIF( .F., s_oClass:ModMethod( "Play", @HAnimation_Play(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Play", @HAnimation_Play(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Seek( nFrame); IIF( .F., s_oClass:ModMethod( "Seek", @HAnimation_Seek(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Seek", @HAnimation_Seek(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Stop(); IIF( .F., s_oClass:ModMethod( "Stop", @HAnimation_Stop(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Stop", @HAnimation_Stop(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Close(); IIF( .F., s_oClass:ModMethod( "Close", @HAnimation_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Close", @HAnimation_Close(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Destroy(); IIF( .F., s_oClass:ModMethod( "Destroy", @HAnimation_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Destroy", @HAnimation_Destroy(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER End(); IIF( .F., s_oClass:ModInline( "End", {|Self | Self, ::Destroy() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "End", {|Self | Self, ::Destroy() }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HAnimation ;
+
+
+UTILITY STATIC function HAnimation_New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight,  cFilename, lAutoPlay, lCenter, lTransparent, xResID) ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+
+   nStyle     := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 1073741824 + 268435456 )
+   nStyle     := nStyle + IIf( lAutoPlay == Nil.OR.lAutoPlay, 4, 0 )
+   nStyle     := nStyle + IIf( lCenter == Nil.OR. ! lCenter, 0, 1 )
+   nStyle     := nStyle + IIf( lTransparent == Nil.OR. ! lTransparent, 0, 2 )
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight )
+   ::xResID    := xResID
+   ::cFilename := cFilename
+   ::brush     := ::oParent:brush
+   ::bColor    := ::oParent:bColor
+   HWG_InitCommonControlsEx()
+   ::Activate()
+
+   RETURN Self
+
+UTILITY STATIC function HAnimation_Activate() ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := Animate_Create( ::oParent:handle, ::id, ::style,  ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HAnimation_Init() ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   IF ! ::lInit
+      ::HControl:Init()
+      IF ::xResID <> Nil
+         Animate_OpenEx( ::handle, GetResources(), ::xResID )
+      ELSEIF ::cFileName <> Nil
+         Animate_Open( ::handle, ::cFileName )
+      ENDIF
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HAnimation_Open( cFileName) ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   IF cFileName <> Nil
+      ::cFileName := cFileName
+      Animate_Open( ::handle, ::cFileName )
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HAnimation_Play( nFrom, nTo, nRep) ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   nFrom := IIf( nFrom == Nil,  0, nFrom )
+   nTo   := IIf( nTo   == Nil, - 1, nTo   )
+   nRep  := IIf( nRep  == Nil, - 1, nRep  )
+   Animate_Play( ::handle, nFrom, nTo, nRep )
+   RETURN Self
+
+UTILITY STATIC function HAnimation_Seek( nFrame) ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   nFrame := IIf( nFrame == Nil, 0, nFrame )
+   Animate_Seek( ::handle, nFrame )
+   RETURN Self
+
+UTILITY STATIC function HAnimation_Stop() ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   Animate_Stop( ::handle )
+   RETURN Self
+
+UTILITY STATIC function HAnimation_Close() ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   Animate_Close( ::handle )
+   RETURN Nil
+
+UTILITY STATIC function HAnimation_Destroy() ; local Self AS CLASS HAnimation := QSelf() AS CLASS HAnimation
+   Animate_Destroy( ::handle )
+   RETURN Nil

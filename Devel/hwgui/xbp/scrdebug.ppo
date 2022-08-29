@@ -1,0 +1,294 @@
+#line 13 "source\procmisc\scrdebug.prg"
+STATIC oDlgDebug := Nil
+STATIC oBrwData, oBrwScript, oSplit, oPanel, oEditExpr, oEditRes
+STATIC nDebugMode := 0
+STATIC i_scr := 0
+STATIC oDlgFont, oScrFont, oBmpCurr, oBmpPoint
+STATIC nAnimaTime
+STATIC aBreakPoints
+STATIC aBreaks  := {}
+STATIC aWatches := {}
+STATIC aScriptCurr
+STATIC nScriptSch := 0
+
+Function hwg_scrDebug( aScript, iscr )
+Local nFirst, i
+
+   IF Len( aScript ) < 3
+      Return .F.
+   ELSEIF Len( aScript ) == 3
+      Aadd( aScript, Nil )
+   ENDIF
+   IF Empty( aScript[4] )
+      nScriptSch ++
+      aScript[4] := nScriptSch
+   ENDIF
+   IF aScriptCurr == Nil
+      aScriptCurr := aScript
+   ENDIF
+
+   IF oDlgDebug == Nil .AND. iscr > 0
+
+      oDlgFont := HFont():Add( "Georgia",0,-15,,204 )
+      oScrFont := HFont():Add( "Courier New",0,-15,,204 )
+
+      oBmpCurr := HBitmap():AddStandard(32741)
+      oBmpPoint:= HBitmap():AddStandard(32760)
+
+
+
+      oDlgDebug := HDialog():New( Iif(.F.,10,11), 2147483648+268435456+12582912+524288+262144,210,10,500,300,("Script Debugger - "+aScript[1]),oDlgFont,,{|o|dlgDebugClose()},,,,,,.F.,,,.F.,,,.F.,,, .F.,.F.)
+
+      Hwg_BeginMenu( oDlgDebug,,,,,,.F. )
+         Hwg_DefineMenuItem( "E&xit",, {|| oDlgDebug:Close()}, .F.,,,, .F., .F.,.F. )
+         Hwg_DefineMenuItem( "&Step",, {|| ( nDebugMode:=0,SetDebugRun() )}, .F.,,,, .F., .F.,.F. )
+         Hwg_BeginMenu(,, "&Animate",,,,.F. )
+            Hwg_DefineMenuItem( "&0.5 seconds",, {|| ( nAnimaTime:=0.5,nDebugMode:=1,SetDebugRun() )}, .F.,,,, .F., .F.,.F. )
+            Hwg_DefineMenuItem( "&1 seconds",, {|| ( nAnimaTime:=1,nDebugMode:=1,SetDebugRun() )}, .F.,,,, .F., .F.,.F. )
+            Hwg_DefineMenuItem( "&3 seconds",, {|| ( nAnimaTime:=3,nDebugMode:=1,SetDebugRun() )}, .F.,,,, .F., .F.,.F. )
+         Hwg_EndMenu()
+         Hwg_DefineMenuItem( "&Run",, {|| ( nDebugMode:=2,SetDebugRun() )}, .F.,,,, .F., .F.,.F. )
+      Hwg_EndMenu()
+
+
+      oBrwData := HBrowse():New( Iif(.F.,2,Iif(.T.,1,0)),,,8388608 + 2097152,0,0,500,0,,,{|o,x,y|o:Move(,,x)},,,,,.F.,.F., .F., .F.,,,, .F., .F.,,,,,,,,,,, .F. ); oBrwData:name := "oBrwData"
+
+      oBrwData:aArray := aWatches
+      oBrwData:AddColumn( HColumn():New( "",{|v,o|o:aArray[o:nCurrent,1]},"C",30,0 ) )
+      oBrwData:AddColumn( HColumn():New( "",{|v,o|o:aArray[o:nCurrent,3]},"C",1,0 ) )
+      oBrwData:AddColumn( HColumn():New( "",{|v,o|o:aArray[o:nCurrent,4]},"C",60,0 ) )
+
+
+      oBrwScript := HBrowse():New( Iif(.F.,2,Iif(.T.,1,0)),,,8388608+2097152+1048576,0,4,500,236,oScrFont,,{|o,x,y|o:Move(,,x,y-oSplit:nTop-oSplit:nHeight-64)},,,,,.F.,.F., .F., .F.,,,, .F., .F.,,,,,,,,,,, .F. ); oBrwScript:name := "oBrwScript"
+
+
+      oSplit := HSplitter():New(,,0,0,600,3,{|o,x,y|o:Move(,,x)},,,,{oBrwData},{oBrwScript}, .F., .F. ); oSplit:name := "oSplit"
+
+      oBrwScript:aArray := aScript[3]
+
+
+
+
+      oBrwScript:AddColumn( HColumn():New( "",{|v,o|Iif(o:nCurrent==i_scr,1,Iif(aBreakPoints<>Nil.AND.Ascan(aBreakPoints[2],oBrwScript:nCurrent)<>0,2,0))},"N",1,0 ) )
+      oBrwScript:aColumns[1]:aBitmaps := { { {|n|n==1},oBmpCurr },{ {|n|n==2},oBmpPoint } }
+
+      oBrwScript:AddColumn( HColumn():New( "",{|v,o|Left(o:aArray[o:nCurrent],4)},"C",4,0 ) )
+      oBrwScript:AddColumn( HColumn():New( "",{|v,o|Substr(o:aArray[o:nCurrent],6)},"C",80,0 ) )
+
+      oBrwScript:bEnter:= {||AddBreakPoint()}
+
+
+      oPanel := HPanel():New( oDlgDebug,,,0,240,oDlgDebug:nWidth,64,,{|o,x,y|o:Move(,y-64,x)},, ); oPanel:name := "oPanel"
+
+
+
+
+
+      HButton():New( oPanel,,,10,10,100, 24,"Add",,,,,{||AddWatch()},,,,,.F. );
+      HButton():New( oPanel,,,10,36,100, 24,"Calculate",,,,,{||Calculate()},,,,,.F. );
+
+      oEditExpr := HEdit():New( oPanel,,"",,,110,10,380, 24,,,{|o,x,y|o:Move(,,x-120)},,,,,,,,.F.,,.F.,,,,.F. ); oEditExpr:name := "oEditExpr"
+      oEditRes := HEdit():New( oPanel,,"",,,110,36,380, 24,,,{|o,x,y|o:Move(,,x-120)},,,,,,,,.F.,,.F.,,,,.F. ); oEditRes:name := "oEditRes"
+
+      oDlgDebug:Activate(.T.,,,.F. )
+
+      oDlgDebug:Move( ,,,400 )
+   ENDIF
+
+   IF aScriptCurr[4] <> aScript[4]
+      IF !Empty( aBreakPoints )
+         IF ( i := Ascan( aBreaks, {|a|a[1]==aBreakPoints[1]} ) ) == 0
+            Aadd( aBreaks, aBreakPoints )
+         ENDIF
+         IF ( i := Ascan( aBreaks, {|a|a[1]==aScript[4]} ) ) == 0
+            aBreakPoints := Nil
+         ELSE
+            aBreakPoints := aBreaks[i]
+         ENDIF
+      ENDIF
+      aScriptCurr := aScript
+      SetWindowText( oDlgDebug:handle, "Script Debugger - " + aScript[1] )
+   ENDIF
+
+   oBrwScript:aArray := aScript[3]
+   IF ( i_scr := iscr ) == 0
+      nDebugMode := 0
+      oBrwScript:Top()
+   ELSE
+      IF aBreakPoints<>Nil .AND. Ascan(aBreakPoints[2],i_scr) <> 0
+         nDebugMode := 0
+      ENDIF
+      IF nDebugMode < 2
+         FOR i := 1 TO Len( aWatches )
+            CalcWatch( i )
+         NEXT
+         IF !Empty( aWatches )
+            oBrwData:Refresh()
+         ENDIF
+         nFirst := oBrwScript:nCurrent - oBrwScript:rowPos + 1
+         oBrwScript:nCurrent := i_scr
+         IF i_scr - nFirst >= oBrwScript:rowCount
+            oBrwScript:rowPos := 1
+         ELSE
+            oBrwScript:rowPos := oBrwScript:nCurrent - nFirst + 1
+         ENDIF
+         oBrwScript:Refresh()
+         IF nDebugMode == 1
+            nFirst := Seconds()
+            while Seconds() - nFirst < nAnimaTime
+               hwg_ProcessMessage()
+            ENDDO
+            SetDebugRun()
+         ENDIF
+      ELSEIF nDebugMode == 2
+         SetDebugRun()
+      ENDIF
+   ENDIF
+
+Return .T.
+
+Static Function dlgDebugClose()
+
+   oDlgDebug := Nil
+   SetDebugger( .F. )
+   SetDebugRun()
+   aBreakPoints := aScriptCurr := Nil
+   aBreaks  := {}
+   aWatches := {}
+   oScrFont:Release()
+   oDlgFont:Release()
+
+   oBmpCurr:Release()
+   oBmpPoint:Release()
+
+
+Return .T.
+
+Static Function AddBreakPoint
+Local i
+
+   IF aBreakPoints == Nil
+      aBreakPoints := { aScriptCurr[4], {} }
+   ENDIF
+   IF ( i := Ascan( aBreakPoints[2],oBrwScript:nCurrent ) ) == 0
+      FOR i := 1 TO Len(aBreakPoints[2])
+         IF aBreakPoints[2,i] == 0
+            aBreakPoints[2,i] := oBrwScript:nCurrent
+            EXIT
+         ENDIF
+      NEXT
+      IF i > Len(aBreakPoints[2])
+         Aadd( aBreakPoints[2], oBrwScript:nCurrent )
+      ENDIF
+   ELSE
+      Adel( aBreakPoints[2], i )
+      aBreakPoints[2,Len(aBreakPoints[2])] := 0
+   ENDIF
+   oBrwScript:Refresh()
+Return .T.
+
+Static Function AddWatch()
+Local xRes, bCodeblock, bOldError, lRes := .T.
+
+
+
+
+   IF !Empty( xRes := GetEditText( oEditExpr:oParent:handle, oEditExpr:id ) )
+
+      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      BEGIN SEQUENCE
+         bCodeblock := &( "{||" + xRes + "}" )
+      RECOVER
+         lRes := .F.
+      end
+      ERRORBLOCK( bOldError )
+   ENDIF
+
+   IF lRes
+      IF Ascan( aWatches, {|s|s[1] == xRes} ) == 0
+         Aadd( aWatches, { xRes,bCodeblock, Nil, Nil } )
+         CalcWatch( Len(aWatches) )
+      ENDIF
+      IF oBrwData:nHeight < 20
+         oSplit:Move( ,56)
+         oBrwScript:Move( ,60,,oDlgDebug:nHeight-oSplit:nTop-oSplit:nHeight-64)
+         oBrwData:Move( ,,,56 )
+         oDlgDebug:Move( ,,,oDlgDebug:nHeight+4 )
+      ENDIF
+      oBrwData:Refresh()
+   ELSE
+      oEditRes:SetText( "Error..." )
+   ENDIF
+Return .T.
+
+Static Function CalcWatch( n )
+Local xRes, bOldError, lRes := .T., cType
+
+   bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+   BEGIN SEQUENCE
+      xRes := Eval( aWatches[n,2] )
+   RECOVER
+      lRes := .F.
+   end
+   ERRORBLOCK( bOldError )
+
+   IF lRes
+      IF ( cType := Valtype( xRes ) ) == "N"
+         aWatches[n,4] := Ltrim(Str(xRes))
+      ELSEIF cType == "D"
+         aWatches[n,4] := Dtoc(xRes)
+      ELSEIF cType == "L"
+         aWatches[n,4] := Iif(xRes,".T.",".F.")
+      ELSEIF cType == "C"
+         aWatches[n,4] := xRes
+      ELSE
+         aWatches[n,4] := "Undefined"
+      ENDIF
+      aWatches[n,3] := cType
+   ELSE
+      aWatches[n,4] := "Error..."
+      aWatches[n,3] := "U"
+   ENDIF
+
+Return .T.
+
+Static Function Calculate()
+Local xRes, bOldError, lRes := .T., cType
+
+
+
+
+   IF !Empty( xRes := GetEditText( oEditExpr:oParent:handle, oEditExpr:id ) )
+
+      bOldError := ERRORBLOCK( { | e | MacroError(e) } )
+      BEGIN SEQUENCE
+         xRes := &xRes
+      RECOVER
+         lRes := .F.
+      end
+      ERRORBLOCK( bOldError )
+   ENDIF
+
+   IF lRes
+      IF ( cType := Valtype( xRes ) ) == "N"
+         oEditRes:SetText( Ltrim(Str(xRes)) )
+      ELSEIF cType == "D"
+         oEditRes:SetText( Dtoc(xRes) )
+      ELSEIF cType == "L"
+         oEditRes:SetText( Iif(xRes,".T.",".F.") )
+      ELSE
+         oEditRes:SetText( xRes )
+      ENDIF
+   ELSE
+      oEditRes:SetText( "Error..." )
+   ENDIF
+
+Return .T.
+
+STATIC FUNCTION MacroError( e )
+   BREAK
+RETURN .T.
+
+Function scrBreakPoint()
+   nDebugMode := 0
+Return .T.

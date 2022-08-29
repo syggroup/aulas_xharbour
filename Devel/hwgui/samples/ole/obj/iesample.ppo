@@ -1,0 +1,56 @@
+#line 13 "iesample.prg"
+Function Main
+Local oMainWnd, oPanelTool, oPanelIE
+Local oEdit, cUrl, oIE
+
+
+
+   oMainWnd := HDialog():New( Iif(.F.,10,11), 2048 + 268435456 + 12582912 + 524288,200,0,500,400,"Example",HFont():Add( "",0,-11,400,,,),,,,,,,,.F.,,,.F.,,,.F.,,,.F.)
+
+   Hwg_BeginMenu( oMainWnd,,,,, )
+      Hwg_BeginMenu(,, "File",,, )
+         Hwg_DefineMenuItem( "&Open file",, {|| OpenFile(oIE,oEdit)}, .F.,,,, .F., .F. )
+         Hwg_DefineMenuItem()
+         Hwg_DefineMenuItem( "E&xit",, {|| oMainWnd:Close()}, .F.,,,, .F., .F. )
+      Hwg_EndMenu()
+   Hwg_EndMenu()
+
+    oPanelTool := HPanel():New(,,,0,0,500,32,,,, ); oPanelTool:name := "oPanelTool"
+
+    oEdit := HEdit():New( oPanelTool,,"http://kresin.belgorod.su",,,5,4,400, 24,,,,,,,,,,,.F.,,.F.,,, ); oEdit:name := "oEdit"
+
+    HButton():New( oPanelTool,,,405,4,30, 24,"Go!",,,,,{||Iif(!Empty(cUrl:=GetEditText(oEdit:oParent:handle,oEdit:id)),oIE:DisplayPage(cUrl),.T.)},,,, );
+
+    HButton():New( oPanelTool,,,435,4,55, 24,"Search",,,,,{||Iif(!Empty(cUrl:=GetEditText(oEdit:oParent:handle,oEdit:id)),FindInGoogle(cUrl,oIE,oEdit),.T.)},,,, );
+
+    oPanelIE := HPanel():New(,,,0,34,500,366,,{|o,x,y|o:Move(,,x,y-34)},, ); oPanelIE:name := "oPanelIE"
+
+    oIE := HHtml():New( oPanelIE )
+
+    oMainWnd:Activate()
+
+Return
+
+Static Function OpenFile( oIE,oEdit )
+Local mypath := "\" + Curdir() + Iif( Empty( Curdir() ), "", "\" )
+Local fname := SelectFile( "HTML files", "*.htm;*.html", mypath )
+
+   IF !Empty( fname )
+      oEdit:SetText( fname )
+      oIE:DisplayPage( fname )
+   ENDIF
+
+Return
+
+Static Function FindInGoogle( cQuery,oIE,oEdit )
+Local cUrl := "http://www.google.com/search?q=", cItem
+
+   IF !Empty( cItem := NextItem( cQuery,.T.," " ) )
+      cUrl += cItem
+      while !Empty( cItem := NextItem( cQuery,," " ) )
+         cUrl += "+" + cItem
+      ENDDO
+      oEdit:SetText( cUrl )
+      oIE:DisplayPage( cUrl )
+   ENDIF
+Return Nil

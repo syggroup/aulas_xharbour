@@ -1,0 +1,1223 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 22 "source\hcombo.prg"
+#pragma BEGINDUMP
+#include <windows.h>
+#include "hbapi.h"
+#include "hwingui.h"
+HB_FUNC( COPYDATA )
+{
+   LPARAM lParam = ( LPARAM ) hb_parnl( 1 ) ;
+   void * hText;
+   LPCTSTR m_strText = HB_PARSTR( 2, &hText, NULL );
+   WPARAM wParam = ( WPARAM ) hb_parnl( 3 ) ;
+
+   lstrcpyn( ( LPTSTR ) lParam, m_strText, ( INT ) wParam ) ;
+   hb_strfree( hText );
+}
+#pragma ENDDUMP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_HB_CLASS HComboBox ; UTILITY FUNCTION HComboBox(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HComboBox" , {HControl():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "COMBOBOX", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { aItems} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aItems" }, .F., .F. ), )
+   _HB_MEMBER { aItemsBound} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aItemsBound" }, .F., .F. ), )
+   _HB_MEMBER { bSetGet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSetGet" }, .F., .F. ), )
+   _HB_MEMBER { value} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "value" }, .F., .F. ), )
+   _HB_MEMBER { valueBound} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "valueBound" }, .F., .F. ), )
+   _HB_MEMBER { cDisplayValue} ; IIF( !.F., s_oClass:AddMultiData(,, 8 + IIF( .F., 32, 0 ), { "cDisplayValue" }, .F., .F. ), )
+   _HB_MEMBER { columnBound} ; IIF( !.F., s_oClass:AddMultiData(, 1, 8 + IIF( .F., 32, 0 ), { "columnBound" }, .F., .F. ), )
+   _HB_MEMBER { xrowsource} ; IIF( !.F., s_oClass:AddMultiData(, {,}, 8 + IIF( .F., 32, 0 ), { "xrowsource" }, .F., .F. ), )
+
+   _HB_MEMBER { bChangeSel} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChangeSel" }, .F., .F. ), )
+   _HB_MEMBER { bChangeInt} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bChangeInt" }, .F., .F. ), )
+   _HB_MEMBER { bValid} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bValid" }, .F., .F. ), )
+   _HB_MEMBER { bSelect} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSelect" }, .F., .F. ), )
+
+   _HB_MEMBER { lText} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lText" }, .F., .F. ), )
+   _HB_MEMBER { lEdit} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lEdit" }, .F., .F. ), )
+   _HB_MEMBER { SelLeght} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "SelLeght" }, .F., .F. ), )
+   _HB_MEMBER { SelStart} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "SelStart" }, .F., .F. ), )
+   _HB_MEMBER { SelText} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "SelText" }, .F., .F. ), )
+   _HB_MEMBER { nDisplay} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nDisplay" }, .F., .F. ), )
+   _HB_MEMBER { nhItem} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nhItem" }, .F., .F. ), )
+   _HB_MEMBER { ncWidth} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "ncWidth" }, .F., .F. ), )
+   _HB_MEMBER { nHeightBox} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "nHeightBox" }, .F., .F. ), )
+   _HB_MEMBER { lResource} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lResource" }, .F., .F. ), )
+   _HB_MEMBER { lTraduz} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lTraduz" }, .F., .F. ), )
+
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor,  bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength, lTraduz); IIF( .F., s_oClass:ModMethod( "New", @HComboBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HComboBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HComboBox_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HComboBox_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWnd, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bDraw, bChange, ctooltip, bGFocus, bLFocus, bIChange, nDisplay); IIF( .F., s_oClass:ModMethod( "Redefine", @HComboBox_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HComboBox_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT( aCombo, nCurrent); IIF( .F., s_oClass:ModMethod( "INIT", @HComboBox_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HComboBox_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HComboBox_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HComboBox_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Requery(); IIF( .F., s_oClass:ModMethod( "Requery", @HComboBox_Requery(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Requery", @HComboBox_Requery(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HComboBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HComboBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Setitem( nPos); IIF( .F., s_oClass:ModMethod( "Setitem", @HComboBox_Setitem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Setitem", @HComboBox_Setitem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetValue( xItem); IIF( .F., s_oClass:ModMethod( "SetValue", @HComboBox_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HComboBox_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER GetValue(); IIF( .F., s_oClass:ModMethod( "GetValue", @HComboBox_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetValue", @HComboBox_GetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER AddItem( cItem); IIF( .F., s_oClass:ModMethod( "AddItem", @HComboBox_AddItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "AddItem", @HComboBox_AddItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER DeleteItem( nPos); IIF( .F., s_oClass:ModMethod( "DeleteItem", @HComboBox_DeleteItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "DeleteItem", @HComboBox_DeleteItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Valid(); IIF( .F., s_oClass:ModMethod( "Valid", @HComboBox_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Valid", @HComboBox_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER When(); IIF( .F., s_oClass:ModMethod( "When", @HComboBox_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "When", @HComboBox_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onSelect(); IIF( .F., s_oClass:ModMethod( "onSelect", @HComboBox_onSelect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onSelect", @HComboBox_onSelect(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER InteractiveChange(); IIF( .F., s_oClass:ModMethod( "InteractiveChange", @HComboBox_InteractiveChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "InteractiveChange", @HComboBox_InteractiveChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onChange(); IIF( .F., s_oClass:ModMethod( "onChange", @HComboBox_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onChange", @HComboBox_onChange(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Populate(); IIF( .F., s_oClass:ModMethod( "Populate", @HComboBox_Populate(), 8 + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Populate", @HComboBox_Populate(), 8 + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetValueBound(); IIF( .F., s_oClass:ModMethod( "GetValueBound", @HComboBox_GetValueBound(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetValueBound", @HComboBox_GetValueBound(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER RowSource(xSource); _HB_MEMBER _RowSource(xSource); IIF( .F., s_oClass:ModMethod( "RowSource", @HComboBox_RowSource(), 1 + 32, .F. ), s_oClass:AddMethod( "RowSource", @HComboBox_RowSource(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_RowSource", @HComboBox_RowSource() ), s_oClass:AddMethod( "_RowSource", @HComboBox_RowSource() ) ) ;
+   _HB_MEMBER DisplayValue(cValue); _HB_MEMBER _DisplayValue(cValue); IIF( .F., s_oClass:ModMethod( "DisplayValue", @HComboBox_DisplayValue(), 1 + 32, .F. ), s_oClass:AddMethod( "DisplayValue", @HComboBox_DisplayValue(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_DisplayValue", @HComboBox_DisplayValue() ), s_oClass:AddMethod( "_DisplayValue", @HComboBox_DisplayValue() ) ) ;
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HComboBox ;
+
+
+
+UTILITY STATIC function HComboBox_New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor,  bcolor, bLFocus, bIChange, nDisplay, nhItem, ncWidth, nMaxLength, lTraduz) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+Local nI:=0
+
+   IF !Empty( nDisplay ) .AND. nDisplay > 0
+      nStyle := Hwg_BitOr( nStyle, 0x0400  + 2097152 )
+
+   ELSE
+      nDisplay := 27
+   ENDIF
+   nHeight := IIF( EMPTY( nHeight ), 24,  nHeight )
+   ::nHeightBox := Int( nHeight * 0.75 )
+   nHeight := nHeight + ( Iif( Empty( nhItem ), 16.250, ( nhItem += 0.10 ) ) * nDisplay )
+
+   IF lEdit == Nil
+      lEdit := .F.
+   ENDIF
+
+   IF lText == Nil
+      lText := .F.
+   ENDIF
+
+   ::lTraduz     := IIf( lTraduz  == Nil, .F., lTraduz  )
+
+
+   IF ::lTraduz
+      For nI=1 To Len(aItems)
+         aItems[nI]:=HWG_TRANSLATOR( aItems[nI], "COMBOBOX" )
+      Next
+      ctooltip:=HWG_TRANSLATOR( ctooltip, "COMBOBOX / TOOLTIP" )
+   ENDIF
+
+   nStyle := Hwg_BitOr( Iif( nStyle == Nil, 0, nStyle ), Iif( lEdit, 2, 3 ) + 65536 )
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit, bSize, bPaint, ctooltip, tcolor, bcolor )
+
+   ::nDisplay := nDisplay
+   ::nhItem   := nhItem
+   ::ncWidth  := ncWidth
+
+   ::lEdit := lEdit
+   ::lText := lText
+
+   IF lEdit
+      ::lText := .T.
+   ENDIF
+
+   IF ::lText
+      ::value := Iif( vari == Nil .OR. Valtype( vari ) <> "C", "", vari )
+   ELSE
+      ::value := Iif( vari == Nil .OR. Valtype( vari ) <> "N", 1, vari )
+   ENDIF
+
+   aItems        := IIF( aItems = Nil, {}, aClone( aItems ) )
+   ::RowSource( aItems )
+   ::aItemsBound   := {}
+   ::bSetGet       := bSetGet
+
+   ::Activate()
+
+   ::bChangeSel := bChange
+   ::bGetFocus  := bGFocus
+   ::bLostFocus := bLFocus
+
+   IF bSetGet <> Nil
+      IF bGFocus <> Nil
+         ::lnoValid := .T.
+         ::oParent:AddEvent( 3, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      ENDIF
+
+      ::oParent:AddEvent( 4, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .F., "onLostFocus" )
+
+
+   ELSE
+      IF bGFocus <> Nil
+         ::lnoValid := .T.
+         ::oParent:AddEvent( 3, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+
+      ENDIF
+      ::oParent:AddEvent( 4, Self, { | o, id | ::Valid( o:FindControl( id ) ) }, .F., "onLostFocus" )
+
+   ENDIF
+   IF bChange <> Nil .OR. bSetGet <> Nil
+      ::oParent:AddEvent( 1, Self, { | o, id | ::onChange( o:FindControl( id ) ) },, "onChange" )
+   ENDIF
+
+   IF bIChange <> Nil .AND. ::lEdit
+      ::bchangeInt := bIChange
+
+      ::oParent:AddEvent( 6, Self, { | o, id | ::InteractiveChange( o:FindControl( id ) ) },, "interactiveChange" )
+   ENDIF
+   ::oParent:AddEvent( 9, Self, { | o, id | ::onSelect( o:FindControl( id ) ) },,"onSelect" )
+
+RETURN Self
+
+UTILITY STATIC function HComboBox_Activate() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   IF !Empty( ::oParent:handle )
+
+      ::handle := CreateCombo( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+      ::Init()
+   ENDIF
+RETURN Nil
+
+
+UTILITY STATIC function HComboBox_Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint,  bChange, ctooltip, bGFocus, bLFocus, bIChange, nDisplay) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   ( (bLFocus) := (bLFocus) )
+   ( (bIChange) := (bIChange) )
+
+
+   IF !Empty( nDisplay ) .AND. nDisplay > 0
+      ::Style := Hwg_BitOr( ::Style, 0x0400 )
+
+   ELSE
+      nDisplay := 27
+   ENDIF
+
+   ::lResource := .T.
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit, bSize, bPaint, ctooltip )
+
+   ::nDisplay := nDisplay
+
+   IF ::lText
+      ::value := Iif( vari == Nil .OR. Valtype( vari ) <> "C", "", vari )
+   ELSE
+      ::value := Iif( vari == Nil .OR. Valtype( vari ) <> "N", 1, vari )
+   ENDIF
+   aItems        := IIF( aItems = Nil, {}, aClone( aItems ) )
+   ::RowSource( aItems )
+   ::aItemsBound   := {}
+   ::bSetGet := bSetGet
+
+   IF bSetGet <> Nil
+      ::bChangeSel := bChange
+      ::bGetFocus  := bGFocus
+      ::oParent:AddEvent( 3, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+
+      IF ::bSetGet <> nil
+         ::oParent:AddEvent( 1, Self, { | o, id | ::Valid( o:FindControl( id ) ) },, "onChange" )
+
+      ELSEIF ::bChangeSel <> NIL
+         ::oParent:AddEvent( 1, Self, { | o, id | ::Valid( o:FindControl( id ) ) },, "onChange" )
+
+      ENDIF
+   ELSEIF bChange <> Nil .AND. ::lEdit
+      ::bChangeSel := bChange
+      ::oParent:AddEvent( 1, Self, { | o, id | ::onChange( o:FindControl( id ) ) },, "onChange" )
+
+   ENDIF
+
+   IF bGFocus <> Nil .AND. bSetGet == Nil
+      ::oParent:AddEvent( 3, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+   ENDIF
+   ::oParent:AddEvent( 9, Self, { | o, id | ::onSelect( o:FindControl( id ) ) },,"onSelect" )
+
+   ::Requery()
+
+RETURN Self
+
+UTILITY STATIC function HComboBox_INIT() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   LOCAL LongComboWidth    := 0
+   LOCAL NewLongComboWidth, avgWidth, nHeightBox
+
+   IF !::lInit
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      HWG_INITCOMBOPROC( ::handle )
+      IF ::aItems <> Nil .AND. !Empty( ::aItems )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         ::RowSource( ::aItems )
+         LongComboWidth := ::Populate()
+
+         IF ::lText
+            IF ::lEdit
+               SetDlgItemText( getmodalhandle(), ::id, ::value )
+
+            ELSE
+               ComboSetString( ::handle, AScan( ::aItems, alltrim(::value )) )
+            ENDIF
+            SendMessage( ::handle, 333, 0, ::value )
+            SetWindowText( ::handle, ::value )
+         ELSE
+            ComboSetString( ::handle, ::value )
+         ENDIF
+         avgwidth          := GetFontDialogUnits( ::oParent:handle )
+         NewLongComboWidth := ( LongComboWidth - 2 ) * avgwidth
+         SendMessage( ::handle, 0x0160, NewLongComboWidth + 50, 0 )
+      ENDIF
+      ::HControl:Init()
+      IF !::lResource
+
+         IF !Empty( ::nhItem )
+            sendmessage( ::handle, 0x0153, 0, ::nhItem + 0.10 )
+         ELSE
+            ::nhItem := sendmessage( ::handle, 0x0154, 0, 0 ) + 0.10
+         ENDIF
+         nHeightBox := sendmessage( ::handle, 0x0154, - 1, 0 )
+
+         IF !Empty( ::ncWidth )
+            sendmessage( ::handle, 0x0160, ::ncWidth, 0 )
+         ENDIF
+         ::nHeight := Int( nHeightBox / 0.75 + ( ::nhItem * ::nDisplay ) ) + 3
+      ENDIF
+   ENDIF
+   IF !::lResource
+      MoveWindow( ::handle, ::nLeft, ::nTop, ::nWidth, ::nHeight )
+
+      SendMessage( ::handle, 0x0153, - 1, ::nHeightBox )
+   ENDIF
+
+   IF ::lEdit
+      SendMessage( ::handle, 322 , -1, 0 )
+   ENDIF
+
+RETURN Nil
+
+UTILITY STATIC function HComboBox_onEvent( msg, wParam, lParam) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+
+
+   IF ::bOther <> Nil
+      IF Eval( ::bOther, Self, msg, wParam, lParam ) <> - 1
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF ::bSetGet <> Nil .OR. ::GetParentForm( Self ):Type < 10
+
+      IF msg == 258 .AND. ( ::GetParentForm( Self ):Type < 10 .OR.  ! ::GetParentForm( Self ) :lModal )
+         IF wParam = 0x09
+            GetSkip( ::oParent, ::handle,, Iif( IsCtrlShift( .F., .T. ), - 1, 1 ) )
+            RETURN 0
+         ELSEIF wParam == 0x0D
+            GetSkip( ::oParent, ::handle,, 1 )
+            RETURN 0
+         ENDIF
+      ELSEIF msg = 256
+         ProcKeyList( Self, wParam )
+         IF wparam =  0x27 .OR. wParam == 0x0D
+             GetSkip( ::oParent, ::handle, , 1 )
+             RETURN 0
+         ELSEIF wparam =  0x25
+                GetSkip( ::oParent, ::handle, , -1 )
+                RETURN 0
+         ENDIF
+      ELSEIF msg = 343
+            IF GETKEYSTATE( 0x0D ) < 0
+            ::GetValue()
+           ENDIF
+         IF GETKEYSTATE( 0x28 ) + GETKEYSTATE( 0x09 ) < 0
+            IF ::oParent:oParent = Nil
+
+            ENDIF
+            GetSkip( ::oParent, ::handle,, 1 )
+            RETURN 1
+         ENDIF
+         IF GETKEYSTATE( 0x26 ) < 0
+            IF ::oParent:oParent = Nil
+
+            ENDIF
+            GetSkip( ::oParent, ::handle,, - 1 )
+            RETURN 1
+         ENDIF
+           IF ( ::GetParentForm( Self ):Type < 10.OR. ! ::GetParentForm( Self ):lModal )
+              RETURN 1
+           ENDIF
+      ENDIF
+   ENDIF
+
+   RETURN - 1
+
+UTILITY STATIC function HComboBox_Requery() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   SendMessage( ::handle, 331, 0, 0 )
+   ::Populate()
+
+
+
+
+
+   ::Refresh()
+
+RETURN Nil
+
+UTILITY STATIC function HComboBox_Refresh() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL vari
+
+   IF ::bSetGet <> Nil
+      vari := Eval( ::bSetGet,, Self )
+      IF ::columnBound = 2
+          vari := ::GetValueBound( vari )
+      ENDIF
+      IF ::lText
+         ::value := Iif( vari == Nil .OR. Valtype( vari ) <> "C", "", vari )
+
+      ELSE
+         ::value := Iif( vari == Nil .OR. Valtype( vari ) <> "N", 1, vari )
+      ENDIF
+
+
+
+
+
+
+
+   ENDIF
+
+
+
+
+
+
+
+
+   IF ::lText
+      IF ::lEdit
+         SetDlgItemText( getmodalhandle(), ::id, ::value )
+      ELSE
+         ComboSetString( ::handle, AScan( ::aItems, ::value ) )
+      ENDIF
+   ELSE
+      ComboSetString( ::handle, ::value )
+      ::SetItem( ::value )
+   ENDIF
+   ::valueBound := ::GetValueBound( )
+
+RETURN Nil
+
+UTILITY STATIC function HComboBox_Setitem( nPos) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+
+
+
+
+
+
+   IF ::lText
+      IF nPos > 0
+         ::value := ::aItems[nPos]
+         ::ValueBound := ::GetValueBound()
+      ELSE
+         ::value := ""
+         ::valueBound := ""
+      ENDIF
+   ELSE
+      ::value := nPos
+   ENDIF
+
+   SendMessage( ::handle, 334, nPos - 1, 0 )
+
+   IF ::bSetGet <> Nil
+      IF ::columnBound = 1
+         Eval( ::bSetGet, ::value, Self )
+      ELSE
+         Eval( ::bSetGet, ::valuebound, Self )
+      ENDIF
+   ENDIF
+
+
+
+
+
+
+
+
+RETURN Nil
+
+UTILITY STATIC function HComboBox_SetValue( xItem) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL nPos
+
+   IF ::lText .AND. Valtype( xItem ) = "C"
+      nPos := AScan( ::aItems, xItem )
+      ComboSetString( ::handle, nPos )
+   ELSE
+      nPos := xItem
+   ENDIF
+   ::setItem( nPos )
+RETURN Nil
+
+UTILITY STATIC function HComboBox_GetValue() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL nPos := SendMessage( ::handle, 327, 0, 0 ) + 1
+
+
+   IF ::lText
+        IF ( ::lEdit .OR. Valtype( ::Value ) <> "C" ) .AND. nPos <= 1
+            ::Value := GetEditText( ::oParent:handle, ::id )
+            nPos := SendMessage( ::handle, 344, -1, ::value ) + 1
+         ELSEIF nPos > 0
+         ::value := ::aItems[ nPos ]
+      ENDIF
+
+      ::cDisplayValue := ::Value
+      ::value := Iif( nPos > 0, ::aItems[ nPos ], IIF( ::lEdit, "", ::value ) )
+   ELSE
+      ::value := nPos
+   ENDIF
+   ::ValueBound := IIF( nPos > 0, ::GetValueBound(), IIF( ::lText, "", 0 ) )
+   IF ::bSetGet <> Nil
+      IF ::columnBound = 1
+         Eval( ::bSetGet, ::value, Self )
+      ELSE
+         Eval( ::bSetGet, ::ValueBound, Self )
+      ENDIF
+   ENDIF
+  RETURN ::value
+
+UTILITY STATIC function HComboBox_GetValueBound( xItem) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+Local nPos := SendMessage( ::handle,327,0,0 ) + 1
+
+   IF xItem = Nil
+       IF ::lText
+           nPos := IIF( ::Value = Nil,0, AScan( ::aItems, ::Value ) )
+      ENDIF
+   ELSE
+      nPos := AScan( ::aItemsBound, xItem )
+      ::setItem( nPos )
+      RETURN IIF( nPos > 0, ::aItems[ nPos ], xItem )
+   ENDIF
+   ::ValueBound := IIF( ::lText, "", 0 )
+   IF nPos > 0 .AND. nPos <=  LEN( ::aItemsBound )
+      ::ValueBound := ::aItemsBound[ nPos ]
+   ENDIF
+   RETURN ::ValueBound
+
+UTILITY STATIC function HComboBox_DisplayValue(cValue) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   IF cValue <> Nil
+        IF ::lEdit .AND. VALTYPE( cValue ) = "C"
+         SetDlgItemText( ::oParent:handle, ::id, cValue )
+         ::cDisplayValue := cValue
+      ENDIF
+   ENDIF
+   RETURN IIF( IsWindow( ::oParent:handle ), GetEditText( ::oParent:handle, ::id ), ::cDisplayValue )
+
+
+UTILITY STATIC function HComboBox_DeleteItem( nIndex) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   IF SendMessage( ::handle, 324, nIndex - 1, 0 ) > 0
+      Adel( ::Aitems, nIndex )
+      Asize( ::Aitems, Len( ::aitems ) - 1 )
+      IF LEN( ::AitemsBound ) > 0
+         ADEL( ::AitemsBound, nIndex )
+         ASIZE( ::AitemsBound, Len( ::aitemsBound ) - 1 )
+      ENDIF
+      RETURN .T.
+   ENDIF
+RETURN .F.
+
+UTILITY STATIC function HComboBox_AddItem( cItem, cItemBound) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL nCount
+
+   IF LEN( ::Aitems ) = LEN( ::AitemsBound )
+      AADD( ::AitemsBound, cItemBound )
+   ENDIF
+   Aadd( ::Aitems, cItem )
+   nCount := SendMessage( ::handle, 326, 0, 0 ) + 1
+   ComboAddString( ::handle, cItem )
+RETURN nCount
+
+UTILITY STATIC function HComboBox_InteractiveChange() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL npos := SendMessage( ::handle, 320, 0, 0 )
+
+   ::SelStart                     := nPos
+   ::oparent:lSuspendMsgsHandling := .T.
+   Eval( ::bChangeInt, ::value, Self )
+   ::oparent:lSuspendMsgsHandling := .F.
+
+   SendMessage( ::handle, 322, 0, ::SelStart )
+RETURN Nil
+
+UTILITY STATIC function HComboBox_onSelect() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   IF ::bSelect <> Nil
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval( ::bSelect, ::value, Self )
+      ::oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+   RETURN .T.
+
+UTILITY STATIC function HComboBox_onChange() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL nPos := SendMessage( ::handle, 327, 0, 0 ) + 1
+
+   ::SetItem( nPos )
+   IF ::bChangeSel <> Nil
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval( ::bChangeSel, nPos, Self )
+      ::oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+RETURN Nil
+
+UTILITY STATIC function HComboBox_When() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL res := .T., oParent, nSkip
+
+   IF !CheckFocus( Self, .F. )
+      RETURN .T.
+   ENDIF
+
+   IF !::lText
+
+   ELSE
+
+
+   ENDIF
+   nSkip := Iif( GetKeyState( 0x26 ) < 0 .OR. ( GetKeyState( 0x09 ) < 0 .AND. GetKeyState( 0x10 ) < 0 ), - 1, 1 )
+   IF ::bGetFocus <> Nil
+      ::oParent:lSuspendMsgsHandling := .T.
+      ::lnoValid                     := .T.
+      IF ::bSetGet <> Nil
+         res := Eval( ::bGetFocus, Eval( ::bSetGet,, Self ), Self )
+      ELSE
+         res := Eval( ::bGetFocus, ::value, Self )
+      ENDIF
+      ::oParent:lSuspendMsgsHandling := .F.
+      ::lnoValid                     := !res
+      IF !res
+         oParent := ParentGetDialog( Self )
+         IF Self == ATail( oParent:GetList )
+            nSkip := - 1
+         ELSEIF Self == oParent:getList[ 1 ]
+            nSkip := 1
+         ENDIF
+         GetSkip( ::oParent, ::handle,, nSkip )
+      ENDIF
+   ENDIF
+RETURN res
+
+UTILITY STATIC function HComboBox_Valid() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+LOCAL oDlg, nPos, nSkip, res, hCtrl := getfocus()
+LOCAL ltab := GETKEYSTATE( 0x09 ) < 0
+
+   IF  ::lNoValid .OR. !CheckFocus( Self, .T. )
+      RETURN .T.
+   ENDIF
+
+   nSkip := Iif( GetKeyState( 0x10 ) < 0, - 1, 1 )
+
+   IF ( oDlg := ParentGetDialog( Self ) ) == Nil .OR. oDlg:nLastKey <> 0x1B
+
+
+
+      ::GetValue()
+      IF ::bLostFocus <> Nil
+         ::oparent:lSuspendMsgsHandling := .T.
+         res                                := Eval( ::bLostFocus, ::value, Self )
+         IF !res
+            SetFocus( ::handle )
+            IF oDlg <> Nil
+               oDlg:nLastKey := 0
+            ENDIF
+            ::oparent:lSuspendMsgsHandling := .F.
+            RETURN .F.
+         ENDIF
+
+      ENDIF
+      IF oDlg <> Nil
+         oDlg:nLastKey := 0
+      ENDIF
+      IF ltab .AND. GETFOCUS() = hCtrl
+         IF ::oParent:CLASSNAME = "HTAB"
+            ::oParent:SETFOCUS()
+            getskip( ::oparent, ::handle,, nSkip )
+         ENDIF
+      ENDIF
+      ::oparent:lSuspendMsgsHandling := .F.
+      IF empty( GETFOCUS() )
+         GetSkip( ::oParent, ::handle,, ::nGetSkip )
+      ENDIF
+   ENDIF
+RETURN .T.
+
+UTILITY STATIC function HComboBox_RowSource(xSource) ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+
+   IF xSource <> Nil
+      IF VALTYPE( xSource ) = "A"
+         IF LEN( xSource ) > 0
+           ::xrowsource := { xSource[ 1 ] ,IIF( LEN( xSource ) > 1, xSource[ 2 ], Nil ) }
+        ENDIF
+      ELSE
+         ::xrowsource := { xSource, Nil }
+      ENDIF
+      ::aItems := xSource
+   ENDIF
+   RETURN ::xRowSource
+
+UTILITY STATIC function HComboBox_Populate() ; local Self AS CLASS HComboBox := QSelf() AS CLASS HComboBox
+   Local cAlias, nRecno, value, cValueBound
+   Local i, numofchars, LongComboWidth := 0
+
+   IF EMPTY( ::aItems )
+      RETURN Nil
+   ENDIF
+   IF ::xrowsource[ 1 ] <> Nil .AND. "->" $ ::xrowsource[ 1 ]
+      cAlias := LEFT( ::xrowsource[ 1 ], AT("->", ::xrowsource[ 1 ]) - 1 )
+      value := STRTRAN( ::xrowsource[ 1 ] , calias + "->", , ,1, 1 )
+
+      cAlias := IIF( VALTYPE( ::xrowsource[ 1 ] ) = "U",  Nil, cAlias )
+      cValueBound := IIF( ::xrowsource[ 2 ]  <> Nil  .AND. cAlias <> Nil, STRTRAN( ::xrowsource[ 2 ] , calias + "->" ), Nil )
+   ELSE
+      cValueBound := IIF( VALTYPE( ::aItems[ 1 ] ) = "A" .AND. LEN(  ::aItems[ 1 ] ) > 1, ::aItems[ 1, 2 ], NIL )
+   ENDIF
+   ::columnBound := IIF( cValueBound = Nil, 1 ,2 )
+   IF ::value == Nil
+      IF ::lText
+         ::value := IIF( cAlias = Nil, ::aItems[ 1 ], ( cAlias )-> &value  )
+       ELSE
+         ::value := 1
+       ENDIF
+   ELSEIF ::lText .AND. !::lEdit .AND. EMPTY ( ::value )
+      ::value := IIF( cAlias = Nil, ::aItems[ 1 ], ( cAlias )-> &value  )
+   ENDIF
+   SendMessage( ::handle, 331, 0, 0)
+
+   IF cAlias <> Nil .AND. SELECT( cAlias ) > 0
+      ::aItems := {}
+      nRecno := ( cAlias ) ->( Recno() )
+      ( cAlias ) ->( DBGOTOP() )
+       i := 1
+       while !( cAlias ) ->( EOF() )
+         AADD( ::Aitems,( cAlias ) -> &value )
+         IF !EMPTY( cvaluebound )
+            AADD( ::AitemsBound,( cAlias ) -> &cvalueBound )
+         ENDIF
+         ComboAddString( ::handle, ::aItems[ i ] )
+         numofchars := SendMessage( ::handle, 329, i - 1, 0 )
+         IF  numofchars > LongComboWidth
+             LongComboWidth := numofchars
+         ENDIF
+         ( cAlias ) ->( DBSKIP() )
+         i ++
+       ENDDO
+       IF nRecno > 0
+          ( cAlias ) ->( DBGOTO( nRecno ) )
+       ENDIF
+    ELSE
+       FOR i := 1 TO Len( ::aItems )
+          IF ::columnBound > 1
+             IF VALTYPE( ::aItems[ i ] ) = "A" .AND. LEN(  ::aItems[ i ] ) > 1
+                AADD( ::AitemsBound, ::aItems[i, 2 ] )
+             ELSE
+                AADD( ::AitemsBound, Nil )
+             ENDIF
+             ::aItems[ i ] := ::aItems[ i, 1 ]
+             ComboAddString( ::handle, ::aItems[ i ] )
+          ELSE
+             ComboAddString( ::handle, ::aItems[ i ] )
+          ENDIF
+          numofchars := SendMessage(::handle,329, i - 1, 0 )
+          if  numofchars > LongComboWidth
+              LongComboWidth := numofchars
+          endif
+       NEXT
+    ENDIF
+    ::ValueBound := ::GetValueBound()
+   RETURN LongComboWidth
+
+
+
+
+_HB_CLASS HCheckComboBox ; UTILITY FUNCTION HCheckComboBox(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HCheckComboBox" , {HComboBox():classh} ) ) ; ;
+
+   _HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "COMBOBOX", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { m_bTextUpdated} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "m_bTextUpdated" }, .F., .F. ), )
+
+   _HB_MEMBER { m_bItemHeightSet} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "m_bItemHeightSet" }, .F., .F. ), )
+   _HB_MEMBER { m_hListBox} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "m_hListBox" }, .F., .F. ), )
+   _HB_MEMBER { aCheck} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aCheck" }, .F., .F. ), )
+   _HB_MEMBER { nWidthCheck} ; IIF( !.F., s_oClass:AddMultiData(, 0, nScope + IIF( .F., 32, 0 ), { "nWidthCheck" }, .F., .F. ), )
+   _HB_MEMBER { m_strText} ; IIF( !.F., s_oClass:AddMultiData(, "", nScope + IIF( .F., 32, 0 ), { "m_strText" }, .F., .F. ), )
+   _HB_MEMBER onGetText( w, l); IIF( .F., s_oClass:ModMethod( "onGetText", @HCheckComboBox_onGetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onGetText", @HCheckComboBox_onGetText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER OnGetTextLength( w, l); IIF( .F., s_oClass:ModMethod( "OnGetTextLength", @HCheckComboBox_OnGetTextLength(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "OnGetTextLength", @HCheckComboBox_OnGetTextLength(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight,  aItems, oFont, bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus,  tcolor, bcolor, bValid, acheck, nDisplay, nhItem, ncWidth); IIF( .F., s_oClass:ModMethod( "New", @HCheckComboBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HCheckComboBox_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWnd, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bDraw, bChange, ctooltip, bGFocus); IIF( .F., s_oClass:ModMethod( "Redefine", @HCheckComboBox_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HCheckComboBox_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER INIT( aCombo, nCurrent); IIF( .F., s_oClass:ModMethod( "INIT", @HCheckComboBox_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "INIT", @HCheckComboBox_INIT(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Requery(); IIF( .F., s_oClass:ModMethod( "Requery", @HCheckComboBox_Requery(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Requery", @HCheckComboBox_Requery(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HCheckComboBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HCheckComboBox_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Paint( lpDis); IIF( .F., s_oClass:ModMethod( "Paint", @HCheckComboBox_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Paint", @HCheckComboBox_Paint(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetCheck( nIndex, bFlag); IIF( .F., s_oClass:ModMethod( "SetCheck", @HCheckComboBox_SetCheck(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetCheck", @HCheckComboBox_SetCheck(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER RecalcText(); IIF( .F., s_oClass:ModMethod( "RecalcText", @HCheckComboBox_RecalcText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "RecalcText", @HCheckComboBox_RecalcText(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER GetCheck( nIndex); IIF( .F., s_oClass:ModMethod( "GetCheck", @HCheckComboBox_GetCheck(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetCheck", @HCheckComboBox_GetCheck(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER SelectAll( bCheck); IIF( .F., s_oClass:ModMethod( "SelectAll", @HCheckComboBox_SelectAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SelectAll", @HCheckComboBox_SelectAll(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER MeasureItem( l); IIF( .F., s_oClass:ModMethod( "MeasureItem", @HCheckComboBox_MeasureItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MeasureItem", @HCheckComboBox_MeasureItem(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HCheckComboBox_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HCheckComboBox_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetAllCheck(); IIF( .F., s_oClass:ModMethod( "GetAllCheck", @HCheckComboBox_GetAllCheck(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetAllCheck", @HCheckComboBox_GetAllCheck(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HCheckComboBox ;
+
+
+
+UTILITY STATIC function HCheckComboBox_New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont,  bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor,  bValid, acheck, nDisplay, nhItem, ncWidth) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+   ::acheck := Iif( acheck == Nil, {}, acheck )
+   IF Valtype( nStyle ) == "N"
+      nStyle := hwg_multibitor( nStyle, 3, 0x0020, 0x0200 )
+   ELSE
+      nStyle := hwg_multibitor( 3, 0x0020, 0x0200 )
+   ENDIF
+
+   bPaint := { | o, p | o:paint( p ) }
+
+
+   ::HComboBox:New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, aItems, oFont,  bInit, bSize, bPaint, bChange, ctooltip, lEdit, lText, bGFocus, tcolor, bcolor, bValid,, nDisplay, nhItem, ncWidth )
+
+RETURN Self
+
+
+UTILITY STATIC function HCheckComboBox_Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint,  bChange, ctooltip, bGFocus, acheck) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+
+   ::HComboBox:Redefine( oWndParent, nId, vari, bSetGet, aItems, oFont, bInit, bSize, bPaint,  bChange, ctooltip, bGFocus )
+   ::lResource := .T.
+   ::acheck    := acheck
+
+RETURN Self
+
+UTILITY STATIC function HCheckComboBox_onEvent( msg, wParam, lParam) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL nIndex
+LOCAL rcItem
+LOCAL rcClient
+LOCAL pt
+LOCAL nItemHeight
+LOCAL nTopIndex
+
+   IF msg == 516
+   ELSEIF msg == 0x0188
+      RETURN - 1
+   ELSEIF msg == 0x0188
+      RETURN - 1
+
+   ELSEIF msg == 0x002C
+      ::MeasureItem( lParam )
+      RETURN 0
+   ELSEIF msg == 13
+      RETURN ::OnGetText( wParam, lParam )
+
+   ELSEIF msg == 14
+
+      RETURN ::OnGetTextLength( wParam, lParam )
+
+   ELSEIF msg == 258
+      IF ( wParam == 0x20 )
+
+         nIndex := SendMessage( ::handle, 327, wParam, lParam ) + 1
+         rcItem := COMBOGETITEMRECT( ::handle, nIndex - 1 )
+         InvalidateRect( ::handle, .F., rcItem[ 1 ], rcItem[ 2 ], rcItem[ 3 ], rcItem[ 4 ] )
+         ::SetCheck( nIndex, !::GetCheck( nIndex ) )
+         SendMessage( ::oParent:handle, 273, MAKELONG( ::id, 1 ), ::handle )
+      ENDIF
+      IF ( ::GetParentForm( Self ) :Type < 10 .OR. !::GetParentForm( Self ) :lModal )
+         IF wParam = 0x09
+            GetSkip( ::oParent, ::handle,, Iif( IsCtrlShift( .F., .T. ), - 1, 1 ) )
+            RETURN 0
+         ELSEIF wParam == 0x0D
+            GetSkip( ::oParent, ::handle,, 1 )
+            RETURN 0
+         ENDIF
+      ENDIF
+      RETURN 0
+   ELSEIF msg = 256
+      ProcKeyList( Self, wParam )
+
+   ELSEIF msg == 513
+
+      rcClient := GetClientRect( ::handle )
+
+      pt := {, }
+      pt[ 1 ] = LOWORD( lParam )
+      pt[ 2 ] = HIWORD( lParam )
+
+      IF ( PtInRect( rcClient, pt ) )
+
+         nItemHeight := SendMessage( ::handle, 0x01A1, 0, 0 )
+         nTopIndex   := SendMessage( ::handle, 0x018E, 0, 0 )
+
+
+         nIndex := ( nTopIndex + pt[ 2 ] / nItemHeight ) + 1
+         rcItem := COMBOGETITEMRECT( ::handle, nIndex - 1 )
+
+
+         IF pt[ 1 ] < ::nWidthCheck
+
+            InvalidateRect( ::handle, .F., rcItem[ 1 ], rcItem[ 2 ], rcItem[ 3 ], rcItem[ 4 ] )
+            nIndex := SendMessage( ::handle, 327, wParam, lParam ) + 1
+            ::SetCheck( nIndex, !::GetCheck( nIndex ) )
+
+
+
+            SendMessage( ::oParent:handle, 273, MAKELONG( ::id, 1 ), ::handle )
+
+         ENDIF
+      ENDIF
+
+   ELSEIF msg == 514
+      RETURN - 1
+   ENDIF
+
+RETURN - 1
+
+UTILITY STATIC function HCheckComboBox_INIT() ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL i
+
+
+
+   IF !::lInit
+      ::HComboBox:Init()
+      IF Len( ::acheck ) > 0
+         FOR i := 1 TO Len( ::acheck )
+            ::Setcheck( ::acheck[ i ], .T. )
+         NEXT
+      ENDIF
+   ENDIF
+RETURN Nil
+
+UTILITY STATIC function HCheckComboBox_Requery() ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL i
+
+   ::HComboBox:Requery()
+   IF Len( ::acheck ) > 0
+      FOR i := 1 TO Len( ::acheck )
+         ::Setcheck( ::acheck[ i ], .T. )
+      NEXT
+   ENDIF
+
+RETURN Nil
+
+UTILITY STATIC function HCheckComboBox_Refresh() ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+
+   ::HComboBox:refresh()
+
+RETURN Nil
+
+UTILITY STATIC function HCheckComboBox_SetCheck( nIndex, bFlag) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL nResult := COMBOBOXSETITEMDATA( ::handle, nIndex - 1, bFlag )
+
+   IF ( nResult < 0 )
+      RETURN nResult
+   ENDIF
+
+   ::m_bTextUpdated := .F.
+
+
+   InvalidateRect( ::handle, 0 )
+
+RETURN nResult
+
+UTILITY STATIC function HCheckComboBox_GetCheck( nIndex) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL l := COMBOBOXGETITEMDATA( ::handle, nIndex - 1 )
+
+RETURN IF( l == 1, .T., .F. )
+
+UTILITY STATIC function HCheckComboBox_SelectAll( bCheck) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL nCount
+LOCAL i
+   IF bCheck == NIL ; bCheck := .T. ; END
+
+   nCount := SendMessage( ::handle, 326, 0, 0 )
+
+   FOR i := 1 TO nCount
+      ::SetCheck( i, bCheck )
+   NEXT
+RETURN nil
+
+UTILITY STATIC function HCheckComboBox_RecalcText() ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL strtext
+LOCAL ncount
+LOCAL strSeparator
+LOCAL i
+LOCAL stritem
+   IF ( !::m_bTextUpdated )
+
+
+      ncount := SendMessage( ::handle, 326, 0, 0 )
+
+
+
+      strSeparator := GetLocaleInfo()
+
+
+      IF Len( strSeparator ) == 0
+         strSeparator := ""
+      ENDIF
+
+      strSeparator := Rtrim( strSeparator )
+
+      strSeparator += " "
+
+      FOR i := 1 TO ncount
+
+         IF ( COMBOBOXGETITEMDATA( ::handle, i ) ) = 1
+
+            COMBOBOXGETLBTEXT( ::handle, i, @stritem )
+
+            IF !Empty( strtext )
+               strtext += strSeparator
+            ENDIF
+
+            strtext += stritem
+         ENDIF
+      NEXT
+
+
+      ::m_strText := strtext
+
+      ::m_bTextUpdated := .T.
+   ENDIF
+RETURN Self
+
+UTILITY STATIC function HCheckComboBox_Paint( lpDis) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL drawInfo := GetDrawItemInfo( lpDis )
+
+LOCAL dc := drawInfo[ 3 ]
+
+LOCAL rcBitmap := { drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] }
+LOCAL rcText   := { drawInfo[ 4 ], drawInfo[ 5 ], drawInfo[ 6 ], drawInfo[ 7 ] }
+LOCAL strtext  := ""
+LOCAL ncheck
+LOCAL metrics
+LOCAL nstate
+
+   IF ( drawInfo[ 1 ] < 0 )
+
+      ::RecalcText()
+
+      strtext := ::m_strText
+
+      ncheck := 0
+
+   ELSE
+      COMBOBOXGETLBTEXT( ::handle, drawInfo[ 1 ], @strtext )
+
+      ncheck := 1 + ( COMBOBOXGETITEMDATA( ::handle, drawInfo[ 1 ] ) )
+
+      metrics := GETTEXTMETRIC( dc )
+
+      rcBitmap[ 1 ] := 0
+      rcBitmap[ 3 ] := rcBitmap[ 1 ] + metrics[ 1 ] + metrics[ 4 ] + 6
+      rcBitmap[ 2 ] += 1
+      rcBitmap[ 4 ] -= 1
+
+      rcText[ 1 ]   := rcBitmap[ 3 ]
+      ::nWidthCheck := rcBitmap[ 3 ]
+   ENDIF
+
+   IF ( ncheck > 0 )
+      SetBkColor( dc, GetSysColor( 5 ) )
+      SetTextColor( dc, GetSysColor( 8 ) )
+
+      nstate := 0x0000
+
+      IF ( ncheck > 1 )
+         nstate := hwg_bitor( nstate, 0x0400 )
+      ENDIF
+
+
+      DrawFrameControl( dc, rcBitmap, 4, nstate )
+   ENDIF
+
+   IF ( hwg_Bitand( drawInfo[ 9 ], 0x0001 ) <> 0 )
+      SetBkColor( dc, GetSysColor( 13 ) )
+      SetTextColor( dc, GetSysColor( 14 ) )
+
+   ELSE
+      SetBkColor( dc, GetSysColor( 5 ) )
+      SetTextColor( dc, GetSysColor( 8 ) )
+   ENDIF
+
+
+   IF Empty( strtext )
+      strtext := ""
+   ENDIF
+
+   ExtTextOut( dc, 0, 0, rcText[ 1 ], rcText[ 2 ], rcText[ 3 ], rcText[ 4 ] )
+
+   DrawText( dc, " " + strtext, rcText[ 1 ], rcText[ 2 ], rcText[ 3 ], rcText[ 4 ], 32 + 4 + 32768 )
+
+   IF ( ( hwg_Bitand( drawInfo[ 9 ], 0x0010 + 0x0001 ) ) == ( 0x0010 + 0x0001 ) )
+      DrawFocusRect( dc, rcText )
+   ENDIF
+
+RETURN Self
+
+UTILITY STATIC function HCheckComboBox_MeasureItem( l) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL dc                  := HCLIENTDC():new( ::handle )
+LOCAL lpMeasureItemStruct := GETMEASUREITEMINFO( l )
+LOCAL metrics
+LOCAL pFont
+
+
+
+   pFont := dc:SelectObject( Iif( Valtype( ::oFont ) == "O", ::oFont:handle,  Iif( Valtype( ::oParent:oFont ) == "O", ::oParent:oFont:handle, ) ) )
+
+   IF !Empty( pFont )
+
+      metrics := dc:GetTextMetric()
+
+      lpMeasureItemStruct[ 5 ] := metrics[ 1 ] + metrics[ 4 ]
+
+      lpMeasureItemStruct[ 5 ] += 2
+
+      IF ( !::m_bItemHeightSet )
+         ::m_bItemHeightSet := .T.
+         SendMessage( ::handle, 0x0153, - 1, MAKELONG( lpMeasureItemStruct[ 5 ], 0 ) )
+      ENDIF
+
+      dc:SelectObject( pFont )
+      dc:END()
+   ENDIF
+RETURN Self
+
+UTILITY STATIC function HCheckComboBox_onGetText( wParam, lParam) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+   ::RecalcText()
+
+   IF ( lParam == 0 )
+      RETURN 0
+   ENDIF
+
+
+   copydata( lParam, ::m_strText, wParam )
+
+RETURN Iif( Empty( ::m_strText ), 0, Len( ::m_strText ) )
+
+UTILITY STATIC function HCheckComboBox_OnGetTextLength( WPARAM, LPARAM) ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+   ( (WPARAM) := (WPARAM) )
+   ( (LPARAM) := (LPARAM) )
+
+   ::RecalcText()
+
+RETURN Iif( Empty( ::m_strText ), 0, Len( ::m_strText ) )
+
+UTILITY STATIC function HCheckComboBox_GetAllCheck() ; local Self AS CLASS HCheckComboBox := QSelf() AS CLASS HCheckComboBox
+
+LOCAL aCheck := { }
+LOCAL n
+   FOR n := 1 TO Len( ::aItems )
+      Aadd( aCheck, ::GetCheck( n ) )
+   NEXT
+RETURN aCheck
+
+FUNCTION hwg_multibitor( ... )
+
+LOCAL aArgumentList := HB_AParams()
+LOCAL nItem
+LOCAL result        := 0
+
+   FOR EACH nItem IN aArgumentList
+      IF Valtype( nItem ) <> "N"
+         msginfo( "hwg_multibitor parameter not numeric set to zero", "Possible error" )
+         nItem := 0
+      ENDIF
+      result := hwg_bitor( result, nItem )
+   NEXT
+
+RETURN result

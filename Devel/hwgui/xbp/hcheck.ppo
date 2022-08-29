@@ -1,0 +1,319 @@
+#line 112 "d:\devel\xharbour_bcc73\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 16 "source\hcheck.prg"
+_HB_CLASS HCheckButton ; UTILITY FUNCTION HCheckButton(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "HCheckButton" , {HControl():classh} ) ) ; ;
+
+_HB_MEMBER { winclass} ; IIF( !.F., s_oClass:AddMultiClsData(, "BUTTON", nScope + IIF( .F., 32, 0 ) + IIF( .F., 64, 0 ), { "winclass" }, .F. ), )
+   _HB_MEMBER { bSetGet} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bSetGet" }, .F., .F. ), )
+   _HB_MEMBER { lValue} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lValue" }, .F., .F. ), )
+   _HB_MEMBER { lEnter} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "lEnter" }, .F., .F. ), )
+   _HB_MEMBER { lFocu} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lFocu" }, .F., .F. ), )
+   _HB_MEMBER { bClick} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "bClick" }, .F., .F. ), )
+   _HB_MEMBER { lNAOTraduz} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lNAOTraduz" }, .F., .F. ), )
+
+
+   _HB_MEMBER New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont,  bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter, lTransp, bLFocus, lNAOTraduz); IIF( .F., s_oClass:ModMethod( "New", @HCheckButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @HCheckButton_New(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Activate(); IIF( .F., s_oClass:ModMethod( "Activate", @HCheckButton_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Activate", @HCheckButton_Activate(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter); IIF( .F., s_oClass:ModMethod( "Redefine", @HCheckButton_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Redefine", @HCheckButton_Redefine(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Init(); IIF( .F., s_oClass:ModMethod( "Init", @HCheckButton_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Init", @HCheckButton_Init(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onEvent( msg, wParam, lParam); IIF( .F., s_oClass:ModMethod( "onEvent", @HCheckButton_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onEvent", @HCheckButton_onEvent(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Refresh(); IIF( .F., s_oClass:ModMethod( "Refresh", @HCheckButton_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Refresh", @HCheckButton_Refresh(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+
+   _HB_MEMBER SetValue( lValue); IIF( .F., s_oClass:ModMethod( "SetValue", @HCheckButton_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetValue", @HCheckButton_SetValue(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetValue(); IIF( .F., s_oClass:ModInline( "GetValue", {|Self | Self, ( SendMessage( ::handle, 0x00F0, 0, 0 ) == 1 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetValue", {|Self | Self, ( SendMessage( ::handle, 0x00F0, 0, 0 ) == 1 ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER onGotFocus(); IIF( .F., s_oClass:ModMethod( "onGotFocus", @HCheckButton_onGotFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onGotFocus", @HCheckButton_onGotFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER onClick(); IIF( .F., s_oClass:ModMethod( "onClick", @HCheckButton_onClick(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "onClick", @HCheckButton_onClick(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER KillFocus(); IIF( .F., s_oClass:ModMethod( "KillFocus", @HCheckButton_KillFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "KillFocus", @HCheckButton_KillFocus(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Valid(); IIF( .F., s_oClass:ModMethod( "Valid", @HCheckButton_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Valid", @HCheckButton_Valid(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER When(); IIF( .F., s_oClass:ModMethod( "When", @HCheckButton_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "When", @HCheckButton_When(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER Value(lValue); _HB_MEMBER _Value(lValue); IIF( .F., s_oClass:ModMethod( "Value", @HCheckButton_Value(), 1 + 32, .F. ), s_oClass:AddMethod( "Value", @HCheckButton_Value(), 1 + 32, .F. ) ) ; IIF( .F., s_oClass:ModMethod( "_Value", @HCheckButton_Value() ), s_oClass:AddMethod( "_Value", @HCheckButton_Value() ) ) ;
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS HCheckButton ;
+
+
+UTILITY STATIC function HCheckButton_New( oWndParent, nId, vari, bSetGet, nStyle, nLeft, nTop, nWidth, nHeight, cCaption, oFont,  bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter, lTransp, bLFocus, lNAOTraduz) ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+
+   ::lNAOTraduz     := IIf( lNAOTraduz  == Nil, .F., lNAOTraduz  )
+
+
+   If ::lNAOTraduz
+      ::title   := cCaption
+      ctooltip  := ctooltip
+   Else
+      ::title   := HWG_TRANSLATOR( cCaption, "CHECKBOX" )
+      ctooltip  := HWG_TRANSLATOR( ctooltip, "CHECKBOX / TOOLTIP" )
+   Endif
+
+   nStyle   := Hwg_BitOr( IIf( nStyle == Nil, 0, nStyle ), 0x00004000 + 0 + 3 + 65536 )
+
+   ::HControl:New( oWndParent, nId, nStyle, nLeft, nTop, nWidth, nHeight, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+
+
+   ::lValue   := IIf( vari == Nil .OR. ValType( vari ) <> "L", .F., vari )
+   ::bSetGet := bSetGet
+   ::backStyle :=  IIF( lTransp <> NIL .AND. lTransp, 1, 2 )
+
+   ::Activate()
+
+   ::lEnter     := IIf( lEnter == Nil .OR. ValType( lEnter ) <> "L", .F., lEnter )
+   ::bClick     := bClick
+   ::bLostFocus := bLFocus
+   ::bGetFocus  := bGFocus
+
+   IF bGFocus <> Nil
+
+      ::oParent:AddEvent( 6, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+      ::lnoValid := .T.
+   ENDIF
+
+   ::oParent:AddEvent( 0, Self, { | o, id | ::Valid( o:FindControl( id ) ) },, "onClick" )
+   ::oParent:AddEvent( 7, Self, { || ::KILLFOCUS() } )
+
+   RETURN Self
+
+UTILITY STATIC function HCheckButton_Activate() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   IF ! Empty( ::oParent:handle )
+
+      ::handle := CreateButton( ::oParent:handle, ::id,  ::style, ::nLeft, ::nTop, ::nWidth, ::nHeight, ::title )
+      ::Init()
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HCheckButton_Redefine( oWndParent, nId, vari, bSetGet, oFont, bInit, bSize, bPaint, bClick, ctooltip, tcolor, bcolor, bGFocus, lEnter) ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+
+
+
+   ::HControl:New( oWndParent, nId, 0, 0, 0, 0, 0, oFont, bInit,  bSize, bPaint, ctooltip, tcolor, bcolor )
+
+   ::lValue   := IIf( vari == Nil .OR. ValType( vari ) <> "L", .F., vari )
+   ::bSetGet := bSetGet
+   ::lEnter     := IIf( lEnter == Nil .OR. ValType( vari ) <> "L", .F., lEnter )
+   ::bClick     := bClick
+   ::bLostFocus := bClick
+   ::bGetFocus  := bGFocus
+   IF bGFocus <> Nil
+      ::oParent:AddEvent( 6, self, { | o, id | ::When( o:FindControl( id ) ) },, "onGotFocus" )
+   ENDIF
+   ::oParent:AddEvent( 0, self, { | o, id | ::Valid( o:FindControl( id ) ) },, "onClick" )
+   ::oParent:AddEvent( 7, Self, { || ::KILLFOCUS() } )
+
+   RETURN Self
+
+UTILITY STATIC function HCheckButton_Init() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   IF ! ::lInit
+      ::nHolder := 1
+      SetWindowObject( ::handle, Self )
+      HWG_INITBUTTONPROC( ::handle )
+
+
+
+
+
+
+
+      ::HControl:Init()
+      IF ::lValue
+         SendMessage( ::handle, 0x00F1, 1, 0 )
+      ENDIF
+
+
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HCheckButton_onEvent( msg, wParam, lParam) ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   LOCAL oCtrl
+
+   IF ::bOther <> Nil
+      IF Eval( ::bOther,Self,msg,wParam,lParam ) <> -1
+         RETURN 0
+      ENDIF
+   ENDIF
+   IF msg = 256
+
+      IF  wParam = 0x09
+         GetSkip( ::oparent, ::handle, , iif( IsCtrlShift(.F., .T.), -1, 1 )  )
+         RETURN 0
+      ELSEIF wParam = 0x25 .OR. wParam = 0x26
+         GetSkip( ::oparent, ::handle, , -1 )
+         RETURN 0
+      ELSEIF wParam = 0x27 .OR. wParam = 0x28
+         GetSkip( ::oparent, ::handle, , 1 )
+         RETURN 0
+      ELSEIF  ( wParam == 0x0D )
+         IF  ::lEnter
+            ::SetValue( ! ::GetValue() )
+            ::VALID()
+            RETURN 0
+         ELSE
+            GetSkip( ::oparent, ::handle, , 1 )
+            RETURN 0
+         ENDIF
+      ENDIF
+   ELSEIF msg == 257
+      ProcKeyList( Self, wParam )
+
+     ELSEIF  msg = 135 .AND. !EMPTY( lParam )
+      IF wParam = 0x0D .OR. wParam = 0x09
+            RETURN -1
+
+      ELSEIF wParam = 0x1B  .AND.  ( oCtrl := ::GetParentForm:FindControl( 2 ) ) <> Nil .AND. ! oCtrl:IsEnabled()
+         RETURN 0x0004
+      ELSEIF GETDLGMESSAGE( lParam ) = 256 .AND. wParam <> 0x1B
+
+      ELSEIF GETDLGMESSAGE( lParam ) = 258 .OR.wParam = 0x1B .OR. GETDLGMESSAGE( lParam ) = 262
+         RETURN -1
+      ENDIF
+      RETURN 0x0004
+   ENDIF
+   RETURN -1
+
+UTILITY STATIC function HCheckButton_SetValue( lValue) ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+
+   SendMessage( ::handle, 0x00F1, IIF( EMPTY( lValue) , 0, 1 ), 0 )
+   ::lValue := IIF( lValue = Nil .OR. Valtype( lValue ) <> "L", .F., lValue )
+   IF ::bSetGet <> Nil
+       Eval( ::bSetGet, lValue, Self )
+   ENDIF
+   ::Refresh()
+
+   RETURN Nil
+
+UTILITY STATIC function HCheckButton_Value(lValue) ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+
+   IF lValue <> Nil
+       ::SetValue( lValue )
+   ENDIF
+     RETURN SendMessage( ::handle,0x00F0, 0, 0 ) == 1
+
+UTILITY STATIC function HCheckButton_Refresh() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   LOCAL var
+
+   IF ::bSetGet <> Nil
+      var :=  Eval( ::bSetGet,, Self )
+      IF var = Nil .OR. Valtype( var ) <> "L"
+        var := SendMessage( ::handle, 0x00F0, 0, 0 ) == 1
+      ENDIF
+      ::lValue := Iif( var==Nil .OR. Valtype(var) <> "L", .F., var )
+   ENDIF
+   SendMessage( ::handle, 0x00F1, IIf( ::lValue, 1, 0 ), 0 )
+   RETURN Nil
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UTILITY STATIC function HCheckButton_onGotFocus() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   RETURN ::When( )
+
+UTILITY STATIC function HCheckButton_onClick() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   RETURN ::Valid( )
+
+UTILITY STATIC function HCheckButton_KillFocus() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   LOCAL ndown := Getkeystate( 0x27 ) + Getkeystate( 0x28 ) + GetKeyState( 0x09 )
+   LOCAL nSkip := 0
+
+   IF ! CheckFocus( Self, .T. )
+      RETURN .T.
+   ENDIF
+
+   IF ::oParent:classname = "HTAB"
+
+      IF getkeystate( 0x25 ) + getkeystate( 0x26 ) < 0 .OR.  ( GetKeyState( 0x09 ) < 0 .AND. GetKeyState( 0x10 ) < 0 )
+         nSkip := - 1
+      ELSEIF ndown < 0
+         nSkip := 1
+      ENDIF
+      IF nSkip <> 0
+         GetSkip( ::oparent, ::handle, , nSkip )
+      ENDIF
+   ENDIF
+   IF getkeystate( 0x0D ) < 0 .AND. ::lEnter
+      ::SetValue( ! ::GetValue() )
+      ::VALID( )
+   ENDIF
+   IF ::bLostFocus <> Nil
+      ::oparent:lSuspendMsgsHandling := .T.
+      Eval( ::bLostFocus, Self, ::lValue )
+      ::oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+   RETURN Nil
+
+UTILITY STATIC function HCheckButton_When() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   LOCAL res := .T., nSkip
+
+   IF ! CheckFocus( Self, .F. )
+      RETURN .T.
+   ENDIF
+   nSkip := IIf( GetKeyState( 0x26 ) < 0 .OR. ( GetKeyState( 0x09 ) < 0 .AND. GetKeyState( 0x10 ) < 0 ), - 1, 1 )
+   IF ::bGetFocus <> Nil
+      ::lnoValid := .T.
+      ::oParent:lSuspendMsgsHandling := .T.
+           IF ::bSetGet <> Nil
+          res := Eval( ::bGetFocus, Eval( ::bSetGet, , Self ), Self )
+      ELSE
+          res := Eval( ::bGetFocus,::lValue, Self )
+      ENDIF
+      ::lnoValid := ! res
+      IF ! res
+         WhenSetFocus( Self, nSkip )
+      ENDIF
+   ENDIF
+   ::oParent:lSuspendMsgsHandling := .F.
+   RETURN res
+
+UTILITY STATIC function HCheckButton_Valid() ; local Self AS CLASS HCheckButton := QSelf() AS CLASS HCheckButton
+   LOCAL l := SendMessage( ::handle, 0x00F0, 0, 0 )
+
+   IF ! CheckFocus( Self, .T. )  .OR. ::lnoValid
+      RETURN .T.
+   ENDIF
+   IF l == 0x0002
+      CheckDlgButton( ::oParent:handle, ::id, .F. )
+      SendMessage( ::handle, 0x00F1, 0, 0 )
+      ::lValue := .F.
+   ELSE
+      ::lValue := ( l == 1 )
+   ENDIF
+   IF ::bSetGet <> Nil
+      Eval( ::bSetGet, ::lValue, Self )
+   ENDIF
+   IF ::bClick <> Nil
+      ::oparent:lSuspendMsgsHandling := .T.
+       Eval( ::bClick, Self, ::lValue )
+       ::oparent:lSuspendMsgsHandling := .F.
+   ENDIF
+   IF EMPTY( GetFocus() )
+      GetSkip( ::oParent, ::handle,, ::nGetSkip )
+   ENDIF
+
+   RETURN .T.

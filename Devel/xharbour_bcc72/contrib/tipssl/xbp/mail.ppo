@@ -1,0 +1,677 @@
+#line 112 "d:\devel\xharbour_bcc7\include\hbclass.ch"
+   DYNAMIC DivertConstructorCall
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DECLARE HBClass  New( cName AS String, OPTIONAL SuperParams ) AS CLASS HBClass  Create() AS Object  Instance() AS Object  AddClsMethod( cName AS String, @MethodName(), nScope AS Numeric, n2 AS Numeric, n3 AS Numeric )  AddDelegate( cName AS String, cDelegate AS String, cObject AS String, nScope AS Numeric, lPersistent AS LOGICAL )  AddMultiClsData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String )  AddMultiData( cType AS String, uVal, nScope AS Numeric, aDatas AS Array OF String, x AS LOGICAL, lPer AS LOGICAL )  AddMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  AddInLine( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  AddVirtual( cName AS String )  ModMethod( cName AS String, @MethodName(), nScope AS Numeric, lPersistent AS LOGICAL )  ModClsMethod( cName AS String, @MethodName(), nScope AS Numeric )  ModInline( cName AS String, bBlock AS CodeBlock, nScope AS Numeric, lPersistent AS LOGICAL )  SetOnError( @MethodName() )
+#line 65 "mail.prg"
+_HB_CLASS TipMail ; UTILITY FUNCTION TipMail(...); static s_oClass ; local oClassInstance ; local nScope ; nScope := 1 ; ( nScope ) ; if s_oClass == NIL ; s_oClass := IIF(.F.,, HBClass():New( "TipMail" , { HBObject():Classh } ) ) ;
+
+   _HB_MEMBER { hHeaders} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "hHeaders" }, .F., .F. ), )
+   _HB_MEMBER { aReceived} ; IIF( !.F., s_oClass:AddMultiData(, {}, nScope + IIF( .F., 32, 0 ), { "aReceived" }, .F., .F. ), )
+
+   _HB_MEMBER New( cBody, oEncoder) AS CLASS TipMail; IIF( .F., s_oClass:ModMethod( "New", @TipMail_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "New", @TipMail_New(), nScope + IIF( .T., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetBody( cBody); IIF( .F., s_oClass:ModMethod( "SetBody", @TipMail_SetBody(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetBody", @TipMail_SetBody(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetBody(); IIF( .F., s_oClass:ModMethod( "GetBody", @TipMail_GetBody(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetBody", @TipMail_GetBody(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetRawBody(); IIF( .F., s_oClass:ModInline( "GetRawBody", {|Self | Self, ::cBody }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetRawBody", {|Self | Self, ::cBody }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER SetEncoder( cEncoder); IIF( .F., s_oClass:ModMethod( "SetEncoder", @TipMail_SetEncoder(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetEncoder", @TipMail_SetEncoder(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER FromString( cMail, cBoundary, nPos, bBlock); IIF( .F., s_oClass:ModMethod( "FromString", @TipMail_FromString(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "FromString", @TipMail_FromString(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ToString(); IIF( .F., s_oClass:ModMethod( "ToString", @TipMail_ToString(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "ToString", @TipMail_ToString(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER GetFieldPart( cField); IIF( .F., s_oClass:ModMethod( "GetFieldPart", @TipMail_GetFieldPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetFieldPart", @TipMail_GetFieldPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER GetFieldOption( cField, cOption); IIF( .F., s_oClass:ModMethod( "GetFieldOption", @TipMail_GetFieldOption(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetFieldOption", @TipMail_GetFieldOption(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFieldPart( cField, cValue); IIF( .F., s_oClass:ModMethod( "SetFieldPart", @TipMail_SetFieldPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFieldPart", @TipMail_SetFieldPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER SetFieldOption( cField, cOption, cValue); IIF( .F., s_oClass:ModMethod( "SetFieldOption", @TipMail_SetFieldOption(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "SetFieldOption", @TipMail_SetFieldOption(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER GetContentType(); IIF( .F., s_oClass:ModInline( "GetContentType", {|Self | Self, ::GetFieldPart( "Content-Type" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetContentType", {|Self | Self, ::GetFieldPart( "Content-Type" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER GetCharEncoding(); IIF( .F., s_oClass:ModInline( "GetCharEncoding", {|Self | Self, ::GetFieldOption( "Content-Type", "encoding" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "GetCharEncoding", {|Self | Self, ::GetFieldOption( "Content-Type", "encoding" ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER Attach( oSubPart); IIF( .F., s_oClass:ModMethod( "Attach", @TipMail_Attach(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "Attach", @TipMail_Attach(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER NextAttachment(); IIF( .F., s_oClass:ModMethod( "NextAttachment", @TipMail_NextAttachment(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "NextAttachment", @TipMail_NextAttachment(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER CountAttachments(); IIF( .F., s_oClass:ModInline( "CountAttachments", {|Self | Self, Len( ::aAttachments ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "CountAttachments", {|Self | Self, Len( ::aAttachments ) }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+   _HB_MEMBER GetAttachment(); IIF( .F., s_oClass:ModMethod( "GetAttachment", @TipMail_GetAttachment(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "GetAttachment", @TipMail_GetAttachment(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER ResetAttachment(); IIF( .F., s_oClass:ModInline( "ResetAttachment", {|Self | Self, ::nAttachPos := 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddInline( "ResetAttachment", {|Self | Self, ::nAttachPos := 1 }, nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ) )
+
+   _HB_MEMBER MakeBoundary(); IIF( .F., s_oClass:ModMethod( "MakeBoundary", @TipMail_MakeBoundary(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "MakeBoundary", @TipMail_MakeBoundary(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER isMultiPart(); IIF( .F., s_oClass:ModMethod( "isMultiPart", @TipMail_isMultiPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "isMultiPart", @TipMail_isMultiPart(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER getMultiParts(); IIF( .F., s_oClass:ModMethod( "getMultiParts", @TipMail_getMultiParts(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "getMultiParts", @TipMail_getMultiParts(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+
+   _HB_MEMBER setHeader( cSubject, cFrom, cTo, cCC, cBCC); IIF( .F., s_oClass:ModMethod( "setHeader", @TipMail_setHeader(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "setHeader", @TipMail_setHeader(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER attachFile( cFileName); IIF( .F., s_oClass:ModMethod( "attachFile", @TipMail_attachFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "attachFile", @TipMail_attachFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER detachFile( cPath); IIF( .F., s_oClass:ModMethod( "detachFile", @TipMail_detachFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "detachFile", @TipMail_detachFile(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+   _HB_MEMBER getFileName(); IIF( .F., s_oClass:ModMethod( "getFileName", @TipMail_getFileName(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ), s_oClass:AddMethod( "getFileName", @TipMail_getFileName(), nScope + IIF( .F., 16, 0 ) + IIF( .F., 1024, 0 ), .F. ));
+nScope := 8 ; ( nScope )
+   _HB_MEMBER { cBody} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "cBody" }, .F., .F. ), )
+   _HB_MEMBER { lBodyEncoded} ; IIF( !.F., s_oClass:AddMultiData(, .F., nScope + IIF( .F., 32, 0 ), { "lBodyEncoded" }, .F., .F. ), )
+   _HB_MEMBER { oEncoder} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "oEncoder" }, .F., .F. ), )
+   _HB_MEMBER { aAttachments} ; IIF( !.F., s_oClass:AddMultiData(,, nScope + IIF( .F., 32, 0 ), { "aAttachments" }, .F., .F. ), )
+   _HB_MEMBER { nAttachPos} ; IIF( !.F., s_oClass:AddMultiData(, 1, nScope + IIF( .F., 32, 0 ), { "nAttachPos" }, .F., .F. ), )
+
+; IF .F. ; __clsActive(s_oClass:hClass) ; s_oClass:Refresh() ; ELSE ; s_oClass:Create() ; END ; oClassInstance := __clsInst( s_oClass:hClass ) ; IF __ObjHasMsg( oClassInstance, "InitClass" ); oClassInstance:InitClass( hb_aParams() ) ; END ; ELSE ; oClassInstance := __clsInst( s_oClass:hClass ) ; END ; IF PCount() > 0 ; DIVERT TO (@DivertConstructorCall()) OF s_oClass ; END ; RETURN oClassInstance AS CLASS TipMail ;
+
+UTILITY STATIC function TipMail_New( cBody, oEncoder) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+
+   ::hHeaders := HSetCaseMatch( {=>}, .F. )
+   ::aAttachments := {}
+
+   IF HB_ISSTRING( oEncoder ) .OR. HB_ISOBJECT( oEncoder )
+      ::setEncoder( oEncoder )
+   ENDIF
+
+   IF cBody <> NIL
+      IF ::oEncoder <> NIL
+         ::cBody := ::oEncoder:Encode( cBody )
+         ::hHeaders[ "Content-Transfer-Encoding" ] := ::oEncoder:cName
+      ELSE
+         ::cBody := cBody
+      ENDIF
+      ::hHeaders[ "Content-Length" ] := Ltrim( Str( Len( ::cBody ) ) )
+   ENDIF
+
+RETURN Self
+
+UTILITY STATIC function TipMail_SetEncoder( cEnc) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   if HB_IsString( cEnc )
+      ::oEncoder := TIp_GetEncoder( cEnc )
+   ELSE
+      ::oEncoder := cEnc
+   ENDIF
+   ::hHeaders[ "Content-transfer-encoding" ] := ::oEncoder:cName
+RETURN .T.
+
+UTILITY STATIC function TipMail_SetBody( cBody) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   IF ::oEncoder <> NIL
+      ::cBody := ::oEncoder:Encode( cBody )
+      ::lBodyEncoded:=.T.
+   ELSE
+      ::cBody := cBody
+   ENDIF
+
+RETURN .T.
+
+UTILITY STATIC function TipMail_GetBody() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   IF ::cBody == NIL
+      RETURN NIL
+   ELSEIF ::oEncoder <> NIL
+      RETURN ::oEncoder:Decode( ::cBody )
+   ENDIF
+RETURN ::cBody
+
+UTILITY STATIC function TipMail_GetFieldPart( cPart) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL nPos, cEnc
+
+   nPos := HGetPos( ::hHeaders, cPart )
+   IF nPos == 0
+      RETURN ""
+   ELSE
+      cEnc := HGetValueAt( ::hHeaders, nPos )
+      nPos := At( ";", cEnc )
+      IF nPos <> 0
+         cEnc := Substr( cEnc, 1, nPos - 1)
+      ENDIF
+   ENDIF
+
+RETURN cEnc
+
+UTILITY STATIC function TipMail_GetFieldOption( cPart, cOption) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL nPos, aMatch
+   LOCAL cEnc
+
+   nPos := HGetPos( ::hHeaders, cPart )
+   IF nPos == 0
+      RETURN ""
+   ELSE
+      cEnc := HGetValueAt( ::hHeaders, nPos )
+
+      aMatch := HB_Regex( ";\s*" + cOption +"\s*=\s*([^;]*)", cEnc, .F. )
+      IF aMatch <> NIL
+         cEnc := aMatch[2]
+      ELSE
+         RETURN ""
+      ENDIF
+   ENDIF
+RETURN cEnc
+
+UTILITY STATIC function TipMail_SetFieldPart( cPart, cValue) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL nPos, cEnc
+
+   nPos := HGetPos( ::hHeaders, cPart )
+   IF nPos == 0
+      ::hHeaders[ cPart ] := cValue
+   ELSE
+      cEnc := HGetValueAt( ::hHeaders, nPos )
+      nPos := At( ";", cEnc )
+      IF nPos == 0
+         ::hHeaders[ cPart ] := cValue
+      ELSE
+         ::hHeaders[ cPart ] := cValue + Substr( cEnc, nPos )
+      ENDIF
+   ENDIF
+
+RETURN .T.
+
+UTILITY STATIC function TipMail_SetFieldOption( cPart, cOption, cValue) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL nPos, aMatch
+   LOCAL cEnc
+
+   nPos := HGetPos( ::hHeaders, cPart )
+   IF nPos == 0
+      Return .F.
+   ELSE
+      cEnc := HGetValueAt( ::hHeaders, nPos )
+      aMatch := HB_Regex( "(.*?;\s*)" + cOption +"\s*=[^;]*(.*)?", cEnc, .F. )
+      IF Empty( aMatch )
+         ::hHeaders[ cPart ] := cEnc += "; "+ cOption + '="' + cValue + '"'
+      ELSE
+
+         ::hHeaders[ cPart ] := aMatch[2] + cOption + '="' + cValue + '"' + aMatch[3]
+      ENDIF
+   ENDIF
+
+RETURN .T.
+
+
+UTILITY STATIC function TipMail_Attach( oSubPart) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   IF HB_IsObject( oSubPart ) .AND. oSubPart:ClassName == "TIPMAIL"
+
+      IF At( "multipart/", Lower( ::GetFieldPart("Content-Type")) ) == 0
+         ::hHeaders[ "Content-Type" ] := "multipart/mixed"
+      ENDIF
+
+      AAdd( ::aAttachments, oSubPart )
+      RETURN .T.
+   ELSE
+      Alert( "TipMail:Attach() must be called with another TipMail object" )
+   ENDIF
+
+RETURN .F.
+
+
+UTILITY STATIC function TipMail_NextAttachment() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   IF ::nAttachPos > Len( ::aAttachments )
+      RETURN NIL
+   ELSE
+      ::nAttachPos ++
+   ENDIF
+
+RETURN ::aAttachments[ ::nAttachPos - 1 ]
+
+
+UTILITY STATIC function TipMail_GetAttachment() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   IF ::nAttachPos > Len( ::aAttachments )
+      RETURN NIL
+   ENDIF
+
+RETURN ::aAttachments[ ::nAttachPos ]
+
+UTILITY STATIC function TipMail_ToString() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL cBoundary, cElem, i
+   LOCAL cRet := ""
+
+    IF Len( ::aAttachments ) > 0
+      ::hHeaders[ "Mime-Version" ] :="1.0"
+    endif
+
+   IF Len( ::aAttachments ) > 0
+
+      IF At( "multipart/", Lower( ::GetFieldPart("Content-Type")) ) == 0
+         ::hHeaders[ "Content-Type" ] := "multipart/mixed"
+      ENDIF
+
+
+      cBoundary := ::GetFieldOption( "Content-Type", "Boundary" )
+      IF Empty( cBoundary )
+         cBoundary := ::MakeBoundary()
+         IF ! ::SetFieldOption( "Content-Type", "Boundary", cBoundary )
+
+            ::hHeaders[ "Content-Type" ] :=  'multipart/mixed; boundary="' + cBoundary + '"'
+         ENDIF
+      ENDIF
+   ENDIF
+
+
+
+   IF "Return-Path" IN ::hHeaders
+      cRet += "Return-Path: "+::hHeaders[ "Return-Path" ] + e"\r\n"
+   ENDIF
+   IF "Delivered-To" IN ::hHeaders
+      cRet += "Delivered-To: "+::hHeaders[ "Delivered-To" ] + e"\r\n"
+   ENDIF
+   FOR EACH cElem IN ::aReceived
+      cRet += "Received: "+ cElem+ e"\r\n"
+   NEXT
+   IF "Date" IN ::hHeaders
+      cRet += "Date: "+::hHeaders[ "Date" ] + e"\r\n"
+   ENDIF
+   IF "From" IN ::hHeaders
+      cRet += "From: "+::hHeaders[ "From" ] + e"\r\n"
+   ENDIF
+   IF "To" IN ::hHeaders
+      cRet += "To: "+::hHeaders[ "To" ] + e"\r\n"
+   ENDIF
+   IF "Subject" IN ::hHeaders
+      cRet += "Subject: "+ ::hHeaders[ "Subject" ] + e"\r\n"
+   ENDIF
+   IF Len( ::aAttachments ) > 0
+      cRet += "Mime-Version:" + ::hHeaders[ "Mime-Version" ] + e"\r\n"
+   ENDIF
+
+   FOR i := 1 TO Len( ::hHeaders )
+      cElem := Lower(HGetKeyAt( ::hHeaders, i ))
+
+
+
+
+
+
+      IF !( cElem == "return-path" ) .AND. !( cElem == "delivered-to" ) .AND. !( cElem == "date" ) .AND. !( cElem == "from" ) .AND. !( cElem == "to" ) .AND. !( cElem == "subject" ) .AND. !( cElem == "mime-version" )
+
+         cRet += HGetKeyAt( ::hHeaders, i ) + ": " + HGetValueAt( ::hHeaders, i ) + e"\r\n"
+      ENDIF
+   NEXT
+
+
+   cRet += e"\r\n"
+
+
+   IF ! Empty( ::cBody )
+      IF empty(::aAttachments)
+
+         cRet += ::cBody + if(::lBodyEncoded,"", e"\r\n")
+      else
+
+         cRet += "--" + cBoundary + e"\r\n"
+         cRet+= "Content-Type: text/plain; charset=ISO-8859-1; format=flowed"+ e"\r\n"
+         cRet+= "Content-Transfer-Encoding: 7bit"+ e"\r\n"
+         cRet+= "Content-Disposition: inline"+ e"\r\n"+ e"\r\n"
+         cRet += ::cBody+ e"\r\n"
+      ENDIF
+
+   ENDIF
+
+   IF ! Empty( ::aAttachments )
+
+      FOR i := 1 TO Len(::aAttachments )
+         cRet += "--" + cBoundary + e"\r\n"
+         cRet += ::aAttachments[i]:ToString()
+      NEXT
+      cRet += "--" + cBoundary + "--" + e"\r\n"
+   ENDIF
+
+RETURN cRet
+
+UTILITY STATIC function TipMail_FromString( cMail, cBoundary, nPos, bBlock) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL oSubSection, cSubBoundary
+   LOCAL nLinePos, nSplitPos, nBodyPos
+   LOCAL cValue, cLastField
+   LOCAL nLen
+
+   IF Len( ::aAttachments ) > 0
+      ::aAttachments := {}
+   ENDIF
+
+   IF Len( ::hHeaders ) > 0
+      ::hHeaders := HSetCaseMatch( {=>} , .F. )
+   ENDIF
+
+   IF Len( ::aReceived ) > 0
+      ::aReceived := {}
+   ENDIF
+
+
+   IF nPos == NIL
+      nPos := 1
+   ENDIF
+
+   IF cMail == NIL
+      cMail := ""
+   ENDIF
+
+   nLen := Len( cMail )
+   nLinePos := At( e"\r\n", cMail, nPos )
+   while nLinePos > nPos
+
+
+      IF (cMail[ nPos ] == " " .OR. cMail[ nPos ] == "	" ) .AND. cLastField <> NIL
+         cValue := Ltrim(Substr( cMail, nPos, nLinePos - nPos ))
+         IF Lower(cLastField) == "received"
+            ::aReceived[Len(::aReceived)] += " " + cValue
+         ELSE
+            ::hHeaders[ cLastField ] += " " +cValue
+         ENDIF
+
+      ELSE
+         nSplitPos := At( ":", cMail, nPos )
+         cLastField := Substr( cMail, nPos, nSplitPos - nPos)
+         cValue := Ltrim(Substr( cMail, nSplitPos +1, nLinePos - nSplitPos -1))
+         IF Lower(cLastField) == "received"
+            AAdd( ::aReceived, cValue )
+         ELSE
+            ::hHeaders[ cLastField ] := cValue
+         ENDIF
+      ENDIF
+
+      nPos := nLinePos + 2
+      nLinePos := At( e"\r\n", cMail, nPos )
+
+      IF cBoundary <> NIL .AND. At( "--"+cBoundary, cMail, nPos ) == 1
+         RETURN 0
+      ENDIF
+
+      IF ValType( bBlock ) == "B"
+         Eval( bBlock, nPos, nLen )
+      ENDIF
+   ENDDO
+
+
+
+
+
+
+   IF "Content-Transfer-Encoding" IN ::hHeaders
+      ::oEncoder := TIp_GetEncoder( ::hHeaders["Content-Transfer-Encoding"] )
+   ENDIF
+
+
+   IF At( "multipart/", Lower( ::GetFieldPart("Content-Type")) ) > 0
+      cSubBoundary := ::GetFieldOption( "Content-Type", "Boundary" )
+
+      IF cSubBoundary[1] == '"'
+         cSubBoundary := Substr( cSubBoundary, 2, Len( cSubBoundary ) - 2)
+      ENDIF
+   ENDIF
+
+   nPos := nLinePos + 2
+   nBodyPos := nPos
+   nLinePos := At( e"\r\n", cMail, nPos )
+
+   while nLinePos >= nPos
+
+      IF nLinePos == nPos
+         nPos += 2
+         nLinePos := At( e"\r\n", cMail, nPos )
+         LOOP
+      ENDIF
+
+
+      IF cBoundary <> NIL .AND. At( "--"+cBoundary, cMail, nPos ) == nPos
+         EXIT
+      ENDIF
+
+
+
+      IF cSubBoundary <> NIL .AND. At( "--" + cSubBoundary, cMail, nPos ) == nPos
+
+
+         IF At( "--", cMail, nPos + Len(cSubBoundary)+2, nLinePos) > 0
+            EXIT
+         ENDIF
+
+
+         IF nBodyPos > 0
+            ::cBody := Substr( cMail, nBodyPos, nPos - nBodyPos )
+            nBodyPos := 0
+         ENDIF
+
+
+         oSubSection := TipMail():New()
+         nPos := oSubSection:FromString( cMail, cSubBoundary, nLinePos + 2 )
+
+         IF nPos > 0
+            AAdd( ::aAttachments, oSubSection )
+         ELSE
+            RETURN 0
+         ENDIF
+
+
+
+      ELSE
+
+
+
+
+
+         IF ! Empty( cSubBoundary )
+            nPos := Max( nLinePos + 2, At( "--" + cSubBoundary, cMail, nPos ) )
+         ELSEIF ! Empty(cBoundary )
+            nPos := Max( nLinePos + 2, At( "--" + cBoundary, cMail, nPos ) )
+         ELSE
+            nPos := nLinePos + 2
+         ENDIF
+      ENDIF
+
+      nLinePos := At( e"\r\n", cMail, nPos )
+
+      IF ValType( bBlock ) == "B"
+         Eval( bBlock, nPos, nLen )
+      ENDIF
+   ENDDO
+
+
+   IF nBodyPos > 0
+      ::cBody := Substr( cMail, nBodyPos, nPos - nBodyPos )
+   ENDIF
+
+
+RETURN nPos
+
+UTILITY STATIC function TipMail_MakeBoundary() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL cBound := "=_0" + Space(17)
+   LOCAL i
+
+   FOR i := 4 TO 20
+      cBound[i] := Chr( HB_Random(0, 25 ) + Asc("A") )
+   NEXT
+
+   cBound += "_TIP_" + StrTran( DToC( Date() ), "/", "" ) + "_" + StrTran( Time(), ":", "" )
+
+RETURN cBound
+
+UTILITY STATIC function TipMail_setHeader( cSubject, cFrom, cTo, cCC, cBCC) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL aTo, aCC, aBCC, i, imax
+
+   IF ! HB_ISSTRING( cSubject )
+      cSubject := ""
+   ENDIF
+
+   IF ! HB_ISSTRING( cFrom )
+      RETURN .F.
+   ENDIF
+
+   IF HB_ISSTRING( cTo )
+      aTo := { cTo }
+   ELSEIF HB_ISARRAY( cTo )
+      aTo := cTo
+   ENDIF
+
+   IF HB_ISSTRING( cCC )
+      aCC := { cCC }
+   ELSEIF HB_ISARRAY( cCC )
+      aCC := cCC
+   ENDIF
+
+   IF HB_ISSTRING( cBCC )
+      aBCC := { cBCC }
+   ELSEIF HB_ISARRAY( cBCC )
+      aBCC := cBCC
+   ENDIF
+
+   IF aTO == NIL
+      RETURN .F.
+   ENDIF
+
+   IF ! ::SetFieldPart( "Subject", cSubject )
+      RETURN .F.
+   ENDIF
+
+   IF ! ::SetFieldPart( "From", cFrom )
+      RETURN .F.
+   ENDIF
+
+   cTo  := aTO[1]
+   imax := Len( aTO )
+   FOR i:=2 TO imax
+      cTo += "," + InetCrlf() + Chr(9) + aTo[i]
+   NEXT
+
+   IF ! ::SetFieldPart( "To", cTo )
+      RETURN .F.
+   ENDIF
+
+   IF aCC <> NIL
+      cCC  := aCC[1]
+      imax := Len( aCC )
+      FOR i:=2 TO imax
+        cCC += "," + InetCrlf() + Chr(9) + aCC[i]
+      NEXT
+
+      IF ! ::SetFieldPart( "Cc", cCC )
+         RETURN .F.
+      ENDIF
+   ENDIF
+
+   IF aBCC <> NIL
+      cBCC  := aBCC[1]
+      imax := Len( aBCC )
+      FOR i:=2 TO imax
+        cBCC += "," + InetCrlf() + Chr(9) + aBCC[i]
+      NEXT
+
+      IF ! ::SetFieldPart( "Bcc", cBCC )
+         RETURN .F.
+      ENDIF
+   ENDIF
+
+RETURN .T.
+
+UTILITY STATIC function TipMail_attachFile( cFileName) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL cContent := MemoRead( cFileName )
+   LOCAL cFname, cFext
+   LOCAL cMimeType
+   LOCAL cDelim := HB_OsPathSeparator()
+   LOCAL oAttach
+
+   IF Empty( cContent )
+      RETURN .F.
+   ENDIF
+
+   hb_FNameSplit( cFileName,, @cFname, @cFext )
+   cMimeType := HB_SetMimeType( cFileName, cFname, cFext )
+
+   IF ".html" in lower( cFext ) .OR. ".htm" in lower( cFext )
+      cMimeType += "; charset=ISO-8859-1"
+   ENDIF
+
+   if ".html" in Lower( cFext ) .OR. ".htm" in Lower( cFext ) .OR. ".txt" in Lower( cFext )
+      oAttach := TipMail():New( cContent, "7bit" )
+   ELSE
+      oAttach   := TIPMail():new( cContent, "base64" )
+   ENDIF
+
+   cFileName := SubStr( cFileName, Rat( cFileName, cDelim ) + 1 )
+
+   oAttach:setFieldPart  ( "Content-Type", cMimeType )
+   oAttach:setFieldOption( "Content-Type", "name", cFname + cFext )
+
+   if lower(cFext) in ".png" .OR. lower(cFext) in ".jpg" .OR. lower(cFext) in ".jpeg"
+      oAttach:setFieldPart( "Content-Id",  cFname + cFext )
+   endif
+
+   oAttach:setFieldPart  ( "Content-Disposition", "attachment" )
+   oAttach:setFieldOption( "Content-Disposition", "filename", cFname + cFext )
+
+RETURN ::attach( oAttach )
+
+UTILITY STATIC function TipMail_detachFile( cPath) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL cContent  := ::getBody()
+   LOCAL cFileName := ::getFileName()
+   LOCAL cDelim    := HB_OsPathSeparator()
+   LOCAL nFileHandle
+
+   IF Empty( cFileName )
+      RETURN .F.
+   ENDIF
+
+   IF HB_ISSTRING( cPath )
+      cFileName := StrTran( cPath + cDelim + cFileName, cDelim+cDelim, cDelim )
+   ENDIF
+
+   nFileHandle := FCreate( cFileName )
+   IF FError() <> 0
+      RETURN .F.
+   ENDIF
+
+   FWrite( nFileHandle, cContent )
+
+   FClose( nFileHandle )
+RETURN FError() == 0
+
+UTILITY STATIC function TipMail_getFileName() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL cName
+
+   IF "attachment" $ Lower( ::GetFieldPart( "Content-Disposition" ) )
+      cName := ::GetFieldOption( "Content-Disposition", "filename" )
+   ELSE
+      cName := ::GetFieldOption( "Content-Type", "name" )
+   ENDIF
+
+   RETURN StrTran( cName, '"', "" )
+
+UTILITY STATIC function TipMail_isMultiPart() ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+RETURN "multipart/" $ Lower( ::GetFieldPart("Content-Type") )
+
+UTILITY STATIC function TipMail_getMultiParts( aParts) ; local Self AS CLASS TipMail := QSelf() AS CLASS TipMail
+
+   LOCAL oSubPart, lReset := .F.
+
+   ::resetAttachment()
+
+   IF aParts == NIL
+      aParts := {}
+   ENDIF
+
+   while ( oSubPart := ::nextAttachment() ) <> NIL
+      lReset := .T.
+      AAdd( aParts, oSubPart )
+      IF oSubPart:countAttachments() > 0
+         oSubPart:getMultiparts( aParts )
+      ENDIF
+   ENDDO
+
+   IF lReset
+      ::resetAttachment()
+   ENDIF
+RETURN aParts

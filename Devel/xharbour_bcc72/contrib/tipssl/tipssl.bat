@@ -1,0 +1,1 @@
+d:\devel\xharbour_bcc7\bin\xbuild tipssl.lib.xbp -Noerr
