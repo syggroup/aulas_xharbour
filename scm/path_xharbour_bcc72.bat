@@ -1,5 +1,5 @@
-SET PATH=%PATH%;C:\sygecom_aulas_xharbour\DEVEL\BCC72\BIN;C:\sygecom_aulas_xharbour\DEVEL\BCC72\LIB;C:\sygecom_aulas_xharbour\devel\BCC72\lib\psdk;C:\sygecom_aulas_xharbour\DEVEL\BCC72\INCLUDE;
-SET INCLUDE=%INCLUDE%;C:\sygecom_aulas_xharbour\DEVEL\BCC72\include;
-SET LIB=%LIB%;C:\sygecom_aulas_xharbour\DEVEL\BCC72\lib;D:\devel\BCC72\lib\psdk;
-SET HB_PATH=C:\sygecom_aulas_xharbour\DEVEL\xharbour_bcc72
+SET PATH=%PATH%;C:\aulas_xharbour\Devel\bcc72\bin;C:\aulas_xharbour\Devel\bcc72\lib;C:\aulas_xharbour\Devel\bcc72\lib\psdk;C:\aulas_xharbour\Devel\bcc72\include;
+SET INCLUDE=%INCLUDE%;C:\aulas_xharbour\Devel\bcc72\include;
+SET LIB=%LIB%;C:\aulas_xharbour\Devel\bcc72\lib;C:\aulas_xharbour\bcc72\lib\psdk;
+SET HB_PATH=C:\aulas_xharbour\Devel\xharbour_bcc72
 %SystemRoot%\system32\cmd.exe

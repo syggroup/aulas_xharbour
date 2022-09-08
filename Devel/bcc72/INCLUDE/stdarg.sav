@@ -1,0 +1,21 @@
+/* stdarg.h standard header wrapper */
+#ifndef _STDARG
+#define _STDARG
+#ifndef _YVALS
+ #include <yvals.h>
+#endif /* _YVALS */
+
+_C_STD_BEGIN
+#include_next <stdarg.h>
+_C_STD_END
+
+#ifdef _STD_USING
+using std::va_list;
+#endif /* _STD_USING */
+
+#endif /* _STDARG */
+
+/*
+ * Copyright (c) 1992-2006 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Consult your license regarding permissions and restrictions.
+V5.01:1422 */

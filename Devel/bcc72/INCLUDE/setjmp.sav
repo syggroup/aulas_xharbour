@@ -1,0 +1,21 @@
+/* setjmp.h standard header wrapper */
+#ifndef _SETJMP
+#define _SETJMP
+#ifndef _YVALS
+ #include <yvals.h>
+#endif /* _YVALS */
+
+_C_STD_BEGIN
+#include_next <setjmp.h>
+_C_STD_END
+
+#ifdef _STD_USING
+using std::jmp_buf; using std::longjmp;
+#endif /* _STD_USING */
+
+#endif /* _SETJMP */
+
+/*
+ * Copyright (c) 1992-2006 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Consult your license regarding permissions and restrictions.
+V5.01:1422 */

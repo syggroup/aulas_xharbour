@@ -1,0 +1,29 @@
+/*  stdlib dot nothing
+
+    Extensionless standard C header file wrapper for stdlib.h
+*/
+
+/*
+ *      C/C++ Run Time Library - Version 24.0
+ *
+ *      Copyright (c) 1997, 2016 by Embarcadero Technologies, Inc.
+ *      All Rights Reserved.
+ *
+ */
+
+/* $Revision: 19778 $ */
+
+/* Ensure that __USING_CNAME__ isn't defined before including the real
+   stdlib.h file.  This will cause all the definitions in stdlib.h to be
+   brought into the global namespace just as if stdlib.h had been included
+   directly.
+
+   Although ANSI C++ rule: 17.4.1.2.7 alludes to the opposite behavior, it
+   really only enumerates the cname extensionless headers, and does not
+   explicitly describe what should happen when stdlib is included without an
+   extension.  So we treat this as though the user really meant to specify
+   the .h extension.
+*/
+
+#undef   __USING_CNAME__
+#include <stdlib.h>

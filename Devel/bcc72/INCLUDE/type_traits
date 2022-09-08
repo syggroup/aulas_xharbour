@@ -1,0 +1,662 @@
+// type_traits TR1 header
+#ifndef _TYPE_TRAITS_
+#define _TYPE_TRAITS_
+
+#ifndef _YVALS
+ #include <yvals.h>
+#endif /* _YVALS */
+
+#if !defined(__CODEGEARC__)
+#error Must compile with later compiler
+#endif
+
+#pragma option push -b -a -pc -Vx- -Ve- -w-inl -w-aus -w-sig
+
+	// COMPILER SUPORT MACROS
+
+#include <cstddef>
+//---------------------------------------------------------------------------
+//  Note : all internal identifiers prefixed with double underscore
+//         avoids any theoretical class with user names, which if nothing
+//         else will be mildly less confusing error messages.
+//---------------------------------------------------------------------------
+namespace std {
+// [20.4.3] helper class:
+template <class __T, __T __v>
+struct integral_constant
+{
+  static const __T value = __v;
+  typedef __T value_type;
+  typedef integral_constant<__T, __v> type;
+};
+typedef integral_constant<bool, true> true_type;
+typedef integral_constant<bool, false> false_type;
+
+template< typename __T > struct _Alignof_wrap { static const size_t value = alignof(__T); };
+
+template< size_t __N > struct _Alignof_wrap2 {
+  typedef integral_constant< size_t, __N > type;
+};
+
+// [20.4.4.1] primary type categories:
+template <class __T> struct is_void : integral_constant< bool, __is_void( __T ) > {};
+template <class __T> struct is_integral : integral_constant< bool, __is_integral( __T ) > {};
+template <class __T> struct is_floating_point : integral_constant< bool, __is_floating_point( __T ) > {};
+template <class __T> struct is_array : integral_constant< bool, __is_array( __T ) > {};
+template <class __T> struct is_pointer : integral_constant< bool, __is_pointer( __T ) > {};
+template <class __T> struct is_lvalue_reference : integral_constant< bool, __is_lvalue_reference( __T ) > {};
+template <class __T> struct is_rvalue_reference : integral_constant< bool, __is_rvalue_reference( __T ) > {};
+template <class __T> struct is_member_object_pointer : integral_constant< bool, __is_member_object_pointer( __T ) > {};
+template <class __T> struct is_member_function_pointer : integral_constant< bool, __is_member_function_pointer( __T ) > {};
+template <class __T> struct is_enum : integral_constant< bool, __is_enum( __T ) > {};
+template <class __T> struct is_union : integral_constant< bool, __is_union( __T ) > {};
+template <class __T> struct is_class : integral_constant< bool, __is_class( __T ) > {};
+template <class __T> struct is_function : integral_constant< bool, __is_function( __T ) > {};
+
+// [20.4.4.2] composite type categories:
+template <class __T> struct is_reference : integral_constant< bool, __is_reference( __T ) > {};
+template <class __T> struct is_arithmetic : integral_constant< bool, __is_arithmetic( __T ) > {};
+template <class __T> struct is_fundamental : integral_constant< bool, __is_fundamental( __T ) > {};
+template <class __T> struct is_object : integral_constant< bool, __is_object( __T ) > {};
+template <class __T> struct is_scalar : integral_constant< bool, __is_scalar( __T ) > {};
+template <class __T> struct is_compound : integral_constant< bool, __is_compound( __T ) > {};
+template <class __T> struct is_member_pointer : integral_constant< bool, __is_member_pointer( __T ) > {};
+
+// [20.4.4.3] type properties:
+template <class __T> struct is_const : integral_constant< bool, __is_const( __T ) > {};
+template <class __T> struct is_volatile : integral_constant< bool, __is_volatile( __T ) > {};
+template <class __T> struct is_trivial : integral_constant< bool, __is_trivial( __T ) > {};
+template <class __T> struct is_standard_layout : integral_constant< bool, __is_standard_layout( __T ) > {};
+template <class __T> struct is_pod : integral_constant< bool, __is_pod( __T ) > {};
+template <class __T> struct is_empty : integral_constant< bool, __is_empty( __T ) > {};
+template <class __T> struct is_polymorphic : integral_constant< bool, __is_polymorphic( __T ) > {};
+template <class __T> struct is_abstract : integral_constant< bool, __is_abstract( __T ) > {};
+template <class __T> struct has_trivial_default_constructor : integral_constant< bool, __has_trivial_default_constructor( __T ) > {};
+template <class __T> struct has_trivial_copy_constructor : integral_constant< bool, __has_trivial_copy_constructor( __T ) > {};
+template <class __T> struct has_trivial_assign : integral_constant< bool, __has_trivial_assign( __T ) > {};
+template <class __T> struct has_trivial_destructor : integral_constant< bool, __has_trivial_destructor( __T ) > {};
+template <class __T> struct has_nothrow_default_constructor : integral_constant< bool, __has_nothrow_default_constructor( __T ) > {};
+template <class __T> struct has_nothrow_copy_constructor : integral_constant< bool, __has_nothrow_copy_constructor( __T ) > {};
+template <class __T> struct has_nothrow_assign : integral_constant< bool, __has_nothrow_assign( __T ) > {};
+template <class __T> struct has_virtual_destructor : integral_constant< bool, __has_virtual_destructor( __T ) > {};
+template <class __T> struct is_signed : integral_constant< bool, __is_signed( __T ) > {};
+template <class __T> struct is_unsigned : integral_constant< bool, __is_unsigned( __T ) > {};
+//template <class __T> struct alignment_of : integral_constant< size_t, alignof( __T ) > {};
+//template <class __T> struct alignment_of : integral_constant< size_t, _Alignof_wrap<__T>::value > {};
+template <class __T> struct alignment_of : _Alignof_wrap2< _Alignof_wrap<__T>::value >::type {};
+template <class __T> struct rank : integral_constant< size_t, __array_rank( __T ) > {};
+template <class __T, unsigned I = 0> struct extent : integral_constant< size_t, __array_extent( __T, I ) > {};
+
+// [20.4.5] type relations:
+template <class __T, class __U> struct is_same : integral_constant< bool, __is_same( __T, __U ) > {};
+template <class __Base, class __Derived> struct is_base_of : integral_constant< bool, __is_base_of( __Base, __Derived ) > {};
+template <class __From, class __To> struct is_convertible : integral_constant< bool, __is_convertible( __From, __To ) > {};
+
+ // fixups
+template <class __Base> struct is_base_of<__Base, void > : false_type {};
+template <class __Derived> struct is_base_of<void, __Derived > : false_type {};
+template <> struct is_base_of<void, void > : false_type {};
+
+
+namespace tr1
+{
+// [20.4.3] helper class:
+template <class __T, __T __v>
+struct integral_constant
+{
+  static const __T value = __v;
+  typedef __T value_type;
+  typedef integral_constant<__T, __v> type;
+};
+typedef integral_constant<bool, true> true_type;
+typedef integral_constant<bool, false> false_type;
+
+template< typename __T > struct _Alignof_wrap { static const size_t value = alignof(__T); };
+
+template< size_t __N > struct _Alignof_wrap2 {
+  typedef integral_constant< size_t, __N > type;
+};
+
+// [20.4.4.1] primary type categories:
+template <class __T> struct is_void : integral_constant< bool, __is_void( __T ) > {};
+template <class __T> struct is_integral : integral_constant< bool, __is_integral( __T ) > {};
+template <class __T> struct is_floating_point : integral_constant< bool, __is_floating_point( __T ) > {};
+template <class __T> struct is_array : integral_constant< bool, __is_array( __T ) > {};
+template <class __T> struct is_pointer : integral_constant< bool, __is_pointer( __T ) > {};
+template <class __T> struct is_member_object_pointer : integral_constant< bool, __is_member_object_pointer( __T ) > {};
+template <class __T> struct is_member_function_pointer : integral_constant< bool, __is_member_function_pointer( __T ) > {};
+template <class __T> struct is_enum : integral_constant< bool, __is_enum( __T ) > {};
+template <class __T> struct is_union : integral_constant< bool, __is_union( __T ) > {};
+template <class __T> struct is_class : integral_constant< bool, __is_class( __T ) > {};
+template <class __T> struct is_function : integral_constant< bool, __is_function( __T ) > {};
+
+// [20.4.4.2] composite type categories:
+template <class __T> struct is_reference : integral_constant< bool, __is_reference( __T ) > {};
+template <class __T> struct is_arithmetic : integral_constant< bool, __is_arithmetic( __T ) > {};
+template <class __T> struct is_fundamental : integral_constant< bool, __is_fundamental( __T ) > {};
+template <class __T> struct is_object : integral_constant< bool, __is_object( __T ) > {};
+template <class __T> struct is_scalar : integral_constant< bool, __is_scalar( __T ) > {};
+template <class __T> struct is_compound : integral_constant< bool, __is_compound( __T ) > {};
+template <class __T> struct is_member_pointer : integral_constant< bool, __is_member_pointer( __T ) > {};
+
+// [20.4.4.3] type properties:
+template <class __T> struct is_const : integral_constant< bool, __is_const( __T ) > {};
+template <class __T> struct is_volatile : integral_constant< bool, __is_volatile( __T ) > {};
+template <class __T> struct is_pod : integral_constant< bool, __is_pod( __T ) > {};
+template <class __T> struct is_empty : integral_constant< bool, __is_empty( __T ) > {};
+template <class __T> struct is_polymorphic : integral_constant< bool, __is_polymorphic( __T ) > {};
+template <class __T> struct is_abstract : integral_constant< bool, __is_abstract( __T ) > {};
+template <class __T> struct has_trivial_constructor : integral_constant< bool, __has_trivial_default_constructor( __T ) > {};
+template <class __T> struct has_trivial_copy : integral_constant< bool, __has_trivial_copy_constructor( __T ) > {};
+template <class __T> struct has_trivial_assign : integral_constant< bool, __has_trivial_assign( __T ) > {};
+template <class __T> struct has_trivial_destructor : integral_constant< bool, __has_trivial_destructor( __T ) > {};
+template <class __T> struct has_nothrow_constructor : integral_constant< bool, __has_nothrow_default_constructor( __T ) > {};
+template <class __T> struct has_nothrow_copy : integral_constant< bool, __has_nothrow_copy_constructor( __T ) > {};
+template <class __T> struct has_nothrow_assign : integral_constant< bool, __has_nothrow_assign( __T ) > {};
+template <class __T> struct has_virtual_destructor : integral_constant< bool, __has_virtual_destructor( __T ) > {};
+template <class __T> struct is_signed : integral_constant< bool, __is_signed( __T ) > {};
+template <class __T> struct is_unsigned : integral_constant< bool, __is_unsigned( __T ) > {};
+template <class __T> struct alignment_of : _Alignof_wrap2< _Alignof_wrap<__T>::value >::type {};
+template <class __T> struct rank : integral_constant< size_t, __array_rank( __T ) > {};
+template <class __T, unsigned I = 0> struct extent : integral_constant< size_t, __array_extent( __T, I ) > {};
+
+// [20.4.5] type relations:
+template <class __T, class __U> struct is_same : integral_constant< bool, __is_same( __T, __U ) > {};
+template <class __Base, class __Derived> struct is_base_of : integral_constant< bool, __is_base_of( __Base, __Derived )
+                                                                                  ||  __is_same( __Base, __Derived ) > {};
+template <class __From, class __To> struct is_convertible : integral_constant< bool, __is_convertible( __From, __To ) > {};
+
+// fixups from 0x specification
+template <class __T> struct has_trivial_copy<__T&> : false_type {};
+template <class __T> struct has_nothrow_copy<__T&> : false_type {};
+//template <class __Base> struct is_base_of<__Base, void > : false_type {};
+//template <class __Derived> struct is_base_of<void, __Derived > : false_type {};
+//template <> struct is_base_of<void, void > : false_type {};
+
+template <class __To> struct is_convertible< void, __To > : false_type {};
+template <class __From> struct is_convertible< __From, void > : true_type {};
+template <> struct is_convertible< void, void > : true_type {};
+
+        // Supplied to make the Dinkumware parts work
+	// TEMPLATE remove_reference
+template<class _Ty>
+	struct remove_reference
+	{	// remove reference
+	typedef _Ty type;
+	};
+
+template<class _Ty>
+	struct remove_reference<_Ty&>
+	{	// remove reference
+	typedef _Ty type;
+	};
+
+template<class _Ty>
+	struct remove_reference<_Ty&&>
+	{	// remove reference
+	typedef _Ty type;
+	};
+
+
+}  // namespace tr1
+
+} // namespace std
+
+#include <xremoveref>
+
+namespace std {
+
+    namespace tr1 {
+
+	// Type modifiers
+
+	// TEMPLATE CLASS remove_const
+template<class _Ty>
+	struct remove_const
+	{	// remove top level const qualifier
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_const<const _Ty>
+	{	// remove top level const qualifier
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS remove_volatile
+template<class _Ty>
+	struct remove_volatile
+	{	// remove top level volatile qualifier
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_volatile<volatile _Ty>
+	{	// remove top level volatile qualifier
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS remove_cv
+template<class _Ty>
+	struct remove_cv
+	{	// remove top level const and volatile qualifiers
+	typedef typename remove_const<typename remove_volatile<_Ty>::type>::type
+		type;
+	};
+
+	// TEMPLATE CLASS add_const
+template<class _Ty>
+	struct add_const
+	{	// add top level const qualifier
+	typedef const _Ty type;
+	};
+template<class _Ty>
+	struct add_const<_Ty&>
+	{	// add top level const qualifier
+	typedef _Ty& type;
+	};
+
+	// TEMPLATE CLASS add_volatile
+template<class _Ty>
+	struct add_volatile
+	{	// add top level volatile qualifier
+	typedef volatile _Ty type;
+	};
+template<class _Ty>
+	struct add_volatile<_Ty&>
+	{	// add top level volatile qualifier
+	typedef _Ty& type;
+	};
+
+	// TEMPLATE CLASS add_cv
+template<class _Ty>
+	struct add_cv
+	{	// add top level const and volatile qualifiers
+	typedef typename add_const<typename add_volatile<_Ty>::type>::type type;
+	};
+
+	// TEMPLATE CLASS add_reference
+template<class _Ty>
+	struct add_reference
+	{	// add reference
+	typedef typename remove_reference<_Ty>::type& type;
+	};
+
+	// TEMPLATE CLASS remove_extent
+template<class _Ty>
+	struct remove_extent
+	{	// remove array extent
+	typedef _Ty type;
+	};
+template<class _Ty, unsigned _Ix>
+	struct remove_extent<_Ty[_Ix]>
+	{	// remove array extent
+	typedef _Ty type;
+	};
+
+template<class _Ty, unsigned _Ix>
+	struct remove_extent<const _Ty[_Ix]>
+	{	// remove array extent
+	typedef const _Ty type;
+	};
+
+template<class _Ty, unsigned _Ix>
+	struct remove_extent<volatile _Ty[_Ix]>
+	{	// remove array extent
+	typedef volatile _Ty type;
+	};
+
+template<class _Ty, unsigned _Ix>
+	struct remove_extent<const volatile _Ty[_Ix]>
+	{	// remove array extent
+	typedef const volatile _Ty type;
+	};
+
+	// TEMPLATE CLASS remove_all_extents
+template<class _Ty>
+	struct remove_all_extents
+	{	// remove all array extents
+	typedef _Ty type;
+	};
+template<class _Ty, unsigned _Ix>
+	struct remove_all_extents<_Ty[_Ix]>
+	{	// remove all array extents
+	typedef typename remove_all_extents<_Ty>::type type;
+	};
+
+template<class _Ty, unsigned _Ix>
+	struct remove_all_extents<const _Ty[_Ix]>
+	{	// remove all array extents
+	typedef typename remove_all_extents<const _Ty>::type type;
+	};
+
+template<class _Ty, unsigned _Ix>
+	struct remove_all_extents<volatile _Ty[_Ix]>
+	{	// remove all array extents
+	typedef typename remove_all_extents<volatile _Ty>::type type;
+	};
+
+template<class _Ty, unsigned _Ix>
+	struct remove_all_extents<const volatile _Ty[_Ix]>
+	{	// remove all array extents
+	typedef typename remove_all_extents<const volatile _Ty>::type type;
+	};
+
+	// TEMPLATE CLASS remove_pointer
+template<class _Ty>
+	struct remove_pointer
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty*>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty* const>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty* volatile>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty* const volatile>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS add_pointer
+template<class _Ty>
+	struct add_pointer
+	{	// add pointer
+	typedef typename remove_reference<_Ty>::type* type;
+	};
+
+	// TEMPLATE CLASS aligned_storage	//!
+#if defined(__CODEGEARC__)
+#define _FITS(ty) _Align == alignof(ty)
+#else
+#define _FITS(ty) _Align == _ALIGN_OF(ty)
+#endif
+#define _NEXT_ALIGN(ty) typedef typename _Aligned<_Len, _Align, ty, _FITS(ty)>::_Type _Type
+
+template<class _Ty, size_t _Len> union _Align_type
+	{	// union with size _Len bytes and alignment of _Ty
+	_Ty _Val;
+	char _Pad[_Len];
+	};
+
+template<size_t _Len, size_t _Align, class _Ty, bool _Ok>
+	struct _Aligned;
+template<size_t _Len, size_t _Align, class _Ty>
+	struct _Aligned<_Len, _Align, _Ty, true>
+	{	// define type with size _Len and alignment _Ty
+	typedef _Align_type<_Ty, _Len> _Type;
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, long, false>
+	{	// define type with size _Len and alignment _Ty
+	typedef _Align_type<double, _Len> _Type;
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, int, false>
+	{	// define type with size _Len and alignment _Ty
+	_NEXT_ALIGN(long);
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, short, false>
+	{	// define type with size _Len and alignment _Ty
+	_NEXT_ALIGN(int);
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, char, false>
+	{	// define type with size _Len and alignment _Ty
+	_NEXT_ALIGN(short);
+	};
+template<size_t _Len, size_t _Align>
+	struct aligned_storage
+	{	// define type with size _Len and alignment _Ty
+	typedef typename _Aligned<_Len, _Align, char, _FITS(char)>::_Type type;
+	};
+
+#if !defined(__CODEGEARC__)
+#undef _FITS
+#undef _NEXT_ALIGN
+#undef _ALIGN_OF
+
+#endif // __CODEGEARC__
+
+
+
+} // namespace tr1
+
+	// TEMPLATE CLASS enable_if
+template<bool _Test,
+	class _Type = void>
+	struct enable_if
+	{	// type is undefined for assumed !_Test
+	};
+
+template<class _Type>
+	struct enable_if<true, _Type>
+	{	// type is _Type for _Test
+	typedef _Type type;
+	};
+
+	// TEMPLATE CLASS conditional
+template<bool _Test,
+	class _Ty1,
+	class _Ty2>
+	struct conditional
+	{	// type is _Ty2 for assumed !_Test
+	typedef _Ty2 type;
+	};
+
+template<class _Ty1,
+	class _Ty2>
+	struct conditional<true, _Ty1, _Ty2>
+	{	// type is _Ty1 for _Test
+	typedef _Ty1 type;
+	};
+
+	// Type modifiers
+
+	// TEMPLATE CLASS remove_const
+template<class _Ty>
+	struct remove_const
+	{	// remove top level const qualifier
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_const<const _Ty>
+	{	// remove top level const qualifier
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS remove_volatile
+template<class _Ty>
+	struct remove_volatile
+	{	// remove top level volatile qualifier
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_volatile<volatile _Ty>
+	{	// remove top level volatile qualifier
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS remove_cv
+template<class _Ty>
+	struct remove_cv
+	{	// remove top level const and volatile qualifiers
+	typedef typename remove_const<typename remove_volatile<_Ty>::type>::type
+		type;
+	};
+
+	// TEMPLATE CLASS add_const
+template<class _Ty>
+	struct add_const
+	{	// add top level const qualifier
+	typedef const _Ty type;
+	};
+template<class _Ty>
+	struct add_const<_Ty&>
+	{	// add top level const qualifier
+	typedef _Ty& type;
+	};
+
+	// TEMPLATE CLASS add_volatile
+template<class _Ty>
+	struct add_volatile
+	{	// add top level volatile qualifier
+	typedef volatile _Ty type;
+	};
+template<class _Ty>
+	struct add_volatile<_Ty&>
+	{	// add top level volatile qualifier
+	typedef _Ty& type;
+	};
+
+	// TEMPLATE CLASS add_cv
+template<class _Ty>
+	struct add_cv
+	{	// add top level const and volatile qualifiers
+	typedef typename add_const<typename add_volatile<_Ty>::type>::type type;
+	};
+
+ 
+template<class _Ty >
+        struct add_lvalue_reference 
+        {
+        typedef _Ty & type;
+        };
+
+template<class _Ty >
+        struct add_rvalue_reference 
+        {
+        typedef _Ty && type;
+        };
+
+	// TEMPLATE CLASS remove_extent
+template<class _Ty>
+	struct remove_extent
+	{	// remove array extent
+	typedef _Ty type;
+	};
+template<class _Ty, unsigned _Ix>
+	struct remove_extent<_Ty[_Ix]>
+	{	// remove array extent
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS remove_all_extents
+template<class _Ty>
+	struct remove_all_extents
+	{	// remove all array extents
+	typedef _Ty type;
+	};
+template<class _Ty, unsigned _Ix>
+	struct remove_all_extents<_Ty[_Ix]>
+	{	// remove all array extents
+	typedef typename remove_all_extents<_Ty>::type type;
+	};
+
+	// TEMPLATE CLASS remove_pointer
+template<class _Ty>
+	struct remove_pointer
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty*>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty* const>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty* volatile>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+template<class _Ty>
+	struct remove_pointer<_Ty* const volatile>
+	{	// remove pointer
+	typedef _Ty type;
+	};
+
+	// TEMPLATE CLASS add_pointer
+template<class _Ty>
+	struct add_pointer
+	{	// add pointer
+	typedef typename remove_reference<_Ty>::type* type;
+	};
+
+	// TEMPLATE CLASS aligned_storage	//!
+#if defined(__CODEGEARC__)
+#define _FITS(ty) _Align == alignof(ty)
+#else
+#define _FITS(ty) _Align == _ALIGN_OF(ty)
+#endif
+#define _NEXT_ALIGN(ty) typedef typename _Aligned<_Len, _Align, ty, _FITS(ty)>::_Type _Type
+
+template<class _Ty, size_t _Len> union _Align_type
+	{	// union with size _Len bytes and alignment of _Ty
+	_Ty _Val;
+	char _Pad[_Len];
+	};
+
+template<size_t _Len, size_t _Align, class _Ty, bool _Ok>
+	struct _Aligned;
+template<size_t _Len, size_t _Align, class _Ty>
+	struct _Aligned<_Len, _Align, _Ty, true>
+	{	// define type with size _Len and alignment _Ty
+	typedef _Align_type<_Ty, _Len> _Type;
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, long, false>
+	{	// define type with size _Len and alignment _Ty
+	typedef _Align_type<double, _Len> _Type;
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, int, false>
+	{	// define type with size _Len and alignment _Ty
+	_NEXT_ALIGN(long);
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, short, false>
+	{	// define type with size _Len and alignment _Ty
+	_NEXT_ALIGN(int);
+	};
+template<size_t _Len, size_t _Align>
+	struct _Aligned<_Len, _Align, char, false>
+	{	// define type with size _Len and alignment _Ty
+	_NEXT_ALIGN(short);
+	};
+template<size_t _Len, size_t _Align>
+	struct aligned_storage
+	{	// define type with size _Len and alignment _Ty
+	typedef typename _Aligned<_Len, _Align, char, _FITS(char)>::_Type type;
+	};
+
+#if !defined(__CODEGEARC__)
+#undef _FITS
+#undef _NEXT_ALIGN
+#undef _ALIGN_OF
+
+#endif // __CODEGEARC__
+} // namespace std
+
+#pragma option pop
+
+#endif /* _TYPE_TRAITS_ */
+
+/*
+ * Copyright (c) 1992-2008 by P.J. Plauger.  ALL RIGHTS RESERVED.
+ * Consult your license regarding permissions and restrictions.
+V5.01:1422 */

@@ -1,8 +1,8 @@
 /*
- * xHarbour 1.2.3 Intl. (SimpLex) (Build 20201212)
+ * xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
  * Generated C source code from <source\\hradio.prg>
- * Command: -oxbp\hradio.c -m -n -pOxbp\ -q -gc0 -Iinclude -Id:\devel\xharbour_bcc73\include source\hradio.prg 
- * Created: 2022.07.29 19:37:05 (Borland/Embarcadero C++ 7.3 (32-bit))
+ * Command: -oxbp\hradio.c -m -n -pOxbp\ -q -gc0 -Iinclude -Id:\devel\xharbour_bcc7\include source\hradio.prg 
+ * Created: 2022.09.08 13:51:07 (Borland/Embarcadero C++ 7.2 (32-bit))
  */
 
 #include "hbvmpub.h"
