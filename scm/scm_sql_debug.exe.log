@@ -1,138 +1,58 @@
 
-Type: C >>>harbour.exe -o"obj72\scm.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\scm.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"obj72\scm.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\scm.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\scm.c:
-
-Type: C >>>harbour.exe -o"obj72\atualiza.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\atualiza.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
 
 Type: C >>>bcc32.exe -o"obj72\atualiza.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\atualiza.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\atualiza.c:
 
-Type: C >>>harbour.exe -o"obj72\cadastro.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\cadastro.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"obj72\cadastro.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\cadastro.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\cadastro.c:
-
-Type: C >>>harbour.exe -o"obj72\cadsetor.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\cadsetor.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
 
 Type: C >>>bcc32.exe -o"obj72\cadsetor.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\cadsetor.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\cadsetor.c:
 
-Type: C >>>harbour.exe -o"obj72\carne.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\carne.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"obj72\carne.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\carne.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\carne.c:
-
-Type: C >>>harbour.exe -o"obj72\errorsys.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\errorsys.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
-Type: C >>>bcc32.exe -o"obj72\errorsys.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\errorsys.c"<<<
-
-Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
-obj72\errorsys.c:
-
-Type: C >>>harbour.exe -o"obj72\pesquisa.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\pesquisa.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
 
 Type: C >>>bcc32.exe -o"obj72\pesquisa.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\pesquisa.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\pesquisa.c:
 
-Type: C >>>harbour.exe -o"obj72\relatorios.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\relatorios.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"obj72\relatorios.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\relatorios.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\relatorios.c:
-
-Type: C >>>harbour.exe -o"obj72\rotina.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\rotina.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
-Type: C >>>bcc32.exe -o"obj72\rotina.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\rotina.c"<<<
-
-Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
-obj72\rotina.c:
-
-Type: C >>>harbour.exe -o"obj72\scm001.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\scm001.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
 
 Type: C >>>bcc32.exe -o"obj72\scm001.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\scm001.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\scm001.c:
 
-Type: C >>>harbour.exe -o"obj72\scm002.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\scm002.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"obj72\scm002.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\scm002.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\scm002.c:
-
-Type: C >>>harbour.exe -o"obj72\scm003.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\scm003.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
 
 Type: C >>>bcc32.exe -o"obj72\scm003.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\scm003.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\scm003.c:
 
-Type: C >>>harbour.exe -o"obj72\scm004.c" -m -n -pOobj72\ -q -gc0 -B -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\scm004.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"obj72\scm004.obj" -c  -v -D_XHBSQL_  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "obj72\scm004.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
 obj72\scm004.c:
-
-Type: C >>>brc32.exe -fo"obj72\scm.res" -32 -r  -D_XHBSQL_  -i"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\include" -i"C:\aulas_xharbour\Devel\hwgui\include"  -i"C:\aulas_xharbour\Devel\bcc72\include" -i"C:\aulas_xharbour\Devel\bcc72\PlatformSDK\Include" "source\scm.rc"<<<
-
-Borland Resource Compiler  Version 5.40
-Copyright (c) 1990, 1999 Inprise Corporation.  All rights reserved.
 
 Type: C >>>ilink32.exe -Gn -s   -aa -L"C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib" -L"" -L"C:\aulas_xharbour\Devel\xharbour_bcc72\lib" -L"C:\aulas_xharbour\Devel\bcc72\lib" -L"C:\aulas_xharbour\Devel\bcc72\lib\psdk" c0w32.obj "obj72\scm.obj" "obj72\atualiza.obj" "obj72\cadastro.obj" "obj72\cadsetor.obj" "obj72\carne.obj" "obj72\errorsys.obj" "obj72\pesquisa.obj" "obj72\relatorios.obj" "obj72\rotina.obj" "obj72\scm001.obj" "obj72\scm002.obj" "obj72\scm003.obj" "obj72\scm004.obj" , "scm_sql_debug.exe", , "C:\aulas_xharbour\Devel\hwgui\lib\hwgui_xhb72.lib" "C:\aulas_xharbour\Devel\hwgui\lib\hwguidebug_xhb72.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib\BC5\sql.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib\BC5\libpq.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd\lib\BC5\odbccp32.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\rddsql.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\sddodbc.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\gdlib.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\libbgd.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbhpdf.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\pdflib.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbmzip.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbzip.lib" "C:\aulas_xharbour\devel\xharbour_bcc72\lib\tipssl.lib" "C:\aulas_xharbour\devel\xharbour_bcc72\lib\ssleay32.lib" "C:\aulas_xharbour\devel\xharbour_bcc72\lib\libeay32.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\tip.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\codepage.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\libfi.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\lib\png.lib" "C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\syg_pgsql\syg_pgsql.lib" "gtgui.lib" "vm.lib" "rtl.lib" "macro.lib" "pp.lib" "common.lib" "lang.lib" "rdd.lib" "dbfntx.lib" "dbfnsx.lib" "dbfcdx.lib" "dbffpt.lib" "debug.lib" "pcrepos.lib" "hsx.lib" "hbsix.lib" "ct.lib" "zlib.lib" "codepage.lib" cw32.lib import32.lib odbc32.lib , , "obj72\scm.res" <<<
 
