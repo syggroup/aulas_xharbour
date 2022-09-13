@@ -1,9 +1,4 @@
 
-Type: C >>>harbour.exe -o"objdbf\scm.c" -m -n -pOobjdbf\ -q -gc0  -I"C:\aulas_xharbour\Devel\hwgui\include"  -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "source\scm.prg"<<<
-
-xHarbour 1.2.3 Intl. (SimpLex) (Build 20170228)
-Copyright 1999-2017, http://www.xharbour.org http://www.harbour-project.org/
-
 Type: C >>>bcc32.exe -o"objdbf\scm.obj" -c   -I"C:\aulas_xharbour\Devel\hwgui\include" -I"C:\aulas_xharbour\Devel\xharbour_bcc72\include" "objdbf\scm.c"<<<
 
 Embarcadero C++ 7.20 for Win32 Copyright (c) 1993-2016 Embarcadero Technologies, Inc.
