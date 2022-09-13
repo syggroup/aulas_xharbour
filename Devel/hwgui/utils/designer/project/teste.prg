@@ -71,7 +71,7 @@
     <style>
       <property name="Geometry">{54,154,60,60}</property>
       <property name="Name">[oBitmap1]</property>
-      <property name="Bitmap">[D:\Devel\res\atualizar.bmp]</property>
+      <property name="Bitmap">[C:\aulas_xharbour\Devel\res\atualizar.bmp]</property>
     </style>
   </part>
   <part class="page">

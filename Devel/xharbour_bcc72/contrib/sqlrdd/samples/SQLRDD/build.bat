@@ -1,7 +1,7 @@
 @echo off
 
-set HB_INSTALL=d:\devel\xharbour_bcc7
-set SQLRDD_INSTALL=d:\devel\xharbour_bcc7\contrib\sqlrdd
+set HB_INSTALL=C:\aulas_xharbour\Devel\xharbour_bcc7
+set SQLRDD_INSTALL=C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\sqlrdd
 
 set INCLUDE_PATH=%HB_INSTALL%\include;%SQLRDD_INSTALL%\include
 set LIB_PATH=%HB_INSTALL%\lib\bc5;%HB_INSTALL%\lib;%SQLRDD_INSTALL%\lib\bc5%XHB_VERSION%;%SQLRDD_INSTALL%\lib\bc5
