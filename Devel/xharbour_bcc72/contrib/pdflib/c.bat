@@ -1,1 +1,1 @@
-d:\devel\xharbour_bcc7\bin\xbuild pdflib.lib.xbp
+C:\aulas_xharbour\Devel\xharbour_bcc72\bin\xbuild pdflib.lib.xbp

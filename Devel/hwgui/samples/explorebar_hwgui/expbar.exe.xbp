@@ -1,7 +1,7 @@
 CINI = 
 C_OUTPUTFOLDER = 
 DEFFILE = 
-INCLUDEFOLDERS = D:\Devel\xHarbour\contrib\hwgui\include;
+INCLUDEFOLDERS = C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\hwgui\include;
 LAUTORUN =
 LDEBUG = .F.
 LGUI = .T.
@@ -31,4 +31,4 @@ MYC_FLAGS =
 MYDEFINES = 
 MYPRG_FLAGS = 
 
-[D:\Devel\xHarbour\contrib\hwgui\lib\hwgui.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\hwgui\lib\hwgui.lib]

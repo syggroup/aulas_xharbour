@@ -1,7 +1,7 @@
 CINI = 
 C_OUTPUTFOLDER = 
 DEFFILE = 
-INCLUDEFOLDERS = D:\Devel\hwgui\include;
+INCLUDEFOLDERS = C:\aulas_xharbour\Devel\hwgui\include;
 LAUTORUN =
 LDEBUG = .F.
 LGUI = .T.
@@ -32,30 +32,30 @@ MYC_FLAGS =
 MYDEFINES =
 MYPRG_FLAGS =
 
-[D:\Devel\hwgui\lib\hwgui_xhb72.lib]
+[C:\aulas_xharbour\Devel\hwgui\lib\hwgui_xhb72.lib]
 
-[D:\Devel\xharbour_bcc7\lib\gdlib.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\gdlib.lib]
 
-[D:\Devel\xharbour_bcc7\lib\libbgd.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\libbgd.lib]
 
-[D:\Devel\xharbour_bcc7\lib\hbhpdf.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbhpdf.lib]
 
-[D:\Devel\xharbour_bcc7\lib\pdflib.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\pdflib.lib]
 
-[D:\Devel\xharbour_bcc7\lib\hbmzip.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbmzip.lib]
 
-[D:\Devel\xharbour_bcc7\lib\hbzip.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\hbzip.lib]
 
-[D:\devel\xharbour_bcc7\lib\tipssl.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\tipssl.lib]
 
-[D:\devel\xharbour_bcc7\lib\ssleay32.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\ssleay32.lib]
 
-[D:\devel\xharbour_bcc7\lib\libeay32.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\libeay32.lib]
 
-[D:\Devel\xharbour_bcc7\lib\tip.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\tip.lib]
 
-[D:\Devel\xharbour_bcc7\lib\codepage.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\codepage.lib]
 
-[D:\Devel\xharbour_bcc7\lib\libfi.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\libfi.lib]
 
-[D:\Devel\xharbour_bcc7\lib\png.lib]
+[C:\aulas_xharbour\Devel\xharbour_bcc72\lib\png.lib]

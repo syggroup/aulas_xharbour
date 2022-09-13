@@ -195,8 +195,8 @@
 
          #pragma BEGINDUMP
             #ifdef _MSC_VER
-               #pragma comment( lib, "\\xHarbour\\lib\\GDlib.lib" )
-               #pragma comment( lib, "\\xHarbour\\lib\\BGD.lib" )
+               #pragma comment( lib, "\xharbour_bcc72\lib\\GDlib.lib" )
+               #pragma comment( lib, "\\xharbour_bcc72\\lib\\BGD.lib" )
             #endif
          #pragma ENDDUMP
       #endif

@@ -1,1 +1,1 @@
-D:\devel\xharbour_bcc7\bin\xbuild hwgdebug.exe.xbp -NoErr
+C:\aulas_xharbour\Devel\xharbour_bcc72\bin\xbuild hwgdebug.exe.xbp -NoErr
