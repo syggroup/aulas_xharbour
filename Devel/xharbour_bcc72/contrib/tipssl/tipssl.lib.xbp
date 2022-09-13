@@ -1,7 +1,7 @@
 CINI = 
 C_OUTPUTFOLDER = 
 DEFFILE = 
-INCLUDEFOLDERS = C:\aulas_xharbour\Devel\OpenSSLWin32\include;
+INCLUDEFOLDERS = D:\devel\OpenSSLWin32\include;
 LAUTORUN =
 LDEBUG = .F.
 LGUI = .F.

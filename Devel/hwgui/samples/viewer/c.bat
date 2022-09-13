@@ -1,1 +1,1 @@
-C:\aulas_xharbour\Devel\xharbour\bin\xbuild viewer.exe.xbp -Noerr
+d:\devel\xharbour\bin\xbuild viewer.exe.xbp -Noerr

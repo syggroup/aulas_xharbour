@@ -1,7 +1,7 @@
 CINI = 
 C_OUTPUTFOLDER = 
 DEFFILE = 
-INCLUDEFOLDERS = C:\aulas_xharbour\Devel\xharbour_bcc72\contrib\pgsql;D:\pgsql95\include;
+INCLUDEFOLDERS = D:\devel\xharbour_bcc7\contrib\pgsql;D:\pgsql95\include;
 LAUTORUN =
 LDEBUG = .F.
 LGUI = .F.

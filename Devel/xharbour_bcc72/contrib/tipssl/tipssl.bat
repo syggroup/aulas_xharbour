@@ -1,1 +1,1 @@
-C:\aulas_xharbour\Devel\xharbour_bcc72\bin\xbuild tipssl.lib.xbp -Noerr
+d:\devel\xharbour_bcc7\bin\xbuild tipssl.lib.xbp -Noerr

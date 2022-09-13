@@ -169,7 +169,7 @@
 #define MULTILANG_FIELD_OFF            .F.
 
 #ifndef SQL_ERRCODES
-#include "C:\aulas_xharbour\Devel\xHarbour_bcc72\contrib\sqlrdd\include\sqlodbc.ch"
+#include "D:\Devel\xHarbour_bcc7\contrib\sqlrdd\include\sqlodbc.ch"
 #endif
 
 #ifndef SQLRDD_H
