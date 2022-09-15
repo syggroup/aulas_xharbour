@@ -111,7 +111,7 @@ ENDIF
 SetToolTipBalloon(.t.)
 SetColorinFocus(.t.)
 
-//ATUALSIS()
+ATUALSIS()
 
 IF Use_Arq("INSTITUI",,.T.,.T.,.F.)=.F.  // COMPARTILHADO
    Return
